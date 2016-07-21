@@ -1,0 +1,24 @@
+#project_form{
+  padding: 20px;
+}
+
+#project_details{
+
+  label{
+    display: inline-block;
+    width: 140px;
+  }
+  input{
+    display: inline-block;
+  }
+  .block{
+    display: block;
+    margin: 10px;
+    #name{
+      width:325px;
+    }
+    #description{
+
+    }
+  }
+}

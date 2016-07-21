@@ -1,0 +1,30 @@
+.register{
+  height: 100%;
+  padding: 5px;
+  margin: 2px;
+  .register_form_group{
+    display: block;
+    margin: 10px;
+    label{
+      display: inline-block;
+      width: 50px;
+    }
+    input{
+      margin-left: 20px;
+      width: 80%;
+    }
+  }
+  button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background:$primary;
+    padding: 10px;
+    margin: 20px 0;
+  }
+  #github_auth{
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+}

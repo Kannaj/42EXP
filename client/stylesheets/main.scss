@@ -1,0 +1,19 @@
+$primary : #FFFFFF;
+$secondary: #17141F;
+$tertiary: #7D5BBE;
+
+$secondary-text: #F3F2BF;
+
+body{
+  padding:0;
+  margin: 0;
+}
+
+@import './containers/App.scss';
+@import './containers/ProjectForm.scss';
+
+
+
+@import './components/Auth.scss';
+@import './components/UserDashboard.scss';
+@import './components/ProjectChip.scss';
