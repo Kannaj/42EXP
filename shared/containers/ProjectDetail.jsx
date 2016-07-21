@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import join_project from '../actions/projects/join_project'
 
 class ProjectDetail extends React.Component{
 
@@ -26,6 +27,10 @@ class ProjectDetail extends React.Component{
     if(socket){
       this.fetchData(this.props.params.projectId)
     }
+  }
+
+  handleJoinProject(){
+    this.props.join_project({id:this.props.params.projectId,project:this.state.project_details.project_name})
   }
 
   render(){
@@ -59,7 +64,7 @@ class ProjectDetail extends React.Component{
 
             this.props.username == this.state.project_details.project_owner ?
             <button className="edit_project">Edit Project </button> :
-            <button className="join_project">Join Project </button>
+            <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
 
         }
         </div>
@@ -80,5 +85,11 @@ const mapStateToProps = (state,ownProps) => {
   }
 }
 
-const ProjectDetailContainer = connect(mapStateToProps)(ProjectDetail)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    join_project
+  },dispatch)
+}
+
+const ProjectDetailContainer = connect(mapStateToProps,mapDispatchToProps)(ProjectDetail)
 export default ProjectDetailContainer;

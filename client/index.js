@@ -33,6 +33,16 @@ global.socket = SocketCluster.connect(options)
 
 console.log(store.getState())
 
+if(store.getState().Projects.length > 0){
+  var projects = store.getState().Projects
+  projects.map((project) => {
+    socket.subscribe(project.id).watch(function(data){
+      console.log('recieved message for :',project.id)
+      // more to fill
+    })
+  })
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

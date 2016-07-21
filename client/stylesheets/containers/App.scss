@@ -82,8 +82,10 @@
 
 #Main{
   padding: 5px;
-  margin: 5px;
+  margin: 0;
   position: absolute;
   left:20%;
   top: 10%;
+  bottom:0;
+  right:0;
 }

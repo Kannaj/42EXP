@@ -1,0 +1,60 @@
+#project_chat{
+  height: 100%;
+  width: 100%;
+  margin:0;
+  display: flex;
+  flex-direction: row;
+  // box-sizing: border-box;
+
+
+  .chat_room{
+    width: 80%;
+    position: relative;
+    #chat_message_box{
+      margin-bottom: 0;
+      position: absolute;
+      // width: 100%;
+      // box-sizing: border-box;
+      left:0;
+      right:0;
+      bottom: 2px;
+      // right:0px;
+      // display: inline-block;
+      // flex-grow:1;
+      display: flex;
+      flex-direction: row;
+      .message_box{
+        // position: absolute;
+        padding: 10px;
+        border: 0.5px solid black;
+        border-radius: 2px;
+        // display: inline-block;
+        // width: 80%;
+        flex-grow:1;
+      }
+      .submit_message{
+        margin:5px;
+        padding:10px;
+      }
+    }
+
+  }
+
+
+  .member_list{
+    width: 20%;
+    h4{
+      text-align: center;
+    }
+    padding: 5px;
+    border-left: 1px solid black;
+    // position: fixed;
+    right: 5%;
+    height: 100%;
+    top: 10%;
+    ul{
+      padding:0;
+      list-style: none;
+    }
+  }
+}

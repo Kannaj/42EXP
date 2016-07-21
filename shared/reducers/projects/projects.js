@@ -8,9 +8,6 @@ const Projects = (state=[],action) => {
         ...state,
       ]
     case constants.CREATE_PROJECT_SUCCESS:
-      console.log('create project success reducer hit :',state)
-      console.log('action.projectDetails: ',action.projectDetails)
-      console.log('reducer should return : ',[...state,action.projectDetails])
       return [
         ...state,
         action.projectDetails
@@ -18,6 +15,22 @@ const Projects = (state=[],action) => {
       //to-do :errors need to be handled better.
     case constants.CREATE_PROJECT_ERROR:
       return state
+
+    case constants.JOIN_PROJECT_REQUEST:
+      return [
+        ...state
+      ]
+
+    case constants.JOIN_PROJECT_SUCCESS:
+      return [
+        ...state,
+        action.projectDetails
+      ]
+
+    case constants.JOIN_PROJECT_ERROR:
+      return [
+        ...state
+      ]
   }
   return state
 }
