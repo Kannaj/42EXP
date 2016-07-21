@@ -11,6 +11,7 @@ import style from './stylesheets/main.scss';
 import SocketCluster from 'socketcluster-client';
 import log_middleware from '../shared/middleware/log_middleware.js'
 import thunk from 'redux-thunk';
+import {new_chat_message} from '../shared/actions/projects/project_messages'
 
 const initialState = window.__INITIAL_STATE__
 
@@ -37,8 +38,9 @@ if(store.getState().Projects.length > 0){
   var projects = store.getState().Projects
   projects.map((project) => {
     socket.subscribe(project.id).watch(function(data){
-      console.log('recieved message for :',project.id)
+      console.log('recieved message for :',project.id,' with data: ',data)
       // more to fill
+      store.dispatch(new_chat_message(data))
     })
   })
 }

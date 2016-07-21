@@ -1,5 +1,5 @@
 import * as constants from '../../actions/projects/constants'
-
+import update from 'react-addons-update';
 
 const Projects = (state=[],action) => {
   switch(action.type){
@@ -31,6 +31,25 @@ const Projects = (state=[],action) => {
       return [
         ...state
       ]
+
+    case constants.NEW_CHAT_MESSAGE:
+      console.log('state is : ',state)
+      console.log('actionMessageDetails: ',action.messageDetails)
+      let target = state.findIndex((project) => {
+        return project.id == action.messageDetails.id
+      });
+      return update(state,{
+          [target]:{
+            messages:{
+              $push:[action.messageDetails]
+            },
+            unread_messages:{
+              $apply: function(i){
+                return i + 1
+              }
+            }
+          }
+      })
   }
   return state
 }

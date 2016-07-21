@@ -37,6 +37,9 @@ const create_project = (projectDetails) => {
         }else{
           console.log('success: ',data)
           dispatch(create_project_success(data))
+          socket.subscribe(data.id).watch((data) => {
+            dispatch(new_chat_message(data))
+          })
           dispatch(push('/projects'))
         }
       })

@@ -1,5 +1,6 @@
 import * as constants from './constants';
 import {push} from 'react-router-redux';
+import {new_chat_message} from './project_messages'
 
 const join_project_request = (projectDetails) => {
   console.log('join_project_request initiated')
@@ -34,6 +35,9 @@ const join_project = (projectDetails) => {
         }else{
           console.log('join project success: ')
           dispatch(join_project_success(res))
+          socket.subscribe(res.id).watch((data) => {
+            dispatch(new_chat_message(data))
+          })
         }
       })
     }

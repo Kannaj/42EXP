@@ -85,6 +85,21 @@ export const run = (worker) => {
     socket.on('project:detail',project_detail)
     socket.on('project:join',join_project)
 
+    socket.on('new_chat_message',function(data){
+      console.log('recieved new message: ',data)
+      let timestamp = new Date().toISOString()
+      scServer.exchange.publish(data.id,{id:data.id,timestamp: timestamp,message:data.message,username:socket.getAuthToken().username})
+      db.one('insert into project_messages (project,message,username,timestamp) values ((SELECT name from project where id=$1),$2,$3,$4) returning *',
+        [data.id,data.message,socket.getAuthToken().username,timestamp]
+      ).then(function(projectMessageDetails){
+        console.log('message added : ',projectMessageDetails)
+
+      }).catch(function(err){
+        console.log('there was an error: ',err)
+      })
+
+    })
+
   })
 
 }

@@ -15,6 +15,7 @@ export const create_project = function(data,res){
 }
 
 export const project_list = function(data,res){
+  // console.log('This reference: ',Object.keys(this))
   db.any(queries.ProjectList)
     .then(function(results){
       let newResults = project_list_cleaner(results)
