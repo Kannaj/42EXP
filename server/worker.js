@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 import {Register,Login} from './local_Auth/localAuth.js'
 import {skill_suggestions,skill_user} from './socketHandlers/skills.js'
 import {category_suggestions} from './socketHandlers/category.js'
-import {create_project,project_list,project_detail,join_project} from './socketHandlers/project.js';
+import {create_project,project_list,project_detail,join_project,update_last_activity} from './socketHandlers/project.js';
 import {db,queries} from './config'
 
 export const run = (worker) => {
@@ -100,6 +100,23 @@ export const run = (worker) => {
 
     })
 
+    socket.on('update_last_activity',update_last_activity)
+
+    socket.on('raw',function(data){
+      console.log('recieved data')
+      let pattern = new RegExp('/projects/(\\d+)/messages')
+      let match = data.match(pattern)
+      if(match){
+        console.log('matches')
+        db.one('update account_projects SET last_activity=Now() where project=(SELECT name from project where id=$1) AND username=$2 returning *',
+          [parseInt(match[1]),socket.getAuthToken().username]
+        ).then(function(data){
+          console.log('user last_activity logged:',data)
+        }).catch(function(err){
+          console.log('error: ',err)
+        })
+      }
+    })
   })
 
 }

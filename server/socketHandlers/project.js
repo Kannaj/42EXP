@@ -44,15 +44,41 @@ export const join_project = function(data,res){
       result = {
         id: data.id,
         last_activity: projectDetails.last_activity,
-        messages:[],
+        // messages:[],
         project: data.project,
-        role: projectDetails.role
+        role: projectDetails.role,
+        unread_messages:0
       }
-      res(null,result)
+      // res(null,result)
+      db.any('SELECT id,message,username,timestamp FROM project_messages where project=$1',data.project)
+        .then(function(data){
+          if(data.length > 1){
+              result.messages = data
+          }else{
+            result.messages = []
+          }
+          res(null,result)
+        })
     })
     .catch(function(err){
       res(err)
     })
+}
+
+export const update_last_activity = function(data,res){
+  console.log('data: ',data)
+  db.one('update account_projects set last_activity = Now() where username=$1 AND project=(SELECT name from project where id = $2) returning last_activity',
+    [this.getAuthToken().username,data.id]
+  )
+  .then(function(result){
+    console.log('changed: ',result)
+    res(null,{last_activity:result.last_activity})
+  })
+  .catch(function(err){
+    console.log('error : ',err)
+    res('couldnt update last timestamp')
+  })
+
 }
 
 const createNewProject = (data) => {

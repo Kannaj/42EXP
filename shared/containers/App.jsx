@@ -35,7 +35,7 @@ class App extends React.Component{
             {this.props.Projects ?
               this.props.Projects.map((project) => {
                 return (
-                  <Link to = {`/projects/${project.id}/messages`} key={project.id} className="sidebar_link">{project.project}</Link>
+                  <Link to = {`/projects/${project.id}/messages`} key={project.id} className="sidebar_link">{project.project} -- {project.unread_messages}</Link>
                 )
               })
               :

@@ -2,6 +2,7 @@ import * as constants from '../../actions/projects/constants'
 import update from 'react-addons-update';
 
 const Projects = (state=[],action) => {
+  let target;
   switch(action.type){
     case constants.CREATE_PROJECT_REQUEST:
       return [
@@ -35,7 +36,7 @@ const Projects = (state=[],action) => {
     case constants.NEW_CHAT_MESSAGE:
       console.log('state is : ',state)
       console.log('actionMessageDetails: ',action.messageDetails)
-      let target = state.findIndex((project) => {
+      target = state.findIndex((project) => {
         return project.id == action.messageDetails.id
       });
       return update(state,{
@@ -49,6 +50,28 @@ const Projects = (state=[],action) => {
               }
             }
           }
+      })
+    case constants.SET_LAST_ACTIVITY:
+      target = state.findIndex((project) => {
+        return project.id == action.data.id
+      });
+      return update(state,{
+        [target]:{
+          last_activity:{
+            $set:action.data.timestamp
+          }
+        }
+      })
+    case constants.SET_UNREAD:
+      target = state.findIndex((project) => {
+        return project.id == action.id
+      })
+      return update(state,{
+        [target]:{
+          unread_messages:{
+            $set: 0
+          }
+        }
       })
   }
   return state

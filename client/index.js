@@ -45,6 +45,10 @@ if(store.getState().Projects.length > 0){
   })
 }
 
+socket.on('disconnect',function(){
+  socket.send(window.location.href)
+})
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
