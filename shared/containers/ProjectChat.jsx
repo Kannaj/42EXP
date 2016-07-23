@@ -73,7 +73,7 @@ class ProjectChat extends React.Component{
       <div id="project_chat">
 
         <div className="chat_room">
-          <h1>Chat for = {this.props.params.projectId} -sup</h1>
+          <h1>{this.props.project[0].project}</h1>
 
           <ul>
             {messages.map((message) => {

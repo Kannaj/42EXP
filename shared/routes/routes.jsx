@@ -4,7 +4,8 @@ import HomeContainer from '../containers/Home'
 import ProjectList from '../components/ProjectList';
 import ProjectDetailContainer from '../containers/ProjectDetail';
 import ProjectChatContainer from '../containers/ProjectChat';
-import {Route,IndexRoute} from 'react-router'
+import UserProfileContainer from '../containers/UserProfile';
+import {Route,IndexRoute} from 'react-router';
 
 export default(
   <Route path="/" component={AppContainer} >
@@ -12,5 +13,6 @@ export default(
     <Route path="projects" component={ProjectList}/>
     <Route path="projects/:projectId" component={ProjectDetailContainer}/>
     <Route path="projects/:projectId/messages" component={ProjectChatContainer} />
+    <Route path ="user/:username" component={UserProfileContainer} />
   </Route>
 )

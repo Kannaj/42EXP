@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from '../shared/components/App';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import { Router, Route, browserHistory ,IndexRoute} from 'react-router';
@@ -12,6 +11,7 @@ import SocketCluster from 'socketcluster-client';
 import log_middleware from '../shared/middleware/log_middleware.js'
 import thunk from 'redux-thunk';
 import {new_chat_message} from '../shared/actions/projects/project_messages'
+import {set_unread} from '../shared/actions/projects/set_unread'
 
 const initialState = window.__INITIAL_STATE__
 
@@ -25,10 +25,6 @@ const history = syncHistoryWithStore(browserHistory,store)
 const options = {
   port: 8000
 }
-
-// if(store.getState().User.isAuthenticated){
-//   global.socket = SocketCluster.connect(options)
-// }
 
 global.socket = SocketCluster.connect(options)
 
@@ -44,6 +40,21 @@ if(store.getState().Projects.length > 0){
     })
   })
 }
+
+history.listen((location) => {
+  console.log('changed')
+  let pattern = new RegExp('/projects/(\\d+)/messages');
+
+  let url = location.pathname;
+
+  let match = url.match(pattern);
+  if (match){
+    let projectid = parseInt(match[1])
+    console.log('projectid is: ',projectid)
+    store.dispatch(set_unread(projectid))
+  }
+
+})
 
 socket.on('disconnect',function(){
   socket.send(window.location.href)
