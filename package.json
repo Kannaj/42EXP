@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/server/ --compilers js:babel-core/register --recursive",
-    "start": "webpack --progress && babel-node server/server.js"
+    "start": "webpack --progress && babel-node server/server.js",
+    "build": "babel server -d build_server"
   },
   "keywords": [],
   "author": "",
