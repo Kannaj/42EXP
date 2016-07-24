@@ -61,6 +61,7 @@ const renderFullPage = (html,initialState) => {
         <title>Redux Universal</title>
 
         <link rel="stylesheet" type="text/css" href="/style.css">
+        <link rel="stylesheet" href="/font-awesome.min.css">
         <link rel="stylesheet" href="/react-select.min.css">
       </head>
       <body>
