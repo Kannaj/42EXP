@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import ProjectForm from '../components/ProjectForm';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import create_project from '../actions/projects/create_project'
+import create_project from '../actions/projects/create_project';
 
 // function is responsible for returning autocomplete options to react-select
 const selOptions = (coll) => {

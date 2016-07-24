@@ -33,8 +33,6 @@ class UserProfile extends React.Component{
         if(err){
           console.log(err)
         }else{
-          console.log('data: ',data)
-          console.log('this.state: ',this.state)
           this.setState({user:update(this.state.user,{
             skills:{
               [idx]:{
