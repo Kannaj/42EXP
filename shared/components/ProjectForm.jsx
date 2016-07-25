@@ -12,10 +12,11 @@ class ProjectForm extends React.Component{
       description:"",
       link:"",
       category:"",
-      skill:[]
+      skill:[],
     }
     // this.handleChange = this.handleChange.bind(this)
   }
+
 
   getOptions(name,input,callback){
     let opt;
@@ -52,7 +53,7 @@ class ProjectForm extends React.Component{
   }
 
   render(){
-
+    console.log('this.state.submitDisabled: ',this.state.submitDisabled)
     return(
       <div id="project_form">
         <div className="title">
