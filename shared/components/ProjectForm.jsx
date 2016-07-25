@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Select from 'react-select';
 import {skillOptions,categoryOptions} from '../utils/Autocomplete.js'
 
-
 class ProjectForm extends React.Component{
   constructor(props){
     super(props);
@@ -14,12 +13,11 @@ class ProjectForm extends React.Component{
       category:"",
       skill:[]
     }
-    // this.handleChange = this.handleChange.bind(this)
   }
 
   getOptions(name,input,callback){
     let opt;
-    if(socket && input.length > 4){
+    if(socket && input.length > 2){
 
       socket.emit(`${name}:suggestions`,{[name]:input},(err,data) => {
 
