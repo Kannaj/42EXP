@@ -7,7 +7,6 @@ import ProjectForm from '../components/ProjectForm';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import create_project from '../actions/projects/create_project';
-import CreateProjectForm from '../components/CreateProjectForm';
 
 // function is responsible for returning autocomplete options to react-select
 const selOptions = (coll) => {
@@ -104,7 +103,7 @@ class Dashboard extends React.Component{
                className="content-project"
                overlayClassName="overlay-project" >
 
-            <CreateProjectForm create_project={this.props.create_project}/>
+            <ProjectForm create_project={this.props.create_project}/>
 
         </Modal>
 

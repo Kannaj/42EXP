@@ -51,8 +51,6 @@ class UserProfile extends React.Component{
   }
 
   render(){
-    // console.log('profile belong to user ? : ',this.state.user.username )
-    console.log('this.state.user.username: ',this.state,' props: ',this.props)
     return(
       <div>
         <h1> User Profile of {this.props.params.username} </h1>
@@ -91,7 +89,6 @@ class UserProfile extends React.Component{
 
 
 const mapStateToProps = (state) => {
-  console.log('state.User: ',state.User)
   const {username,level} = state.User;
   return {
     username,level

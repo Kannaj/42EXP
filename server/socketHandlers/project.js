@@ -14,6 +14,17 @@ export const create_project = function(data,res){
     })
 }
 
+export const project_check_name = function(data,res){
+  return db.one("select name from project where LOWER(name) like LOWER('$1#')",data.name)
+            .then(function(name){
+              console.log('name: ',name)
+              res(name)
+            })
+            .catch(function(){
+              res(null,'ok')
+            })
+}
+
 export const project_list = function(data,res){
   // console.log('This reference: ',Object.keys(this))
   db.any(queries.ProjectList)

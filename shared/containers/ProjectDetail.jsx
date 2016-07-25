@@ -78,7 +78,7 @@ const mapStateToProps = (state,ownProps) => {
   let username;
   const {isAuthenticated} = state.User
   if(isAuthenticated){
-    const{username} = state.User.username
+    username = state.User.username
   }
   return {
     isAuthenticated,username

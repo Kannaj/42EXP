@@ -26,7 +26,6 @@ class App extends React.Component{
   }
 
   render(){
-    console.log('this.props.Projects',this.props.Projects)
     return(
       <div>
         <div className="sidebar">
@@ -74,10 +73,10 @@ class App extends React.Component{
 
 
 const mapStateToProps = (state) => {
-  console.log('state.Projects: ',state.Projects)
+
   const {isAuthenticated} = state.User;
   const {Projects} = state;
-  console.log('Projects: ',Projects)
+
   return{
     isAuthenticated,
     Projects
