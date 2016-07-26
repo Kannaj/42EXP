@@ -4,6 +4,10 @@ import Select from 'react-select';
 import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
 import update from 'react-addons-update';
 
+//known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
+// into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
+// meaning the user has to manually fill in those values again.
+
 const validate = values => {
   const errors = {}
   if(!values.name){
@@ -25,10 +29,10 @@ class ProjectForm extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      name:"",
-      description:"",
-      link:"",
-      category:"",
+      name:"" || this.props.project_name,
+      description:"" || this.props.project_description,
+      link:"" || this.props.project_link,
+      category:"" || this.props.project_category,
       skill:[],
       errors:{}
     }
@@ -90,12 +94,19 @@ class ProjectForm extends React.Component{
       console.log(errors)
       this.setState({errors:errors})
     }else{
-      this.props.create_project(this.state)
+      // this.props.create_project(this.state)
+      if (this.props.create_project){
+        this.props.create_project(this.state)
+      }else{
+        this.props.edit_project({project:this.state,id:this.props.id})
+      }
     }
   }
 }
 
   render(){
+    console.log('this.props: ',this.props);
+    console.log('this.state: ',this.state);
     return(
       <div id="project_form">
         <div className="title">

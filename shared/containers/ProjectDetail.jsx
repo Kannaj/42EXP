@@ -1,15 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import join_project from '../actions/projects/join_project'
+import join_project from '../actions/projects/join_project';
+import edit_project from '../actions/projects/edit_project';
+import ProjectForm from '../components/ProjectForm';
+import Modal from 'react-modal';
 
 class ProjectDetail extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {
-      project_details:{}
+      project_details:{},
+      modalIsOpen:false
     }
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal(){
+    this.setState({modalIsOpen:true})
+  }
+
+  closeModal(){
+    this.setState({modalIsOpen:false})
   }
 
   fetchData(id){
@@ -63,12 +77,26 @@ class ProjectDetail extends React.Component{
           :
 
             this.props.username == this.state.project_details.project_owner ?
-            <button className="edit_project">Edit Project </button> :
+            <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
             <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
 
         }
         </div>
+
+        <Modal isOpen={this.state.modalIsOpen}
+               onRequestClose={this.closeModal}
+               className="content-project"
+               overlayClassName="overlay-project" >
+
+            <ProjectForm
+              {...this.state.project_details}
+              id = {this.props.params.projectId}
+
+            edit_project={this.props.edit_project}/>
+
+        </Modal>
       </div>
+
 
     )
   }
@@ -87,7 +115,8 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    join_project
+    join_project,
+    edit_project
   },dispatch)
 }
 
