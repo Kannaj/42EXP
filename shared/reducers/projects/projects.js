@@ -73,6 +73,32 @@ const Projects = (state=[],action) => {
           }
         }
       })
+    case constants.EDIT_PROJECT_REQUEST:
+      return [
+        ...state
+      ]
+    case constants.EDIT_PROJECT_SUCCESS:
+      console.log('action is  :',action,' state is : ',state)
+      target = state.findIndex((project) => {
+        return project.id == action.projectDetails.id
+      })
+      if (target.project !== action.projectDetails.project){
+        return update(state,{
+          [target]:{
+            project:{
+              $set:action.projectDetails.project.name
+            }
+          }
+        })
+      }else{
+        return [
+          ...state
+        ]
+      }
+    case constants.EDIT_PROJECT_ERROR:
+      return [
+        ...state
+      ]
   }
   return state
 }

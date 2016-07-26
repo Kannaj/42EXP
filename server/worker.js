@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 import {Register,Login} from './local_Auth/localAuth.js'
 import {skill_suggestions,skill_user} from './socketHandlers/skills.js'
 import {category_suggestions} from './socketHandlers/category.js'
-import {create_project,project_list,project_detail,join_project,update_last_activity} from './socketHandlers/project.js';
+import {create_project,project_list,project_detail,join_project,update_last_activity,project_check_name,edit_project} from './socketHandlers/project.js';
 import {vote} from './socketHandlers/vote.js';
 import {db,queries} from './config';
 
@@ -87,6 +87,8 @@ export const run = (worker) => {
     socket.on('project:list',project_list)
     socket.on('project:detail',project_detail)
     socket.on('project:join',join_project)
+    socket.on('project:check_name',project_check_name)
+    socket.on('project:edit',edit_project)
 
 
     socket.on('new_chat_message',function(data){

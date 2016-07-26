@@ -3,7 +3,6 @@ import * as constants from '../../actions/User/constants'
 import update from 'react-addons-update';
 
 const User = (state={isAuthenticated: false},action ) => {
-  console.log('User Reducer hit')
   switch(action.type){
     case constants.USER_ADD_SKILLS_REQUEST:
       return Object.assign({},state,{

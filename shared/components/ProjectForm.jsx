@@ -1,26 +1,47 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Select from 'react-select';
-import {skillOptions,categoryOptions} from '../utils/Autocomplete.js'
+import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
+import update from 'react-addons-update';
 
+//known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
+// into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
+// meaning the user has to manually fill in those values again.
+
+const validate = values => {
+  const errors = {}
+  if(!values.name){
+    errors.name = 'Required'
+  }
+  if(!values.link){
+    errors.link = 'Required'
+  }
+  if(!values.description){
+    errors.description = 'Required'
+  }
+  if(!values.category){
+    errors.category = 'Required'
+  }
+  return errors;
+}
 
 class ProjectForm extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      name:"",
-      description:"",
-      link:"",
-      category:"",
+      name:"" || this.props.project_name,
+      description:"" || this.props.project_description,
+      link:"" || this.props.project_link,
+      category:"" || this.props.project_category,
       skill:[],
+      errors:{}
     }
-    // this.handleChange = this.handleChange.bind(this)
   }
 
 
   getOptions(name,input,callback){
     let opt;
-    if(socket && input.length > 4){
+    if(socket && input.length > 2){
 
       socket.emit(`${name}:suggestions`,{[name]:input},(err,data) => {
 
@@ -46,14 +67,45 @@ class ProjectForm extends React.Component{
     this.setState({[name]:event.target.value})
   }
 
-  handleSubmit(){
+  handleBlur(event){
+    console.log('input : ',event.target.value)
     if(socket){
-      this.props.create_project(this.state)
+      socket.emit('project:check_name',{name:event.target.value},function(err,data){
+        if(err){
+          this.setState({errors:update(this.state.errors,{
+            ['name']:{
+              $set: 'Project already exists'
+            }
+          })})
+        }else{
+          this.setState({errors:update(this.state.errors,{
+            ['name']:{
+              $set:''
+            }
+          })})
+        }
+      }.bind(this))
     }
   }
 
+  handleSubmit(){
+    if(socket){
+    let errors = validate(this.state);
+    if(Object.keys(errors).length > 0){
+      console.log(errors)
+      this.setState({errors:errors})
+    }else{
+      // this.props.create_project(this.state)
+      if (this.props.create_project){
+        this.props.create_project(this.state)
+      }else{
+        this.props.edit_project({project:this.state,id:this.props.id})
+      }
+    }
+  }
+}
+
   render(){
-    console.log('this.state.submitDisabled: ',this.state.submitDisabled)
     return(
       <div id="project_form">
         <div className="title">
@@ -63,11 +115,13 @@ class ProjectForm extends React.Component{
         <div id="project_details">
           <div className="block">
             <label htmlFor="name"> Name </label>
-            <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')}/>
+            <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)}/>
+            {this.state.errors.name ? <div style={{color:'red'}}> {this.state.errors.name} </div> : null}
           </div>
           <div className="block">
             <label htmlFor="link"> Link </label>
             <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')}/>
+            {this.state.errors.link ? <div style={{color:'red'}}> {this.state.errors.link} </div> : null}
           </div>
           <div className="block">
             <label htmlFor="description">Description</label>
@@ -79,7 +133,7 @@ class ProjectForm extends React.Component{
               loadOptions={this.getOptions.bind(this,'category')}
               onChange={this.handleChange.bind(this,'category')}
               value={this.state.category} />
-
+              {this.state.errors.category ? <div style={{color:'red'}}> {this.state.errors.category} </div> : null}
           </div>
           <div className="block">
             <label htmlFor="skills">skills</label>

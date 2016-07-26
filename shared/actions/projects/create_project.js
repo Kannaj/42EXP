@@ -1,5 +1,6 @@
 import * as constants from './constants';
 import {push} from 'react-router-redux';
+import {new_chat_message} from './project_messages';
 
 const create_project_request = (projectDetails) => {
   console.log('create_project_request hit')
