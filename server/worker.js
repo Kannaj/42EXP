@@ -119,6 +119,17 @@ export const run = (worker) => {
         })
     })
 
+    socket.on('set_notification',function(data,res){
+      console.log('data recieved : ',data)
+      return db.any('update account_notifications set unread=false where id = $1',data.id)
+                .then(function(){
+                  res(null,'ok')
+                })
+                .catch(function(err){
+                  res(err)
+                })
+    })
+
 
     socket.on('user:vote',vote)
 

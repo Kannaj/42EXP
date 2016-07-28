@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import Modal from 'react-modal';
 import Auth from '../components/Auth';
 import {Link} from 'react-router';
+import {bindActionCreators} from 'redux';
+import {remove_notification} from '../actions/notifications/notifications';
+import Notification from '../components/notifications';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class App extends React.Component{
   constructor(props){
@@ -47,7 +51,7 @@ class App extends React.Component{
           {!this.props.isAuthenticated
             ?
             <div className="auth">
-              <button name="register"onClick={this.openModal.bind(this,"register")}> Register </button>
+              <button name="register" onClick={this.openModal.bind(this,"register")}> Register </button>
               <button name="login" onClick={this.openModal.bind(this,"login")}> Login </button>
             </div>
             :
@@ -66,6 +70,30 @@ class App extends React.Component{
         <div id="Main">
           {this.props.children}
         </div>
+
+        {this.props.loading ?
+          <div id="loading">
+            <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>
+          </div>
+          :
+          null
+        }
+
+        {
+          this.props.unread_notifications ?
+          <div id="notification_panel">
+            <ReactCSSTransitionGroup transitionName="notification" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+              {this.props.unread_notifications.map((notification) => {
+                return (
+                  <Notification key={notification.id} {...notification} remove={this.props.remove_notification}/>
+                )
+              })}
+            </ReactCSSTransitionGroup>
+          </div>
+          :
+          null
+        }
+
       </div>
     )
   }
@@ -75,14 +103,28 @@ class App extends React.Component{
 const mapStateToProps = (state) => {
 
   const {isAuthenticated} = state.User;
-  const {Projects} = state;
+  const {Projects,Notifications} = state;
+  const {loading} = state.loader; // Probably dont need loader to be a separate object in state.
+  // const {Notifications} = state;
+
+  const unread_notifications = Notifications.filter((notification) => {
+    return notification.unread === true
+  });
 
   return{
     isAuthenticated,
-    Projects
+    Projects,
+    unread_notifications,
+    loading
   }
 }
 
-const AppContainer = connect(mapStateToProps)(App)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    remove_notification
+  },dispatch)
+}
+
+const AppContainer = connect(mapStateToProps,mapDispatchToProps)(App)
 
 export default AppContainer;

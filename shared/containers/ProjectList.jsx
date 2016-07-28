@@ -1,6 +1,9 @@
 import React from 'react';
-import ProjectChip from './ProjectChip';
+import ProjectChip from '../components/ProjectChip';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {start_request,stop_request} from '../actions/loader'
 
 class ProjectList extends React.Component{
 
@@ -12,11 +15,13 @@ class ProjectList extends React.Component{
   }
 
   fetchData(){
-
+    this.props.start_request()
     socket.emit('project:list',{},function(err,data){
       if(err){
+        this.props.stop_request()
         console.log('error: ',err)
       }else{
+        this.props.stop_request()
         this.setState({project_list:data})
       }
     }.bind(this))
@@ -52,4 +57,13 @@ class ProjectList extends React.Component{
   }
 }
 
-export default ProjectList;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    start_request,
+    stop_request
+  },dispatch)
+}
+
+const ProjectListContainer = connect(null,mapDispatchToProps)(ProjectList)
+
+export default ProjectListContainer;
