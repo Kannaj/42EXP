@@ -22,6 +22,13 @@ const user_add_skills_error = (err) => {
   }
 }
 
+export const update_user_stats = (stats) => {
+  return {
+    type: constants.UPDATE_USER_STATS,
+    stats
+  }
+}
+
 const user_add_skills = (skill) => {
   if(socket){
     return function(dispatch){

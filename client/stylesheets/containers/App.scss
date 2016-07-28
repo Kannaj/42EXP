@@ -33,6 +33,7 @@
   width: 80%;
   margin-left: 20%;
   padding: 5px;
+  z-index: 1;
 }
 
 .auth{
@@ -88,4 +89,59 @@
   top: 10%;
   bottom:0;
   right:0;
+}
+
+#loading{
+  position: fixed;
+  top : 0;
+  left: 0;
+  right : 0;
+  bottom  : 0;
+  background-color : rgba(255, 255, 255, 0.75);
+  // transition: all 0.5s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+#notification_panel{
+  position: absolute;
+  right:0;
+  bottom:0;
+  top:0;
+  // background-color: pink;
+  padding:5px;
+  margin:0;
+  width: 20%;
+  text-align: center;
+  display: flex;
+  // z-index: 0;
+  flex-direction: column-reverse;
+  .notification_wrapper{
+    padding:5px;
+    border-radius: 1px;
+    box-shadow: 0 1px 1px 1px;
+    background-color: white;
+    display: block;
+    height: 20%;
+    border: 1px solid black;
+    margin-bottom: 5px;
+  }
+}
+
+.notification-enter{
+  opacity: 0.01;
+  &.notification-enter-active{
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+}
+
+.notification-leave{
+  opacity: 1;
+  &.notification-leave-active{
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
 }
