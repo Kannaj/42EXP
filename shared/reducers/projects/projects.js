@@ -4,23 +4,23 @@ import update from 'react-addons-update';
 const Projects = (state=[],action) => {
   let target;
   switch(action.type){
-    case constants.CREATE_PROJECT_REQUEST:
-      return [
-        ...state,
-      ]
+    // case constants.CREATE_PROJECT_REQUEST:
+    //   return [
+    //     ...state,
+    //   ]
     case constants.CREATE_PROJECT_SUCCESS:
       return [
         ...state,
         action.projectDetails
       ]
       //to-do :errors need to be handled better.
-    case constants.CREATE_PROJECT_ERROR:
-      return state
+    // case constants.CREATE_PROJECT_ERROR:
+    //   return state
 
-    case constants.JOIN_PROJECT_REQUEST:
-      return [
-        ...state
-      ]
+    // case constants.JOIN_PROJECT_REQUEST:
+    //   return [
+    //     ...state
+    //   ]
 
     case constants.JOIN_PROJECT_SUCCESS:
       return [
@@ -28,10 +28,10 @@ const Projects = (state=[],action) => {
         action.projectDetails
       ]
 
-    case constants.JOIN_PROJECT_ERROR:
-      return [
-        ...state
-      ]
+    // case constants.JOIN_PROJECT_ERROR:
+    //   return [
+    //     ...state
+    //   ]
 
     case constants.NEW_CHAT_MESSAGE:
       console.log('state is : ',state)
@@ -73,10 +73,12 @@ const Projects = (state=[],action) => {
           }
         }
       })
-    case constants.EDIT_PROJECT_REQUEST:
-      return [
-        ...state
-      ]
+
+    // case constants.EDIT_PROJECT_REQUEST:
+    //   return [
+    //     ...state
+    //   ]
+
     case constants.EDIT_PROJECT_SUCCESS:
       console.log('action is  :',action,' state is : ',state)
       target = state.findIndex((project) => {
@@ -95,10 +97,11 @@ const Projects = (state=[],action) => {
           ...state
         ]
       }
-    case constants.EDIT_PROJECT_ERROR:
-      return [
-        ...state
-      ]
+
+    // case constants.EDIT_PROJECT_ERROR:
+    //   return [
+    //     ...state
+    //   ]
   }
   return state
 }

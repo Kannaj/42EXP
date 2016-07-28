@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import Skill from '../components/skill';
 import uuid from 'node-uuid';
 import update from 'react-addons-update';
+import {bindActionCreators} from 'redux';
+import {start_request,stop_request} from '../actions/loader'
 
 class UserProfile extends React.Component{
 
@@ -15,11 +17,14 @@ class UserProfile extends React.Component{
 
   componentDidMount(){
     if(socket){
+      this.props.start_request()
       socket.emit('user:profile',{username:this.props.params.username},function(err,data){
         if(err){
-          console.log('error: ',err)
+          // console.log('error: ',err)
+          this.props.stop_request()
         }else{
-          console.log('recieved data on user Profile :  ',data)
+          // console.log('recieved data on user Profile :  ',data)
+          this.props.stop_request()
           this.setState({user:data})
         }
       }.bind(this))
@@ -95,6 +100,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const UserProfileContainer = connect(mapStateToProps)(UserProfile)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    start_request,
+    stop_request
+  },dispatch)
+}
+
+const UserProfileContainer = connect(mapStateToProps,mapDispatchToProps)(UserProfile)
 
 export default UserProfileContainer;

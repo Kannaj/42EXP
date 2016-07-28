@@ -118,6 +118,7 @@ const createNewProject = (data) => {
       id:details.project.id,
       last_activity: details.accountProjects.last_activity,
       messages:[],
+      unread_messages:0,
       project: details.project.name,
       role: details.accountProjects.role,
     }
