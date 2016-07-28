@@ -6,14 +6,15 @@ import {bindActionCreators} from 'redux';
 import {set_last_activity} from '../actions/projects/set_last_activity';
 import {set_unread} from '../actions/projects/set_unread.js';
 import Waypoint from 'react-waypoint';
-
+import get_more_messages from '../actions/projects/get_more_messages';
 
 class ProjectChat extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      waypointReady: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,7 +25,8 @@ class ProjectChat extends React.Component{
 
   // probably dont need the below as react-router-redux takes care of setting the unread_messages of initial chat_room to 0
   componentDidMount(){
-    this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+    this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+    this.setState({waypointReady:true})
   }
 
   setLastActivity(projectId){
@@ -46,7 +48,8 @@ class ProjectChat extends React.Component{
   componentWillReceiveProps(nextProps){
     // console.log('component will Recieve props')
     if (this.props.params.projectId !== nextProps.params.projectId){
-      this.setLastActivity(this.props.params.projectId)
+      this.setLastActivity(this.props.params.projectId);
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
     }
     //  wrote this long ago. no idea why it works :/
     // when the user sends a message in the chat room. unread messages gets updated to 1.
@@ -55,7 +58,7 @@ class ProjectChat extends React.Component{
     if(nextProps.project[0].messages.length !== this.props.messages.length){
       this.props.set_unread(nextProps.project[0].id)
     }
-    this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+    // this.refs.messages.scrollTop = this.refs.messages.scrollHeight
   }
 
 
@@ -74,11 +77,17 @@ class ProjectChat extends React.Component{
   }
 
   activateWayPoint(){
-    console.log('waypoint activated')
+    if(this.state.waypointReady){
+      console.log('waypoint activated')
+      this.props.get_more_messages(this.props.params.projectId,this.props.messages[0].id)
+    }else{
+      return null
+    }
   }
 
   render(){
     const messages = this.props.messages;
+    // console.log('messages : ',messages)
     return(
       <div id="project_chat">
         <h1>{this.props.project[0].project}</h1>
@@ -111,7 +120,11 @@ const mapStateToProps = (state,ownProps) => {
   const project = state.Projects.filter((proj) => {
     return parseInt(ownProps.params.projectId) == proj.id
   })
+  // console.log('project[0].messages: ',project[0].messages)
   const messages = project[0].messages;
+  // console.log('original: ',project[0].messages.reverse());
+  // console.log('NotReversed: ',project[0].messages)
+  // console.log('messages : ',messages)
   const unread = project[0].unread_messages;
   return {
     messages,
@@ -123,7 +136,8 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     set_last_activity,
-    set_unread
+    set_unread,
+    get_more_messages
   },dispatch)
 }
 

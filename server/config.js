@@ -15,7 +15,8 @@ export const queries = {
   ProjectList: sql('/home/avernus/Desktop/Xanadu/server/queries/project_list.sql'),
   ProjectDetail : sql('/home/avernus/Desktop/Xanadu/server/queries/project_detail.sql'),
   UserProjects: sql('/home/avernus/Desktop/Xanadu/server/queries/get_user_projects.sql'),
-  UserNotifications: sql('/home/avernus/Desktop/Xanadu/server/queries/get_user_notifications.sql')
+  UserNotifications: sql('/home/avernus/Desktop/Xanadu/server/queries/get_user_notifications.sql'),
+  GetMoreMessages: sql('/home/avernus/Desktop/Xanadu/server/queries/get_more_messages.sql')
 }
 
 // sql () requires the full project path of the sql file. otherwise it looks for the node_modules folder

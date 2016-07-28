@@ -14,6 +14,19 @@ export const create_project = function(data,res){
     })
 }
 
+export const get_more_messages = function(data,res){
+  console.log('retrieving messages for  : ',data)
+  return db.any(queries.GetMoreMessages,[data.projectId,data.lastMessageId])
+          .then(function(messages){
+            console.log('got messages : ',messages)
+            res(null,messages)
+          })
+          .catch(function(err){
+            console.log('there was an error : ',err)
+            res(err)
+          })
+}
+
 export const project_check_name = function(data,res){
   return db.one("select name from project where LOWER(name) like LOWER('$1#')",data.name)
             .then(function(name){
