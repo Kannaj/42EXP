@@ -10,8 +10,8 @@ import update from 'react-addons-update';
 
 const validate = values => {
   const errors = {}
-  if(!values.name){
-    errors.name = 'Required'
+  if(!values.name || /\s/.test(values.name)){
+    errors.name = 'Please provide a proper name without spaces'
   }
   if(!values.link){
     errors.link = 'Required'
