@@ -12,6 +12,7 @@ import {category_suggestions} from './socketHandlers/category.js'
 import {create_project,project_list,project_detail,join_project,update_last_activity,project_check_name,edit_project,get_more_messages} from './socketHandlers/project.js';
 import {vote} from './socketHandlers/vote.js';
 import {db,queries} from './config';
+import user_profile_cleaner from './utils/user_profile_cleaner.js'
 
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
@@ -107,12 +108,13 @@ export const run = (worker) => {
     })
 
     socket.on('update_last_activity',update_last_activity)
+
     socket.on('user:profile',function(data,res){
       console.log('retrieving profile of user: ',data)
       db.one(queries.UserProfile,data.username)
         .then(function(data){
           console.log('User Profile : ',data)
-          res(null,data)
+          res(null,user_profile_cleaner(data))
         })
         .catch(function(err){
           console.log('there was an error: ',err)

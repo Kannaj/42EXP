@@ -56,6 +56,7 @@ class UserProfile extends React.Component{
   }
 
   render(){
+    console.log('this.state.user.skills: ',this.state.user)
     return(
       <div>
         <h1> User Profile of {this.props.params.username} </h1>
@@ -66,6 +67,8 @@ class UserProfile extends React.Component{
             <h2> {this.state.user.xp} - xp </h2>
             <h2> {this.state.user.level} - level </h2>
             {
+              this.state.user.skills.length > 0 ?
+
               this.state.user.skills.map((skill,idx) => {
                 return (
                   <div key={uuid.v4()}>
@@ -81,6 +84,8 @@ class UserProfile extends React.Component{
                   </div>
                 )
               })
+              :
+              null
             }
           </div>
           :

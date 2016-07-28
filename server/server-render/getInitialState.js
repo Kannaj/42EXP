@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import {db,queries} from '../config.js'
 import message_list_cleaner from '../utils/message_list_cleaner.js'
+import invert_message_list from '../utils/invert_message_list.js'
 
 const getInitialState = (id_token) => {
   let initialState,User,Projects,userNotifications
@@ -23,7 +24,7 @@ const getInitialState = (id_token) => {
                         if(userProjects.length == 0){
                           return {User:User,Projects:[]}
                         }else{
-                          let newProjects = message_list_cleaner(userProjects)
+                          let newProjects = invert_message_list(message_list_cleaner(userProjects))
                           // console.log('userProjects is now: ',newProjects)
                           // return {User:User,Projects:userProjects}
                           return {User:User,Projects:newProjects}

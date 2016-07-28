@@ -14,7 +14,7 @@ class ProjectChat extends React.Component{
     super(props);
     this.state = {
       message: '',
-      waypointReady: false
+      waypointReady: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
