@@ -9,6 +9,9 @@ import {bindActionCreators} from 'redux';
 import create_project from '../actions/projects/create_project';
 
 // function is responsible for returning autocomplete options to react-select
+// the proper function actually resides in autocomplete.js in utils folder.
+// To-do : remove selOptions and use the one specified in autocomplete.js
+
 const selOptions = (coll) => {
   let newColl = [];
   coll.map((skill) => {
@@ -64,9 +67,19 @@ class Dashboard extends React.Component{
   render(){
     return(
       <div>
-        <h1> Welcome {this.props.username} </h1>
-        <h3> Your level : {this.props.level} </h3>
-        <h3> Your XP : {this.props.xp} </h3>
+        <h1 className="welcome_message"> Welcome {this.props.username} </h1>
+
+        <div id="user_stats">
+          <div className="Level">
+            <h2> {this.props.level} </h2>
+            <h3 className="stat_header"> Level </h3>
+          </div>
+          <hr/>
+          <div className="Xp">
+            <h2> {this.props.xp} </h2>
+            <h3 className="stat_header"> Total Xp Earned </h3>
+          </div>
+        </div>
 
         <div id="user_skills">
 

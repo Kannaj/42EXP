@@ -3,18 +3,32 @@ $secondary: #17141F;
 $tertiary: #7D5BBE;
 
 
+
 $secondary-text: #F3F2BF;
+
+
+
 
 body{
   padding:0;
   margin: 0;
 }
 
+button{
+  padding: 10px;
+  border: none;
+  box-shadow: 0 0 0.5px 0.5px;
+}
+
+a {
+  text-decoration: none;
+}
+
 @import './containers/App.scss';
 @import './containers/ProjectForm.scss';
 @import './containers/ProjectChat.scss';
-
+@import './containers/UserDashboard.scss';
 
 @import './components/Auth.scss';
-@import './components/UserDashboard.scss';
+@import './components/skill.scss';
 @import './components/ProjectChip.scss';
