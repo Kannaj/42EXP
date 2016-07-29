@@ -34,11 +34,12 @@ class App extends React.Component{
       <div>
         <div className="sidebar">
           <ul className="sidebar_links">
-            <Link to="/projects" className="sidebar_link"> Projects </Link>
+            <Link to="/" className="sidebar_link"> Home </Link>
+            <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Projects </Link>
             {this.props.Projects ?
               this.props.Projects.map((project) => {
                 return (
-                  <Link to = {`/projects/${project.id}/messages`} key={project.id} className="sidebar_link">{project.project} -- {project.unread_messages}</Link>
+                  <Link to = {`/projects/${project.id}/messages`} key={project.id} className="sidebar_link" activeClassName="active_link"><span className="project_name">{project.project}</span><span className="project_unread_count">{project.unread_messages}</span></Link>
                 )
               })
               :
@@ -104,7 +105,8 @@ const mapStateToProps = (state) => {
 
   const {isAuthenticated} = state.User;
   const {Projects,Notifications} = state;
-  const {loading} = state.loader; // Probably dont need loader to be a separate object in state.
+  const {loading} = state.loader;
+  // Probably dont need loader to be a separate object in state.
   // const {Notifications} = state;
 
   const unread_notifications = Notifications.filter((notification) => {

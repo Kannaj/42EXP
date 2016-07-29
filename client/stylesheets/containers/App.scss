@@ -3,26 +3,44 @@
   position: fixed;
   width: 20%;
   background : $secondary;
+  overflow-y: scroll;
   .sidebar_links{
     width: 100%;
     padding: 0;
     margin: 0;
     position: relative;
     top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     .sidebar_link{
       color: $secondary-text;
       // width:100%;
-      display: block;
-      text-align: center;
-      margin:0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      // text-align: center;
+      // margin:15px 0;
       padding: 15px;
       text-decoration: none;
       transition: all 0.3s ease-in;
       &:hover{
         background: #201C2B; //make var if used more
       }
+      .project_name{
+        // text-align: left;
+      }
+      .project_unread_count{
+        // margin: 5px;
+        // text-align: right;
+      }
     }
   }
+}
+
+.active_link{
+  background-color: $activeLink;
 }
 
 .appbar{

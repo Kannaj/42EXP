@@ -28,7 +28,6 @@ class ProjectList extends React.Component{
   }
 
   componentDidMount(){
-    console.log('mounted')
     if(socket){
       this.fetchData()
     }
@@ -36,10 +35,10 @@ class ProjectList extends React.Component{
 
 
   render(){
-    console.log('this.state: ',this.state)
     return(
-      <div>
+      <div id="List">
         <h1> Projects </h1>
+        <div id="project_list">
         {
           this.state.project_list.length > 0 ?
             this.state.project_list.map((project) => {
@@ -52,6 +51,7 @@ class ProjectList extends React.Component{
             :
             <h1> No projects yet! Signup to create one! </h1>
         }
+        </div>
       </div>
     )
   }

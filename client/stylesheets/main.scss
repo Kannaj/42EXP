@@ -1,7 +1,7 @@
 $primary : #FFFFFF;
 $secondary: #17141F;
 $tertiary: #7D5BBE;
-
+$activeLink:#201C2B;
 
 
 $secondary-text: #F3F2BF;
@@ -22,12 +22,14 @@ button{
 
 a {
   text-decoration: none;
+  color:black;
 }
 
 @import './containers/App.scss';
 @import './containers/ProjectForm.scss';
 @import './containers/ProjectChat.scss';
 @import './containers/UserDashboard.scss';
+@import './containers/ProjectList.scss';
 
 @import './components/Auth.scss';
 @import './components/skill.scss';
