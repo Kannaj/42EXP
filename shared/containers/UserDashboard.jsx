@@ -87,7 +87,12 @@ class Dashboard extends React.Component{
               this.props.skills.length ?
 
               <div>
-                <h3> Your skills </h3>
+                <h3 className="main_header"> Your Skillset </h3>
+                <div className="headers">
+                  <h3 className="skill_header">Skill</h3>
+                  <h3 className="commends_header">Commends</h3>
+                  <h3 className="remove_header"> Remove </h3>
+                </div>
                 {
                   this.props.skills.map((skill) => {
                     return (
@@ -108,7 +113,7 @@ class Dashboard extends React.Component{
             </div>
         </div>
         <div id="create_project">
-          <button onClick={this.openModal}> Start a project </button>
+          <button onClick={this.openModal}> Start a new project </button>
         </div>
 
         <Modal isOpen={this.state.modalIsOpen}

@@ -4,6 +4,20 @@
   padding: 10px;
   margin: 5px;
   transform: translate(50%);
+  .main_header{
+    text-align: center;
+  }
+  .headers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:10px;
+    align-items: center;
+    border-bottom: 0.5px solid gray;
+    .skill_header{
+      width:45%;
+    }
+  }
 }
 
 #user_stats{
@@ -37,7 +51,7 @@
   margin-top: 10px;
   text-align: center;
   button{
-    background-color: $tertiary;
+    background-color: $primary;
   }
 }
 
@@ -65,5 +79,4 @@
   width: 75%;
   transform: translate(-50%,-50%);
   transition: all 0.5s ease-in;
-
 }

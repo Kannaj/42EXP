@@ -116,7 +116,8 @@
   width: 20%;
   text-align: center;
   display: flex;
-  // z-index: 0;
+  // z-index: -1;
+  pointer-events: none;
   flex-direction: column-reverse;
   .notification_wrapper{
     padding:5px;
@@ -127,6 +128,8 @@
     height: 20%;
     border: 1px solid black;
     margin-bottom: 5px;
+    z-index: 5;
+    pointer-events: auto;
   }
 }
 
