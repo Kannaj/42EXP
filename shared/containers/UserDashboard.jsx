@@ -106,6 +106,8 @@ class Dashboard extends React.Component{
             }
             <div>
                 <Select.Async name="account_skills"
+                              loadingPlaceholder="Add Skill"
+                              minimumInput={2}
                               loadOptions={this.getOptions}
                               onChange={this.handleChange}
                               value={this.state.value}  />

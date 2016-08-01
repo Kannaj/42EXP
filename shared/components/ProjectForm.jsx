@@ -115,21 +115,23 @@ class ProjectForm extends React.Component{
         <div id="project_details">
           <div className="block">
             <label htmlFor="name"> Name </label>
-            <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)}/>
+            <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
             {this.state.errors.name ? <div style={{color:'red'}}> {this.state.errors.name} </div> : null}
           </div>
           <div className="block">
             <label htmlFor="link"> Link </label>
-            <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')}/>
+            <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')} placeholder="Repo Link"/>
             {this.state.errors.link ? <div style={{color:'red'}}> {this.state.errors.link} </div> : null}
           </div>
           <div className="block">
             <label htmlFor="description">Description</label>
-            <textarea cols="40" rows="5" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')}/>
+            <textarea cols="40" rows="5" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
           </div>
           <div className="block">
             <label htmlFor="category">Category</label>
             <Select.Async name="project_category"
+              loadingPlaceholder="Select a Category"
+              minimumInput={2}
               loadOptions={this.getOptions.bind(this,'category')}
               onChange={this.handleChange.bind(this,'category')}
               value={this.state.category} />
@@ -137,7 +139,9 @@ class ProjectForm extends React.Component{
           </div>
           <div className="block">
             <label htmlFor="skills">skills</label>
-            <Select.Async name="project_category"
+            <Select.Async name="project_skills"
+              loadingPlaceholder="Pick the skills required for the project"
+              minimumInput={2}
               loadOptions={this.getOptions.bind(this,'skill')}
               onChange={this.handleChange.bind(this,'skill')}
               value={this.state.skill}
