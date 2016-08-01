@@ -75,7 +75,8 @@
   top: 50%;
   background: $primary;
   border: 2px solid $tertiary;
-  height: 90%;
+  // height: 90%;
+  height: auto;
   width: 75%;
   transform: translate(-50%,-50%);
   transition: all 0.5s ease-in;

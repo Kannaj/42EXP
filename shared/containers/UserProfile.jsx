@@ -72,7 +72,9 @@ class UserProfile extends React.Component{
               this.state.user.skills.map((skill,idx) => {
                 return (
                   <div key={uuid.v4()}>
-                    <Skill skill={skill.skill} commends={skill.commends} />
+                    {/* profile props sent to Skill Component help determing if user is accessing from dashboard or from userProfile component. Helps remove the
+                      "remove" button. temporary. */}
+                    <Skill skill={skill.skill} commends={skill.commends} profile={true}/>
 
                     {/* probably a better way to do the below? checks if the profile belongs to the logged in user or not */}
 

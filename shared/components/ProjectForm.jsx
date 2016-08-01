@@ -13,9 +13,6 @@ const validate = values => {
   if(!values.name || /\s/.test(values.name)){
     errors.name = 'Please provide a proper name without spaces'
   }
-  if(!values.link){
-    errors.link = 'Required'
-  }
   if(!values.description){
     errors.description = 'Required'
   }
@@ -109,38 +106,38 @@ class ProjectForm extends React.Component{
     return(
       <div id="project_form">
         <div className="title">
-          <h1>Project Form </h1>
+          <h1>Create a new Project</h1>
         </div>
 
         <div id="project_details">
           <div className="block">
-            <label htmlFor="name"> Name </label>
+
             <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
-            {this.state.errors.name ? <div style={{color:'red'}}> {this.state.errors.name} </div> : null}
+            {this.state.errors.name ? <div className="error"> {this.state.errors.name} </div> : null}
           </div>
           <div className="block">
-            <label htmlFor="link"> Link </label>
+
             <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')} placeholder="Repo Link"/>
-            {this.state.errors.link ? <div style={{color:'red'}}> {this.state.errors.link} </div> : null}
           </div>
           <div className="block">
-            <label htmlFor="description">Description</label>
-            <textarea cols="40" rows="5" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
+
+            <textarea cols="40" rows="25" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
+            {this.state.errors.description ? <div className="error"> {this.state.errors.description} </div> : null}
           </div>
           <div className="block">
-            <label htmlFor="category">Category</label>
+
             <Select.Async name="project_category"
-              loadingPlaceholder="Select a Category"
+              placeholder="Select a Category"
               minimumInput={2}
               loadOptions={this.getOptions.bind(this,'category')}
               onChange={this.handleChange.bind(this,'category')}
               value={this.state.category} />
-              {this.state.errors.category ? <div style={{color:'red'}}> {this.state.errors.category} </div> : null}
+              {this.state.errors.category ? <div className="error">{this.state.errors.category} </div> : null}
           </div>
           <div className="block">
-            <label htmlFor="skills">skills</label>
+
             <Select.Async name="project_skills"
-              loadingPlaceholder="Pick the skills required for the project"
+              placeholder="Pick the skills required for the project"
               minimumInput={2}
               loadOptions={this.getOptions.bind(this,'skill')}
               onChange={this.handleChange.bind(this,'skill')}

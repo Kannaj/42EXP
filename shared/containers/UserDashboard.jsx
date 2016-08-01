@@ -96,7 +96,7 @@ class Dashboard extends React.Component{
                 {
                   this.props.skills.map((skill) => {
                     return (
-                      <Skill key={skill.id} skill={skill.skill} commends={skill.commends} />
+                      <Skill key={skill.id} skill={skill.skill} commends={skill.commends} profile={false} />
                     )
                   })
                 }
@@ -106,7 +106,7 @@ class Dashboard extends React.Component{
             }
             <div>
                 <Select.Async name="account_skills"
-                              loadingPlaceholder="Add Skill"
+                              placeholder="Add Skill"
                               minimumInput={2}
                               loadOptions={this.getOptions}
                               onChange={this.handleChange}

@@ -25,6 +25,10 @@ a {
   color:black;
 }
 
+// ::placeholder{
+//   color:blue !important;
+// }
+
 @import './containers/App.scss';
 @import './containers/ProjectForm.scss';
 @import './containers/ProjectChat.scss';
