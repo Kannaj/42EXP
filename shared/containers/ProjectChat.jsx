@@ -90,7 +90,7 @@ class ProjectChat extends React.Component{
     // console.log('messages : ',messages)
     return(
       <div id="project_chat">
-        <h1>{this.props.project[0].project}</h1>
+        <h4 className="chat_room_title">{this.props.project[0].project} - Chat Room</h4>
         <div className="chat_room">
 
           <div className="messages" ref="messages">
@@ -105,7 +105,7 @@ class ProjectChat extends React.Component{
           </div>
 
           <div className="chat_message_box">
-            <input type='text' onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
+            <textarea rows="1" cols="20" type='text' onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
             <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
           </div>
 
