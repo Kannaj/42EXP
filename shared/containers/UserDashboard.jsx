@@ -36,6 +36,7 @@ class Dashboard extends React.Component{
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getOptions(input,callback){
@@ -50,8 +51,17 @@ class Dashboard extends React.Component{
   }
 
   handleChange(input){
+    // if(socket){
+    //   this.props.user_add_skills(input)
+    // }
+    this.setState({value:input})
+  }
+
+  handleSubmit(){
     if(socket){
-      this.props.user_add_skills(input)
+      if(this.state.value){
+        this.props.user_add_skills(this.state.value)
+      }
     }
   }
 
@@ -65,6 +75,7 @@ class Dashboard extends React.Component{
 
 
   render(){
+    console.log(this.state)
     return(
       <div>
         <h1 className="welcome_message"> Welcome {this.props.username} </h1>
@@ -104,13 +115,14 @@ class Dashboard extends React.Component{
               :
               null
             }
-            <div>
+            <div className="user_add_skill">
                 <Select.Async name="account_skills"
                               placeholder="Add Skill"
                               minimumInput={2}
                               loadOptions={this.getOptions}
                               onChange={this.handleChange}
                               value={this.state.value}  />
+                <button className="submit_skill" onClick={this.handleSubmit}> Add Skill </button>
 
             </div>
         </div>

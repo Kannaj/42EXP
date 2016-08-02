@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS Account_skills(
   id SERIAL PRIMARY KEY,
   Username VARCHAR REFERENCES Account (Username),
   Skill VARCHAR REFERENCES skill (name),
-  Commends INTEGER DEFAULT 0
+  Commends INTEGER DEFAULT 0,
+  UNIQUE(Username,skill)
 );
 
 CREATE TABLE IF NOT EXISTS Project_skills(
