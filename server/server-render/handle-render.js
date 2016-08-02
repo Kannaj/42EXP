@@ -64,7 +64,7 @@ const renderFullPage = (html,initialState) => {
         <link rel="stylesheet" type="text/css" href="/style.css">
         <link rel="stylesheet" href="/font-awesome.min.css">
         <link rel="stylesheet" href="/react-select.min.css">
-        <link rel="stylesheet" href="/highlight/styles/default.css">
+        <link rel="stylesheet" href="/highlight/styles/dracula.css">
 
       </head>
       <body>
