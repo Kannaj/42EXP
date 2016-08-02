@@ -91,7 +91,7 @@ class Dashboard extends React.Component{
                 <div className="headers">
                   <h3 className="skill_header">Skill</h3>
                   <h3 className="commends_header">Commends</h3>
-                  <h3 className="remove_header"> Remove </h3>
+
                 </div>
                 {
                   this.props.skills.map((skill) => {

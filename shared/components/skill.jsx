@@ -11,14 +11,20 @@ export default class Skill extends React.Component{
           <div className="skill_commends">
             <h3>{this.props.commends}</h3>
           </div>
-          {this.props.profile
+
+
+          {/* To-do - Enable user to remove skill
+
+             this.props.profile
             ?
             null
             :
             <div className="remove">
                 <button>X</button>
             </div>
-          }
+          */}
+
+
         </div>
       )
     }
