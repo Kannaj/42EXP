@@ -69,7 +69,7 @@ class Dashboard extends React.Component{
       <div>
         <h1 className="welcome_message"> Welcome {this.props.username} </h1>
 
-        <div id="user_stats">
+        <div className="user_stats">
           <div className="Level">
             <h2> {this.props.level} </h2>
             <h3 className="stat_header"> Level </h3>
@@ -81,7 +81,7 @@ class Dashboard extends React.Component{
           </div>
         </div>
 
-        <div id="user_skills">
+        <div className="user_skills">
 
             {
               this.props.skills.length ?
