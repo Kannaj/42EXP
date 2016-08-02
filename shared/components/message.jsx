@@ -1,6 +1,24 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router';
-import moment from 'moment'
+import moment from 'moment';
+import Remarkable from 'remarkable';
+import hljs from 'highlight.js';
+
+const md = new Remarkable({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (err) {}
+    }
+
+    try {
+      return hljs.highlightAuto(str).value;
+    } catch (err) {}
+
+    return ''; // use external default escaping
+  }
+});
 
 class Message extends Component{
 
@@ -16,7 +34,8 @@ class Message extends Component{
         </div>
 
         <div className="message">
-          {this.props.message.message}
+
+          <span dangerouslySetInnerHTML={{__html: md.render(this.props.message.message)}}/>
         </div>
       </li>
     )

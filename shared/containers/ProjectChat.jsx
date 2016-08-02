@@ -56,9 +56,20 @@ class ProjectChat extends React.Component{
     // the below fires set_unread action to keep it at 0. the same action is fire on componentDidMount
 
     if(nextProps.project[0].messages.length !== this.props.messages.length){
+      console.log('condition satisfied')
       this.props.set_unread(nextProps.project[0].id)
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
     }
     // this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+  }
+
+  componentDidUpdate(prevProps,prevState){
+    // if(this.props.params.projectId == prevProps.params.projectId){
+    // when component updates and the previous messages do not equal new messages. bring scroll to latest message
+    if(this.props.messages.length !== prevProps.messages.length){
+      console.log('different')
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+    }
   }
 
 

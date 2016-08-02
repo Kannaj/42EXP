@@ -64,6 +64,8 @@ const renderFullPage = (html,initialState) => {
         <link rel="stylesheet" type="text/css" href="/style.css">
         <link rel="stylesheet" href="/font-awesome.min.css">
         <link rel="stylesheet" href="/react-select.min.css">
+        <link rel="stylesheet" href="/highlight/styles/default.css">
+
       </head>
       <body>
         <div id="app"><div>${html}</div></div>
