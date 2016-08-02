@@ -1,0 +1,47 @@
+.project_detail{
+
+  // padding:10px;
+  // position: relative;
+  bottom:0;
+  .header{
+    padding:10px;
+  }
+
+  .category{
+    color: #ccc;
+    padding:10px;
+  }
+
+  .description{
+    padding:15px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    height: 400px;
+  }
+
+  .project_skills{
+    position:absolute;
+    // bottom:5px;
+    top: 100px;
+    // padding:10px;
+    right:10px;
+    // height:25%;
+    // border-top: 1px solid $tertiary;
+    // width:100%;
+    box-sizing: border-box;
+    background-color: $primary;
+    // padding:5px;
+    .skill_chip{
+      // margin: 10px;
+    }
+  }
+
+  .join_project,
+  .edit_project
+  {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    padding: 10px;
+  }
+}

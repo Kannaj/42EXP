@@ -48,13 +48,12 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
-    console.log('project_detail: ',this.state)
     return(
       <div className="project_detail">
-        <h1> Title - {this.state.project_details.project_name} </h1>
-        <h2> Category - {this.state.project_details.project_category} </h2>
+        <h1 className="header"> {this.state.project_details.project_name} </h1>
+        <h2 className="category"> {this.state.project_details.project_category} </h2>
         <hr/>
-        <p> Description - {this.state.project_details.project_description} </p>
+        <div className="description"> {this.state.project_details.project_description} </div>
         <div className="project_skills" >
 
         {
