@@ -30,7 +30,7 @@ class Message extends Component{
         </Link>
 
         <div className="timestamp">
-          {moment().calendar(this.props.message.timestamp)|| null}
+          {moment(this.props.message.timestamp).calendar()|| null}
         </div>
 
         <div className="message">
