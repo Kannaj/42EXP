@@ -48,6 +48,7 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
+    console.log('this.props.project: ',this.props.project)
     return(
       <div className="project_detail">
         <h1 className="header"> {this.state.project_details.project_name} </h1>
@@ -70,15 +71,27 @@ class ProjectDetail extends React.Component{
 
         </div>
         <div className="project_detail_actions">
-        {
+        {/*
           !this.props.isAuthenticated  ?
           <h4> Login to join project </h4>
           :
 
-            this.props.username == this.state.project_details.project_owner ?
+            this.props.project[0].role == 'owner' ?
             <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
             <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
 
+        */}
+
+        {
+          !this.props.isAuthenticated  ?
+          <h4> Login to join project </h4>
+          :
+          this.props.project ?
+            this.props.project.role == 'owner' ?
+            <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
+            null
+            :
+            <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
         }
         </div>
 
@@ -102,13 +115,20 @@ class ProjectDetail extends React.Component{
 }
 
 const mapStateToProps = (state,ownProps) => {
-  let username;
+  let username,project
+  let projectIndex = state.Projects.findIndex((proj) => {
+    return proj.id == ownProps.params.projectId
+  })
+
+  project = state.Projects[projectIndex]
+
+  console.log('found project : ',project,' : ',state.Projects[projectIndex])
   const {isAuthenticated} = state.User
   if(isAuthenticated){
     username = state.User.username
   }
   return {
-    isAuthenticated,username
+    isAuthenticated,username,project
   }
 }
 
