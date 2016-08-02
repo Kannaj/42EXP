@@ -98,6 +98,20 @@ const Projects = (state=[],action) => {
         ]
       }
 
+    case constants.GET_MORE_MESSAGES_SUCCESS:
+      console.log('recieved action : ',action)
+      target = state.findIndex((project) => {
+        return project.id == action.projectId
+      })
+      return update(state,{
+        [target]:{
+          messages:{
+            $unshift:action.messages
+          }
+        }
+      })
+
+
     // case constants.EDIT_PROJECT_ERROR:
     //   return [
     //     ...state
