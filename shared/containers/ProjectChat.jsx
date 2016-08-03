@@ -20,6 +20,7 @@ class ProjectChat extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setLastActivity = this.setLastActivity.bind(this)
     this.activateWayPoint = this.activateWayPoint.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentDidMount(){
@@ -74,6 +75,13 @@ class ProjectChat extends React.Component{
     this.setState({message:event.target.value})
   }
 
+  handleKeyPress(event){
+    if(event.key == 'Enter'){
+      console.log('Entered')
+      this.handleSubmit();
+    }
+  }
+
   handleSubmit(){
     socket.emit('new_chat_message',{id:this.props.params.projectId,message:this.state.message})
     this.setState({message:''})
@@ -105,7 +113,7 @@ class ProjectChat extends React.Component{
           </div>
 
           <div className="chat_message_box">
-            <textarea rows="1" cols="20" type='text' onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
+            <textarea rows="1" cols="20" type='text' onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
             <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
           </div>
 
