@@ -1,23 +1,46 @@
-$primary : #FFFFFF;
-$secondary: #17141F;
-$tertiary: #7D5BBE;
-$activeLink:#201C2B;
-
-
+// $primary : #FFFFFF;
+// $secondary: #17141F;
+// $tertiary: #7D5BBE;
+// $activeLink:#201C2B;
+//
+//
 $secondary-text: #F3F2BF;
 
+
+//v2 color-pallete
+$primary:#FFFFFF;
+$secondary:#0B132B;
+$tertiary: #281985;
+$activeLink:#242038;
 
 
 
 body{
   padding:0;
   margin: 0;
+  line-height: 25px;
+  // font-family: "helvetica";
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 button{
   padding: 10px;
   border: none;
   box-shadow: 0 0 0.5px 0.5px;
+  background-color: $primary;
 }
 
 a {
