@@ -37,6 +37,10 @@ body{
 //     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 // }
 
+html,body{
+  height: 100%;
+}
+
 button{
   padding: 10px;
   border: none;

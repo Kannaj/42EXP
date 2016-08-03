@@ -5,6 +5,7 @@
   padding:0;
   margin:0;
   display: flex;
+  // position:absolute;
   flex-direction: column;
   align-content: space-around;
 
@@ -19,19 +20,20 @@
 
   .chat_room{
     width: 100%;
-    position: relative;
+    min-height: 0;
+    // position: relative;
     display: flex;
     flex-grow: 2;
     flex-direction: column;
-
+    // height:100%;
     .messages{
       flex-grow: 1;
       overflow-y: auto;
-
       ul{
         list-style: none;
         padding:0;
         margin:0;
+        overflow-y: auto;
       }
     }
     .chat_message_box{
