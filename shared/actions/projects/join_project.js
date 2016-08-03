@@ -40,7 +40,7 @@ const join_project = (projectDetails) => {
         }else{
           console.log('join project success: ')
           dispatch(join_project_success(res))
-          dispatch(push(`/projects/${res.id}/messages`))
+          dispatch(push(`/projects/${res.id}/${res.project}/messages`))
           dispatch(stop_request())
           socket.subscribe(res.id).watch((data) => {
             dispatch(new_chat_message(data))

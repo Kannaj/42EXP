@@ -4,7 +4,9 @@ import Skill from '../components/skill';
 import uuid from 'node-uuid';
 import update from 'react-addons-update';
 import {bindActionCreators} from 'redux';
-import {start_request,stop_request} from '../actions/loader'
+import {start_request,stop_request} from '../actions/loader';
+import {add_notification} from '../actions/notifications/notifications';
+// import uuid from 'node-uuid';
 
 class UserProfile extends React.Component{
 
@@ -36,7 +38,9 @@ class UserProfile extends React.Component{
       socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username},function(err,data){
         if(err){
           console.log(err)
+          this.props.add_notification({id:uuid.v4(),heading:'Error',message:`Looks like you've already commended ${this.state.user.username}!!`,unread:true,server:false})
         }else{
+          this.props.add_notification({id:uuid.v4(),heading:'Info',message:`You\'ve successfully commended ${this.state.user.username}!!`,unread:true,server:false})
           this.setState({user:update(this.state.user,{
             skills:{
               [idx]:{
@@ -132,7 +136,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     start_request,
-    stop_request
+    stop_request,
+    add_notification
   },dispatch)
 }
 

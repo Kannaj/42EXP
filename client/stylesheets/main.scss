@@ -11,6 +11,9 @@ $secondary-text: #F3F2BF;
 $primary:#FFFFFF;
 $secondary:#0B132B;
 $tertiary: #281985;
+$fourth:#02020A;
+$fifth:#320E3B;
+
 $activeLink:#242038;
 
 
@@ -45,7 +48,9 @@ button{
   padding: 10px;
   border: none;
   box-shadow: 0 0 0.5px 0.5px;
-  background-color: $primary;
+  background-color: $fifth;
+  color: $primary;
+  // cursor: pointer;
 }
 
 a {

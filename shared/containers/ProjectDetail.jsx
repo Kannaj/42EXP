@@ -53,9 +53,9 @@ class ProjectDetail extends React.Component{
         {/* <h1 className="header"> {this.state.project_details.project_name} </h1> */}
         <h2 className="category"> {this.state.project_details.project_category} </h2>
         <hr/>
-        <div className="description"> {this.state.project_details.project_description} </div>
-        <div className="project_skills" >
 
+        <div className="project_skills" >
+          <h3>Skills Required : </h3>
         {
           this.state.project_details.skills?
           this.state.project_details.skills.map((skill) => {
@@ -69,6 +69,7 @@ class ProjectDetail extends React.Component{
         }
 
         </div>
+        <div className="description"> {this.state.project_details.project_description} </div>
         <div className="project_detail_actions">
         {
           !this.props.isAuthenticated  ?
