@@ -4,14 +4,14 @@ import {db} from '../config.js'
 // use 'function'
 
 export const skill_suggestions = function(data,res) {
-  console.log('recieved data : ',data)
+  //console.log('recieved data : ',data)
   db.any("SELECT * from skill WHERE LOWER(name) LIKE LOWER('%$1#%')",data.skill)
     .then((skill) => {
-      console.log('skill_suggestions : ',skill)
+      //console.log('skill_suggestions : ',skill)
       res(null,skill)
     })
     .catch((err) => {
-      console.log('error : ',err)
+      //console.log('error : ',err)
       res(err.message)
     })
 }
@@ -23,7 +23,7 @@ export const skill_user = function(data,res){
     })
     .catch(function(err){
 
-      console.log('There was an error : ',err.message)
+      //console.log('There was an error : ',err.message)
       res('Could not insert skill - try again!')
     })
 }

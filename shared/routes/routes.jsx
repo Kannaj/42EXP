@@ -11,8 +11,8 @@ export default(
   <Route path="/" component={AppContainer} >
     <IndexRoute component={HomeContainer}/>
     <Route path="projects" component={ProjectListContainer}/>
-    <Route path="projects/:projectId" component={ProjectDetailContainer}/>
-    <Route path="projects/:projectId/messages" component={ProjectChatContainer} />
+    <Route path="projects/:projectId/:projectName" component={ProjectDetailContainer}/>
+    <Route path="projects/:projectId/:projectName/messages" component={ProjectChatContainer} />
     <Route path ="user/:username" component={UserProfileContainer} />
   </Route>
 )

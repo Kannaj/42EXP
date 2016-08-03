@@ -33,14 +33,14 @@ const options = {
 
 global.socket = SocketCluster.connect(options)
 
-console.log(store.getState())
+
 
 //subscribe to projects
 if(store.getState().Projects.length > 0){
   var projects = store.getState().Projects
   projects.map((project) => {
     socket.subscribe(project.id).watch(function(data){
-      console.log('recieved message for :',project.id,' with data: ',data)
+
       // more to fill
       store.dispatch(new_chat_message(data))
     })
@@ -50,7 +50,7 @@ if(store.getState().Projects.length > 0){
 //subscribe to users personal channel for notifications
 if(store.getState().User.isAuthenticated){
   socket.subscribe(store.getState().User.username).watch(function(data){
-    console.log('recieved message :',data)
+
     switch (data.type){
       case 'notification':
         store.dispatch(add_notification(Object.assign({},data.details,{server:true})))
@@ -61,13 +61,14 @@ if(store.getState().User.isAuthenticated){
 }
 
 history.listen((location) => {
-  console.log('changed')
-  let pattern = new RegExp('/projects/(\\d+)/messages');
+
+  let pattern = new RegExp('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages');
 
   let url = location.pathname;
 
   let match = url.match(pattern);
   if (match){
+    
     let projectid = parseInt(match[1])
     // console.log('projectid is: ',projectid)
     store.dispatch(set_unread(projectid))

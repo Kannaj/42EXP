@@ -35,6 +35,13 @@
         // margin: 5px;
         // text-align: right;
       }
+      .unread_count{
+        border-radius: 25px;
+        background-color: green;
+        padding:5px;
+        height: 20px;
+
+      }
     }
   }
 }
@@ -52,6 +59,8 @@
   margin-left: 20%;
   padding: 5px;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
 }
 
 .auth{

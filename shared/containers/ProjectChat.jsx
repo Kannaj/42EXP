@@ -30,7 +30,6 @@ class ProjectChat extends React.Component{
   setLastActivity(projectId){
     socket.emit('update_last_activity',{id:projectId},function(err,data){
       if(data){
-        console.log(`timestamp recieved for ${projectId} `,data)
         this.props.set_last_activity({id:projectId,timestamp:data.last_activity})
       }else{
         throw(err)
@@ -82,7 +81,6 @@ class ProjectChat extends React.Component{
 
   activateWayPoint(){
     if(this.state.waypointReady){
-      console.log('waypoint activated')
       this.props.get_more_messages(this.props.params.projectId,this.props.messages[0].id)
     }else{
       return null
@@ -93,7 +91,6 @@ class ProjectChat extends React.Component{
     const messages = this.props.messages;
     return(
       <div id="project_chat">
-        <h4 className="chat_room_title">{this.props.project[0].project} - Chat Room</h4>
         <div className="chat_room">
 
           <div className="messages" ref="messages">

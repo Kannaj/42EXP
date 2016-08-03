@@ -2,9 +2,9 @@ import {db} from '../config.js';
 
 export const vote = function(data,res){
   const self = this;
-  console.log('voter_level is : ',data.voter_level)
+  //console.log('voter_level is : ',data.voter_level)
   const xp_value = data.voter_level * 5;
-  console.log('xp_value: ',xp_value)
+  //console.log('xp_value: ',xp_value)
   db.tx((t) => {
     return t.none('INSERT INTO votes (voter,votee,skill) values ($1,$2,$3)',[
         this.getAuthToken().username,data.votee,data.account_skill_id
@@ -16,7 +16,7 @@ export const vote = function(data,res){
       })
   })
   .then(function(status){
-    console.log(status)
+    //console.log(status)
     res(null,status.vote)
     // self.exchange.publish(data.votee,{id:1,server:true,message:`you were commended on your skill :seemsgood`})
     /*
@@ -30,7 +30,7 @@ export const vote = function(data,res){
             })
   })
   .catch(function(err){
-    console.log('there was an error: ',err)
+    //console.log('there was an error: ',err)
     res(err)
   })
 }

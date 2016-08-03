@@ -20,7 +20,6 @@ const User = (state={isAuthenticated: false},action ) => {
     //   return state
 
     case constants.UPDATE_USER_STATS:
-      console.log('action : ',action,'state: ',state)
       let target = state.skills.findIndex((skill) => {
         return action.stats.account_skill_id == skill.id
       })

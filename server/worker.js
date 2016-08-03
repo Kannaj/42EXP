@@ -137,7 +137,7 @@ export const run = (worker) => {
 
     socket.on('raw',function(data){
       console.log('recieved data')
-      let pattern = new RegExp('/projects/(\\d+)/messages')
+      let pattern = new RegExp('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')
       let match = data.match(pattern)
       if(match){
         console.log('matches')

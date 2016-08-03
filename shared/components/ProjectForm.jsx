@@ -65,7 +65,6 @@ class ProjectForm extends React.Component{
   }
 
   handleBlur(event){
-    console.log('input : ',event.target.value)
     if(socket){
       socket.emit('project:check_name',{name:event.target.value},function(err,data){
         if(err){

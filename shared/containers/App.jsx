@@ -8,6 +8,41 @@ import {remove_notification} from '../actions/notifications/notifications';
 import Notification from '../components/notifications';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+//unread function helps show unread_message count for each project the user as signed up for.
+const unread = (count) => {
+  if (count !== 0){
+    return(
+      <span className="unread_count">{count}</span>
+    )
+  }else{
+    null
+  }
+}
+
+//below function helps determine main header
+const header = (location) => {
+  if(location == '/projects'){
+    return (
+      <h1>Projects</h1>
+    )
+  }else if(location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')){
+    const name = location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')[2]
+    return (
+      <h1>Chat Room - {name} </h1>
+    )
+  }else if (location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)')){
+    const name = location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)')[2]
+    return (
+      <h1> Project - {name}</h1>
+    )
+  }else if (location.match('/user/(\\S+)')){
+    const name = location.match('/user/(\\S+)')[1]
+    return (
+      <h1> Profile - {name} </h1>
+    )
+  }
+}
+
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -16,12 +51,10 @@ class App extends React.Component{
       register: false,
       login: false
     }
-    // this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
 
   openModal(type){
-    console.log('type: ',type)
     this.setState({modalIsOpen:true,[type]:true})
   }
 
@@ -31,6 +64,7 @@ class App extends React.Component{
 
   render(){
     return(
+
       <div>
         <div className="sidebar">
           <ul className="sidebar_links">
@@ -39,7 +73,7 @@ class App extends React.Component{
             {this.props.Projects ?
               this.props.Projects.map((project) => {
                 return (
-                  <Link to = {`/projects/${project.id}/messages`} key={project.id} className="sidebar_link" activeClassName="active_link"><span className="project_name">{project.project}</span><span className="project_unread_count">{project.unread_messages}</span></Link>
+                  <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="sidebar_link" activeClassName="active_link"><span className="project_name">{project.project}</span>{unread(project.unread_messages)}</Link>
                 )
               })
               :
@@ -49,6 +83,7 @@ class App extends React.Component{
         </div>
 
         <div className="appbar">
+          {header(this.props.location)}
           {!this.props.isAuthenticated
             ?
             <div className="auth">
@@ -62,15 +97,20 @@ class App extends React.Component{
           }
 
         </div>
+
+
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="content-auth" overlayClassName="overlay-auth">
             {!this.state.register ?
                 <Auth url={'/auth/login'}/>
               : <Auth url={'/auth/register'}/>
             }
         </Modal>
+
+
         <div id="Main">
           {this.props.children}
         </div>
+
 
         {this.props.loading ?
           <div id="loading">
@@ -79,6 +119,7 @@ class App extends React.Component{
           :
           null
         }
+
 
         {
           this.props.unread_notifications ?
@@ -101,8 +142,8 @@ class App extends React.Component{
 }
 
 
-const mapStateToProps = (state) => {
-
+const mapStateToProps = (state,ownProps) => {
+  const location = ownProps.location.pathname;
   const {isAuthenticated} = state.User;
   const {Projects,Notifications} = state;
   const {loading} = state.loader;
@@ -117,7 +158,8 @@ const mapStateToProps = (state) => {
     isAuthenticated,
     Projects,
     unread_notifications,
-    loading
+    loading,
+    location
   }
 }
 

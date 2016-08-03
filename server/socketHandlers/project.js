@@ -5,24 +5,24 @@ export const create_project = function(data,res){
   data.username = this.getAuthToken().username
   createNewProject(data)
     .then(function(details){
-      console.log(details)
+      //console.log(details)
       res(null,details)
     })
     .catch(function(err){
-      console.log(err)
+      //console.log(err)
       res(err)
     })
 }
 
 export const get_more_messages = function(data,res){
-  console.log('retrieving messages for  : ',data)
+  //console.log('retrieving messages for  : ',data)
   return db.any(queries.GetMoreMessages,[data.projectId,data.lastMessageId])
           .then(function(messages){
-            console.log('got messages : ',messages)
+            //console.log('got messages : ',messages)
             res(null,messages)
           })
           .catch(function(err){
-            console.log('there was an error : ',err)
+            //console.log('there was an error : ',err)
             res(err)
           })
 }
@@ -30,7 +30,7 @@ export const get_more_messages = function(data,res){
 export const project_check_name = function(data,res){
   return db.one("select name from project where LOWER(name) like LOWER('$1#')",data.name)
             .then(function(name){
-              console.log('name: ',name)
+              //console.log('name: ',name)
               res(name)
             })
             .catch(function(){
@@ -39,7 +39,7 @@ export const project_check_name = function(data,res){
 }
 
 export const project_list = function(data,res){
-  // console.log('This reference: ',Object.keys(this))
+  // //console.log('This reference: ',Object.keys(this))
   db.any(queries.ProjectList)
     .then(function(results){
       let newResults = project_list_cleaner(results)
@@ -90,16 +90,16 @@ export const join_project = function(data,res){
 }
 
 export const update_last_activity = function(data,res){
-  console.log('data: ',data)
+  //console.log('data: ',data)
   db.one('update account_projects set last_activity = Now() where username=$1 AND project=(SELECT name from project where id = $2) returning last_activity',
     [this.getAuthToken().username,data.id]
   )
   .then(function(result){
-    console.log('changed: ',result)
+    //console.log('changed: ',result)
     res(null,{last_activity:result.last_activity})
   })
   .catch(function(err){
-    console.log('error : ',err)
+    //console.log('error : ',err)
     res('couldnt update last timestamp')
   })
 
@@ -142,10 +142,10 @@ const createNewProject = (data) => {
 }
 
 export const edit_project = function(data,res){
-  console.log('recieved project to edit: ',data)
+  //console.log('recieved project to edit: ',data)
   editProject(data)
     .then(function(result){
-      console.log('edit project result : ',result)
+      //console.log('edit project result : ',result)
       res(null,result)
     })
     .catch(function(err){
@@ -157,17 +157,17 @@ const editProject = (data) => {
   return db.tx((t) => {
     return t.any('DELETE from project_skills WHERE project = (SELECT name from project where id = $1) returning *',[data.id])
             .then(function(deletedSkills){
-              console.log('the following skills were deleted : ',deletedSkills)
+              //console.log('the following skills were deleted : ',deletedSkills)
               return db.one('update project set name=$1,description=$2,link=$3,category=$4 where id=$5 returning *',[data.project.name,data.project.description,data.project.link,data.project.category,data.id])
                         .then(function(updatedProject){
-                          console.log('updatedProject : ',updatedProject)
+                          //console.log('updatedProject : ',updatedProject)
                           if(data.project.skill.length > 0){
                             const queries = data.project.skill.map(function(skill){
                               return t.one("insert into project_skills (project,skill) values ($1,$2) returning *",[updatedProject.name,skill.value])
                             })
                             return t.batch(queries)
                                     .then(function(projectSkills){
-                                      console.log('skills updated : ',projectSkills)
+                                      //console.log('skills updated : ',projectSkills)
                                       return {'project':updatedProject,'skills':projectSkills}
                                     })
                           }else{
@@ -177,14 +177,14 @@ const editProject = (data) => {
             })
   })
   .then(function(details){
-    console.log('updated project with : ',details)
+    //console.log('updated project with : ',details)
     return {
       id: details.project.id,
       project: details.project.name
     }
   })
   .catch(function(err){
-    console.log('there was an error: ',err)
+    //console.log('there was an error: ',err)
     return (err)
   })
 }

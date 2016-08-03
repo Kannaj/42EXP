@@ -32,7 +32,6 @@ class UserProfile extends React.Component{
   }
 
   handleClick(id,idx){
-    console.log('button for skill : ',id,' clicked!!! @ ',idx)
     if(socket){
       socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username},function(err,data){
         if(err){
@@ -58,8 +57,6 @@ class UserProfile extends React.Component{
   render(){
     return(
       <div>
-        <h1>Profile - {this.props.params.username} </h1>
-
         {
           this.state.user ?
           <div>

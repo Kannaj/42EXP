@@ -6,11 +6,11 @@ import {SocketCluster} from 'socketcluster';
 
 
 const main = () => {
-  console.log('main server')
+  //console.log('main server')
 
   if (typeof(window) == 'undefined'){
       global.window = new Object();
-      console.log(window)
+      //console.log(window)
   }
 
   new SocketCluster({
@@ -28,7 +28,7 @@ const main = () => {
 
 // useful for testing purposes
 export const test = () => {
-  console.log('testing server')
+  //console.log('testing server')
   return new SocketCluster({
     workers:1,
     brokers:1,
