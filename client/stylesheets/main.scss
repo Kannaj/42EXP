@@ -4,6 +4,8 @@
 // $activeLink:#201C2B;
 //
 //
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+
 $secondary-text: #F3F2BF;
 
 
@@ -23,7 +25,8 @@ body{
   margin: 0;
   line-height: 25px;
   // font-family: "helvetica";
-  font-size: 16px;
+  font-size: 12px;
+  font-family: 'Merriweather';
 }
 
 // ::-webkit-scrollbar {
