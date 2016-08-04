@@ -40,7 +40,7 @@ export const project_check_name = function(data,res){
 
 export const project_list = function(data,res){
   // //console.log('This reference: ',Object.keys(this))
-  db.any(queries.ProjectList)
+  return db.any(queries.ProjectList)
     .then(function(results){
       let newResults = project_list_cleaner(results)
       res(null,newResults)
@@ -51,7 +51,7 @@ export const project_list = function(data,res){
 }
 
 export const project_detail = function(data,res){
-  db.one(queries.ProjectDetail,data.id)
+  return db.one(queries.ProjectDetail,data.id)
     .then(function(result){
       let newResult = project_list_cleaner([result])
       res(null,newResult[0])
@@ -63,7 +63,7 @@ export const project_detail = function(data,res){
 
 export const join_project = function(data,res){
   let result;
-  db.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[this.getAuthToken().username,data.project,'member'])
+  return db.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[this.getAuthToken().username,data.project,'member'])
     .then(function(projectDetails){
       result = {
         id: data.id,
@@ -74,7 +74,7 @@ export const join_project = function(data,res){
         unread_messages:0
       }
       // res(null,result)
-      db.any('SELECT id,message,username,timestamp FROM project_messages where project=$1',data.project)
+      return db.any('SELECT id,message,username,timestamp FROM project_messages where project=$1',data.project)
         .then(function(data){
           if(data.length > 1){
               result.messages = data
@@ -85,13 +85,13 @@ export const join_project = function(data,res){
         })
     })
     .catch(function(err){
-      res(err)
+      res('Couldnt join Project')
     })
 }
 
 export const update_last_activity = function(data,res){
   //console.log('data: ',data)
-  db.one('update account_projects set last_activity = Now() where username=$1 AND project=(SELECT name from project where id = $2) returning last_activity',
+  return db.one('update account_projects set last_activity = Now() where username=$1 AND project=(SELECT name from project where id = $2) returning last_activity',
     [this.getAuthToken().username,data.id]
   )
   .then(function(result){
