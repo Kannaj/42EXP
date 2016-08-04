@@ -50,7 +50,7 @@ const create_project = (projectDetails) => {
           socket.subscribe(data.id).watch((data) => {
             dispatch(new_chat_message(data))
           })
-          dispatch(push(`/projects/${data.id}`))
+          dispatch(push(`/projects/${data.id}/${data.project}`))
         }
       })
     }

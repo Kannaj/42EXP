@@ -26,12 +26,27 @@ class ProjectForm extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      name:"" || this.props.project_name,
-      description:"" || this.props.project_description,
-      link:"" || this.props.project_link,
-      category:"" || this.props.project_category,
+      name:"",
+      description:"",
+      link:"",
+      category:"",
       skill:[],
       errors:{}
+    }
+  }
+
+  componentDidMount(){
+    if(this.props.project_category){
+      this.setState({category:{value:this.props.project_category,label:this.props.project_category}})
+    }
+    if(this.props.project_name){
+      this.setState({name:this.props.project_name})
+    }
+    if(this.props.project_link){
+      this.setState({link:this.props.project_link})
+    }
+    if(this.props.project_description){
+      this.setState({description: this.props.project_description})
     }
   }
 
