@@ -99,25 +99,31 @@ class ProjectChat extends React.Component{
     const messages = this.props.messages;
     return(
       <div id="project_chat">
-        <div className="chat_room">
 
-          <div className="messages" ref="messages">
-            <Waypoint onEnter={this.activateWayPoint}/>
-            <ul>
-              {messages.map((message) => {
-                return(
-                  <Message key={uuid.v4()} message={message}/>
-                )
-              })}
-            </ul>
-          </div>
 
-          <div className="chat_message_box">
-            <textarea rows="1" cols="20" type='text' onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
-            <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
-          </div>
+          {
+            !this.props.project.length > 0 ?
+            <h1> You need to be a member of this project to be part of the chat room </h1>
+            :
+            <div className="chat_room">
+              <div className="messages" ref="messages">
+                <Waypoint onEnter={this.activateWayPoint}/>
+                <ul>
+                  {messages.map((message) => {
+                    return(
+                      <Message key={uuid.v4()} message={message}/>
+                    )
+                  })}
+                </ul>
+              </div>
 
-        </div>
+              <div className="chat_message_box">
+                <textarea rows="1" cols="20" type='text' onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
+                <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
+              </div>
+            </div>
+          }
+
 
       </div>
     )
@@ -125,11 +131,14 @@ class ProjectChat extends React.Component{
 }
 
 const mapStateToProps = (state,ownProps) => {
+  let messages,unread
   const project = state.Projects.filter((proj) => {
     return parseInt(ownProps.params.projectId) == proj.id
   })
-  const messages = project[0].messages;
-  const unread = project[0].unread_messages;
+  if(project.length > 0){
+    messages = project[0].messages;
+    unread = project[0].unread_messages;
+  }
   return {
     messages,
     unread,

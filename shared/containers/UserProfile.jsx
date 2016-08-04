@@ -59,6 +59,7 @@ class UserProfile extends React.Component{
   }
 
   render(){
+    console.log('this.props : ',this.props)
     return(
       <div>
         {
@@ -87,7 +88,7 @@ class UserProfile extends React.Component{
                   <h3 className="skill_header">Skill</h3>
                   <h3 className="commends_header">Commends Recieved</h3>
                   {
-                    this.state.user.username == this.props.username ?
+                    this.state.user.username == this.props.username || !this.props.isAuthenticated ?
                     null : <h3 className="commends_header">Commend</h3>
                   }
                 </div>
@@ -103,7 +104,7 @@ class UserProfile extends React.Component{
                         {/* probably a better way to do the below? checks if the profile belongs to the logged in user or not */}
 
                         {
-                          this.state.user.username == this.props.username ?
+                          this.state.user.username == this.props.username || !this.props.isAuthenticated ?
                           null : <div className="commend"><button className="commend_button" onClick={this.handleClick.bind(this,skill.id,idx)}>Commend</button></div>
                         }
 
@@ -128,8 +129,9 @@ class UserProfile extends React.Component{
 
 const mapStateToProps = (state) => {
   const {username,level} = state.User;
+  const {isAuthenticated} = state.User;
   return {
-    username,level
+    username,level,isAuthenticated
   }
 }
 
