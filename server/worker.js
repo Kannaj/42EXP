@@ -85,7 +85,20 @@ export const run = (worker) => {
 
 
     socket.on('project:create',create_project)
-    socket.on('project:list',project_list)
+    // socket.on('project:list',project_list)
+
+    //Retrieves a list of projects
+    socket.on('project:list',function(data,res){
+      project_list(data)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          console.log(err)
+        })
+    })
+
+
     socket.on('project:detail',project_detail)
     socket.on('project:join',join_project)
     socket.on('project:check_name',project_check_name)

@@ -1,6 +1,7 @@
 import {db,queries} from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
 
+
 export const create_project = function(data,res){
   data.username = this.getAuthToken().username
   createNewProject(data)
@@ -38,15 +39,17 @@ export const project_check_name = function(data,res){
             })
 }
 
-export const project_list = function(data,res){
-  // //console.log('This reference: ',Object.keys(this))
+export const project_list = function(data){
   return db.any(queries.ProjectList)
     .then(function(results){
       let newResults = project_list_cleaner(results)
-      res(null,newResults)
+      // res(null,newResults)
+      return newResults
     })
     .catch(function(err){
-      res(err)
+      // res(err)
+      console.log(err)
+      return "Couldnt retrieve projects"
     })
 }
 
