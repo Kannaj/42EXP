@@ -75,7 +75,6 @@ class Dashboard extends React.Component{
 
 
   render(){
-    console.log(this.state)
     return(
       <div>
         <h1 className="welcome_message"> Hello {this.props.username}! </h1>

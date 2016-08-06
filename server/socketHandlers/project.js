@@ -157,20 +157,22 @@ export const edit_project = function(data,res){
 }
 
 const editProject = (data) => {
+  // console.log('editProject hit with :',data)
   return db.tx((t) => {
     return t.any('DELETE from project_skills WHERE project = (SELECT name from project where id = $1) returning *',[data.id])
             .then(function(deletedSkills){
-              //console.log('the following skills were deleted : ',deletedSkills)
-              return db.one('update project set name=$1,description=$2,link=$3,category=$4 where id=$5 returning *',[data.project.name,data.project.description,data.project.link,data.project.category,data.id])
+              // console.log('the following skills were deleted : ',deletedSkills)
+              return t.one('update project set name=$1,description=$2,link=$3,category=$4 where id=$5 returning *',
+              [data.project.name,data.project.description,data.project.link,data.project.category.value,data.id])
                         .then(function(updatedProject){
-                          //console.log('updatedProject : ',updatedProject)
+                          // console.log('updatedProject : ',updatedProject)
                           if(data.project.skill.length > 0){
                             const queries = data.project.skill.map(function(skill){
                               return t.one("insert into project_skills (project,skill) values ($1,$2) returning *",[updatedProject.name,skill.value])
                             })
                             return t.batch(queries)
                                     .then(function(projectSkills){
-                                      //console.log('skills updated : ',projectSkills)
+                                      console.log('skills updated : ',projectSkills)
                                       return {'project':updatedProject,'skills':projectSkills}
                                     })
                           }else{
@@ -180,14 +182,14 @@ const editProject = (data) => {
             })
   })
   .then(function(details){
-    //console.log('updated project with : ',details)
+    // console.log('updated project with : ',details)
     return {
       id: details.project.id,
       project: details.project.name
     }
   })
   .catch(function(err){
-    //console.log('there was an error: ',err)
+    // console.log('there was an error: ',err)
     return (err)
   })
 }

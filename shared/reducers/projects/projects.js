@@ -35,7 +35,7 @@ const Projects = (state=[],action) => {
 
     case constants.NEW_CHAT_MESSAGE:
       target = state.findIndex((project) => {
-        return project.id == action.messageDetails.id
+        return project.id == action.messageDetails.project_id
       });
       return update(state,{
           [target]:{
@@ -78,6 +78,7 @@ const Projects = (state=[],action) => {
     //   ]
 
     case constants.EDIT_PROJECT_SUCCESS:
+      console.log(action)
       target = state.findIndex((project) => {
         return project.id == action.projectDetails.id
       })

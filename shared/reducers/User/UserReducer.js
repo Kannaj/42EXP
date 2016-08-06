@@ -9,7 +9,6 @@ const User = (state={isAuthenticated: false},action ) => {
     //     loading: true
     //   })
     case constants.USER_ADD_SKILLS_SUCCESS:
-      console.log(state)
       return update(state,{
         skills:{
           $push:action.skill_details
