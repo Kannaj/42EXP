@@ -78,7 +78,6 @@ const Projects = (state=[],action) => {
     //   ]
 
     case constants.EDIT_PROJECT_SUCCESS:
-      console.log(action)
       target = state.findIndex((project) => {
         return project.id == action.projectDetails.id
       })

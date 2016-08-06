@@ -120,7 +120,7 @@ class ProjectForm extends React.Component{
     return(
       <div id="project_form">
         <div className="title">
-          <h1>Create a new Project</h1>
+          {this.props.create_project ? <h1>Create a new Project </h1> : <h1> Edit Project </h1>}
         </div>
 
         <div id="project_details">

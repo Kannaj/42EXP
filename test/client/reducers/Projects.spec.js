@@ -54,15 +54,27 @@ describe('Projects reducer',() => {
   })
 
   it('should set unread to 0',() => {
-    oldState.unread_messages = 5;
+    oldState[0].unread_messages = 5;
     let action = {type:'SET_UNREAD',id:1}
     let newState = Projects(oldState,action)
     expect(newState[0].unread_messages).to.equal(0)
   })
 
   it('should edit project',() => {
-    let projectDetails = {id:1,project:'Gojira'}
+    let projectDetails = {id:1,project:{category:'Entertainment',description:'sup',name:'Gojira'}}
     let action = {type:'EDIT_PROJECT_SUCCESS',projectDetails}
+    let newState = Projects(oldState,action)
+    expect(newState[0]).to.have.deep.property('project','Gojira')
+  })
+  //also check above for use-case where edited name is still the same
+
+  it('should place older messages before recent messages',() => {
+    oldState[0].messages= [{id:1,message:'Thela un ginjeet',username:'RobertFripp',timestamp:new Date().toISOString}]
+    let messages = [{id:2,message:'Elephant talk',username:'tonyLevin',timestamp:new Date().toISOString()}]
+    let projectId = 1;
+    let action = {type:'GET_MORE_MESSAGES_SUCCESS',messages,projectId}
+    let newState = Projects(oldState,action)
+    expect(newState[0].messages[0]).to.have.deep.property('message','Elephant talk');
   })
 
 })

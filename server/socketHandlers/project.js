@@ -148,7 +148,6 @@ export const edit_project = function(data,res){
   //console.log('recieved project to edit: ',data)
   editProject(data)
     .then(function(result){
-      //console.log('edit project result : ',result)
       res(null,result)
     })
     .catch(function(err){
