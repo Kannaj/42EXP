@@ -27,8 +27,10 @@ const header = (location) => {
     )
   }else if(location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')){
     const name = location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')[2]
+    const id = location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')[1]
     return (
-      <h1>Chat Room - {name} </h1>
+      // <h1>Chat Room - {name} </h1>
+      <h1><Link to={`/projects/${id}/${name}`}>{name} </Link></h1>
     )
   }else if (location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)')){
     const name = location.match('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)')[2]

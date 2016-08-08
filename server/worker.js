@@ -198,15 +198,15 @@ export const run = (worker) => {
     socket.on('user:vote',vote)
 
     socket.on('raw',function(data){
-      console.log('recieved data')
+      // console.log('recieved data')
       let pattern = new RegExp('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages')
       let match = data.match(pattern)
       if(match){
-        console.log('matches')
+        // console.log('matches')
         db.one('update account_projects SET last_activity=Now() where project=(SELECT name from project where id=$1) AND username=$2 returning *',
           [parseInt(match[1]),socket.getAuthToken().username]
         ).then(function(data){
-          console.log('user last_activity logged:',data)
+          // console.log('user last_activity logged:',data)
         }).catch(function(err){
           console.log('error: ',err)
         })
