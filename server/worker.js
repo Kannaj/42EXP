@@ -80,7 +80,22 @@ export const run = (worker) => {
 
 
     socket.on('skill:suggestions',skill_suggestions)
-    socket.on('skills:user',skill_user)
+
+
+    socket.on('skills:user',function(data,res){
+      data.username = socket.getAuthToken().username;
+      skill_user(data)
+        .then(function(result){
+          console.log(result)
+          res(null,result)
+        })
+        .catch(function(err){
+          console.log('errr: ',err)
+          res(err)
+        })
+    })
+
+
     socket.on('category:suggestions',category_suggestions)
 
 
@@ -89,11 +104,11 @@ export const run = (worker) => {
       data.username = socket.getAuthToken().username;
       createNewProject(data)
         .then(function(details){
-          //console.log(details)
+          console.log(details)
           res(null,details)
         })
         .catch(function(err){
-          //console.log(err)
+          console.log(err)
           res(err)
         })
     })
@@ -122,7 +137,7 @@ export const run = (worker) => {
           res(err)
         })
     })
-    
+
     // socket.on('project:join',join_project)
     socket.on('project:join',function(data,res){
       data.username = socket.getAuthToken().username
@@ -140,7 +155,7 @@ export const run = (worker) => {
     socket.on('project:get_more_messages',get_more_messages)
 
     socket.on('new_chat_message',function(data){
-      console.log('recieved new message: ',data)
+      // console.log('recieved new message: ',data)
       let timestamp = new Date().toISOString()
       scServer.exchange.publish(data.id,{project_id:data.id,timestamp: timestamp,message:data.message,username:socket.getAuthToken().username})
       db.one('insert into project_messages (project,message,username,timestamp) values ((SELECT name from project where id=$1),$2,$3,$4) returning *',
@@ -157,7 +172,7 @@ export const run = (worker) => {
     socket.on('update_last_activity',update_last_activity)
 
     socket.on('user:profile',function(data,res){
-      console.log('retrieving profile of user: ',data)
+      // console.log('retrieving profile of user: ',data)
       db.one(queries.UserProfile,data.username)
         .then(function(data){
           console.log('User Profile : ',data)
@@ -169,7 +184,7 @@ export const run = (worker) => {
     })
 
     socket.on('set_notification',function(data,res){
-      console.log('data recieved : ',data)
+      // console.log('data recieved : ',data)
       return db.any('update account_notifications set unread=false where id = $1',data.id)
                 .then(function(){
                   res(null,'ok')

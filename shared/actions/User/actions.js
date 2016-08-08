@@ -1,6 +1,6 @@
 import * as constants from './constants'
 import {add_notification} from '../notifications/notifications'
-
+import uuid from 'node-uuid';
 
 // const user_add_skills_request = (skill) => {
 //   return{

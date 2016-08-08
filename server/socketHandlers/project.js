@@ -48,8 +48,8 @@ export const project_list = function(data){
     })
     .catch(function(err){
       // res(err)
-      console.log(err)
-      return "Couldnt retrieve projects"
+      // console.log(err)
+      throw "Couldnt retrieve projects"
     })
 }
 
@@ -64,7 +64,7 @@ export const project_detail = function(data){
     .catch(function(err){
       // res(err)
       // console.log('there was an error : ',err)
-      return "project not found"
+      throw "project not found"
     })
 }
 
@@ -93,7 +93,7 @@ export const join_project = function(data){
         })
     })
     .catch(function(err){
-      return 'Couldnt join Project'
+      throw 'Couldnt join Project'
     })
 }
 
@@ -146,7 +146,7 @@ export const createNewProject = (data) => {
   })
   .catch(function(err){
     // console.log('there was an error :',err)
-    return "Unable to create your project"
+    throw "Unable to create your project"
   })
 }
 

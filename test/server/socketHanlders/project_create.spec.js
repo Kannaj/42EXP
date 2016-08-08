@@ -56,7 +56,7 @@ describe('Project_create',() => {
       skill:[],
       username:'test_user_1'
     }
-    return createNewProject(data).then((result) => {
+    return createNewProject(data).catch((result) => {
       // console.log(result)
       expect(result).to.be.a('string')
       expect(result).to.be.equal('Unable to create your project')

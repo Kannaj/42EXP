@@ -16,14 +16,17 @@ export const skill_suggestions = function(data,res) {
     })
 }
 
-export const skill_user = function(data,res){
-  db.any("Insert into account_skills (username,skill) values ($1,$2) returning *",[this.getAuthToken().username,data.value])
+export const skill_user = function(data){
+  return db.any("Insert into account_skills (username,skill) values ($1,$2) returning *",[data.username,data.value])
     .then(function(result){
-      res(null,result)
+      // res(null,result)
+      // console.log(result)
+      return result
     })
     .catch(function(err){
 
-      //console.log('There was an error : ',err.message)
-      res('Could not insert skill - try again!')
+      // console.log('There was an error : ',err.message)
+      // res('Could not insert skill - try again!')
+      throw 'Could not insert skill - try again!'
     })
 }
