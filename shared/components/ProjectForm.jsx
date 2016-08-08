@@ -118,6 +118,7 @@ class ProjectForm extends React.Component{
 }
 
   render(){
+    console.log(this.state.category)
     return(
       <div id="project_form">
         <div className="title">
@@ -133,6 +134,7 @@ class ProjectForm extends React.Component{
           <div className="block">
 
             <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')} placeholder="Repo Link"/>
+            {this.state.errors.link ? <div className="error"> {this.state.errors.link} </div> : null}
           </div>
           <div className="block">
 
