@@ -2,25 +2,26 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Select from 'react-select';
 import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
+import validate from '../utils/validation.js';
 import update from 'react-addons-update';
 
 //known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
 // into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
 // meaning the user has to manually fill in those values again.
 
-const validate = values => {
-  const errors = {}
-  if(!values.name || /\s/.test(values.name)){
-    errors.name = 'Please provide a proper name without spaces'
-  }
-  if(!values.description){
-    errors.description = 'Required'
-  }
-  if(!values.category){
-    errors.category = 'Required'
-  }
-  return errors;
-}
+// const validate = values => {
+//   const errors = {}
+//   if(!values.name || /\s/.test(values.name)){
+//     errors.name = 'Please provide a proper name without spaces'
+//   }
+//   if(!values.description){
+//     errors.description = 'Required'
+//   }
+//   if(!values.category){
+//     errors.category = 'Required'
+//   }
+//   return errors;
+// }
 
 class ProjectForm extends React.Component{
   constructor(props){
