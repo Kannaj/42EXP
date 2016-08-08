@@ -1,4 +1,4 @@
-import user_profile_cleaner from '../../server/utils/user_profile_cleaner';
+import user_profile_cleaner from '../../../server/utils/user_profile_cleaner';
 import chai,{expect} from 'chai';
 
 describe('user_profile_cleaner',function(){

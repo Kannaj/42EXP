@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 import {Register,Login} from './local_Auth/localAuth.js'
 import {skill_suggestions,skill_user} from './socketHandlers/skills.js'
 import {category_suggestions} from './socketHandlers/category.js'
-import {create_project,project_list,project_detail,join_project,update_last_activity,project_check_name,edit_project,get_more_messages} from './socketHandlers/project.js';
+import {createNewProject,project_list,project_detail,join_project,update_last_activity,project_check_name,edit_project,get_more_messages} from './socketHandlers/project.js';
 import {vote} from './socketHandlers/vote.js';
 import {db,queries} from './config';
 import user_profile_cleaner from './utils/user_profile_cleaner.js'
@@ -84,7 +84,20 @@ export const run = (worker) => {
     socket.on('category:suggestions',category_suggestions)
 
 
-    socket.on('project:create',create_project)
+    // socket.on('project:create',create_project)
+    socket.on('project:create',function(data,res){
+      data.username = socket.getAuthToken().username;
+      createNewProject(data)
+        .then(function(details){
+          //console.log(details)
+          res(null,details)
+        })
+        .catch(function(err){
+          //console.log(err)
+          res(err)
+        })
+    })
+
     // socket.on('project:list',project_list)
 
     //Retrieves a list of projects
@@ -99,8 +112,29 @@ export const run = (worker) => {
     })
 
 
-    socket.on('project:detail',project_detail)
-    socket.on('project:join',join_project)
+    // socket.on('project:detail',project_detail)
+    socket.on('project:detail',function(data,res){
+      project_detail(data)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
+    
+    // socket.on('project:join',join_project)
+    socket.on('project:join',function(data,res){
+      data.username = socket.getAuthToken().username
+      join_project(data)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
+
     socket.on('project:check_name',project_check_name)
     socket.on('project:edit',edit_project)
     socket.on('project:get_more_messages',get_more_messages)

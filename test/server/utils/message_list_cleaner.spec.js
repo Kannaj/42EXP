@@ -1,4 +1,4 @@
-import message_list_cleaner from '../../server/utils/message_list_cleaner.js';
+import message_list_cleaner from '../../../server/utils/message_list_cleaner.js';
 import chai,{expect} from 'chai';
 
 

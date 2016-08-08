@@ -1,4 +1,4 @@
-import invert_message_list from '../../server/utils/invert_message_list.js';
+import invert_message_list from '../../../server/utils/invert_message_list.js';
 import chai,{expect} from 'chai';
 
 describe('invert_message_list',function(){

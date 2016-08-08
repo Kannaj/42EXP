@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS Account_Projects(
   Project VARCHAR REFERENCES Project (name) ON DELETE CASCADE ON UPDATE CASCADE,
   Join_date TIMESTAMPTZ DEFAULT NOW(),
   ROLE VARCHAR(10),
-  Last_activity TIMESTAMPTZ DEFAULT NOW()
+  Last_activity TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(Username,Project)
 );
 
 CREATE TABLE IF NOT EXISTS Project_Messages(
@@ -162,5 +163,6 @@ INSERT INTO category (name) VALUES ('Frameworksq');
 
 
 INSERT INTO account (username) VALUES ('test_user_1');
+INSERT INTO account (username) VALUES ('test_user_2');
 
 INSERT INTO project (name,owner,category) VALUES ('test_project_1','test_user_1','Gaming');

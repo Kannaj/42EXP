@@ -2,18 +2,18 @@ import {db,queries} from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
 
 
-export const create_project = function(data,res){
-  data.username = this.getAuthToken().username
-  createNewProject(data)
-    .then(function(details){
-      //console.log(details)
-      res(null,details)
-    })
-    .catch(function(err){
-      //console.log(err)
-      res(err)
-    })
-}
+// export const create_project = function(data,res){
+//   data.username = this.getAuthToken().username
+//   createNewProject(data)
+//     .then(function(details){
+//       //console.log(details)
+//       res(null,details)
+//     })
+//     .catch(function(err){
+//       //console.log(err)
+//       res(err)
+//     })
+// }
 
 export const get_more_messages = function(data,res){
   //console.log('retrieving messages for  : ',data)
@@ -53,20 +53,24 @@ export const project_list = function(data){
     })
 }
 
-export const project_detail = function(data,res){
+export const project_detail = function(data){
   return db.one(queries.ProjectDetail,data.id)
     .then(function(result){
+      //project_list_cleaner requires an array object.
       let newResult = project_list_cleaner([result])
-      res(null,newResult[0])
+      // res(null,newResult[0])
+      return newResult[0]
     })
     .catch(function(err){
-      res(err)
+      // res(err)
+      // console.log('there was an error : ',err)
+      return "project not found"
     })
 }
 
-export const join_project = function(data,res){
+export const join_project = function(data){
   let result;
-  return db.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[this.getAuthToken().username,data.project,'member'])
+  return db.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,data.project,'member'])
     .then(function(projectDetails){
       result = {
         id: data.id,
@@ -84,11 +88,12 @@ export const join_project = function(data,res){
           }else{
             result.messages = []
           }
-          res(null,result)
+          // res(null,result)
+          return(result)
         })
     })
     .catch(function(err){
-      res('Couldnt join Project')
+      return 'Couldnt join Project'
     })
 }
 
@@ -108,7 +113,7 @@ export const update_last_activity = function(data,res){
 
 }
 
-const createNewProject = (data) => {
+export const createNewProject = (data) => {
   return db.tx((t) => {
   return t.one("insert into project (name,category,description,link,owner) values (${name},${category},${description},${link},${username}) returning *",data)
           .then(function(project){
@@ -140,7 +145,8 @@ const createNewProject = (data) => {
     }
   })
   .catch(function(err){
-    return (err)
+    // console.log('there was an error :',err)
+    return "Unable to create your project"
   })
 }
 

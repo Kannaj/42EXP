@@ -1,11 +1,9 @@
 import chai from 'chai'
 import {expect} from 'chai';
-import {project_list} from '../../server/socketHandlers/project.js';
-import sinon from 'sinon';
+import {project_list} from '../../../server/socketHandlers/project.js';
+// import sinon from 'sinon';
 
-import chaiAsPromised from 'chai-as-promised';
 
-chai.use(chaiAsPromised)
 
 
 describe('project_list',function(){
