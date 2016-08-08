@@ -23,7 +23,7 @@ const selOptions = (coll) => {
   return newColl
 }
 
-class Dashboard extends React.Component{
+export class Dashboard extends React.Component{
 
   constructor(props){
     super(props);

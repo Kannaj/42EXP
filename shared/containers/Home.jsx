@@ -1,17 +1,19 @@
 import React from 'react';
-import Dashboard from '../containers/UserDashboard'
+import DashBoardContainer from '../containers/UserDashboard'
 import {connect} from 'react-redux';
 import user_add_skills from '../actions/User/actions.js'
 import {bindActionCreators} from 'redux';
 
-class Home extends React.Component{
+export class Home extends React.Component{
   render(){
     return(
       <div>
         {
           this.props.isAuthenticated ?
-            <Dashboard {...this.props} />
-            : <h1>Anonymous </h1>
+            <DashBoardContainer {...this.props} />
+            : <div id="landing_page">
+                <h1>Anonymous </h1>
+              </div>
         }
       </div>
     )
@@ -32,12 +34,6 @@ const mapStateToProps = (state) => {
     }
   }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({
-//     user_add_skills
-//   },dispatch)
-// }
 
 const HomeContainer = connect(mapStateToProps)(Home)
 export default HomeContainer

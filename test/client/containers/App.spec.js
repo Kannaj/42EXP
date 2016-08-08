@@ -2,6 +2,7 @@ import {App} from '../../../shared/containers/App.jsx'
 import React from 'react';
 import {expect} from 'chai';
 import {shallow} from 'enzyme';
+import Notification from '../../../shared/components/notifications.jsx'
 
 describe('<App/>',() => {
   let Projects = [
@@ -18,7 +19,6 @@ describe('<App/>',() => {
   it('should show notifications is there are any unread messages',() => {
     const wrapper = shallow(<App location="/" unread_notifications={[{id:1,message:"Megadeth"}]}/>)
     expect(wrapper.find('#notification_panel')).to.have.length(1);
-    // const notification = wrapper.find('.notification_wrapper')s
-    // expect(notification.find('.notification_wrapper')).to.have.length(1)
+    expect(wrapper.find(Notification)).to.have.length(1)
   })
 })
