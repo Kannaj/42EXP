@@ -5,6 +5,7 @@ import join_project from '../actions/projects/join_project';
 import edit_project from '../actions/projects/edit_project';
 import ProjectForm from '../components/ProjectForm';
 import Modal from 'react-modal';
+import {Link} from 'react-router';
 
 class ProjectDetail extends React.Component{
 
@@ -69,6 +70,9 @@ class ProjectDetail extends React.Component{
         }
 
         </div>
+
+
+
         <div className="description"> {this.state.project_details.project_description} </div>
         <div className="project_detail_actions">
         {
@@ -81,6 +85,13 @@ class ProjectDetail extends React.Component{
             null
             :
             <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+        }
+        {
+          this.state.project_details.project_link ?
+
+          <button><Link to={this.state.project_details.project_link} className="link">Project Repo </Link></button>
+          :
+          null
         }
         </div>
 
