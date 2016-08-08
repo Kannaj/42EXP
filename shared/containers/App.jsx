@@ -42,10 +42,14 @@ const header = (location) => {
     return (
       <h1> Profile - {name} </h1>
     )
+  }else{
+    return(
+      <h1>42exp</h1>
+    )
   }
 }
 
-class App extends React.Component{
+export class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
