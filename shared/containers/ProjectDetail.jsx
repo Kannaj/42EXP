@@ -77,7 +77,7 @@ class ProjectDetail extends React.Component{
         <div className="project_detail_actions">
         {
           !this.props.isAuthenticated  ?
-          <h4> Login to join project </h4>
+          <h4 className="login_required"> Login to join project </h4>
           :
           this.props.project ?
             this.props.project.role == 'owner' ?

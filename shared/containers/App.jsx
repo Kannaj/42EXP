@@ -72,6 +72,7 @@ export class App extends React.Component{
     return(
 
       <div>
+
         <div className="sidebar">
           <ul className="sidebar_links">
             <Link to="/" className="sidebar_link"> Home </Link>

@@ -3,6 +3,7 @@ import DashBoardContainer from '../containers/UserDashboard'
 import {connect} from 'react-redux';
 import user_add_skills from '../actions/User/actions.js'
 import {bindActionCreators} from 'redux';
+import LandingPage from '../components/LandingPage';
 
 export class Home extends React.Component{
   render(){
@@ -11,9 +12,7 @@ export class Home extends React.Component{
         {
           this.props.isAuthenticated ?
             <DashBoardContainer {...this.props} />
-            : <div id="landing_page">
-                <h1>Anonymous </h1>
-              </div>
+            : <LandingPage/>
         }
       </div>
     )

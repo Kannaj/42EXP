@@ -16,7 +16,7 @@ describe('project_detail query',() => {
     })
   })
   it('should return an error if id is invalid',() => {
-    return project_detail({id:99999}).catch((result) => {
+    return project_detail({id:'smartassId'}).catch((result) => {
       expect(result).to.be.equal('project not found')
     })
   })

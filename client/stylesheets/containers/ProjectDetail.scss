@@ -21,7 +21,7 @@
   }
 
   .link{
-    padding:15px;
+    // padding:15px;
     // text-decoration: underline;
     // color:$tertiary;
     color:$primary;
@@ -63,10 +63,13 @@
     position: absolute;
     display: flex;
     right: 10px;
-    top: 25px;
+    top: 15px;
     // padding: 10px;
     button{
       margin: 5px;
     }
+  }
+  .login_required{
+    color: red;
   }
 }

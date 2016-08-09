@@ -50,7 +50,7 @@ html,body{
 }
 
 button{
-  padding: 10px;
+  padding: 5px;
   border: none;
   box-shadow: 0 0 0.5px 0.5px;
   background-color: $fifth;
@@ -80,3 +80,4 @@ a {
 @import './components/skill.scss';
 @import './components/ProjectChip.scss';
 @import './components/message.scss';
+@import './components/LandingPage.scss';
