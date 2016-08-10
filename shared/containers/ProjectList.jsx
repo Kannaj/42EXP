@@ -28,7 +28,6 @@ class ProjectList extends React.Component{
   }
 
   componentDidMount(){
-    console.log('mounted')
     if(socket){
       this.fetchData()
     }
@@ -36,15 +35,14 @@ class ProjectList extends React.Component{
 
 
   render(){
-    console.log('this.state: ',this.state)
     return(
-      <div>
-        <h1> Projects </h1>
+      <div id="List">
+        <div id="project_list">
         {
           this.state.project_list.length > 0 ?
             this.state.project_list.map((project) => {
               return (
-                <Link to = {`/projects/${project.project_id}`} key={project.project_id}>
+                <Link to = {`/projects/${project.project_id}/${project.project_name}`} key={project.project_id}>
                   <ProjectChip key={project.project_id} project = {project}/>
                 </Link>
               )
@@ -52,6 +50,7 @@ class ProjectList extends React.Component{
             :
             <h1> No projects yet! Signup to create one! </h1>
         }
+        </div>
       </div>
     )
   }

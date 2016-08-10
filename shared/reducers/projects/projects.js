@@ -34,10 +34,8 @@ const Projects = (state=[],action) => {
     //   ]
 
     case constants.NEW_CHAT_MESSAGE:
-      console.log('state is : ',state)
-      console.log('actionMessageDetails: ',action.messageDetails)
       target = state.findIndex((project) => {
-        return project.id == action.messageDetails.id
+        return project.id == action.messageDetails.project_id
       });
       return update(state,{
           [target]:{
@@ -80,7 +78,6 @@ const Projects = (state=[],action) => {
     //   ]
 
     case constants.EDIT_PROJECT_SUCCESS:
-      console.log('action is  :',action,' state is : ',state)
       target = state.findIndex((project) => {
         return project.id == action.projectDetails.id
       })
@@ -99,7 +96,6 @@ const Projects = (state=[],action) => {
       }
 
     case constants.GET_MORE_MESSAGES_SUCCESS:
-      console.log('recieved action : ',action)
       target = state.findIndex((project) => {
         return project.id == action.projectId
       })

@@ -42,7 +42,10 @@ const edit_project = (projectDetails) => {
           dispatch(add_notification({id:uuid.v4(),heading:'error',message:'Couldnt Edit your project',unread:true,server:false}))
         }else{
           dispatch(stop_request())
+
+          // dispatch could either be done with projectDetails or with data. Going ahead with projectDetails for now.
           dispatch(edit_project_success(projectDetails))
+
           dispatch(push('/projects'))
         }
       })

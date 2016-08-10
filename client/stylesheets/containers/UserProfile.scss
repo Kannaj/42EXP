@@ -1,0 +1,38 @@
+.profile_skills{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin:0;
+  padding:0;
+
+  .user_skill{
+    display: flex !important;
+    flex-direction: row;
+    flex-grow: 2 !important;
+    // width: 90%;
+
+    justify-content: space-around !important;
+    .skill_name{
+      text-align: left !important;
+      // flex-grow: 1;
+      width:25%;
+    }
+    .skill_commends{
+      margin-right:80px;
+      flex-grow: 1;
+      text-align: left;
+    }
+  }
+
+  .commend{
+    padding:0;
+    margin:0;
+    text-align: center;
+  }
+
+  .skill_commends{
+    text-align: right !important;
+  }
+
+}

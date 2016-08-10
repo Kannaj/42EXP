@@ -8,7 +8,50 @@ import {remove_notification} from '../actions/notifications/notifications';
 import Notification from '../components/notifications';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-class App extends React.Component{
+//unread function helps show unread_message count for each project the user as signed up for.
+const unread = (count) => {
+  if (count !== 0){
+    return(
+      <span className="unread_count">{count}</span>
+    )
+  }else{
+    null
+  }
+}
+
+//below function helps determine main header. avoid repeating regex
+const header = (location) => {
+  if(location == '/projects'){
+    return (
+      <h1>Projects</h1>
+    )
+  }else if(location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')){
+    let messageHeaderRegex = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
+    // console.log(`messageHeaderRegex : ${messageHeaderRegex}`)
+    const name = messageHeaderRegex[2]
+    const id = messageHeaderRegex[1]
+    return (
+      // <h1>Chat Room - {name} </h1>
+      <h1><Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link></h1>
+    )
+  }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
+    const name = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')[2]
+    return (
+      <h1> Project - {name}</h1>
+    )
+  }else if (location.match('/user/(\\S+)')){
+    const name = location.match('/user/(\\S+)')[1]
+    return (
+      <h1> Profile - {name} </h1>
+    )
+  }else{
+    return(
+      <h1>42exp</h1>
+    )
+  }
+}
+
+export class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -16,12 +59,10 @@ class App extends React.Component{
       register: false,
       login: false
     }
-    // this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
 
   openModal(type){
-    console.log('type: ',type)
     this.setState({modalIsOpen:true,[type]:true})
   }
 
@@ -31,14 +72,17 @@ class App extends React.Component{
 
   render(){
     return(
+
       <div>
+
         <div className="sidebar">
           <ul className="sidebar_links">
-            <Link to="/projects" className="sidebar_link"> Projects </Link>
+            <Link to="/" className="sidebar_link"> Home </Link>
+            <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Projects </Link>
             {this.props.Projects ?
               this.props.Projects.map((project) => {
                 return (
-                  <Link to = {`/projects/${project.id}/messages`} key={project.id} className="sidebar_link">{project.project} -- {project.unread_messages}</Link>
+                  <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="sidebar_link" activeClassName="active_link"><span className="project_name">{project.project}</span>{unread(project.unread_messages)}</Link>
                 )
               })
               :
@@ -48,6 +92,7 @@ class App extends React.Component{
         </div>
 
         <div className="appbar">
+          {header(this.props.location)}
           {!this.props.isAuthenticated
             ?
             <div className="auth">
@@ -61,15 +106,20 @@ class App extends React.Component{
           }
 
         </div>
+
+
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="content-auth" overlayClassName="overlay-auth">
             {!this.state.register ?
                 <Auth url={'/auth/login'}/>
               : <Auth url={'/auth/register'}/>
             }
         </Modal>
+
+
         <div id="Main">
           {this.props.children}
         </div>
+
 
         {this.props.loading ?
           <div id="loading">
@@ -78,6 +128,7 @@ class App extends React.Component{
           :
           null
         }
+
 
         {
           this.props.unread_notifications ?
@@ -100,11 +151,12 @@ class App extends React.Component{
 }
 
 
-const mapStateToProps = (state) => {
-
+const mapStateToProps = (state,ownProps) => {
+  const location = ownProps.location.pathname;
   const {isAuthenticated} = state.User;
   const {Projects,Notifications} = state;
-  const {loading} = state.loader; // Probably dont need loader to be a separate object in state.
+  const {loading} = state.loader;
+  // Probably dont need loader to be a separate object in state.
   // const {Notifications} = state;
 
   const unread_notifications = Notifications.filter((notification) => {
@@ -115,7 +167,8 @@ const mapStateToProps = (state) => {
     isAuthenticated,
     Projects,
     unread_notifications,
-    loading
+    loading,
+    location
   }
 }
 

@@ -5,6 +5,7 @@ import join_project from '../actions/projects/join_project';
 import edit_project from '../actions/projects/edit_project';
 import ProjectForm from '../components/ProjectForm';
 import Modal from 'react-modal';
+import {Link} from 'react-router';
 
 class ProjectDetail extends React.Component{
 
@@ -48,15 +49,14 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
-    console.log('project_detail: ',this.state)
     return(
       <div className="project_detail">
-        <h1> Title - {this.state.project_details.project_name} </h1>
-        <h2> Category - {this.state.project_details.project_category} </h2>
+        {/* <h1 className="header"> {this.state.project_details.project_name} </h1> */}
+        <h2 className="category"> {this.state.project_details.project_category} </h2>
         <hr/>
-        <p> Description - {this.state.project_details.project_description} </p>
-        <div className="project_skills" >
 
+        <div className="project_skills" >
+          <h3>Skills Required : </h3>
         {
           this.state.project_details.skills?
           this.state.project_details.skills.map((skill) => {
@@ -70,16 +70,28 @@ class ProjectDetail extends React.Component{
         }
 
         </div>
+
+
+
+        <div className="description"> {this.state.project_details.project_description} </div>
         <div className="project_detail_actions">
         {
           !this.props.isAuthenticated  ?
-          <h4> Login to join project </h4>
+          <h4 className="login_required"> Login to join project </h4>
           :
-
-            this.props.username == this.state.project_details.project_owner ?
+          this.props.project ?
+            this.props.project.role == 'owner' ?
             <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
+            null
+            :
             <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+        }
+        {
+          this.state.project_details.project_link ?
 
+          <button><Link to={this.state.project_details.project_link} className="link">Project Repo </Link></button>
+          :
+          null
         }
         </div>
 
@@ -103,13 +115,19 @@ class ProjectDetail extends React.Component{
 }
 
 const mapStateToProps = (state,ownProps) => {
-  let username;
+  let username,project
+  let projectIndex = state.Projects.findIndex((proj) => {
+    return proj.id == ownProps.params.projectId
+  })
+
+  project = state.Projects[projectIndex]
+
   const {isAuthenticated} = state.User
   if(isAuthenticated){
     username = state.User.username
   }
   return {
-    isAuthenticated,username
+    isAuthenticated,username,project
   }
 }
 

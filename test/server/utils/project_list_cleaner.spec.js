@@ -1,4 +1,4 @@
-import project_list_cleaner from '../../server/utils/project_list_cleaner';
+import project_list_cleaner from '../../../server/utils/project_list_cleaner';
 import chai,{expect} from 'chai';
 
 

@@ -3,26 +3,51 @@
   position: fixed;
   width: 20%;
   background : $secondary;
+  overflow-y: scroll;
   .sidebar_links{
     width: 100%;
     padding: 0;
     margin: 0;
     position: relative;
     top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     .sidebar_link{
       color: $secondary-text;
       // width:100%;
-      display: block;
-      text-align: center;
-      margin:0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      // text-align: center;
+      // margin:15px 0;
       padding: 15px;
       text-decoration: none;
       transition: all 0.3s ease-in;
       &:hover{
-        background: #201C2B; //make var if used more
+        background: #242038; //make var if used more
+      }
+      .project_name{
+        // text-align: left;
+      }
+      .project_unread_count{
+        // margin: 5px;
+        // text-align: right;
+      }
+      .unread_count{
+        border-radius: 25px;
+        background-color: green;
+        padding:5px;
+        height: 20px;
+
       }
     }
   }
+}
+
+.active_link{
+  background-color: $activeLink;
 }
 
 .appbar{
@@ -34,6 +59,8 @@
   margin-left: 20%;
   padding: 5px;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
 }
 
 .auth{
@@ -82,13 +109,14 @@
 }
 
 #Main{
-  padding: 5px;
+  padding: 0;
   margin: 0;
   position: absolute;
   left:20%;
   top: 10%;
   bottom:0;
   right:0;
+  // height:100%;
 }
 
 #loading{
@@ -114,9 +142,11 @@
   padding:5px;
   margin:0;
   width: 20%;
+  // height: 100%;
   text-align: center;
   display: flex;
-  // z-index: 0;
+  // z-index: -1;
+  pointer-events: none;
   flex-direction: column-reverse;
   .notification_wrapper{
     padding:5px;
@@ -127,6 +157,8 @@
     height: 20%;
     border: 1px solid black;
     margin-bottom: 5px;
+    z-index: 5;
+    pointer-events: auto;
   }
 }
 

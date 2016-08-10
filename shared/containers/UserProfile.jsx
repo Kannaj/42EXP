@@ -4,7 +4,9 @@ import Skill from '../components/skill';
 import uuid from 'node-uuid';
 import update from 'react-addons-update';
 import {bindActionCreators} from 'redux';
-import {start_request,stop_request} from '../actions/loader'
+import {start_request,stop_request} from '../actions/loader';
+import {add_notification} from '../actions/notifications/notifications';
+// import uuid from 'node-uuid';
 
 class UserProfile extends React.Component{
 
@@ -31,13 +33,14 @@ class UserProfile extends React.Component{
     }
   }
 
-  handleClick(id,idx){
-    console.log('button for skill : ',id,' clicked!!! @ ',idx)
+  handleClick(id,idx,skill){
     if(socket){
-      socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username},function(err,data){
+      socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username,skill},function(err,data){
         if(err){
           console.log(err)
+          this.props.add_notification({id:uuid.v4(),heading:'Error',message:`Looks like you've already commended ${this.state.user.username}!!`,unread:true,server:false})
         }else{
+          this.props.add_notification({id:uuid.v4(),heading:'Info',message:`You\'ve successfully commended ${this.state.user.username}!!`,unread:true,server:false})
           this.setState({user:update(this.state.user,{
             skills:{
               [idx]:{
@@ -56,36 +59,61 @@ class UserProfile extends React.Component{
   }
 
   render(){
-    console.log('this.state.user.skills: ',this.state.user)
     return(
       <div>
-        <h1> User Profile of {this.props.params.username} </h1>
-
         {
           this.state.user ?
           <div>
-            <h2> {this.state.user.xp} - xp </h2>
-            <h2> {this.state.user.level} - level </h2>
+            <div className="user_stats">
+              <div className="Level">
+                <h2> {this.state.user.level} </h2>
+                <h3 className="stat_header"> Level </h3>
+              </div>
+              <hr/>
+              <div className="Xp">
+                <h2> {this.state.user.xp} </h2>
+                <h3 className="stat_header"> Total Xp Earned </h3>
+              </div>
+            </div>
+
             {
               this.state.user.skills.length > 0 ?
 
-              this.state.user.skills.map((skill,idx) => {
-                return (
-                  <div key={uuid.v4()}>
-                    <Skill skill={skill.skill} commends={skill.commends} />
+              <div className="user_skills">
 
-                    {/* probably a better way to do the below? checks if the profile belongs to the logged in user or not */}
 
-                    {
-                      this.state.user.username == this.props.username ?
-                      null : <button onClick={this.handleClick.bind(this,skill.id,idx)}>Commend</button>
-                    }
+                <h3>{this.state.user.username}'s skillset </h3>
+                <div className="headers">
+                  <h3 className="skill_header">Skill</h3>
+                  <h3 className="commends_header">Commends Recieved</h3>
+                  {
+                    this.state.user.username == this.props.username || !this.props.isAuthenticated ?
+                    null : <h3 className="commends_header">Commend</h3>
+                  }
+                </div>
 
-                  </div>
-                )
-              })
-              :
-              null
+                {
+                  this.state.user.skills.map((skill,idx) => {
+                    return (
+                      <div key={uuid.v4()} className="profile_skills">
+                        {/* profile props sent to Skill Component help determing if user is accessing from dashboard or from userProfile component. Helps remove the
+                          "remove" button. temporary. */}
+                        <Skill skill={skill.skill} commends={skill.commends} profile={true}/>
+
+                        {/* probably a better way to do the below? checks if the profile belongs to the logged in user or not */}
+
+                        {
+                          this.state.user.username == this.props.username || !this.props.isAuthenticated ?
+                          null : <div className="commend"><button className="commend_button" onClick={this.handleClick.bind(this,skill.id,idx,skill.skill)}>Commend</button></div>
+                        }
+
+                      </div>
+                    )
+                  })
+                }
+              </div>
+                :
+                null
             }
           </div>
           :
@@ -100,15 +128,17 @@ class UserProfile extends React.Component{
 
 const mapStateToProps = (state) => {
   const {username,level} = state.User;
+  const {isAuthenticated} = state.User;
   return {
-    username,level
+    username,level,isAuthenticated
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     start_request,
-    stop_request
+    stop_request,
+    add_notification
   },dispatch)
 }
 

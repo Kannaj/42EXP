@@ -46,7 +46,6 @@ const getInitialState = (id_token) => {
 
           })
           .then(function(initialState){
-            console.log('final Outcome is : ',initialState)
             resolve(initialState)
           })
           .catch(function(err){

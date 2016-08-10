@@ -1,0 +1,22 @@
+#user_message{
+  padding: 25px;
+  margin-bottom:5px;
+  position:relative;
+  border: 0.1px solid gray;
+  border-radius: 4px;
+  box-shadow: 0 0.2px 0.2px 0.2px;
+  .username{
+    position:absolute;
+    top:0;
+    left:5px;
+    font-size: 1em;
+    text-decoration: underline;
+    color: $tertiary;
+  }
+  .timestamp{
+    position: absolute;
+    top:0;
+    right:5px;
+    font-size: 0.8em;
+  }
+}

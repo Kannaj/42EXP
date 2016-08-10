@@ -1,20 +1,83 @@
-$primary : #FFFFFF;
-$secondary: #17141F;
-$tertiary: #7D5BBE;
-
+// $primary : #FFFFFF;
+// $secondary: #17141F;
+// $tertiary: #7D5BBE;
+// $activeLink:#201C2B;
+//
+//
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
 
 $secondary-text: #F3F2BF;
+
+
+//v2 color-pallete
+$primary:#FFFFFF;
+$secondary:#0B132B;
+$tertiary: #281985;
+$fourth:#02020A;
+$fifth:#320E3B;
+
+$activeLink:#242038;
+
+html{
+  // height:100%;
+}
 
 body{
   padding:0;
   margin: 0;
+  line-height: 25px;
+  // font-family: "helvetica";
+  font-size: 12px;
+  font-family: 'Merriweather';
 }
+
+// ::-webkit-scrollbar {
+//     width: 0.5em;
+// }
+//
+// ::-webkit-scrollbar-track {
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+//     border-radius: 10px;
+// }
+//
+// ::-webkit-scrollbar-thumb {
+//     border-radius: 10px;
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+// }
+
+html,body{
+  height: 100%;
+}
+
+button{
+  padding: 5px;
+  border: none;
+  box-shadow: 0 0 0.5px 0.5px;
+  background-color: $fifth;
+  color: $primary;
+  // cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color:black;
+}
+
+// ::placeholder{
+//   color:blue !important;
+// }
 
 @import './containers/App.scss';
 @import './containers/ProjectForm.scss';
 @import './containers/ProjectChat.scss';
+@import './containers/UserDashboard.scss';
+@import './containers/ProjectList.scss';
+@import './containers/UserProfile.scss';
+@import './containers/ProjectDetail.scss';
 
 
 @import './components/Auth.scss';
-@import './components/UserDashboard.scss';
+@import './components/skill.scss';
 @import './components/ProjectChip.scss';
+@import './components/message.scss';
+@import './components/LandingPage.scss';

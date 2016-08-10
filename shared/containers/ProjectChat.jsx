@@ -19,12 +19,10 @@ class ProjectChat extends React.Component{
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setLastActivity = this.setLastActivity.bind(this)
-    // this.setUnread = this.setUnread.bind(this)
-
     this.activateWayPoint = this.activateWayPoint.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
-  // probably dont need the below as react-router-redux takes care of setting the unread_messages of initial chat_room to 0
   componentDidMount(){
     this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
     this.setState({waypointReady:true})
@@ -34,7 +32,6 @@ class ProjectChat extends React.Component{
 
     socket.emit('update_last_activity',{id:projectId},function(err,data){
       if(data){
-        console.log(`timestamp recieved for ${projectId} `,data)
         this.props.set_last_activity({id:projectId,timestamp:data.last_activity})
       }else{
         throw(err)
@@ -48,21 +45,25 @@ class ProjectChat extends React.Component{
   // }
 
   componentWillReceiveProps(nextProps){
-    // console.log('component will Recieve props')
-    if (this.props.params.projectId !== nextProps.params.projectId){
-
-      this.setLastActivity(this.props.params.projectId);
+    if(this.props.messages[0] !== nextProps.messages[0]){
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight
-
+      // the above sets the scrollbar to prevVersions earliest message.could make it better.
     }
-    //  wrote this long ago. no idea why it works :/
-    // when the user sends a message in the chat room. unread messages gets updated to 1.
-    // the below fires set_unread action to keep it at 0. the same action is fire on componentDidMount
 
-    if(nextProps.project[0].messages.length !== this.props.messages.length){
-      this.props.set_unread(nextProps.project[0].id)
+  }
+
+  componentDidUpdate(prevProps,prevState){
+
+    if(this.props.messages[this.props.messages.length - 1] !== prevProps.messages[prevProps.messages.length - 1] && this.props.params.projectId == prevProps.params.projectId){
+      // new message recieved. i.e = last message or prev props not the same as last message of new props and same page.
+      this.props.set_unread(this.props.params.projectId)
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
     }
-    // this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+    // User has switched to a different chat Room.
+    if(this.props.params.projectId !== prevProps.params.projectId){
+      this.setLastActivity(prevProps.params.projectId);
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+    }
   }
 
 
@@ -75,6 +76,13 @@ class ProjectChat extends React.Component{
     this.setState({message:event.target.value})
   }
 
+  handleKeyPress(event){
+    if(event.key == 'Enter'){
+      console.log('Entered')
+      this.handleSubmit();
+    }
+  }
+
   handleSubmit(){
     socket.emit('new_chat_message',{id:this.props.params.projectId,message:this.state.message})
     this.setState({message:''})
@@ -82,7 +90,6 @@ class ProjectChat extends React.Component{
 
   activateWayPoint(){
     if(this.state.waypointReady){
-      console.log('waypoint activated')
       this.props.get_more_messages(this.props.params.projectId,this.props.messages[0].id)
     }else{
       return null
@@ -91,29 +98,33 @@ class ProjectChat extends React.Component{
 
   render(){
     const messages = this.props.messages;
-    // console.log('messages : ',messages)
     return(
       <div id="project_chat">
-        <h1>{this.props.project[0].project}</h1>
-        <div className="chat_room">
 
-          <div className="messages" ref="messages">
-            <Waypoint onEnter={this.activateWayPoint}/>
-            <ul>
-              {messages.map((message) => {
-                return(
-                  <Message key={uuid.v4()} message={message}/>
-                )
-              })}
-            </ul>
-          </div>
 
-          <div className="chat_message_box">
-            <input type='text' onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
-            <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
-          </div>
+          {
+            !this.props.project.length > 0 ?
+            <h1> You need to be a member of this project to be part of the chat room </h1>
+            :
+            <div className="chat_room">
+              <div className="messages" ref="messages">
+                <Waypoint onEnter={this.activateWayPoint}/>
+                <ul>
+                  {messages.map((message) => {
+                    return(
+                      <Message key={uuid.v4()} message={message}/>
+                    )
+                  })}
+                </ul>
+              </div>
 
-        </div>
+              <div className="chat_message_box">
+                <textarea rows="1" cols="20" type='text' onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
+                <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
+              </div>
+            </div>
+          }
+
 
       </div>
     )
@@ -121,15 +132,14 @@ class ProjectChat extends React.Component{
 }
 
 const mapStateToProps = (state,ownProps) => {
+  let messages,unread
   const project = state.Projects.filter((proj) => {
     return parseInt(ownProps.params.projectId) == proj.id
   })
-  // console.log('project[0].messages: ',project[0].messages)
-  const messages = project[0].messages;
-  // console.log('original: ',project[0].messages.reverse());
-  // console.log('NotReversed: ',project[0].messages)
-  // console.log('messages : ',messages)
-  const unread = project[0].unread_messages;
+  if(project.length > 0){
+    messages = project[0].messages;
+    unread = project[0].unread_messages;
+  }
   return {
     messages,
     unread,

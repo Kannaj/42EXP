@@ -1,0 +1,28 @@
+.user_skill{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .skill_name{
+    padding:10px;
+    text-align: left;
+    width:45%;
+  }
+  .skill_commends{
+    padding:10px;
+    // width: 50%;
+    text-align: center;
+  }
+  .remove{
+    // padding:10px;
+    // margin-top:5px;
+    button{
+      background:$primary;
+      border: none;
+      box-shadow: none;
+      cursor: pointer;
+      color: red;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.project_detail{
+
+  // padding:10px;
+  // position: relative;
+  bottom:0;
+  .header{
+    padding:10px;
+  }
+
+  .category{
+    color: #ccc;
+    padding:10px;
+  }
+
+  .description{
+    padding:15px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    height: 400px;
+    margin-top: 10px;
+  }
+
+  .link{
+    // padding:15px;
+    // text-decoration: underline;
+    // color:$tertiary;
+    color:$primary;
+  }
+
+  .project_skills{
+    // position:absolute;
+    // bottom:5px;
+    // top: 100px;
+    padding:10px;
+    // left:10px;
+    // height:25%;
+    // border-top: 1px solid $tertiary;
+    // width:100%;
+    // display: block;
+    align-items: center;
+    display: flex;
+    height: 5%;
+    box-sizing: border-box;
+    background-color: $primary;
+    // padding:5px;
+    .skill_chip{
+      // margin: 10px;
+      background-color: $tertiary;
+      border-radius: 5px;
+      color: $primary;
+      box-shadow: none;
+      margin: 0 5px;
+      width: auto;
+
+      height: 50%;
+    }
+  }
+
+  // .join_project,
+  // .edit_project,
+  .project_detail_actions
+  {
+    position: absolute;
+    display: flex;
+    right: 10px;
+    top: 15px;
+    // padding: 10px;
+    button{
+      margin: 5px;
+    }
+  }
+  .login_required{
+    color: red;
+  }
+}
