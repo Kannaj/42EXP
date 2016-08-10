@@ -1,4 +1,5 @@
 -- postgres version 9.4
+-- RUN THIS THE FIRST TIME. ONLY ONCE
 
 DROP DATABASE IF EXISTS Xanadu;
 CREATE DATABASE Xanadu;
@@ -85,3 +86,74 @@ CREATE TABLE IF NOT EXISTS ACCOUNT_NOTIFICATIONS(
   unread BOOLEAN,
   timestamp TIMESTAMPTZ DEFAULT NOW()
 );
+
+
+-- include functions
+
+-- function to determine number of unread_messages per project
+CREATE OR REPLACE FUNCTION get_unread_messages(projectid INTEGER,usertimestamp TIMESTAMPTZ)
+  RETURNS INTEGER AS $$
+
+  DECLARE
+	unread INTEGER;
+
+  BEGIN
+	  SELECT COUNT(pm)
+	  FROM project_messages pm WHERE pm.project = (SELECT name from project WHERE project.id=projectid) AND timestamp > usertimestamp INTO unread;
+	  RETURN unread;
+  END; $$
+
+  LANGUAGE plpgsql;
+
+
+
+--Determing user level when user xp is increased
+
+  CREATE OR REPLACE FUNCTION set_user_level() RETURNS TRIGGER AS $level$
+
+    BEGIN
+
+      CASE
+        WHEN NEW.xp BETWEEN 0 AND 50 THEN
+          NEW.level = 1;
+        WHEN NEW.xp BETWEEN 50 AND 150 THEN
+          NEW.level = 2;
+        WHEN NEW.xp BETWEEN 150 AND 350 THEN
+          NEW.level = 3;
+        WHEN NEW.xp BETWEEN 350 AND 750 THEN
+          NEW.level = 4;
+        WHEN NEW.xp BETWEEN 750 AND 1550 THEN
+          NEW.level = 5;
+        WHEN NEW.xp BETWEEN 1550 AND 3150 THEN
+          NEW.level = 6;
+        WHEN NEW.xp BETWEEN 3150 AND 6350 THEN
+          NEW.level = 7;
+        WHEN NEW.xp BETWEEN 6350 AND 12750 THEN
+          NEW.level = 8;
+        ELSE
+          NEW.level = 9;
+      END CASE;
+
+      RETURN NEW;
+    END;
+  $level$ LANGUAGE plpgsql;
+
+
+-- add_commends
+CREATE OR REPLACE FUNCTION add_commends() RETURNS TRIGGER AS $$
+
+  BEGIN
+
+  UPDATE Account_skills set commends = commends + 1 WHERE id = NEW.skill;
+
+  RETURN NEW;
+  END;
+$$ LANGUAGE plpgsql;
+
+-- create db triggers. user commends is added on vote.
+CREATE TRIGGER add_commends AFTER INSERT ON votes FOR EACH ROW EXECUTE PROCEDURE add_commends();
+
+CREATE TRIGGER set_user_level BEFORE UPDATE ON account FOR EACH ROW EXECUTE PROCEDURE set_user_level();
+
+-- add skills
+\COPY skill (name) FROM '/home/avernus/Desktop/Xanadu/skill_list.txt';

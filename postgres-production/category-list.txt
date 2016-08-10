@@ -1,0 +1,20 @@
+Communication
+Database
+Gaming
+Entertainment
+Framework
+Education
+Documentation
+Software
+IOT
+Office/Business
+Scientific/Engineering
+Security
+Research
+Artificial Intelligence
+Virtual/Augmented Reality
+Utilities
+Text Processing
+Terminals
+System
+Other
