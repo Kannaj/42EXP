@@ -82,12 +82,15 @@
 .content-project{
   position: absolute;
   left: 50%;
-  top: 50%;
+  // top: 50%;
+  top:0;
   background: $primary;
   border: 2px solid $tertiary;
   // height: 90%;
   height: auto;
   width: 75%;
-  transform: translate(-50%,-50%);
+  // transform: translate(-50%,-50%);
+  transform:translate(-50%);
+  bottom:0;
   transition: all 0.5s ease-in;
 }

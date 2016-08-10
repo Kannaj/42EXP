@@ -4,24 +4,11 @@ import Select from 'react-select';
 import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
 import validate from '../utils/validation.js';
 import update from 'react-addons-update';
+import categoryOpt from '../utils/categoryOptions';
 
 //known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
 // into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
 // meaning the user has to manually fill in those values again.
-
-// const validate = values => {
-//   const errors = {}
-//   if(!values.name || /\s/.test(values.name)){
-//     errors.name = 'Please provide a proper name without spaces'
-//   }
-//   if(!values.description){
-//     errors.description = 'Required'
-//   }
-//   if(!values.category){
-//     errors.category = 'Required'
-//   }
-//   return errors;
-// }
 
 class ProjectForm extends React.Component{
   constructor(props){
@@ -54,7 +41,7 @@ class ProjectForm extends React.Component{
 
   getOptions(name,input,callback){
     let opt;
-    if(socket && input.length > 2){
+    if(socket){
 
       socket.emit(`${name}:suggestions`,{[name]:input},(err,data) => {
 
@@ -143,10 +130,11 @@ class ProjectForm extends React.Component{
           </div>
           <div className="block">
 
-            <Select.Async name="project_category"
+            <Select name="project_category"
               placeholder="Select a Category"
-              minimumInput={2}
-              loadOptions={this.getOptions.bind(this,'category')}
+
+              options={categoryOpt}
+
               onChange={this.handleChange.bind(this,'category')}
               value={this.state.category} />
               {this.state.errors.category ? <div className="error">{this.state.errors.category} </div> : null}
@@ -155,7 +143,7 @@ class ProjectForm extends React.Component{
 
             <Select.Async name="project_skills"
               placeholder="Pick the skills required for the project"
-              minimumInput={2}
+              minimumInput={1}
               loadOptions={this.getOptions.bind(this,'skill')}
               onChange={this.handleChange.bind(this,'skill')}
               value={this.state.skill}
