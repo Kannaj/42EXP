@@ -1,8 +1,8 @@
 const validate = values => {
   const errors = {}
   let url = new RegExp("^https?://([a-z0-9-]+\.)*(github)\.com(/.*)?$")
-  if(!values.name || /\s/.test(values.name)){
-    errors.name = 'Please provide a proper name without spaces'
+  if(!values.name || /\s/.test(values.name) || !/^[a-zA-Z0-9-_]*$/.test(values.name)){
+    errors.name = 'Please provide a proper name without spaces and no special characters'
   }
   if(values.link){
     // console.log(values.link.match(url))
