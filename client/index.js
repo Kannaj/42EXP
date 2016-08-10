@@ -50,12 +50,15 @@ if(store.getState().Projects.length > 0){
 //subscribe to users personal channel for notifications
 if(store.getState().User.isAuthenticated){
   socket.subscribe(store.getState().User.username).watch(function(data){
-
     switch (data.type){
       case 'notification':
         store.dispatch(add_notification(Object.assign({},data.details,{server:true})))
+        break;
       case 'update_stats':
         store.dispatch(update_user_stats(data))
+        break;
+      default:
+        return ''
     }
   })
 }
@@ -68,7 +71,7 @@ history.listen((location) => {
 
   let match = url.match(pattern);
   if (match){
-    
+
     let projectid = parseInt(match[1])
     // console.log('projectid is: ',projectid)
     store.dispatch(set_unread(projectid))

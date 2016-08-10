@@ -13,6 +13,7 @@ import {createNewProject,project_list,project_detail,join_project,update_last_ac
 import {vote} from './socketHandlers/vote.js';
 import {db,queries} from './config';
 import user_profile_cleaner from './utils/user_profile_cleaner.js'
+import notification from './socketHandlers/notifications.js'
 
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
@@ -34,7 +35,6 @@ export const run = (worker) => {
   // To-Do : Failure Redirect
   app.get('/auth/github/callback',passport.authenticate('github',{failureRedirect:'/fail'}),
     function(req,res){
-      console.log('req.user.token',req.user.token)
       var text=  JSON.stringify(req.user.token)
       res.cookie('id_token',text,{ expires: new Date(Date.now() + (24 * 60 * 60 * 1000 * 30 * 12 * 10)), httpOnly: true })
       res.redirect('/')
@@ -75,7 +75,6 @@ export const run = (worker) => {
       const id_token = JSON.parse(cookie.split('=')[1])
       const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
       socket.setAuthToken({username:decoded.username})
-      console.log('socket.getAuthToken(): ',socket.getAuthToken())
     }
 
 
@@ -86,7 +85,6 @@ export const run = (worker) => {
       data.username = socket.getAuthToken().username;
       skill_user(data)
         .then(function(result){
-          console.log(result)
           res(null,result)
         })
         .catch(function(err){
@@ -123,6 +121,7 @@ export const run = (worker) => {
         })
         .catch(function(err){
           console.log(err)
+          res(err)
         })
     })
 
@@ -155,10 +154,9 @@ export const run = (worker) => {
     socket.on('project:get_more_messages',get_more_messages)
 
     socket.on('new_chat_message',function(data){
-      // console.log('recieved new message: ',data)
       let timestamp = new Date().toISOString()
       scServer.exchange.publish(data.id,{project_id:data.id,timestamp: timestamp,message:data.message,username:socket.getAuthToken().username})
-      db.one('insert into project_messages (project,message,username,timestamp) values ((SELECT name from project where id=$1),$2,$3,$4) returning *',
+      return db.one('insert into project_messages (project,message,username,timestamp) values ((SELECT name from project where id=$1),$2,$3,$4) returning *',
         [data.id,data.message,socket.getAuthToken().username,timestamp]
       ).then(function(projectMessageDetails){
         console.log('message added : ',projectMessageDetails)
@@ -195,7 +193,29 @@ export const run = (worker) => {
     })
 
 
-    socket.on('user:vote',vote)
+    socket.on('user:vote',function(data,res){
+      data.voter = socket.getAuthToken().username;
+      vote(data)
+        .then(function(status){
+
+
+          notification.call(socket,data,status)
+            .then(function(result){
+              res(null,status.vote)
+            })
+            .catch(function(err){
+              console.log('there was an error with setting the notification')
+              res(null,status.vote) //send message to votee anyway because commend was successfull at least.
+            })
+          })
+
+
+        .catch(function(err){
+          console.log('there was an error : ',err)
+          res('There was an error with the vote')
+        })
+
+    })
 
     socket.on('raw',function(data){
       // console.log('recieved data')

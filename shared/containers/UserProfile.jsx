@@ -33,9 +33,9 @@ class UserProfile extends React.Component{
     }
   }
 
-  handleClick(id,idx){
+  handleClick(id,idx,skill){
     if(socket){
-      socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username},function(err,data){
+      socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username,skill},function(err,data){
         if(err){
           console.log(err)
           this.props.add_notification({id:uuid.v4(),heading:'Error',message:`Looks like you've already commended ${this.state.user.username}!!`,unread:true,server:false})
@@ -59,7 +59,6 @@ class UserProfile extends React.Component{
   }
 
   render(){
-    console.log('this.props : ',this.props)
     return(
       <div>
         {
@@ -105,7 +104,7 @@ class UserProfile extends React.Component{
 
                         {
                           this.state.user.username == this.props.username || !this.props.isAuthenticated ?
-                          null : <div className="commend"><button className="commend_button" onClick={this.handleClick.bind(this,skill.id,idx)}>Commend</button></div>
+                          null : <div className="commend"><button className="commend_button" onClick={this.handleClick.bind(this,skill.id,idx,skill.skill)}>Commend</button></div>
                         }
 
                       </div>
