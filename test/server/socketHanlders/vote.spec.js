@@ -63,4 +63,12 @@ describe('Commending a user skill',() => {
         expect(xp.xp).to.equal(20)
       })
   })
+
+  //below cant be done
+  // it('should add a notification for the votee ',() => {
+  //   return db.one("SELECT username,message from account_notifications where username='test_user_1'")
+  //     .then(function(stats){
+  //       expect(stats.message).to.be.true;
+  //     })
+  // })
 })
