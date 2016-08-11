@@ -65,7 +65,7 @@ if(store.getState().User.isAuthenticated){
 
 history.listen((location) => {
 
-  let pattern = new RegExp('/projects/(\\d+)/((?:[A-Za-z_ -]|%20)+)/messages');
+  let pattern = new RegExp('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages');
 
   let url = location.pathname;
 

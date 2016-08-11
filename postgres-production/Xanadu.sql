@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS ACCOUNT_NOTIFICATIONS(
   id SERIAL PRIMARY KEY,
   Username VARCHAR REFERENCES Account(Username),
   message VARCHAR,
-  unread BOOLEAN,
+  unread BOOLEAN default true,
   timestamp TIMESTAMPTZ DEFAULT NOW()
 );
 
