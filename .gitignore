@@ -3,3 +3,4 @@ node_modules/
 public/
 *.log
 .git-old
+.nyc_output
