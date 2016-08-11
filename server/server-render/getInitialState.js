@@ -24,7 +24,9 @@ const getInitialState = (id_token) => {
                         if(userProjects.length == 0){
                           return {User:User,Projects:[]}
                         }else{
+
                           let newProjects = invert_message_list(message_list_cleaner(userProjects))
+
                           // console.log('userProjects is now: ',newProjects)
                           // return {User:User,Projects:userProjects}
                           return {User:User,Projects:newProjects}

@@ -83,7 +83,7 @@ export const join_project = function(data){
       // res(null,result)
       return db.any('SELECT id,message,username,timestamp FROM project_messages where project=$1',data.project)
         .then(function(data){
-          if(data.length > 1){
+          if(data.length >= 1){
               result.messages = data
           }else{
             result.messages = []

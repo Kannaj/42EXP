@@ -95,7 +95,6 @@ const Projects = (state=[],action) => {
         ]
       }
 
-
     case constants.GET_MORE_MESSAGES_SUCCESS:
       target = state.findIndex((project) => {
         return project.id == action.projectId
@@ -107,6 +106,7 @@ const Projects = (state=[],action) => {
           }
         }
       })
+
 
     // case constants.EDIT_PROJECT_ERROR:
     //   return [

@@ -9,7 +9,11 @@
     "test": "npm run test:client && npm run test:server",
     "start": "webpack --progress && babel-node server/server.js",
     "build": "babel server -d build_server",
+<<<<<<< HEAD
     "test:coverage": "nyc --require babel-core/register mocha test/ --compilers js:babel-core/register --recursive"
+=======
+    "package": "NODE_ENV=production webpack -p --config ./webpack.production.config.js --progress && babel-node server/server.js"
+>>>>>>> development
   },
   "keywords": [],
   "author": "",
@@ -21,6 +25,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "highlight": "^0.2.4",
+    "history": "^3.0.0",
     "jsonwebtoken": "^7.1.3",
     "moment": "^2.14.1",
     "node-uuid": "^1.4.7",
@@ -59,8 +64,8 @@
     "css-loader": "^0.23.1",
     "enzyme": "^2.4.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
     "highlight-loader": "^0.7.2",
-    "history": "^3.0.0",
     "jsdom": "^9.4.1",
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",

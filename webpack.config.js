@@ -25,6 +25,10 @@ module.exports = {
         test: /(\.css|\.scss)$/,
         loader: ExtractTextPlugin.extract('style',['css','postcss','sass'])
         //css modules are such a pain when rendering from server. hence not using them
+      },
+      {
+        test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader : 'file-loader'
       }
     ]
   },

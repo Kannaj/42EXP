@@ -29,6 +29,7 @@ class ProjectChat extends React.Component{
   }
 
   setLastActivity(projectId){
+
     socket.emit('update_last_activity',{id:projectId},function(err,data){
       if(data){
         this.props.set_last_activity({id:projectId,timestamp:data.last_activity})
@@ -62,6 +63,7 @@ class ProjectChat extends React.Component{
     if(this.props.params.projectId !== prevProps.params.projectId){
       this.setLastActivity(prevProps.params.projectId);
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+      this.setState({message:''})
     }
   }
 
@@ -76,8 +78,8 @@ class ProjectChat extends React.Component{
   }
 
   handleKeyPress(event){
-    if(event.key == 'Enter'){
-      console.log('Entered')
+    if(event.key == 'Enter' && !event.shiftKey){
+      // console.log('Entered')
       this.handleSubmit();
     }
   }
