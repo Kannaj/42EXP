@@ -13,7 +13,7 @@ describe('Form Validation',() => {
 
   it('should return multiple errors if empty form is submitted is submitted',() => {
     errorObject = validate(submittedValues)
-    expect(errorObject.name).to.equal('Please provide a proper name without spaces')
+    expect(errorObject.name).to.equal('Please provide a proper name without spaces and no special characters')
     expect(errorObject.description).to.equal('Required')
     expect(errorObject.category).to.equal('Required')
   })
@@ -22,7 +22,7 @@ describe('Form Validation',() => {
     errorObject = validate(submittedValues)
     submittedValues.description = 'Lorem ipsum'
     errorObject = validate(submittedValues)
-    expect(errorObject.name).to.equal('Please provide a proper name without spaces')
+    expect(errorObject.name).to.equal('Please provide a proper name without spaces and no special characters')
     expect(errorObject.category).to.equal('Required')
   })
 })

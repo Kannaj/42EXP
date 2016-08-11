@@ -8,7 +8,8 @@
     "test:client": "mocha test/client/ --compilers js:babel-core/register --require ./test/client/setup.js --recursive",
     "test": "npm run test:client && npm run test:server",
     "start": "webpack --progress && babel-node server/server.js",
-    "build": "babel server -d build_server"
+    "build": "babel server -d build_server",
+    "test:coverage": "nyc --require babel-core/register mocha test/ --compilers js:babel-core/register --recursive"
   },
   "keywords": [],
   "author": "",
@@ -64,6 +65,7 @@
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
     "nodemon": "^1.9.2",
+    "nyc": "^7.1.0",
     "postcss-loader": "^0.9.1",
     "react-addons-test-utils": "^15.3.0",
     "sass-loader": "^4.0.0",
