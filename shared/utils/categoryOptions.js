@@ -21,4 +21,6 @@ const options = [
   {value:'Other',label:'Other'}
 ]
 
+// this is prone to error. Need to fix . Use API CALLS instead.
+
 export default options;
