@@ -1,4 +1,4 @@
-\c Xanadu;
+-- \c Xanadu;
 
 
 CREATE OR REPLACE FUNCTION get_unread_messages(projectid INTEGER,usertimestamp TIMESTAMPTZ)

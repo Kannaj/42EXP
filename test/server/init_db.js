@@ -7,7 +7,7 @@ var pgp = require('pg-promise')();
 
 
 
-process.env.DATABASE_URL = 'postgres://avernus:Domain123@localhost:5432/xanadu_test'
+process.env.DATABASE_URL = 'postgres://avernus:Domain123@localhost:5432/42EXP_test'
 
 var cn = process.env.DATABASE_URL
 

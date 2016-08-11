@@ -1,4 +1,4 @@
-\c Xanadu;
+-- \c Xanadu;
 
 -- INSERT INTO category (name) VALUES ('Machine Learning');
 -- INSERT INTO category (name) VALUES ('Music');

@@ -1,4 +1,4 @@
-\c Xanadu;
+-- \c Xanadu;
 
 -- INSERT INTO skill (name) VALUES ('Javascript');
 -- INSERT INTO skill (name) VALUES ('Java');

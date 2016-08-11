@@ -1,4 +1,4 @@
-\c Xanadu;
+-- \c Xanadu;
 
 --add xp
 CREATE OR REPLACE FUNCTION set_user_level() RETURNS TRIGGER AS $level$

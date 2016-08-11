@@ -89,7 +89,7 @@ class ProjectDetail extends React.Component{
         {
           this.state.project_details.project_link ?
 
-          <button><Link to={this.state.project_details.project_link} className="link">Project Repo </Link></button>
+          <button><a href={this.state.project_details.project_link} className="link">Project Repo </a></button>
           :
           null
         }
