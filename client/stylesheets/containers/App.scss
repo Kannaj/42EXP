@@ -61,6 +61,13 @@
   z-index: 1;
   display: flex;
   justify-content: space-between;
+  .github_auth{
+    width:auto;
+    background-color: #71CC52;
+    color:white;
+    padding: 10px;
+    
+  }
 }
 
 .auth{

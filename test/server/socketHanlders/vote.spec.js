@@ -18,6 +18,10 @@ describe('Commending a user skill',() => {
         .then(function(){
           done()
         })
+        .catch(function(err){
+          console.log('there was an error : ',err)
+          done()
+        })
     })
   })
 
@@ -62,6 +66,19 @@ describe('Commending a user skill',() => {
       .then(function(xp){
         expect(xp.xp).to.equal(20)
       })
+  })
+
+  it('should prevent voter from voting for user again',() => {
+    let data = {
+      account_skill_id,
+      voter_level:4,
+      votee:'test_user_1',
+      skill:'Javascript',
+      voter:'test_user_2'
+    }
+    return vote(data).catch(function(err){
+      expect(err).to.equal('Cannot commend already commended user')
+    })
   })
 
   //below cant be done

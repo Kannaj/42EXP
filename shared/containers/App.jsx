@@ -60,7 +60,26 @@ export class App extends React.Component{
       login: false
     }
     this.closeModal = this.closeModal.bind(this)
+    this.authButtons = this.authButtons.bind(this)
   }
+
+  authButtons(){
+    if(process.env.NODE_ENV === 'production'){
+      return (
+        <div className="auth">
+          <button className="github_auth"><a href= "/auth/github" className="github_auth"> Login With Github </a></button>
+        </div>
+      )
+    }else{
+      return (
+        <div className="auth">
+          <button name="register" onClick={this.openModal.bind(this,"register")}> Register </button>
+          <button name="login" onClick={this.openModal.bind(this,"login")}> Login </button>
+        </div>
+      )
+    }
+  }
+
 
   openModal(type){
     this.setState({modalIsOpen:true,[type]:true})
@@ -95,10 +114,7 @@ export class App extends React.Component{
           {header(this.props.location)}
           {!this.props.isAuthenticated
             ?
-            <div className="auth">
-              <button name="register" onClick={this.openModal.bind(this,"register")}> Register </button>
-              <button name="login" onClick={this.openModal.bind(this,"login")}> Login </button>
-            </div>
+            this.authButtons()
             :
             <div className="auth">
               <button><a href="/logout" >Logout</a> </button>

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:server": "mocha test/server/  --compilers js:babel-core/register --require ./test/server/init_db.js  --recursive",
+    "test:server": "NODE_ENV=testing mocha test/server/  --compilers js:babel-core/register --require ./test/server/init_db.js  --recursive",
     "test:client": "mocha test/client/ --compilers js:babel-core/register --require ./test/client/setup.js --recursive",
     "test": "npm run test:client && npm run test:server",
     "start": "webpack --progress && babel-node server/server.js",

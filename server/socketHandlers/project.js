@@ -2,19 +2,6 @@ import {db,queries} from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
 
 
-// export const create_project = function(data,res){
-//   data.username = this.getAuthToken().username
-//   createNewProject(data)
-//     .then(function(details){
-//       //console.log(details)
-//       res(null,details)
-//     })
-//     .catch(function(err){
-//       //console.log(err)
-//       res(err)
-//     })
-// }
-
 export const get_more_messages = function(data,res){
   //console.log('retrieving messages for  : ',data)
   return db.any(queries.GetMoreMessages,[data.projectId,data.lastMessageId])

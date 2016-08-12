@@ -24,7 +24,6 @@ export const skill_user = function(data){
       return result
     })
     .catch(function(err){
-
       // console.log('There was an error : ',err.message)
       // res('Could not insert skill - try again!')
       throw 'Could not insert skill - try again!'

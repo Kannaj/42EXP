@@ -16,7 +16,6 @@ export const vote = function(data){
     return status
   })
   .catch(function(err){
-    console.log('error commending : ',err)
-    throw err
+    throw 'Cannot commend already commended user'
   })
 }
