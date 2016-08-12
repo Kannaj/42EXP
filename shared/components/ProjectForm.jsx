@@ -114,33 +114,30 @@ class ProjectForm extends React.Component{
 
         <div id="project_details">
           <div className="block">
-
             <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
             {this.state.errors.name ? <div className="error"> {this.state.errors.name} </div> : null}
           </div>
-          <div className="block">
 
+          <div className="block">
             <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')} placeholder="Repo Link"/>
             {this.state.errors.link ? <div className="error"> {this.state.errors.link} </div> : null}
           </div>
-          <div className="block">
 
+          <div className="block">
             <textarea cols="40" rows="25" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
             {this.state.errors.description ? <div className="error"> {this.state.errors.description} </div> : null}
           </div>
-          <div className="block">
 
+          <div className="block">
             <Select name="project_category"
               placeholder="Select a Category"
-
               options={categoryOpt}
-
               onChange={this.handleChange.bind(this,'category')}
               value={this.state.category} />
               {this.state.errors.category ? <div className="error">{this.state.errors.category} </div> : null}
           </div>
-          <div className="block">
 
+          <div className="block">
             <Select.Async name="project_skills"
               placeholder="Pick the skills required for the project"
               minimumInput={1}
@@ -150,6 +147,7 @@ class ProjectForm extends React.Component{
               multi={true}
               />
             </div>
+            
         </div>
 
         <div className="submit_project">

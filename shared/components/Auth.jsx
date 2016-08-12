@@ -45,7 +45,7 @@ export default class Auth extends React.Component{
           this.state.errorMessage ? <h2>{this.state.errorMessage} </h2> : null
         }
         <div className="register_form_group">
-          <label htmlFor="username"> username </label>
+          <label htmlFor="username"> Username </label>
           <input id="username" value={this.state.username} name="username" onChange={this.handleChange}/>
         </div>
         <div className="register_form_group">

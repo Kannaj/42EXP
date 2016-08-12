@@ -78,6 +78,8 @@ export class Dashboard extends React.Component{
     return(
       <div>
         <h1 className="welcome_message"> Hello {this.props.username}! </h1>
+        <p className="summary"> This is where you'll be able add/modify your skillset. Your skillset is what other members would see and be able to commend. </p>
+        <p className="summary"> Remember - Your XP and levels are based on the total commends you recieve </p>
 
         <div className="user_stats">
           <div className="Level">
