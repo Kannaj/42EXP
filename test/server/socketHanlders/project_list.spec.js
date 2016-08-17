@@ -11,7 +11,6 @@ describe('project_list',function(){
 
   before(function(done){
     project_list(data).then(function(results){
-      console.log(results)
       result = results;
       done()
     }).catch(function(err){
