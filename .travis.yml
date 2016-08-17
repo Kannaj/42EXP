@@ -8,5 +8,8 @@ node_js:
 services:
   - postgresql
 
+addons:
+  postgresql: "9.4"
+
 before_script:
   - psql -f 'postgres-test/42EXP-test.sql' -U postgres
