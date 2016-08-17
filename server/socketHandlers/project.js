@@ -36,6 +36,7 @@ export const project_list = function(data){
     .catch(function(err){
       // res(err)
       // console.log(err)
+      console.log(err)
       throw "Couldnt retrieve projects"
     })
 }
