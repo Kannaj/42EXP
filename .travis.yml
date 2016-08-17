@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "node"
+  - "6"
+  - "6.1"
+  - "5.11"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -f 'postgres-test/42EXP-test.sql' -U postgres
