@@ -1,25 +1,21 @@
-data:
-  
-  image: busybox
-  volumes:
-    - /data
+version: '2'
 
-postgres:
-  image: postgres:${POSTGRES_VERSION}
-  volumes_from:
-    - data
-  ports:
-    - "5432:5432"
-  environment:
-    - POSTGRES_DB=42EXP
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    volumes:
+      - /42EXP/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=42EXP
 
-node:
-  image: node:latest
-  working_dir: /app
-  volumes:
-    - .:/app
-  links:
-    - postgres:postgres
-  ports:
-    - "8000:8000"
-  command: npm start
+  node:
+    build: .
+    links:
+      - postgres:postgres
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    command: npm start
