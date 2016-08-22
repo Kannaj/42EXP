@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  node:
+    container_name: node
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: npm start
+
+  test-postgres:
+    container_name: test-postgres
+    build: ./postgres-test
+    environment:
+      - POSTGRES_DB=42EXP_test
