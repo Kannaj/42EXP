@@ -46,7 +46,7 @@ const header = (location) => {
     )
   }else{
     return(
-      <h1>42exp</h1>
+      <h1>42exp <span className="version">(Alpha)</span></h1>
     )
   }
 }
