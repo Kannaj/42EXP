@@ -11,5 +11,5 @@ services:
   test-postgres:
     container_name: test-postgres
     build: ./postgres-test
-    environment:
-      - POSTGRES_DB=42EXP_test
+    # environment:
+    #   - POSTGRES_DB=42EXP_test
