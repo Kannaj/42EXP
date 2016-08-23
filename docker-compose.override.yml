@@ -6,6 +6,7 @@ services:
     build: .
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     command: npm start
 
   test-postgres:
