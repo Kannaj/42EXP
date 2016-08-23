@@ -1,0 +1,9 @@
+version : '2'
+
+services:
+  node:
+    container_name: node
+    build: .
+    # volumes:
+    #   - .:/usr/src/app
+    command: npm run package
