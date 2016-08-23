@@ -2,6 +2,7 @@ version: '2'
 
 services:
   postgres:
+    container_name: postgres
     image: postgres:${POSTGRES_VERSION}
     volumes:
       - /42EXP/data:/var/lib/postgresql/data
@@ -11,6 +12,7 @@ services:
       - POSTGRES_DB=42EXP
 
   node:
+    container_name: node
     build: .
     links:
       - postgres:postgres

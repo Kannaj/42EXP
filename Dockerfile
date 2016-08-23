@@ -9,7 +9,7 @@ COPY package.json /usr/src/app/
 RUN npm install
 
 # Copy .env file
-COPY .env /usr/src/app
+# COPY .env /usr/src/app
 
 # Bundle app source
 COPY . /usr/src/app
