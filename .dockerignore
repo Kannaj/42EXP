@@ -1,6 +1,7 @@
-node_modules/
-.nyc_output/
-.git-old/
-public/
-coverage/
-socketcluster/
+node_modules
+.nyc_output
+.git-old
+public
+coverage
+socketcluster
+.env

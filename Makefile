@@ -12,10 +12,17 @@ migration-create:
 	docker-compose run --rm node ./node_modules/.bin/pg-migrate create $(name)
 
 install:
-  docker-compose run --rm node npm install
+	docker-compose run --rm node npm install
 
 npm-install-dep:
-  docker-compose run --rm node npm install --save $(package)
+	docker-compose run --rm node npm install --save $(package)
 
 npm-install-devDep:
 	docker-compose run --rm node npm install --save-dev $(package)
+
+
+build:
+	docker build -t kannaj/42exp .
+
+push: build
+	docker push kannaj/42exp

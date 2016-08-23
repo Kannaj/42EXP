@@ -4,6 +4,9 @@ services:
   node:
     container_name: node
     build: .
+    env_file: .env
+
     # volumes:
     #   - .:/usr/src/app
+
     command: npm run package

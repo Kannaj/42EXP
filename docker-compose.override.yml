@@ -4,6 +4,7 @@ services:
   node:
     container_name: node
     build: .
+    env_file: .env
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -12,5 +13,3 @@ services:
   test-postgres:
     container_name: test-postgres
     build: ./postgres-test
-    # environment:
-    #   - POSTGRES_DB=42EXP_test

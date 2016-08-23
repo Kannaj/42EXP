@@ -12,7 +12,7 @@ passport.use(new githubStrategy({
   scope: [ 'user:email' ]
   },
   function(accessToken,refreshToken,profile,done){
-    console.log('profile is : ',profile)
+    // console.log('profile is : ',profile)
     //check if user exists
     db.one('SELECT * FROM account where username= $1',profile.username)
       .then((result) => {
