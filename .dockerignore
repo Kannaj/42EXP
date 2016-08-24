@@ -1,6 +1,8 @@
 node_modules
 .nyc_output
 .git-old
+test
+postgres-test
 public
 coverage
 socketcluster
