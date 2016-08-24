@@ -1,6 +1,16 @@
 version : '2'
 
 services:
+  nginx:
+    container_name: nginx
+    build: ./nginx/
+    ports:
+      - "80:80"
+    links:
+      - node:node
+    volumes_from:
+      - node
+
   node:
     container_name: node
     build: .
