@@ -324,6 +324,7 @@ Volusion
 VRaptor
 VSS
 vTiger
+Vue.js
 Vuforia
 Wavemaker
 web2py
@@ -331,6 +332,7 @@ WebKit
 WebObjects
 webOS
 WebRTC
+Websockets
 WebSphere
 Webware
 WebWork

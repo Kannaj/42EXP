@@ -19,5 +19,7 @@ services:
       - /usr/src/app
     expose:
       - "8000"
+    environment:
+      - NODE_ENV=production
 
     command: npm run package

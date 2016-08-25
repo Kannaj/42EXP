@@ -11,6 +11,8 @@ services:
       - "5432"
     environment:
       - POSTGRES_DB=42EXP
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   node:
     container_name: node
