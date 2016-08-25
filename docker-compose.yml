@@ -19,8 +19,6 @@ services:
     build: .
     links:
       - postgres:postgres
-    ports:
-      - "8000:8000"
     depends_on:
       - postgres
     command: npm start
