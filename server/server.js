@@ -2,18 +2,13 @@ require('dotenv').config({silent:true});
 
 import {SocketCluster} from 'socketcluster';
 
-
-
-
 const main = () => {
-  //console.log('main server')
 
   if (typeof(window) == 'undefined'){
       global.window = new Object();
-      //console.log(window)
   }
 
-  new SocketCluster({
+  var socketcluster = new SocketCluster({
     workers:1,
     brokers:1,
     port: 8000,
@@ -22,13 +17,23 @@ const main = () => {
     workerController: __dirname + '/worker.js',
     brokerController: __dirname + '/broker.js',
     socketChannelLimit: 1000,
-    crashWorkerOnError: true
+    crashWorkerOnError: true,
   })
+
+// the below helps nodemon to deal with server code changes in development. relevant github-issue: https://github.com/SocketCluster/socketcluster/issues/108
+// this seems to create a lot of zombie processes in the container - need to look at this later
+
+  if(process.env.NODE_ENV === 'development'){
+    process.on('SIGUSR2',function(){
+        socketcluster.killWorkers();
+        socketcluster.killBrokers();
+        process.exit(0)
+      })
+  }
 }
 
 // useful for testing purposes
 export const test = () => {
-  //console.log('testing server')
   return new SocketCluster({
     workers:1,
     brokers:1,
