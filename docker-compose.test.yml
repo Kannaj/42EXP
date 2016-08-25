@@ -8,8 +8,14 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm start
+    command: npm test
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=test
     ports:
       - "8000:8000"
+
+  test-postgres:
+    container_name: test-postgres
+    build: ./postgres-test
+    # volumes:
+      # - /var/lib/postgresql/data

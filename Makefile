@@ -29,6 +29,9 @@ build:
 push: build
 	docker push kannaj/42exp
 
+tests:
+	docker-compose -f docker-compose.test.yml up
+
 development:
 	docker-compose up
 
