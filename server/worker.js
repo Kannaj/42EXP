@@ -24,7 +24,7 @@ export const run = (worker) => {
   const scServer = worker.scServer;
 
   //standard express fluff
-  if(!process.env.NODE_ENV==='production'){
+  if(process.env.NODE_ENV.trim()==='development'){
     app.use(serveStatic(path.resolve(__dirname, '../public')));
   }
   app.use(cookieParser())

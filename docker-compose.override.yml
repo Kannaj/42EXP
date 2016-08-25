@@ -9,6 +9,8 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     command: npm start
+    environment:
+      - NODE_ENV=development
 
   test-postgres:
     container_name: test-postgres
