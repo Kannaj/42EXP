@@ -6,10 +6,13 @@ services:
     build: ./nginx/
     ports:
       - "80:80"
+      - "443:443"
     links:
       - node:node
     volumes_from:
       - node
+    volumes:
+      - /etc/nginx/ssl:/etc/nginx/ssl
 
   node:
     container_name: node

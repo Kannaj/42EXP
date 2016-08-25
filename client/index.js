@@ -16,6 +16,7 @@ import {set_unread} from '../shared/actions/projects/set_unread'
 import {add_notification} from '../shared/actions/notifications/notifications'
 import {update_user_stats} from '../shared/actions/User/actions'
 
+let port;
 
 // console.log('JSON is : ',JSON.parse(window.__INITIAL_STATE__))
 const initialState = window.__INITIAL_STATE__
@@ -27,8 +28,17 @@ const store = createStoreWithMiddleware(rootReducer,initialState)
 
 const history = syncHistoryWithStore(browserHistory,store)
 
+
+console.log(process.env.NODE_ENV)
+if(process.env.NODE_ENV === 'production'){
+  port = 80
+}else{
+  port = 8000
+}
+
 const options = {
-  port: 8000
+  // port: 8000
+  port
 }
 
 global.socket = SocketCluster.connect(options)
