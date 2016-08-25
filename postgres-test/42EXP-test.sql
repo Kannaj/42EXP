@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS Project(
   name VARCHAR(50) UNIQUE,
   Owner VARCHAR REFERENCES Account (Username) ON UPDATE CASCADE ON DELETE CASCADE,
   Description text,
-  Link VARCHAR,
+  github_Link VARCHAR,
+  reddit_link varchar,
   Category VARCHAR REFERENCES Category (name) ,
   Create_date TIMESTAMPTZ DEFAULT NOW()
 );

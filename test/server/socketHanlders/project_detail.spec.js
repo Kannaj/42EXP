@@ -8,7 +8,8 @@ describe('project_detail query',() => {
     return project_detail({id:1}).then((result) => {
        expect(result).to.have.any.key('project_id');
        expect(result).to.have.any.key('project_name');
-       expect(result).to.have.any.key('project_link');
+       expect(result).to.have.any.key('github_link');
+       expect(result).to.have.any.key('reddit_link');
        expect(result).to.have.any.key('project_description');
        expect(result).to.have.any.key('project_category');
        expect(result).to.have.any.key('project_owner');

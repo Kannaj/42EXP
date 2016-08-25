@@ -21,7 +21,8 @@ describe('Project_create',() => {
       name:'Test_project_2',
       category:'Entertainment',
       description:'Buckethead',
-      link:'eh',
+      github_link:'eh',
+      reddit_link:'eh',
       owner:'test_user_1',
       skill:[{value:"Java"}],
       username:'test_user_1'
