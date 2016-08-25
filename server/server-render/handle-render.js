@@ -59,7 +59,7 @@ const renderFullPage = (html,initialState) => {
     <!doctype html>
     <html>
       <head>
-        <title>Xanadu</title>
+        <title>42 Exp</title>
         <link rel="stylesheet" type="text/css" href="/style.css">
       </head>
       <body>
