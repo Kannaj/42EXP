@@ -87,9 +87,16 @@ class ProjectDetail extends React.Component{
             <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
         }
         {
-          this.state.project_details.project_link ?
+          this.state.project_details.github_link ?
 
-          <button><a href={this.state.project_details.project_link} className="link">Project Repo </a></button>
+          <button><a href={this.state.project_details.github_link} className="link">Project Repo </a></button>
+          :
+          null
+        }
+        {
+          this.state.project_details.reddit_link ?
+
+          <button><a href={this.state.project_details.reddit_link} className="link">Discussion</a></button>
           :
           null
         }

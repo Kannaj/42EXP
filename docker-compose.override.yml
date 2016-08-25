@@ -11,6 +11,8 @@ services:
     command: npm start
     environment:
       - NODE_ENV=development
+    ports:
+      - "8000:8000"
 
   test-postgres:
     container_name: test-postgres

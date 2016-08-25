@@ -1,5 +1,9 @@
 #project_form{
   padding: 20px;
+  height:95%;
+  overflow-y: auto;
+  // display: flex;
+  // flex-direction: column;
   // text-align: center
   .title{
     text-align: center;
@@ -8,11 +12,12 @@
     text-align: center;
     .submit{
       // background-color: $fifth;
-      width:100px;
+      width:250px;
       // position: fixed;
       // bottom:10px;
     }
   }
+
 }
 
 #project_details{
@@ -37,7 +42,8 @@
       overflow: auto;
     }
     input[id="name"],
-    input[id="link"],
+    input[id="github_link"],
+    input[id="reddit_link"],
     textarea[id="description"],
     {
       background-color: $primary;

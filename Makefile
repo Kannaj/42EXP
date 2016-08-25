@@ -1,3 +1,5 @@
+whoami := $(shell whoami)
+
 migration-up:
 	docker-compose run --rm node \
 	npm run migrate
@@ -9,16 +11,16 @@ webpack-update:
 	docker-compose run --rm node ./node_modules/.bin/webpack --progress
 
 migration-create:
-	docker-compose run --rm node ./node_modules/.bin/pg-migrate create $(name)
+	docker-compose run --rm node ./node_modules/.bin/pg-migrate create $(name) && sudo chown -R ${whoami}:${whoami} migrations
 
 install:
 	docker-compose run --rm node npm install
 
 npm-install-dep:
-	docker-compose run --rm node npm install --save $(package)
+	docker-compose run --rm node npm install --save $(package) && sudo chown -R ${whoami}:${whoami} package.json
 
 npm-install-devDep:
-	docker-compose run --rm node npm install --save-dev $(package)
+	docker-compose run --rm node npm install --save-dev $(package) && sudo chown -R ${whoami}:${whoami} package.json
 
 
 build:

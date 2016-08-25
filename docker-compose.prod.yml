@@ -17,5 +17,7 @@ services:
     env_file: .env
     volumes:
       - /usr/src/app
+    expose:
+      - "8000"
 
     command: npm run package

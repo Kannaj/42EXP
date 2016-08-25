@@ -16,7 +16,8 @@ class ProjectForm extends React.Component{
     this.state={
       name:"",
       description:"",
-      link:"",
+      github_link:"",
+      reddit_link:"",
       category:"",
       skill:[],
       errors:{}
@@ -31,7 +32,10 @@ class ProjectForm extends React.Component{
       this.setState({name:this.props.project_name})
     }
     if(this.props.project_link){
-      this.setState({link:this.props.project_link})
+      this.setState({github_link:this.props.project_link})
+    }
+    if(this.props.reddit_link){
+      this.setState({reddit_link:this.props.reddit_link})
     }
     if(this.props.project_description){
       this.setState({description: this.props.project_description})
@@ -119,8 +123,13 @@ class ProjectForm extends React.Component{
           </div>
 
           <div className="block">
-            <input id="link" type="text" value={this.state.link} onChange={this.handlename.bind(this,'link')} placeholder="Repo Link"/>
-            {this.state.errors.link ? <div className="error"> {this.state.errors.link} </div> : null}
+            <input id="github_link" type="text" value={this.state.github_link} onChange={this.handlename.bind(this,'github_link')} placeholder="Repo Link"/>
+            {this.state.errors.github_link ? <div className="error"> {this.state.errors.github_link} </div> : null}
+          </div>
+
+          <div className="block">
+            <input id="reddit_link" type="text" value={this.state.reddit_link} onChange={this.handlename.bind(this,'reddit_link')} placeholder="Reddit Link"/>
+            {this.state.errors.reddit_link ? <div className="error"> {this.state.errors.reddit_link} </div> : null}
           </div>
 
           <div className="block">
@@ -147,7 +156,7 @@ class ProjectForm extends React.Component{
               multi={true}
               />
             </div>
-            
+
         </div>
 
         <div className="submit_project">
