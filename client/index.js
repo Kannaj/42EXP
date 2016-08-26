@@ -31,7 +31,11 @@ const history = syncHistoryWithStore(browserHistory,store)
 
 console.log(process.env.NODE_ENV)
 if(process.env.NODE_ENV === 'production'){
-  port = 80
+  if(window.location.protocol === 'https:'){
+    port = 443
+  }else{
+    port = 80
+  }
 }else{
   port = 8000
 }
