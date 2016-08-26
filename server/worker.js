@@ -98,8 +98,6 @@ export const run = (worker) => {
 
     socket.on('category:suggestions',category_suggestions)
 
-
-    // socket.on('project:create',create_project)
     socket.on('project:create',function(data,res){
       data.username = socket.getAuthToken().username;
       createNewProject(data)
@@ -113,8 +111,6 @@ export const run = (worker) => {
         })
     })
 
-    // socket.on('project:list',project_list)
-
     //Retrieves a list of projects
     socket.on('project:list',function(data,res){
       project_list(data)
@@ -126,7 +122,6 @@ export const run = (worker) => {
           res(err)
         })
     })
-
 
     // socket.on('project:detail',project_detail)
     socket.on('project:detail',function(data,res){
@@ -162,7 +157,6 @@ export const run = (worker) => {
         [data.id,data.message,socket.getAuthToken().username,timestamp]
       ).then(function(projectMessageDetails){
         console.log('message added : ',projectMessageDetails)
-
       }).catch(function(err){
         console.log('there was an error: ',err)
       })
@@ -172,10 +166,8 @@ export const run = (worker) => {
     socket.on('update_last_activity',update_last_activity)
 
     socket.on('user:profile',function(data,res){
-      // console.log('retrieving profile of user: ',data)
       db.one(queries.UserProfile,data.username)
         .then(function(data){
-          console.log('User Profile : ',data)
           res(null,user_profile_cleaner(data))
         })
         .catch(function(err){
@@ -184,7 +176,6 @@ export const run = (worker) => {
     })
 
     socket.on('set_notification',function(data,res){
-      // console.log('data recieved : ',data)
       return db.any('update account_notifications set unread=false where id = $1',data.id)
                 .then(function(){
                   res(null,'ok')

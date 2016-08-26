@@ -39,11 +39,6 @@ class ProjectChat extends React.Component{
     }.bind(this))
   }
 
-  // setUnread(){
-  //   console.log('setting unread for ; ',this.props.params.projectId)
-  //   this.props.set_unread(this.props.params.projectId)
-  // }
-
   componentWillReceiveProps(nextProps){
     if(this.props.messages[0] !== nextProps.messages[0]){
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight
@@ -79,7 +74,6 @@ class ProjectChat extends React.Component{
 
   handleKeyPress(event){
     if(event.key == 'Enter' && !event.shiftKey){
-      // console.log('Entered')
       this.handleSubmit();
     }
   }
@@ -101,8 +95,6 @@ class ProjectChat extends React.Component{
     const messages = this.props.messages;
     return(
       <div id="project_chat">
-
-
           {
             !this.props.project.length > 0 ?
             <h1> You need to be a member of this project to be part of the chat room </h1>

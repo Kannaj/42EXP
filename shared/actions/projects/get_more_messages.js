@@ -1,14 +1,6 @@
 import {GET_MORE_MESSAGES_SUCCESS} from './constants';
 import {start_request,stop_request} from '../loader'
 
-// const get_more_messages_request = (projectId,lastMessageId) => {
-//   return {
-//     type: GET_MORE_MESSAGES_REQUEST,
-//     projectId,
-//     lastMessageId
-//   }
-// }
-
 const get_more_messages_success = (messages,projectId) =>{
   return{
     type: GET_MORE_MESSAGES_SUCCESS,
@@ -26,7 +18,6 @@ const get_more_messages = (projectId,lastMessageId) => {
         if(err){
           dispatch(add_notification({id:uuid.v4(),heading:'error',message:'Couldnt get more messages',unread:true,server:false}))
         }else{
-          console.log('recieved more messages: ',data)
           dispatch(get_more_messages_success(data,projectId))
           dispatch(stop_request())
         }

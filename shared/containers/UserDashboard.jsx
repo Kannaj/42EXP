@@ -51,9 +51,6 @@ export class Dashboard extends React.Component{
   }
 
   handleChange(input){
-    // if(socket){
-    //   this.props.user_add_skills(input)
-    // }
     this.setState({value:input})
   }
 
@@ -135,11 +132,9 @@ export class Dashboard extends React.Component{
                onRequestClose={this.closeModal}
                className="content-project"
                overlayClassName="overlay-project" >
-
             <ProjectForm create_project={this.props.create_project}/>
-
         </Modal>
-
+        
       </div>
     )
   }

@@ -51,7 +51,6 @@ class ProjectDetail extends React.Component{
   render(){
     return(
       <div className="project_detail">
-        {/* <h1 className="header"> {this.state.project_details.project_name} </h1> */}
         <h2 className="category"> {this.state.project_details.project_category} </h2>
         <hr/>
 

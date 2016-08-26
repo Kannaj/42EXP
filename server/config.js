@@ -23,5 +23,3 @@ export const queries = {
   UserNotifications: sql(path.join(__dirname,'queries/get_user_notifications.sql')),
   GetMoreMessages: sql(path.join(__dirname,'queries/get_more_messages.sql'))
 }
-
-// sql () requires the full project path of the sql file. otherwise it looks for the node_modules folder

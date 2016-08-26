@@ -20,15 +20,11 @@ const getInitialState = (id_token) => {
             User = {isAuthenticated:true,username:result.username,xp:result.xp,level:result.level,skills:result.skills}
             return db.any(queries.UserProjects,result.username)
                       .then(function(userProjects){
-                        // console.log('userProjects: ',userProjects)
                         if(userProjects.length == 0){
                           return {User:User,Projects:[]}
                         }else{
 
                           let newProjects = invert_message_list(message_list_cleaner(userProjects))
-
-                          // console.log('userProjects is now: ',newProjects)
-                          // return {User:User,Projects:userProjects}
                           return {User:User,Projects:newProjects}
                         }
                       })
@@ -49,7 +45,6 @@ const getInitialState = (id_token) => {
             resolve(initialState)
           })
           .catch(function(err){
-            // console.log('there was an error: ',err.message)
             initialState = {User:{isAuthenticated: false}}
             resolve(initialState)
           })

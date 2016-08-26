@@ -41,7 +41,6 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 const options = {
-  // port: 8000
   port
 }
 

@@ -98,7 +98,6 @@ class ProjectForm extends React.Component{
       console.log(errors)
       this.setState({errors:errors})
     }else{
-      // this.props.create_project(this.state)
       if (this.props.create_project){
         this.props.create_project(this.state)
       }else{
@@ -109,7 +108,6 @@ class ProjectForm extends React.Component{
 }
 
   render(){
-    console.log(this.state.category)
     return(
       <div id="project_form">
         <div className="title">

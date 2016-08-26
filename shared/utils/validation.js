@@ -6,9 +6,7 @@ const validate = values => {
     errors.name = 'Please provide a proper name without spaces and no special characters'
   }
   if(values.github_link){
-    // console.log(values.link.match(url))
     let provider = values.github_link.match(github_url)
-    // console.log(provider)
     if (provider == null || !provider[1] == 'github'){
       errors.github_link = "Url must be a fully valid github url (be sure to include https as well)"
     }

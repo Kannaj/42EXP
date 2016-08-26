@@ -27,11 +27,9 @@ const header = (location) => {
     )
   }else if(location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')){
     let messageHeaderRegex = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
-    // console.log(`messageHeaderRegex : ${messageHeaderRegex}`)
     const name = messageHeaderRegex[2]
     const id = messageHeaderRegex[1]
     return (
-      // <h1>Chat Room - {name} </h1>
       <h1><Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link></h1>
     )
   }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
@@ -91,9 +89,7 @@ export class App extends React.Component{
 
   render(){
     return(
-
       <div>
-
         <div className="sidebar">
           <ul className="sidebar_links">
             <Link to="/" className="sidebar_link"> Home </Link>

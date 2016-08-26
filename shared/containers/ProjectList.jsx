@@ -19,7 +19,6 @@ class ProjectList extends React.Component{
     socket.emit('project:list',{},function(err,data){
       if(err){
         this.props.stop_request()
-        console.log('error: ',err)
       }else{
         this.props.stop_request()
         this.setState({project_list:data})

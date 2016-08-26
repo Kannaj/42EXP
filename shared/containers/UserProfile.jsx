@@ -6,7 +6,6 @@ import update from 'react-addons-update';
 import {bindActionCreators} from 'redux';
 import {start_request,stop_request} from '../actions/loader';
 import {add_notification} from '../actions/notifications/notifications';
-// import uuid from 'node-uuid';
 
 class UserProfile extends React.Component{
 
@@ -22,10 +21,8 @@ class UserProfile extends React.Component{
       this.props.start_request()
       socket.emit('user:profile',{username:this.props.params.username},function(err,data){
         if(err){
-          // console.log('error: ',err)
           this.props.stop_request()
         }else{
-          // console.log('recieved data on user Profile :  ',data)
           this.props.stop_request()
           this.setState({user:data})
         }
@@ -37,7 +34,6 @@ class UserProfile extends React.Component{
     if(socket){
       socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.level,votee:this.state.user.username,skill},function(err,data){
         if(err){
-          console.log(err)
           this.props.add_notification({id:uuid.v4(),heading:'Error',message:`Looks like you've already commended ${this.state.user.username}!!`,unread:true,server:false})
         }else{
           this.props.add_notification({id:uuid.v4(),heading:'Info',message:`You\'ve successfully commended ${this.state.user.username}!!`,unread:true,server:false})

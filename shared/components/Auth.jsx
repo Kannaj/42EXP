@@ -1,5 +1,4 @@
 import React from 'react';
-// import 'whatwg-fetch';
 import request from 'superagent';
 
 export default class Auth extends React.Component{
@@ -21,14 +20,12 @@ export default class Auth extends React.Component{
 
   handleSubmit(){
     request
-      // .post('/auth/register')
       .post(this.props.url)
       .set('Accept','application/json')
       .set('Content-Type','application/json')
       .send({username:this.state.username,password:this.state.password,email:this.state.email})
       .end((err,res) => {
         if(err){
-          console.log('err: ',err, res)
           this.setState({errorMessage:res.text})
         }else{
           console.log('res: ',res)
@@ -38,7 +35,6 @@ export default class Auth extends React.Component{
   }
 
   render(){
-    {/* local registration - either add proper validation later or remove in production */}
     return(
       <div className="register">
         {

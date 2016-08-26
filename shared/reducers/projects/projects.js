@@ -4,35 +4,16 @@ import update from 'react-addons-update';
 const Projects = (state=[],action) => {
   let target;
   switch(action.type){
-    // case constants.CREATE_PROJECT_REQUEST:
-    //   return [
-    //     ...state,
-    //   ]
     case constants.CREATE_PROJECT_SUCCESS:
       return [
         ...state,
         action.projectDetails
       ]
-      //to-do :errors need to be handled better.
-    // case constants.CREATE_PROJECT_ERROR:
-    //   return state
-
-    // case constants.JOIN_PROJECT_REQUEST:
-    //   return [
-    //     ...state
-    //   ]
-
     case constants.JOIN_PROJECT_SUCCESS:
       return [
         ...state,
         action.projectDetails
       ]
-
-    // case constants.JOIN_PROJECT_ERROR:
-    //   return [
-    //     ...state
-    //   ]
-
     case constants.NEW_CHAT_MESSAGE:
       target = state.findIndex((project) => {
         return project.id == action.messageDetails.project_id
@@ -71,12 +52,6 @@ const Projects = (state=[],action) => {
           }
         }
       })
-
-    // case constants.EDIT_PROJECT_REQUEST:
-    //   return [
-    //     ...state
-    //   ]
-
     case constants.EDIT_PROJECT_SUCCESS:
       target = state.findIndex((project) => {
         return project.id == action.projectDetails.id
@@ -106,12 +81,6 @@ const Projects = (state=[],action) => {
           }
         }
       })
-
-
-    // case constants.EDIT_PROJECT_ERROR:
-    //   return [
-    //     ...state
-    //   ]
   }
   return state
 }
