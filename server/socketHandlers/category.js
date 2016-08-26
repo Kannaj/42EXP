@@ -6,6 +6,6 @@ export const category_suggestions = function(data,res){
       res(null,category)
     })
     .catch((err) => {
-      res(err.message)
+      res('No suggestions recieved for category')
     })
 }

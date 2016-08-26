@@ -1,4 +1,5 @@
 import {db} from '../config.js';
+import winston from 'winston';
 
 export const vote = function(data){
   const xp_value = data.voter_level * 5;
@@ -13,9 +14,11 @@ export const vote = function(data){
       })
   })
   .then(function(status){
+    winston.info('User commended !!! ',data,' status : ',status)
     return status
   })
   .catch(function(err){
+    winston.error('There was an error with the vote function : ',err, ' data : ',data)
     throw 'Cannot commend already commended user'
   })
 }

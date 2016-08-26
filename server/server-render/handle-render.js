@@ -15,8 +15,6 @@ import thunk from 'redux-thunk';
 
 const handleRender = (req,res) => {
 
-
-
   let id_token;
   if (req.cookies){
 

@@ -3,6 +3,8 @@ import {db,queries} from '../config.js'
 import message_list_cleaner from '../utils/message_list_cleaner.js'
 import invert_message_list from '../utils/invert_message_list.js'
 
+// lol
+
 const getInitialState = (id_token) => {
   let initialState,User,Projects,userNotifications
   return new Promise((resolve,reject) => {

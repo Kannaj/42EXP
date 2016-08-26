@@ -1,6 +1,6 @@
 import {db,queries} from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
-
+import winston from 'winston';
 
 export const get_more_messages = function(data,res){
   return db.any(queries.GetMoreMessages,[data.projectId,data.lastMessageId])
@@ -8,7 +8,8 @@ export const get_more_messages = function(data,res){
             res(null,messages)
           })
           .catch(function(err){
-            res(err)
+            winston.error('Error retrieving old messages : ',err)
+            res('error retrieving messages')
           })
 }
 
@@ -29,6 +30,7 @@ export const project_list = function(data){
       return newResults
     })
     .catch(function(err){
+      winston.error('Project_list cant be retrieved : ',err)
       throw "Couldnt retrieve projects"
     })
 }
@@ -40,6 +42,7 @@ export const project_detail = function(data){
       return newResult[0]
     })
     .catch(function(err){
+      winston.error('project detail cant be retrieved : ',err, ' : data  -',data)
       throw "project not found"
     })
 }
@@ -66,6 +69,7 @@ export const join_project = function(data){
         })
     })
     .catch(function(err){
+      winston.error('User cant join project : ',err, ' data: ',data)
       throw 'Couldnt join Project'
     })
 }
@@ -78,6 +82,7 @@ export const update_last_activity = function(data,res){
     res(null,{last_activity:result.last_activity})
   })
   .catch(function(err){
+    winston.error('Couldnt update last_activity: ',err, ' data: ',data)
     res('couldnt update last timestamp')
   })
 
@@ -105,6 +110,7 @@ export const createNewProject = (data) => {
         })
       })
   .then(function(details){
+    winston.info('Project created : ',details)
     return {
       id:details.project.id,
       last_activity: details.accountProjects.last_activity,
@@ -115,6 +121,7 @@ export const createNewProject = (data) => {
     }
   })
   .catch(function(err){
+    winston.error('Cant create a project : ',err, ' data: ',data)
     throw "Unable to create your project"
   })
 }
@@ -126,6 +133,7 @@ export const edit_project = function(data,res){
     })
     .catch(function(err){
       res('Couldnt edit project')
+      winston.error('User cant edit project : ',err,' data : ',data)
     })
 }
 

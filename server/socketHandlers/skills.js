@@ -1,4 +1,5 @@
 import {db} from '../config.js'
+import winston from 'winston';
 
 export const skill_suggestions = function(data,res) {
   db.any("SELECT * from skill WHERE LOWER(name) LIKE LOWER('%$1#%')",data.skill)
@@ -6,7 +7,8 @@ export const skill_suggestions = function(data,res) {
       res(null,skill)
     })
     .catch((err) => {
-      res(err.message)
+
+      res('No Skills suggested')
     })
 }
 
@@ -16,6 +18,7 @@ export const skill_user = function(data){
       return result
     })
     .catch(function(err){
+      winston.error('Skill couldnt be added for user : ',err)
       throw 'Could not insert skill - try again!'
     })
 }

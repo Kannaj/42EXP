@@ -14,9 +14,12 @@ import {vote} from './socketHandlers/vote.js';
 import {db,queries} from './config';
 import user_profile_cleaner from './utils/user_profile_cleaner.js'
 import notification from './socketHandlers/notifications.js'
+import winston from 'winston';
 
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
+
+  winston.add(winston.transports.File,{filename:'42exp.log'})
 
   const app = express();
 
@@ -54,12 +57,10 @@ export const run = (worker) => {
   // passport.js doesnt work without serializerUser and deserializeUser. Adding this for now.
 
   passport.serializeUser(function(user,done){
-    // console.log('serializeUser returns : ',user)
     done(null,user)
   });
 
   passport.deserializeUser(function(user,done){
-    // console.log('deserializeUser has: ',user)
     done(null,user)
   });
 
@@ -90,8 +91,8 @@ export const run = (worker) => {
           res(null,result)
         })
         .catch(function(err){
-          console.log('errr: ',err)
-          res(err)
+          winston.error('There was an error with skill_user: ',err)
+          res('Could Add skill to account')
         })
     })
 
@@ -102,12 +103,12 @@ export const run = (worker) => {
       data.username = socket.getAuthToken().username;
       createNewProject(data)
         .then(function(details){
-          console.log(details)
+          winston.info('new project created : ',details)
           res(null,details)
         })
         .catch(function(err){
-          console.log(err)
-          res(err)
+          winston.error('Error with createNewProject: ',err)
+          res('Couldnt create project')
         })
     })
 
@@ -118,8 +119,8 @@ export const run = (worker) => {
           res(null,result)
         })
         .catch(function(err){
-          console.log(err)
-          res(err)
+          winston.error('Problem with project:list : ',err)
+          res('Couldnt retrieve project list')
         })
     })
 
@@ -130,7 +131,8 @@ export const run = (worker) => {
           res(null,result)
         })
         .catch(function(err){
-          res(err)
+          winston.error('Problem with project:detail : ',err)
+          res('Couldnt retrieve project detail')
         })
     })
 
@@ -142,7 +144,8 @@ export const run = (worker) => {
           res(null,result)
         })
         .catch(function(err){
-          res(err)
+          winston.error('User cant join project : ',err)
+          res('Cant join project')
         })
     })
 
@@ -156,9 +159,9 @@ export const run = (worker) => {
       return db.one('insert into project_messages (project,message,username,timestamp) values ((SELECT name from project where id=$1),$2,$3,$4) returning *',
         [data.id,data.message,socket.getAuthToken().username,timestamp]
       ).then(function(projectMessageDetails){
-        console.log('message added : ',projectMessageDetails)
+        return ''
       }).catch(function(err){
-        console.log('there was an error: ',err)
+        winston.error('Couldnt insert message : ',data,' error: ',err)
       })
 
     })
@@ -171,7 +174,8 @@ export const run = (worker) => {
           res(null,user_profile_cleaner(data))
         })
         .catch(function(err){
-          console.log('there was an error: ',err)
+          winston.error('Couldnt retrieve user profile : ',err)
+          res('User profile not available')
         })
     })
 
@@ -182,6 +186,7 @@ export const run = (worker) => {
                 })
                 .catch(function(err){
                   res(err)
+                  winston.error('Cant set notification to unread : ',err)
                 })
     })
 
@@ -190,38 +195,31 @@ export const run = (worker) => {
       data.voter = socket.getAuthToken().username;
       vote(data)
         .then(function(status){
-
-
           notification.call(socket,data,status)
             .then(function(result){
               res(null,status.vote)
             })
             .catch(function(err){
-              console.log('there was an error with setting the notification')
+              winston.error('there was an error with setting the notification for user : ',err)
               res(null,status.vote) //send message to votee anyway because commend was successfull at least.
             })
           })
-
-
         .catch(function(err){
-          console.log('there was an error : ',err)
+          winston.error('there was an error with vote function  : ',err, ' with data : ',data)
           res('There was an error with the vote')
         })
-
     })
 
     socket.on('raw',function(data){
-      // console.log('recieved data')
       let pattern = new RegExp('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
       let match = data.match(pattern)
       if(match){
-        // console.log('matches')
         db.one('update account_projects SET last_activity=Now() where project=(SELECT name from project where id=$1) AND username=$2 returning *',
           [parseInt(match[1]),socket.getAuthToken().username]
         ).then(function(data){
-          // console.log('user last_activity logged:',data)
+
         }).catch(function(err){
-          console.log('error: ',err)
+          winston.error('Couldnt update last_activity of user : ',err)
         })
       }
     })
