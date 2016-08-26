@@ -78,6 +78,7 @@ DevExpress
 DirectX
 Django
 Dojo
+Docker
 DotNetNuke
 Drupal
 Eclipse
@@ -244,6 +245,7 @@ Ractive.js
 Raspberry Pi
 React.js
 React Native
+Redux
 RIFE
 RSS
 Ruby
@@ -300,6 +302,7 @@ Tntnet
 Tornado
 TurboGears
 Twilio
+Twisted
 Twitter Bootstrap
 TypeScript
 TYPO3
