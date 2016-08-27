@@ -52,6 +52,7 @@ class ProjectDetail extends React.Component{
     return(
       <div className="project_detail">
         <h2 className="category"> {this.state.project_details.project_category} </h2>
+        <h2 className="owner">Started by : <Link to={`/user/${this.state.project_details.project_owner}`}>{this.state.project_details.project_owner}</Link></h2>
         <hr/>
 
         <div className="project_skills" >
