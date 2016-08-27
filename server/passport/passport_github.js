@@ -20,6 +20,7 @@ passport.use(new githubStrategy({
         return done(null,profile)
       })
       .catch((err) => {
+        //user doesnt exist - create new user
         winston.error('there was an error: ',err)
         // temporary hack - would prefer to insert provider value automatically
         let provider = "Github"

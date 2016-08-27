@@ -46,12 +46,13 @@
     box-sizing: border-box;
     width: 100%;
     background-color: #28262C;
-    height: 15%;
+    // height: 15%;
     margin:0;
     padding:5px;
     bottom:0;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     .skill_chip{
       background-color: $tertiary;
       border-radius: 5px;

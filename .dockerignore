@@ -7,3 +7,5 @@ public
 coverage
 socketcluster
 .env
+webpack
+.travis.yml

@@ -19,7 +19,7 @@ import winston from 'winston';
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
 
-  winston.add(winston.transports.File,{filename:'42exp.log'})
+  winston.add(winston.transports.File,{filename:'logs/42exp.log'})
 
   const app = express();
 
@@ -77,6 +77,7 @@ export const run = (worker) => {
       const cookie = decodeURIComponent(socket.request.headers.cookie)
       const id_token = JSON.parse(cookie.split('=')[1])
       const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
+      winston.info('User logged in : ',decoded.username)
       socket.setAuthToken({username:decoded.username})
     }
 

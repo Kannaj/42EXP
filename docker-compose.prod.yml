@@ -20,6 +20,7 @@ services:
     env_file: .env
     volumes:
       - /usr/src/app
+      - ./logs:/usr/src/app/logs
     expose:
       - "8000"
     environment:
