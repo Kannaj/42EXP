@@ -37,3 +37,6 @@ development:
 
 production:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+rebuild-node:
+	docker-compose stop node && docker-compose rm -f node && docker-compose -f docker-compose.prod.yml up --no-deps --build -d node

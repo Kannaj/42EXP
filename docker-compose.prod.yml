@@ -9,10 +9,11 @@ services:
       - "443:443"
     links:
       - node:node
-    volumes_from:
-      - node
+    # volumes_from:
+      # - node
     volumes:
       - /etc/nginx/ssl:/etc/nginx/ssl
+      - static-content:/usr/src/app
 
   node:
     container_name: node
@@ -21,9 +22,13 @@ services:
     volumes:
       - /usr/src/app
       - ./logs:/usr/src/app/logs
+      - static-content:/usr/src/app/public
     expose:
       - "8000"
     environment:
       - NODE_ENV=production
 
     command: npm run package
+
+volumes:
+  static-content:

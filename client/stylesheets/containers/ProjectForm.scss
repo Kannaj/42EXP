@@ -2,19 +2,13 @@
   padding: 20px;
   height:95%;
   overflow-y: auto;
-  // display: flex;
-  // flex-direction: column;
-  // text-align: center
   .title{
     text-align: center;
   }
   .submit_project{
     text-align: center;
     .submit{
-      // background-color: $fifth;
       width:250px;
-      // position: fixed;
-      // bottom:10px;
     }
   }
 
@@ -34,11 +28,10 @@
     display: block;
     margin: 25px;
     #name{
-      // width:325px;
+
     }
     #description{
       height: 150px;
-      // padding: 10px;
       overflow: auto;
     }
     input[id="name"],

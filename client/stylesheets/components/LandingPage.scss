@@ -4,8 +4,6 @@
   display:flex;
   flex-direction: column;
   height:100%;
-  // width:80%;
-  // align-items: center;
   .why__42{
     margin-bottom:30px;
     padding:0;
@@ -13,19 +11,15 @@
     display: flex;
     flex-direction: column;
     justify-content:center;
-    // height: 300px;
-    // border: 1px solid $secondary;
     background: $primary;
     text-align: center;
     .explanation{
-      // width:80%;
       text-align: center;
     }
     h2{
       color: $tertiary;
     }
     p{
-      // width:80%;
       word-wrap: break-word;
       justify-content: center;
       text-align: center;

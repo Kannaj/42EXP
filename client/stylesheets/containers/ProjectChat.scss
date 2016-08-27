@@ -5,7 +5,6 @@
   padding:0;
   margin:0;
   display: flex;
-  // position:absolute;
   flex-direction: column;
   align-content: space-around;
 
@@ -15,17 +14,14 @@
     color:$secondary;
     margin:0;
     padding:5px;
-    // border-bottom: 0.2px solid $secondary;
   }
 
   .chat_room{
     width: 100%;
     min-height: 0;
-    // position: relative;
     display: flex;
     flex-grow: 2;
     flex-direction: column;
-    // height:100%;
     .messages{
       flex-grow: 1;
       overflow-y: auto;
@@ -39,11 +35,6 @@
     .chat_message_box{
       flex-shrink: 0;
       margin-bottom: 0;
-      // position: absolute;
-      // left:0;
-      // right:0;
-      // bottom: 2px;
-      // flex-grow:1;
       display: flex;
       flex-direction: row;
       .message_box{
@@ -57,7 +48,6 @@
         word-wrap: break-word;
         outline:0;
         height:auto;
-        // line-height: 34px;
         overflow: visible;
         box-sizing: border-box;
       }
