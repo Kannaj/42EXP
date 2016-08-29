@@ -7,7 +7,8 @@ services:
     env_file: .env
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      # - .:/usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
     command: npm start
     environment:
       - NODE_ENV=development
@@ -25,3 +26,6 @@ services:
       - node
     working_dir: /usr/src/app
     command: webpack --watch
+
+volumes:
+  node_modules:

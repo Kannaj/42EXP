@@ -73,6 +73,7 @@
     "node-sass": "^3.8.0",
     "nodemon": "^1.9.2",
     "nyc": "^7.1.0",
+    "pg-monitor": "^0.5.11",
     "postcss-loader": "^0.9.1",
     "react-addons-test-utils": "^15.3.0",
     "sass-loader": "^4.0.0",

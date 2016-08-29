@@ -1,13 +1,20 @@
 // This file sets up the pg-promise database connector
 import path from 'path';
-var pgp = require('pg-promise')();
+import monitor from 'pg-monitor'
 
+var options = {}
+
+var pgp = require('pg-promise')(options);
 
 if(process.env.NODE_ENV === 'testing'){
   var cn = process.env.TEST_DATABASE_URL
 }else{
   var cn = process.env.DATABASE_URL
 }
+
+monitor.setTheme('bright');
+
+monitor.attach(options,['query','error','connect'])
 
 export const db = pgp(cn)
 
