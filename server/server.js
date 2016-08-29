@@ -25,9 +25,11 @@ const main = () => {
 
   if(process.env.NODE_ENV === 'development'){
     process.on('SIGUSR2',function(){
+        console.log('SIGUSR2 recieved')
         socketcluster.killWorkers();
         socketcluster.killBrokers();
-        process.exit(0)
+        process.exit(1)
+        // process.kill(process.pid,'SIGUSR2')
       })
   }
 }

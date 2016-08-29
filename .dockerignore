@@ -9,3 +9,4 @@ socketcluster
 .env
 webpack
 .travis.yml
+logs

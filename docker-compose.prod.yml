@@ -17,7 +17,8 @@ services:
 
   node:
     container_name: node
-    build: .
+    # build: .
+    image: kannaj/42exp
     env_file: .env
     volumes:
       - /usr/src/app

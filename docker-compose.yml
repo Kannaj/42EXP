@@ -16,12 +16,12 @@ services:
 
   node:
     container_name: node
-    build: .
+    # build: .
     links:
       - postgres:postgres
     depends_on:
       - postgres
-    command: npm start
+    # command: npm start
 
 volumes:
   postgresdata:
