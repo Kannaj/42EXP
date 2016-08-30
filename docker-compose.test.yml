@@ -2,7 +2,7 @@ version: '2'
 
 services:
   node:
-    container_name: node
+    container_name: web
     build: .
     env_file: .env
     volumes:
@@ -17,5 +17,3 @@ services:
   test-postgres:
     container_name: test-postgres
     build: ./postgres-test
-    # volumes:
-      # - /var/lib/postgresql/data

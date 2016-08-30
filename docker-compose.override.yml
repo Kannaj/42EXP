@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  node:
-    container_name: node
+  web:
+    container_name: web
     build: .
     env_file: .env
     volumes:
@@ -19,9 +19,9 @@ services:
     container_name: webpack
     build: ./webpack/
     depends_on:
-      - node
+      - web
     volumes_from:
-      - node
+      - web
     working_dir: /usr/src/app
     command: webpack --watch
 

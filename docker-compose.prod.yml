@@ -8,16 +8,13 @@ services:
       - "80:80"
       - "443:443"
     links:
-      - node:node
-    # volumes_from:
-      # - node
+      - web:web
     volumes:
       - /etc/nginx/ssl:/etc/nginx/ssl
       - static-content:/usr/src/app
 
-  node:
-    container_name: node
-    # build: .
+  web:
+    container_name: web
     image: kannaj/42exp
     env_file: .env
     volumes:

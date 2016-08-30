@@ -14,14 +14,12 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
-  node:
-    container_name: node
-    # build: .
+  web:
+    container_name: web
     links:
       - postgres:postgres
     depends_on:
       - postgres
-    # command: npm start
 
 volumes:
   postgresdata:
