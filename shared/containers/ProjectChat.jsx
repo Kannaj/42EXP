@@ -21,6 +21,7 @@ class ProjectChat extends React.Component{
     this.setLastActivity = this.setLastActivity.bind(this)
     this.activateWayPoint = this.activateWayPoint.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
   componentDidMount(){
@@ -73,14 +74,24 @@ class ProjectChat extends React.Component{
   }
 
   handleKeyPress(event){
-    if(event.key == 'Enter' && !event.shiftKey){
+    console.log(event)
+    if(event.key == 'Enter' && !event.shiftKey && this.state.message.trim() !== ""){
       this.handleSubmit();
+    }else if (event.key=='Enter' && event.shiftKey){
+      this.refs.message_box.rows++
+    }
+  }
+
+  handleKeyDown(event){
+    if(event.keyCode == 8 && this.state.message.trim() == ""){
+      this.refs.message_box.rows--
     }
   }
 
   handleSubmit(){
     socket.emit('new_chat_message',{id:this.props.params.projectId,message:this.state.message})
     this.setState({message:''})
+    this.refs.message_box.rows = 1
   }
 
   activateWayPoint(){
@@ -112,7 +123,7 @@ class ProjectChat extends React.Component{
               </div>
 
               <div className="chat_message_box">
-                <textarea rows="1" cols="20" type='text' onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
+                <textarea rows="1" cols="20" type='text' ref="message_box" onKeyPress={this.handleKeyPress} onKeyDown={this.handleKeyDown} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
                 <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
               </div>
             </div>
