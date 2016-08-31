@@ -1,14 +1,14 @@
 FROM node:6.4
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN npm install webpack -g
 
-# Install app dependencies
-COPY package.json /usr/src/app/
+ENV NODE_ENV=production
+
+WORKDIR /tmp
+COPY package.json /tmp/
 RUN npm install
 
-# Bundle app source
+WORKDIR /usr/src/app
 COPY . /usr/src/app
-
-# EXPOSE 8000
+RUN cp -a /tmp/node_modules /usr/src/app/
+RUN npm run build:client
