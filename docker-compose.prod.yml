@@ -10,7 +10,7 @@ services:
     links:
       - web:web
     volumes:
-      - /etc/nginx/ssl:/etc/nginx/ssl
+      - /etc/letsencrypt/:/etc/letsencrypt/
       - static-content:/usr/src/app
 
   web:
