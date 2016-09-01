@@ -1,0 +1,13 @@
+- name: 42exp-provisioning
+  hosts: all
+  become: yes
+  become_method: sudo
+  pre_tasks:
+    - locale_gen: name=en_US.UTF-8 state=present
+  roles:
+    - angstwad.docker_ubuntu
+    - franklinkim.docker-compose
+  vars:
+    docker_group_members:
+      - kj
+    update_docker_package: true

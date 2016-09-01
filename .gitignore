@@ -5,3 +5,6 @@ public/
 .git-old
 logs/
 .nyc_output
+devops/hosts/
+devops/roles/
+*.retry

@@ -40,3 +40,13 @@ production:
 
 rebuild-node:
 	docker-compose stop node && docker-compose rm -f node && docker-compose -f docker-compose.prod.yml up --no-deps --build -d node
+
+
+ansible-install:
+	ansible-galaxy install -r devops/requirements.yml -p devops/roles
+
+ansible-provision:
+	ansible-playbook devops/provisioning.yml -i devops/hosts/ --ask-become-pass
+
+ansible-start:
+	ansible-playbook devops/start-application.yml -i devops/hosts/ --ask-become-pass
