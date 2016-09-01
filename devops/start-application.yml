@@ -1,0 +1,23 @@
+- name: Start application-server
+  hosts: all
+  sudo: true
+  vars:
+    repository: https://github.com/kannaj/42EXP.git
+    path: /home/app/www
+    image: kannaj/42exp
+  tasks:
+    - name: Pull github code
+      git: repo={{ repository }}
+           dest={{ path }}
+
+    - name: Copy .env file
+      copy: src=../production_variables/.env
+            dest={{path}}
+
+    - name: Pull API container
+      shell: docker pull {{ image }}
+
+    - name: Start API container
+      shell: make production
+      args:
+        chdir: "{{ path }}"
