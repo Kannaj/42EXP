@@ -11,6 +11,7 @@ services:
       - web:web
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt/
+      - /etc/ssl:/etc/ssl
       - static-content:/usr/src/app
 
   web:
