@@ -22,7 +22,7 @@ There are two ways to start 42exp.com locally.
   - Clone the repo
   - Run `npm install`
   - create a `.env` file similar to `.env-example`.
-    - NOTE : database url will be different when not using docker.
+    - **NOTE** : database url will be different when not using docker.
     - Database url is of the format **postgres://username:password@postgres:5432/42EXP**
     - Ensure that postgres already has a `42EXP` table.
   - run `webpack --watch --progress` in another terminal to ensure static files are watched and updated.
