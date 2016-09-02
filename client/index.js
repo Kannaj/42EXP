@@ -28,8 +28,6 @@ const store = createStoreWithMiddleware(rootReducer,initialState)
 
 const history = syncHistoryWithStore(browserHistory,store)
 
-
-console.log(process.env.NODE_ENV)
 if(process.env.NODE_ENV === 'production'){
   if(window.location.protocol === 'https:'){
     port = 443
@@ -48,13 +46,12 @@ global.socket = SocketCluster.connect(options)
 
 
 
-//subscribe to projects
+//subscribe to projects-channel of the user.
 if(store.getState().Projects.length > 0){
   var projects = store.getState().Projects
   projects.map((project) => {
+    // Watch for new messages on channel id and dispatch action when message recieved.
     socket.subscribe(project.id).watch(function(data){
-
-      // more to fill
       store.dispatch(new_chat_message(data))
     })
   })
@@ -76,20 +73,17 @@ if(store.getState().User.isAuthenticated){
   })
 }
 
+// Watch for url changes to specific project-chat rooms.
+// On-click, dispatch an action to set unread_messages=0 for that particular project chat room.
+
 history.listen((location) => {
-
   let pattern = new RegExp('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages');
-
   let url = location.pathname;
-
   let match = url.match(pattern);
   if (match){
-
     let projectid = parseInt(match[1])
-    // console.log('projectid is: ',projectid)
     store.dispatch(set_unread(projectid))
   }
-
 })
 
 socket.on('disconnect',function(){
