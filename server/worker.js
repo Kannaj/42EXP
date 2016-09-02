@@ -81,10 +81,10 @@ export const run = (worker) => {
       socket.setAuthToken({username:decoded.username})
     }
 
-
+    // skill suggestions for user profile.
     socket.on('skill:suggestions',skill_suggestions)
 
-
+    // saving skills to a user skillset.
     socket.on('skills:user',function(data,res){
       data.username = socket.getAuthToken().username;
       skill_user(data)
@@ -97,9 +97,10 @@ export const run = (worker) => {
         })
     })
 
-
+    // category suggestions for projects.
     socket.on('category:suggestions',category_suggestions)
 
+    // project creation.
     socket.on('project:create',function(data,res){
       data.username = socket.getAuthToken().username;
       createNewProject(data)
@@ -125,7 +126,7 @@ export const run = (worker) => {
         })
     })
 
-    // socket.on('project:detail',project_detail)
+    // project detail.
     socket.on('project:detail',function(data,res){
       project_detail(data)
         .then(function(result){
@@ -137,7 +138,7 @@ export const run = (worker) => {
         })
     })
 
-    // socket.on('project:join',join_project)
+    // function allowing user to join a project group.
     socket.on('project:join',function(data,res){
       data.username = socket.getAuthToken().username
       join_project(data)
@@ -150,8 +151,13 @@ export const run = (worker) => {
         })
     })
 
+    // check if project_name already exists.
     socket.on('project:check_name',project_check_name)
+
+    // edit an existing project.
     socket.on('project:edit',edit_project)
+
+    // retrieve past messages for chat room.
     socket.on('project:get_more_messages',get_more_messages)
 
     socket.on('new_chat_message',function(data){
@@ -167,6 +173,7 @@ export const run = (worker) => {
 
     })
 
+    // users last_activity in a project chat room. Essential to determine unread_messaages.
     socket.on('update_last_activity',update_last_activity)
 
     socket.on('user:profile',function(data,res){
@@ -192,6 +199,7 @@ export const run = (worker) => {
     })
 
 
+    // When user commends another for a particular skill.
     socket.on('user:vote',function(data,res){
       data.voter = socket.getAuthToken().username;
       vote(data)

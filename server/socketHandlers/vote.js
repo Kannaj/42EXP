@@ -22,3 +22,9 @@ export const vote = function(data){
     throw 'Cannot commend already commended user'
   })
 }
+
+/*
+  current rules specify that a user can only commend the skill of another user ONLY ONCE.
+  This will change in the future with better rules.
+  
+*/
