@@ -1,9 +1,33 @@
+#slide{
+  display: none;
+}
+
+#slide:checked + .sidebar{
+  left: 0px;
+}
+
+#slide:checked ~ .appbar{
+  margin-left: 20%;
+  width:80%;
+}
+
+#slide:checked ~ #Main{
+  margin-left: 20%;
+  width: 80%;
+}
+
+#slide:checked ~ .appbar .toggle{
+  // left: 21%;
+}
+
 .sidebar{
   height: 100%;
   position: fixed;
   width: 20%;
+  left: -20%;
+  transition: all 0.5s ease-in;
   background : $secondary;
-  overflow-y: scroll;
+  overflow-y: auto;
   .sidebar_links{
     width: 100%;
     padding: 0;
@@ -51,12 +75,23 @@
 }
 
 .appbar{
+  .toggle{
+    text-decoration: none;
+    font-size: 2em;
+    color: rgba(0, 0, 0, 0.61);
+    // transition: all 0.5s ease-out 0;
+    transition: all 0.5s ease-in;
+    position:fixed;
+    z-index: 99;
+    cursor: pointer;
+  }
   height: 8%;
   background: $primary;
   border-bottom: 2px solid #f5f5f5;
   position: fixed;
-  width: 80%;
-  margin-left: 20%;
+  width: 100%;
+  transition: all 0.5s ease-in;
+  // margin-left: 20%;
   padding: 5px;
   z-index: 1;
   display: flex;
@@ -122,7 +157,9 @@
   padding: 0;
   margin: 0;
   position: absolute;
-  left:20%;
+  // left:20%;
+  transition: all 0.5s ease-in;
+  width:100%;
   top: 10%;
   bottom:0;
   right:0;

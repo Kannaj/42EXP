@@ -44,7 +44,8 @@ const header = (location) => {
     )
   }else{
     return(
-      <h1>42exp <span className="version">(Alpha)</span></h1>
+      // <h1>42exp <span className="version">(Alpha)</span></h1>
+      ""
     )
   }
 }
@@ -90,6 +91,8 @@ export class App extends React.Component{
   render(){
     return(
       <div>
+        <input type="checkbox" id="slide" name="" value=""/>
+
         <div className="sidebar">
           <ul className="sidebar_links">
             <Link to="/" className="sidebar_link"> Home </Link>
@@ -107,6 +110,7 @@ export class App extends React.Component{
         </div>
 
         <div className="appbar">
+        <label htmlFor="slide" className="toggle">☰</label>
           {header(this.props.location)}
           {!this.props.isAuthenticated
             ?
