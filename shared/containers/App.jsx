@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import {remove_notification} from '../actions/notifications/notifications';
 import Notification from '../components/notifications';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classNames from 'classnames';
 
 //unread function helps show unread_message count for each project the user as signed up for.
 const unread = (count) => {
@@ -49,6 +50,15 @@ const header = (location) => {
   }
 }
 
+const appStyle = (location) => {
+  if(location.match('^/$')){
+    console.log('match : ',location)
+    return true
+  }else{
+    return false
+  }
+}
+
 export class App extends React.Component{
   constructor(props){
     super(props);
@@ -88,6 +98,10 @@ export class App extends React.Component{
   }
 
   render(){
+    const appClass = classNames({
+      'appbar':true,
+      'app': !this.props.isAuthenticated && appStyle(this.props.location)
+    })
     return(
       <div>
         <input type="checkbox" id="slide" name="" value=""/>
@@ -108,7 +122,7 @@ export class App extends React.Component{
           </ul>
         </div>
 
-        <div className="appbar">
+        <div className={appClass}>
         <label htmlFor="slide" className="toggle">
           <span></span>
           <span></span>

@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry:[
@@ -40,5 +41,8 @@ module.exports = {
   },
   plugins:[
     new ExtractTextPlugin('style.css',{allChunks:true}),
+    new CopyWebpackPlugin([
+      {from: 'client/images'}
+    ])
   ]
 }

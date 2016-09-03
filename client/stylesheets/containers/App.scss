@@ -94,8 +94,9 @@
 
 .appbar{
   height: 8%;
-  background: $primary;
-  border-bottom: 2px solid #f5f5f5;
+  background: $tertiary;
+  color: $primary;
+  border-bottom: 2px solid $tertiary;
   position: fixed;
   width: 100%;
   transition: all 0.5s ease-in;
@@ -103,6 +104,10 @@
   z-index: 1;
   display: flex;
   align-items: center;
+  &.app{
+    background: $primary;
+    color: $fourth;
+  }
   .github_auth{
     width:auto;
     background-color: #71CC52;
