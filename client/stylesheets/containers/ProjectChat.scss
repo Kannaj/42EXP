@@ -34,9 +34,8 @@
     }
     .chat_message_box{
       flex-shrink: 0;
-      margin-bottom: 0;
+      padding:5px;
       display: flex;
-      // flex-grow:2;
       flex-direction: row;
       .message_box{
         padding: 10px 10px;

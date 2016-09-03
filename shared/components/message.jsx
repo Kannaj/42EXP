@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import moment from 'moment';
 import Remarkable from 'remarkable';
 import hljs from 'highlight.js';
+import request from 'superagent';
 
 const md = new Remarkable({
   highlight: function (str, lang) {
@@ -24,18 +25,28 @@ class Message extends Component{
 
   render(){
     return(
-      <li id="user_message">
-        <Link to ={`/user/${this.props.message.username}`} className="username">
-          {this.props.message.username}
-        </Link>
+      <li className="new_message">
 
-        <div className="timestamp">
-          {moment(this.props.message.timestamp).calendar()|| null}
+        <div className="avatar">
+          <Link to ={`/user/${this.props.message.username}`}>
+            <div className="user_avatar">
+              <img src={`https://avatars1.githubusercontent.com/${this.props.message.username}`}/>
+            </div>
+          </Link>
         </div>
 
-        <div className="message">
+        <div className="message_details">
+          <Link to ={`/user/${this.props.message.username}`} className="username">
+            {this.props.message.username}
+          </Link>
 
-          <span dangerouslySetInnerHTML={{__html: md.render(this.props.message.message)}}/>
+          <div className="timestamp">
+            {moment(this.props.message.timestamp).calendar()|| null}
+          </div>
+
+          <div className="message">
+            <span dangerouslySetInnerHTML={{__html: md.render(this.props.message.message)}}/>
+          </div>
         </div>
       </li>
     )

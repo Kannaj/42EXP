@@ -44,7 +44,6 @@ const header = (location) => {
     )
   }else{
     return(
-      // <h1>42exp <span className="version">(Alpha)</span></h1>
       ""
     )
   }
@@ -110,7 +109,11 @@ export class App extends React.Component{
         </div>
 
         <div className="appbar">
-        <label htmlFor="slide" className="toggle">☰</label>
+        <label htmlFor="slide" className="toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
           {header(this.props.location)}
           {!this.props.isAuthenticated
             ?
