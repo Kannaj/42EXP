@@ -39,13 +39,10 @@
     justify-content: space-around;
     .sidebar_link{
       color: $secondary-text;
-      // width:100%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      // text-align: center;
-      // margin:15px 0;
       padding: 15px;
       text-decoration: none;
       transition: all 0.3s ease-in;
@@ -64,7 +61,6 @@
         background-color: green;
         padding:5px;
         height: 20px;
-
       }
     }
   }
@@ -75,6 +71,26 @@
 }
 
 .appbar{
+  height: 8%;
+  background: $primary;
+  border-bottom: 2px solid #f5f5f5;
+  position: fixed;
+  width: 100%;
+  transition: all 0.5s ease-in;
+  padding: 5px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .github_auth{
+    width:auto;
+    background-color: #71CC52;
+    color:white;
+    padding: 10px;
+  }
+  .version{
+    font-size: 0.5em;
+  }
   .toggle{
     text-decoration: none;
     font-size: 2em;
@@ -84,27 +100,11 @@
     position:fixed;
     z-index: 99;
     cursor: pointer;
+    margin-top: 0.5em;
   }
-  height: 8%;
-  background: $primary;
-  border-bottom: 2px solid #f5f5f5;
-  position: fixed;
-  width: 100%;
-  transition: all 0.5s ease-in;
-  // margin-left: 20%;
-  padding: 5px;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  .github_auth{
-    width:auto;
-    background-color: #71CC52;
-    color:white;
-    padding: 10px;
-
-  }
-  .version{
-    font-size: 0.5em;
+  .page_title{
+    // transform: translateX(50%);
+    margin-left: 5%;
   }
 }
 

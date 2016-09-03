@@ -23,24 +23,24 @@ const unread = (count) => {
 const header = (location) => {
   if(location == '/projects'){
     return (
-      <h1>Projects</h1>
+      <h3 className="page_title">Projects</h3>
     )
   }else if(location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')){
     let messageHeaderRegex = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
     const name = messageHeaderRegex[2]
     const id = messageHeaderRegex[1]
     return (
-      <h1><Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link></h1>
+      <h3 className="page_title"><Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link></h3>
     )
   }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
     const name = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')[2]
     return (
-      <h1> Project - {name}</h1>
+      <h3 className="page_title"> Project - {name}</h3>
     )
   }else if (location.match('/user/(\\S+)')){
     const name = location.match('/user/(\\S+)')[1]
     return (
-      <h1> Profile - {name} </h1>
+      <h3 className="page_title"> Profile - {name} </h3>
     )
   }else{
     return(
