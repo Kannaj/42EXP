@@ -34,14 +34,35 @@ html,body{
 button{
   padding: 5px;
   border: none;
-  box-shadow: 0 0 0.5px 0.5px;
   font-family: 'Merriweather';
   letter-spacing: 1px;
 }
 
 a {
   text-decoration: none;
-  color:black;
+}
+
+.login_github{
+  padding: 15px;
+  width: auto;
+  font-size: 1em;
+  color: $primary;
+  background-color: $fourth;
+  font-weight: bolder;
+  box-shadow: none;
+  border: $fourth;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  &:hover{
+    box-shadow: 0.2px 1px 0.2px 0.2px #15B358;
+  }
+  img{
+    background-color: $secondary;
+  }
+  a{
+    color: $primary;
+  }
 }
 
 @import './containers/App.scss';

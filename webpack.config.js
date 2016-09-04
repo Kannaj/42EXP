@@ -42,7 +42,7 @@ module.exports = {
   plugins:[
     new ExtractTextPlugin('style.css',{allChunks:true}),
     new CopyWebpackPlugin([
-      {from: 'client/images'}
+      {from: 'client/images' to: 'public/images'}
     ])
   ]
 }

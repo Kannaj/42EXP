@@ -5,10 +5,10 @@ class ProjectChip extends React.Component{
     return(
       <div className="project_chip">
         <div className="project_name">
-          {this.props.project.project_name}
+          Project : {this.props.project.project_name}
         </div>
         <div className="project_category">
-          {this.props.project.project_category}
+          Category : {this.props.project.project_category}
         </div>
         <div className="project_description">
           {this.props.project.project_description}

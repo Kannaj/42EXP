@@ -12,8 +12,9 @@ export default class LandingPage extends React.Component{
             <p>42exp was built with the aim of helping developers gain experience in software development by helping them find open source projects to contribute to. </p>
           </div>
           <button className="login_github">
-            <img src = "github.svg" height="15px" width="15px"/>
-            Register with Github
+            <a href= "/auth/github">
+              Register with Github
+            </a>
           </button>
         </section>
         <section className="why__42">

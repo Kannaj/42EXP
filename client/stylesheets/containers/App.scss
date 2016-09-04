@@ -108,12 +108,6 @@
     background: $primary;
     color: $fourth;
   }
-  .github_auth{
-    width:auto;
-    background-color: #71CC52;
-    color:white;
-    padding: 10px;
-  }
   .version{
     font-size: 0.5em;
   }
@@ -158,14 +152,19 @@
     padding:5px;
     margin-left: 15px;
     font-size: 1.5em;
+    a{
+      color: $primary;
+    }
   }
 }
 
 .auth{
   position: absolute;
-  margin-top: 10px;
-  right: 10px;
-  button{
+  margin-top: 5px;
+  right: 20px;
+  .register,
+  .login
+  {
     margin: 5px;
     background: $primary;
     color: $secondary;
@@ -176,6 +175,17 @@
     transition: border 0.3s ease-in;
     &:hover{
       border: 0.5px solid $tertiary;
+    }
+  }
+  .logout_button{
+    margin-top: 5px;
+    padding: 10px 15px;
+    background: $fourth;
+    color:$primary;
+    width: auto;
+    height:auto;
+    a{
+      color: $primary;
     }
   }
 }

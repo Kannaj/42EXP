@@ -51,8 +51,39 @@ class ProjectDetail extends React.Component{
   render(){
     return(
       <div className="project_detail">
-        <h2 className="category"> {this.state.project_details.project_category} </h2>
+        <h2 className="category"> Category : {this.state.project_details.project_category} </h2>
         <h2 className="owner">Started by : <Link to={`/user/${this.state.project_details.project_owner}`}>{this.state.project_details.project_owner}</Link></h2>
+        <div className="project_detail_actions">
+        {
+          this.state.project_details.github_link ?
+
+          <button><a href={this.state.project_details.github_link} className="link">Project Repo </a></button>
+          :
+          null
+        }
+        {
+          this.state.project_details.reddit_link ?
+
+          <button><a href={this.state.project_details.reddit_link} className="link">Reddit Discussion</a></button>
+          :
+          null
+        }
+        {
+          !this.props.isAuthenticated  ?
+          <button className="login_github">
+            <a href= "/auth/github">
+              Login To Join Project
+            </a>
+          </button>
+          :
+          this.props.project ?
+            this.props.project.role == 'owner' ?
+            <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
+            null
+            :
+            <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+        }
+        </div>
         <hr/>
 
         <div className="project_skills" >
@@ -74,34 +105,6 @@ class ProjectDetail extends React.Component{
 
 
         <div className="description"> {this.state.project_details.project_description} </div>
-        <div className="project_detail_actions">
-        {
-          !this.props.isAuthenticated  ?
-          <h4 className="login_required"> Login to join project </h4>
-          :
-          this.props.project ?
-            this.props.project.role == 'owner' ?
-            <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
-            null
-            :
-            <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
-        }
-        {
-          this.state.project_details.github_link ?
-
-          <button><a href={this.state.project_details.github_link} className="link">Project Repo </a></button>
-          :
-          null
-        }
-        {
-          this.state.project_details.reddit_link ?
-
-          <button><a href={this.state.project_details.reddit_link} className="link">Discussion</a></button>
-          :
-          null
-        }
-        </div>
-
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
                className="content-project"

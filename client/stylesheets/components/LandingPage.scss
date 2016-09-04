@@ -7,7 +7,8 @@
   letter-spacing: 2.5px;
   .why__42{
     padding:0;
-    height: 90vh;
+    height: 100vh;
+    line-height: 30px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -36,21 +37,14 @@
       justify-content: center;
       text-align: center;
     }
-    .login_github{
-      padding: 5px;
-      width: 10%;
+  }
+  @media only screen and (max-width: 480px){
+    line-height: 15px;
+    h2{
+      font-size: 1.5em
+    }
+    p{
       font-size: 1em;
-      color: $fourth;
-      background-color: $primary;
-      font-weight: bolder;
-      box-shadow: none;
-      border: $fourth;
-      box-shadow: 0.5px 0.5px 1px 0.5px $fourth;
-      border-radius: 8px;
-      cursor: pointer;
-      img{
-        background-color: $secondary;
-      }
     }
   }
 }

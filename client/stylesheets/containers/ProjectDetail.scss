@@ -1,25 +1,26 @@
 .project_detail{
-
   bottom:0;
   .header{
     padding:10px;
   }
 
   .category{
-    color: #ccc;
+    color: $fourth;
     padding:10px;
   }
 
   .owner{
-    // color: #ccc;
     padding:10px;
+    a{
+      color: $fourth;
+    }
   }
 
   .description{
     padding:15px;
     overflow-y: auto;
     box-sizing: border-box;
-    height: 400px;
+    height: auto;
     margin-top: 10px;
   }
 
@@ -31,15 +32,18 @@
     padding:10px;
     align-items: center;
     display: flex;
-    height: 5%;
+    // height: 5%;
+    height: auto;
     box-sizing: border-box;
     background-color: $primary;
+    display: flex;
+    flex-wrap: wrap;
     .skill_chip{
       background-color: $tertiary;
       border-radius: 5px;
       color: $primary;
       box-shadow: none;
-      margin: 0 5px;
+      margin: 5px 5px;
       width: auto;
 
       height: 50%;
@@ -49,15 +53,17 @@
 
   .project_detail_actions
   {
-    position: absolute;
+    // position: absolute;
+    padding: 10px;
     display: flex;
     right: 10px;
     top: 15px;
     button{
-      margin: 5px;
+      margin-right: 5px;
+      background: $fourth;
+      color: $primary;
+      border-radius: 5px;
     }
   }
-  .login_required{
-    color: red;
-  }
+
 }

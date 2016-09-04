@@ -75,14 +75,14 @@ export class App extends React.Component{
     if(process.env.NODE_ENV === 'production'){
       return (
         <div className="auth">
-          <button className="github_auth"><a href= "/auth/github" className="github_auth"> Login With Github </a></button>
+          <button className="login_github"><a href= "/auth/github"> Register With Github </a></button>
         </div>
       )
     }else{
       return (
         <div className="auth">
-          <button name="register" onClick={this.openModal.bind(this,"register")}> Register </button>
-          <button name="login" onClick={this.openModal.bind(this,"login")}> Login </button>
+          <button name="register" className="register" onClick={this.openModal.bind(this,"register")}> Register </button>
+          <button name="login" className="login" onClick={this.openModal.bind(this,"login")}> Login </button>
         </div>
       )
     }
@@ -134,7 +134,7 @@ export class App extends React.Component{
             this.authButtons()
             :
             <div className="auth">
-              <button><a href="/logout" >Logout</a> </button>
+              <button className="logout_button"><a href="/logout">Logout</a> </button>
             </div>
           }
 
