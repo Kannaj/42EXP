@@ -1,10 +1,6 @@
 .new_message{
   padding-left: 15px;
   position:relative;
-  // border: 0.1px solid gray;
-  // border-radius: 4px;
-  // height: 150px;
-  // box-shadow: 0 0.2px 0.2px 0.2px;
   display: flex;
   .avatar{
     .user_avatar{
@@ -22,7 +18,6 @@
     .username{
       font-size: 1.2em;
       font-weight: bold;
-      // text-decoration: underline;
       color: $secondary;
       margin-left: 15px;
     }

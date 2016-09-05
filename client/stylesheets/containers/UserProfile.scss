@@ -27,6 +27,16 @@
     padding:0;
     margin:0;
     text-align: center;
+    button{
+      background: $primary;
+      border: 2.5px solid $tertiary;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+      &:hover{
+        background: $tertiary;
+        color: $primary;
+      }
+    }
   }
 
   .skill_commends{

@@ -114,7 +114,7 @@ class ProjectDetail extends React.Component{
               {...this.state.project_details}
               id = {this.props.params.projectId}
 
-            edit_project={this.props.edit_project}/>
+            edit_project={this.props.edit_project} close={this.closeModal}/>
 
         </Modal>
       </div>

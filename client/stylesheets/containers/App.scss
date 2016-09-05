@@ -250,6 +250,9 @@
   top: 10%;
   bottom:0;
   right:0;
+  &:after{
+    height:100%;
+  }
 }
 
 #loading{
@@ -288,6 +291,20 @@
     margin-bottom: 5px;
     z-index: 5;
     pointer-events: auto;
+    .heading{
+      background: $fourth;
+      color: $primary;
+    }
+    button{
+      background: $primary;
+      border: 2.5px solid $tertiary;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+      &:hover{
+        background: $tertiary;
+        color: $primary;
+      }
+    }
   }
 }
 

@@ -59,18 +59,24 @@ class UserProfile extends React.Component{
       <div>
         {
           this.state.user ?
-          <div>
+          <div className="user_details">
             <div className="user_stats">
-              <div className="Level">
-                <h2> {this.state.user.level} </h2>
-                <h3 className="stat_header"> Level </h3>
+              <img className="user_avatar" src={`https://avatars1.githubusercontent.com/${this.state.user.username}`}/>
+              <h2>{this.state.user.username}</h2>
+              <hr/>
+              <div className="stats_wrapper">
+                <div className="Level">
+                  <h3 className="stat_header"> Level </h3>
+                  <h2> {this.state.user.level} </h2>
+                </div>
+                <div className="Xp">
+                  <h3 className="stat_header"> Total Xp Earned </h3>
+                  <h2> {this.state.user.xp} </h2>
+                </div>
               </div>
               <hr/>
-              <div className="Xp">
-                <h2> {this.state.user.xp} </h2>
-                <h3 className="stat_header"> Total Xp Earned </h3>
-              </div>
             </div>
+
 
             {
               this.state.user.skills.length > 0 ?
@@ -78,15 +84,18 @@ class UserProfile extends React.Component{
               <div className="user_skills">
 
 
-                <h3>{this.state.user.username}'s skillset </h3>
-                <div className="headers">
-                  <h3 className="skill_header">Skill</h3>
-                  <h3 className="commends_header">Commends Recieved</h3>
-                  {
-                    this.state.user.username == this.props.username || !this.props.isAuthenticated ?
-                    null : <h3 className="commends_header">Commend</h3>
-                  }
-                </div>
+                <h3 className="main_header">{this.state.user.username}'s skillset </h3>
+
+                  <div className="headers">
+                    <h3 className="skill_header">Skill</h3>
+                    <h3 className="commends_header">Commends Recieved</h3>
+                    {
+                      this.state.user.username == this.props.username || !this.props.isAuthenticated ?
+                      null : <h3 className="commends_header">Commend</h3>
+                    }
+                  </div>
+                  <hr className="skill_break"/>
+
 
                 {
                   this.state.user.skills.map((skill,idx) => {

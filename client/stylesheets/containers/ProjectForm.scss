@@ -9,7 +9,28 @@
     text-align: center;
     .submit{
       width:250px;
+      background: $primary;
+      border: 2.5px solid $tertiary;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+      padding:15px;
+      &:hover{
+        background: $tertiary;
+        color: $primary;
+      }
     }
+  }
+  .close_button{
+    position:absolute;
+    cursor: pointer;
+    font-size: 14px;
+    right:0;
+    top:0;
+    padding: 15px;
+    height: 15px;
+    width: 15px;
+    background: $fourth;
+    color: $primary;
   }
 
 }
@@ -21,8 +42,14 @@
     color: red;
 
   }
-  input{
+  input,
+  textarea
+  {
     display: inline-block;
+    border:none !important;
+    outline: none;
+    border-radius: 0px !important;
+    border-bottom: 2px solid $fourth !important;
   }
   .block{
     display: block;
@@ -49,6 +76,22 @@
       outline:0;
       padding: 0 10px;
       box-sizing: border-box;
+    }
+    .Select-control{
+        border:none !important;
+        width:100%;
+        outline: none;
+        border-bottom: 2px solid $fourth !important;
+        border-radius: 0px;
+        .Select-arrow-zone{
+          display: none;
+        }
+        .Select-value{
+          color: $fourth;
+        }
+        .Select-clear{
+          display: none;
+        }
     }
   }
 }

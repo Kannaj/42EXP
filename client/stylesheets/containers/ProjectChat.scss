@@ -55,6 +55,14 @@
       .submit_message{
         margin: 0 5px;
         padding:10px;
+        background: $primary;
+        border: 2.5px solid $tertiary;
+        transition: all 0.2s ease-in;
+        cursor: pointer;
+        &:hover{
+          background: $tertiary;
+          color: $primary;
+        }
       }
     }
   }

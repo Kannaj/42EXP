@@ -1,94 +1,183 @@
-.user_skills{
-  border: 1px solid $tertiary;
-  width:50%;
-  padding: 10px;
-  margin: 5px;
-  transform: translate(50%);
-  .main_header{
+
+  .user_details{
+    display: flex;
+    padding: 30px 120px;
+    margin-top: 20px;
+    justify-content: space-around;
+    @media only screen and (max-width: 480px){
+      flex-direction: column;
+      padding: 15px;
+      justify-content: center;
+    }
+    .user_stats{
+      background-color: $primary;
+      padding:20px;
+      border-radius: 4px;
+      margin: 5px;
+      height: 35%;
+      width:30%;
+      border: 1px solid $fourth;
+      text-align: center;
+      box-shadow: 0 1px 1px 0 $fourth;
+      display: flex;
+      flex-direction: column;
+      @media only screen and (max-width: 480px){
+        width:80%;
+        padding: 10px;
+      }
+      h2{
+        margin-bottom:0;
+      }
+      hr{
+        margin-top:20px;
+        width:100%;
+        height:2.5px;
+        background-color: $fourth;
+      }
+      .user_avatar{
+        height:80px;
+        width:80px;
+        margin: auto;
+      }
+      .stats_wrapper{
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        .stat_header{
+
+        }
+        .Level{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+        .Xp{
+          width:100%;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    .user_skills{
+      background-color: $primary;
+      border: 1px solid $fourth;
+      padding:20px;
+      border-radius: 4px;
+      box-shadow: 0 1px 1px 0 $fourth;
+      width:40%;
+      margin: 5px;
+      @media only screen and (max-width: 480px){
+        width:80%;
+        padding: 10px;
+      }
+      .main_header{
+        text-align: center;
+      }
+      .headers{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding:10px;
+        align-items: center;
+        .skill_header{
+          width:45%;
+        }
+      }
+      .user_add_skill{
+        display: flex;
+        flex-direction: row;
+        .Select{
+          flex-grow: 1;
+        }
+      }
+      .skill_break{
+        width:100%;
+        height:2.5px;
+        background:$fourth;
+        margin-bottom: 10px;
+      }
+      .Select-control{
+          border:none !important;
+          width:100%;
+          outline: none;
+          border-bottom: 2px solid $fourth !important;
+          border-radius: 0px;
+          .Select-arrow-zone{
+            display: none;
+          }
+          .Select-value{
+            color: $fourth;
+          }
+      }
+      .submit_skill{
+        background: $primary;
+        border: 2.5px solid $tertiary;
+        transition: all 0.2s ease-in;
+        cursor: pointer;
+        &:hover{
+          background: $tertiary;
+          color: $primary;
+        }
+      }
+    }
+  }
+  .welcome_message{
     text-align: center;
   }
-  .headers{
+  .summary{
+    padding-bottom:15px;
+  }
+
+  #create_project{
+    padding: 5px;
+    margin-top: 0 20px;
+    text-align: center;
+    top:0;
+    right:10px;
+    button{
+      padding: 10px;
+      background: $primary;
+      border: 2.5px solid $tertiary;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+      &:hover{
+        background: $tertiary;
+        color: $primary;
+      }
+    }
+  }
+
+  .overlay-project{
+    position: fixed;
+    top : 0;
+    left: 0;
+    right : 0;
+    bottom  : 0;
+    background-color : rgba(255, 255, 255, 0.75);
+    transition: all 0.5s ease-in;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding:10px;
     align-items: center;
-    border-bottom: 0.5px solid gray;
-    .skill_header{
-      width:45%;
-    }
+    justify-content: center;
+    transition: all 0.5s ease-in;
+    z-index: 2;
   }
-  .user_add_skill{
-    display: flex;
-    flex-direction: row;
-    .Select{
-      flex-grow: 1;
-    }
-  }
-}
 
-.user_stats{
-  border: 1px solid $tertiary;
-  padding:10px;
-  margin: 5px;
-  width:50%;
-  transform: translate(50%);
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  .stat_header{
-    position:relative;
-    border-top: 1px sold black;
-    bottom:0;
-  }
-  .Level{
+  .content-project{
+    position: absolute;
+    left: 50%;
+    top:0;
+    background: $primary;
+    // border: 2px solid $tertiary;
+    height: auto;
+    outline:none;
     width: 100%;
+    transform:translate(-50%);
+    bottom:0;
+    transition: all 0.5s ease-in;
   }
-  .Xp{
-    width:100%;
+
+  .summary{
+    text-align: center;
   }
-}
-
-.welcome_message{
-  text-align: center;
-}
-
-#create_project{
-  padding: 5px;
-  margin-top: 10px;
-  text-align: center;
-  position: absolute;
-  top:0;
-  right:10px;
-}
-
-.overlay-project{
-  position: fixed;
-  top : 0;
-  left: 0;
-  right : 0;
-  bottom  : 0;
-  background-color : rgba(255, 255, 255, 0.75);
-  transition: all 0.5s ease-in;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-
-.content-project{
-  position: absolute;
-  left: 50%;
-  top:0;
-  background: $primary;
-  border: 2px solid $tertiary;
-  height: auto;
-  width: 75%;
-  transform:translate(-50%);
-  bottom:0;
-  transition: all 0.5s ease-in;
-}
-
-.summary{
-  text-align: center;
-}

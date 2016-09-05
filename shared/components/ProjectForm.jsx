@@ -40,6 +40,12 @@ class ProjectForm extends React.Component{
     if(this.props.project_description){
       this.setState({description: this.props.project_description})
     }
+    // if(this.props.skills){
+    //   this.props.skills.map((skill) => {
+    //     // this outputs only one skill
+    //     this.setState({skill:this.state.skill.concat([{value:skill.name,label:skill.name}])})
+    //   })
+    // }
   }
 
 
@@ -113,6 +119,8 @@ class ProjectForm extends React.Component{
         <div className="title">
           {this.props.create_project ? <h1>Create a new Project </h1> : <h1> Edit Project </h1>}
         </div>
+
+        <div className="close_button" onClick={this.props.close}>X</div>
 
         <div id="project_details">
           <div className="block">

@@ -59,6 +59,7 @@ export class Dashboard extends React.Component{
       if(this.state.value){
         this.props.user_add_skills(this.state.value)
       }
+      this.state.value=""
     }
   }
 
@@ -73,68 +74,75 @@ export class Dashboard extends React.Component{
 
   render(){
     return(
-      <div>
-        <h1 className="welcome_message"> Hello {this.props.username}! </h1>
-        <p className="summary"> This is where you'll be able add/modify your skillset. Your skillset is what other members would see and be able to commend. </p>
-        <p className="summary"> Remember - Your XP and levels are based on the total commends you recieve </p>
-
-        <div className="user_stats">
-          <div className="Level">
-            <h2> {this.props.level} </h2>
-            <h3 className="stat_header"> Level </h3>
-          </div>
-          <hr/>
-          <div className="Xp">
-            <h2> {this.props.xp} </h2>
-            <h3 className="stat_header"> Total Xp Earned </h3>
-          </div>
-        </div>
-
-        <div className="user_skills">
-
-            {
-              this.props.skills.length ?
-
-              <div>
-                <h3 className="main_header"> Your Skillset </h3>
-                <div className="headers">
-                  <h3 className="skill_header">Skill</h3>
-                  <h3 className="commends_header">Commends</h3>
-
-                </div>
-                {
-                  this.props.skills.map((skill) => {
-                    return (
-                      <Skill key={skill.id} skill={skill.skill} commends={skill.commends} profile={false} />
-                    )
-                  })
-                }
+      <div id="user_dashboard">
+        <div className="user_details">
+          <div className="user_stats">
+            <img className="user_avatar" src={`https://avatars1.githubusercontent.com/${this.props.username}`}/>
+            <h2>{this.props.username}</h2>
+            <hr/>
+            <div className="stats_wrapper">
+              <div className="Level">
+                <h3 className="stat_header"> Level </h3>
+                <h2> {this.props.level} </h2>
               </div>
-              :
-              null
-            }
-            <div className="user_add_skill">
-                <Select.Async name="account_skills"
-                              placeholder="Add Skill"
-                              minimumInput={2}
-                              loadOptions={this.getOptions}
-                              onChange={this.handleChange}
-                              value={this.state.value}  />
-                <button className="submit_skill" onClick={this.handleSubmit}> Add Skill </button>
-
+              <div className="Xp">
+                <h3 className="stat_header"> Total Xp Earned </h3>
+                <h2> {this.props.xp} </h2>
+              </div>
             </div>
-        </div>
-        <div id="create_project">
-          <button onClick={this.openModal}> Start a new project </button>
+            <hr/>
+            <div id="create_project">
+              <button onClick={this.openModal}> Start a new project </button>
+            </div>
+          </div>
+
+          <div className="user_skills">
+              {
+                this.props.skills.length ?
+                <div>
+                  <h3 className="main_header"> Your Skills </h3>
+                  <div className="headers">
+                    <h3 className="skill_header">Skill</h3>
+                    <h3 className="commends_header">Commends</h3>
+                  </div>
+                  <hr className="skill_break"/>
+                  {
+                    this.props.skills.map((skill) => {
+                      return (
+                        <Skill key={skill.id} skill={skill.skill} commends={skill.commends}/>
+                      )
+                    })
+                  }
+                  <hr className="skill_break"/>
+                </div>
+                :
+                null
+              }
+              <div className="user_add_skill">
+                  <Select.Async name="account_skills"
+                                placeholder="Add Skill"
+                                minimumInput={2}
+                                loadOptions={this.getOptions}
+                                onChange={this.handleChange}
+                                value={this.state.value}  />
+                  <button className="submit_skill" onClick={this.handleSubmit}> Add Skill </button>
+              </div>
+          </div>
+
         </div>
 
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
                className="content-project"
                overlayClassName="overlay-project" >
-            <ProjectForm create_project={this.props.create_project}/>
+            <ProjectForm create_project={this.props.create_project} close={this.closeModal}/>
         </Modal>
-        
+
+
+        <p className="summary"> This is where you'll be able add/modify your skillset. Your skillset is what other members would see and be able to commend. </p>
+        <p className="summary"> Remember - Your XP and levels are based on the total commends you recieve </p>
+
+
       </div>
     )
   }

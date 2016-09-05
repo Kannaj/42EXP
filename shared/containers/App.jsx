@@ -45,7 +45,7 @@ const header = (location) => {
     )
   }else{
     return(
-      ""
+      <h3 className="page_title"> Dashboard</h3>
     )
   }
 }
