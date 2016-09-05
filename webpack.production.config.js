@@ -49,7 +49,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CopyWebpackPlugin([
-      {from: 'client/images'}
+      {from: 'client/images' ,to: 'public/images'}
     ])
   ]
 }

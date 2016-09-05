@@ -51,21 +51,43 @@
     padding: 0;
     margin: 0;
     position: relative;
-    top: 10%;
+    top: 20%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    font-weight: bolder;
+    .line_break{
+      width:100%;
+      margin-top:20px;
+      height: 5px;
+      background-color: $fourth;
+      text-align: center;
+      // border-bottom: 1px solid black;
+      position: relative;
+      .links_header{
+        position: absolute;
+        top: -20px;
+        right: 35%;
+        padding: 10px;
+        background-color: $secondary;
+      }
+    }
+    .subscribed_projects{
+      margin-top: 10%;
+    }
     .sidebar_link{
-      color: $secondary-text;
+      color: $primary;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
       text-decoration: none;
-      transition: all 0.3s ease-in;
+      transition: all 0.1s ease-in;
+      letter-spacing: 1.5px;
       &:hover{
-        background: #242038; //make var if used more
+        // background: #242038; //make var if used more
+        color: $tertiary;
       }
       .project_name{
         // text-align: left;
@@ -89,7 +111,11 @@
 }
 
 .active_link{
-  background-color: $activeLink;
+  background-color: #232a40; //lighter shade of masstricht blue
+  color: $primary;
+  &:hover{
+    color: $primary !important;
+  }
 }
 
 .appbar{
