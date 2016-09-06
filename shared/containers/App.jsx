@@ -45,14 +45,13 @@ const header = (location) => {
     )
   }else{
     return(
-      <h3 className="page_title"> Dashboard</h3>
+      <h3 className="page_title"> 42exp</h3>
     )
   }
 }
 
 const appStyle = (location) => {
   if(location.match('^/$')){
-    console.log('match : ',location)
     return true
   }else{
     return false

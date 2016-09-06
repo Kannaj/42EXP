@@ -245,10 +245,13 @@
   padding: 0;
   margin: 0;
   position: absolute;
+  // position:relative;
+  // margin-top: 0;
   transition: all 0.5s ease-in;
   width:100%;
   top: 10%;
   bottom:0;
+  overflow: auto;
   right:0;
   &:after{
     height:100%;

@@ -1,7 +1,11 @@
-
+#user_dashboard{
+  height:100%;
+  background: #E5E5E5;
+  overflow: auto;
+}
   .user_details{
     display: flex;
-    padding: 30px 120px;
+    padding: 30px 60px;
     margin-top: 20px;
     justify-content: space-around;
     @media only screen and (max-width: 480px){
@@ -12,13 +16,12 @@
     .user_stats{
       background-color: $primary;
       padding:20px;
-      border-radius: 4px;
+      border-radius: 1px;
       margin: 5px;
       height: 35%;
-      width:30%;
-      border: 1px solid $fourth;
+      width:20%;
       text-align: center;
-      box-shadow: 0 1px 1px 0 $fourth;
+      box-shadow: 0 1.5px 1.5px 0 $fourth;
       display: flex;
       flex-direction: column;
       @media only screen and (max-width: 480px){
@@ -61,10 +64,9 @@
 
     .user_skills{
       background-color: $primary;
-      border: 1px solid $fourth;
       padding:20px;
-      border-radius: 4px;
-      box-shadow: 0 1px 1px 0 $fourth;
+      border-radius: 1px;
+      box-shadow: 0 1.5px 1.5px 0 $fourth;
       width:40%;
       margin: 5px;
       @media only screen and (max-width: 480px){
