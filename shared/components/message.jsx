@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import moment from 'moment';
 import Remarkable from 'remarkable';
 import hljs from 'highlight.js';
-import request from 'superagent';
 
 const md = new Remarkable({
   highlight: function (str, lang) {
