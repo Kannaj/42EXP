@@ -2,6 +2,9 @@
   padding-left: 15px;
   position:relative;
   display: flex;
+  &:hover{
+    background: #e5e5e5;
+  }
   .avatar{
     .user_avatar{
       img{
