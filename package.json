@@ -1,7 +1,7 @@
 {
   "name": "42EXP",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Codebase for the 42exp project",
   "main": "index.js",
   "scripts": {
     "test:server": "NODE_ENV=testing mocha test/server/  --compilers js:babel-core/register --require ./test/server/init_db.js  --recursive",
@@ -16,7 +16,7 @@
     "migrate:down": "pg-migrate down"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kannan Jayaraaman",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
