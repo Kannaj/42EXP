@@ -9,7 +9,7 @@
     "test": "npm run test:client && npm run test:server",
     "test:coverage": "NODE_ENV=testing nyc --require babel-core/register mocha test/ --compilers js:babel-core/register --recursive",
     "start": "npm run migrate && nodemon --exec babel-node --ignore shared/ --ignore client/ --ignore public/ server/server.js",
-    "package": "NODE_ENV=production npm run migrate && babel-node server/server.js",
+    "package": "NODE_ENV=production && webpack --progress --config ./webpack.production.config.js && npm run migrate && babel-node server/server.js",
     "build:client": "NODE_ENV=production webpack --progress --config ./webpack.production.config.js",
     "migrate": "pg-migrate up",
     "migrate:add": "pg-migrate create $NAME",

@@ -11,4 +11,4 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-RUN npm run build:client
+# RUN npm run build:client
