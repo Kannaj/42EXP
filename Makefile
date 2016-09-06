@@ -50,3 +50,6 @@ ansible-provision:
 
 ansible-start:
 	ansible-playbook devops/start-application.yml -i devops/hosts/ --ask-become-pass
+
+ansible-deploy: push
+	ansible-playbook devops/deploy.yml -i devops/hosts/ --ask-become-pass

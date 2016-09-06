@@ -1,0 +1,33 @@
+- name: Rebuild web container
+  hosts: all
+  sudo: true
+  vars:
+    repository: https://github.com/kannaj/42EXP.git
+    path: /home/app/www
+    image: kannaj/42exp
+  tasks:
+    - name: Pull github code
+      git: repo={{ repository }}
+           dest={{ path }}
+
+    - name: Copy .env file
+      copy: src=../production_variables/.env
+            dest={{path}}
+
+    - name: Pull API container
+      shell: docker pull {{ image }}
+
+    - name: Stop API container
+      shell: docker-compose -f docker-compose.yml -f docker-compose.prod.yml stop web
+      args:
+        chdir: "{{ path }}"
+
+    - name: Remove API container
+      shell: docker-compose -f docker-compose.yml -f docker-compose.prod.yml rm web
+      args:
+        chdir: "{{ path }}"
+
+    - name: Rebuild API container
+      shell: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps web
+      args:
+        chdir: "{{ path }}"
