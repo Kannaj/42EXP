@@ -6,6 +6,9 @@ import edit_project from '../actions/projects/edit_project';
 import ProjectForm from '../components/ProjectForm';
 import Modal from 'react-modal';
 import {Link} from 'react-router';
+import Remarkable from 'remarkable';
+
+const md = new Remarkable({})
 
 class ProjectDetail extends React.Component{
 
@@ -104,7 +107,7 @@ class ProjectDetail extends React.Component{
 
 
 
-        <div className="description"> {this.state.project_details.project_description} </div>
+        <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.project_description)}}/></div>
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
                className="content-project"

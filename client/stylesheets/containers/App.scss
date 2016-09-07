@@ -122,7 +122,7 @@
   height: 8%;
   background: $tertiary;
   color: $primary;
-  border-bottom: 2px solid $tertiary;
+  // border-bottom: 2px solid $primary;
   position: fixed;
   width: 100%;
   transition: all 0.5s ease-in;
@@ -130,6 +130,10 @@
   z-index: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  @media only screen and (max-width: 480px){
+    padding: 3px;
+  }
   &.app{
     background: $primary;
     color: $fourth;
@@ -176,18 +180,23 @@
   }
   .page_title{
     padding:5px;
-    margin-left: 15px;
+    margin: 0 15px 0;
+    flex-grow: 2;
     font-size: 1.5em;
     a{
       color: $primary;
+    }
+    @media only screen and (max-width: 480px){
+      font-size: 1em;
+      margin:0;
     }
   }
 }
 
 .auth{
-  position: absolute;
-  margin-top: 5px;
-  right: 20px;
+  // position: absolute;
+  // margin-top: 5px;
+  // right: 20px;
   .register,
   .login
   {
@@ -206,10 +215,16 @@
   .logout_button{
     margin-top: 5px;
     padding: 10px 15px;
+    margin-right: 15px;
     background: $fourth;
     color:$primary;
     width: auto;
     height:auto;
+    @media only screen and (max-width: 480px){
+      margin-top: 0;
+      padding: 8px 13px;
+      font-size: 10px;
+    }
     a{
       color: $primary;
     }
@@ -249,7 +264,8 @@
   // margin-top: 0;
   transition: all 0.5s ease-in;
   width:100%;
-  top: 10%;
+  // top: 8%;
+  top: calc(8% + 5px);
   bottom:0;
   overflow: auto;
   right:0;
@@ -283,6 +299,9 @@
   display: flex;
   pointer-events: none;
   flex-direction: column-reverse;
+  @media only screen and (max-width: 480px){
+    width: 50%;
+  }
   .notification_wrapper{
     padding:5px;
     border-radius: 1px;

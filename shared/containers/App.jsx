@@ -108,10 +108,15 @@ export class App extends React.Component{
         <div className="sidebar">
           <ul className="sidebar_links">
             <Link to="/" className="sidebar_link"> Home </Link>
-            <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Projects </Link>
-            <div className="line_break">
-              <span className="links_header"> Your projects </span>
-            </div>
+            <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Browse Projects </Link>
+            {
+              this.props.Projects.length > 1 ?
+              <div className="line_break">
+                <span className="links_header"> Your projects </span>
+              </div>
+              :
+              null
+            }
             <div className="subscribed_projects">
               {this.props.Projects ?
                 this.props.Projects.map((project) => {

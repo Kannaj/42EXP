@@ -14,7 +14,6 @@ $fifth:#CECFC7;
 $activeLink:#242038;
 
 html{
-  // height:100%;
   letter-spacing: 1px;
 }
 
@@ -26,6 +25,10 @@ body{
   font-size: 12px;
   font-family: 'Merriweather';
   min-height: 100%;
+  @media only screen and (max-width: 480px){
+    font-size: 10px;
+    line-height: 15px;
+  }
 }
 
 
@@ -38,6 +41,10 @@ button{
   border: none;
   font-family: 'Merriweather';
   letter-spacing: 1px;
+  @media only screen and (max-width: 480px){
+    padding:3px;
+    font-size: 10px;
+  }
 }
 
 a {
@@ -56,6 +63,9 @@ a {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease-in;
+  @media only screen and (max-width: 480px){
+    padding:10px;
+  }
   &:hover{
     box-shadow: 0.2px 1px 0.2px 0.2px #15B358;
   }

@@ -10,8 +10,8 @@
     justify-content: space-around;
     @media only screen and (max-width: 480px){
       flex-direction: column;
-      padding: 15px;
       justify-content: center;
+      padding:0 20px;
     }
     .user_stats{
       background-color: $primary;
@@ -25,7 +25,7 @@
       display: flex;
       flex-direction: column;
       @media only screen and (max-width: 480px){
-        width:80%;
+        width:90%;
         padding: 10px;
       }
       h2{
@@ -70,7 +70,7 @@
       width:40%;
       margin: 5px;
       @media only screen and (max-width: 480px){
-        width:80%;
+        width:90%;
         padding: 10px;
       }
       .main_header{

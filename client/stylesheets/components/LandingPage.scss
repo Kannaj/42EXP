@@ -7,7 +7,7 @@
   letter-spacing: 2.5px;
   .landing{
     padding:0;
-    height: 90vh;
+    height: 92vh;
     line-height: 30px;
     width: 100%;
     display: flex;
@@ -16,7 +16,7 @@
     align-items: center;
     background: $tertiary;
     text-align: center;
-    border-bottom: 0.2px solid $primary;
+    border-bottom: 0.2px solid $fourth;
     // text-decoration doesnt work.
     .intro {
       .title{

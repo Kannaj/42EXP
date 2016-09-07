@@ -1,3 +1,19 @@
+#user_profile{
+  background: #e5e5e5;
+  overflow: auto;
+  height:100%;
+  .user_skills{
+    .headers{
+      .skill_header{
+        width: 25%;
+        @media only screen and (max-width: 480px){
+          width: 45%;
+        }
+      }
+    }
+  }
+}
+
 .profile_skills{
   display: flex;
   flex-direction: row;
@@ -17,9 +33,12 @@
       width:25%;
     }
     .skill_commends{
-      margin-right:80px;
+      // margin-right:80px;
+      margin-right: auto;
       flex-grow: 1;
-      text-align: left;
+      h3{
+        text-align: center;
+      }
     }
   }
 

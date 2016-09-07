@@ -56,75 +56,77 @@ class UserProfile extends React.Component{
 
   render(){
     return(
-      <div>
-        {
-          this.state.user ?
-          <div className="user_details">
-            <div className="user_stats">
-              <img className="user_avatar" src={`https://avatars1.githubusercontent.com/${this.state.user.username}`}/>
-              <h2>{this.state.user.username}</h2>
-              <hr/>
-              <div className="stats_wrapper">
-                <div className="Level">
-                  <h3 className="stat_header"> Level </h3>
-                  <h2> {this.state.user.level} </h2>
-                </div>
-                <div className="Xp">
-                  <h3 className="stat_header"> Total Xp Earned </h3>
-                  <h2> {this.state.user.xp} </h2>
-                </div>
-              </div>
-              <hr/>
-            </div>
-
-
-            {
-              this.state.user.skills.length > 0 ?
-
-              <div className="user_skills">
-
-
-                <h3 className="main_header">{this.state.user.username}'s skillset </h3>
-
-                  <div className="headers">
-                    <h3 className="skill_header">Skill</h3>
-                    <h3 className="commends_header">Commends Recieved</h3>
-                    {
-                      this.state.user.username == this.props.username || !this.props.isAuthenticated ?
-                      null : <h3 className="commends_header">Commend</h3>
-                    }
+      <div id="user_profile">
+        <div>
+          {
+            this.state.user ?
+            <div className="user_details">
+              <div className="user_stats">
+                <img className="user_avatar" src={`https://avatars1.githubusercontent.com/${this.state.user.username}`}/>
+                <h2>{this.state.user.username}</h2>
+                <hr/>
+                <div className="stats_wrapper">
+                  <div className="Level">
+                    <h3 className="stat_header"> Level </h3>
+                    <h2> {this.state.user.level} </h2>
                   </div>
-                  <hr className="skill_break"/>
-
-
-                {
-                  this.state.user.skills.map((skill,idx) => {
-                    return (
-                      <div key={uuid.v4()} className="profile_skills">
-                        {/* profile props sent to Skill Component help determing if user is accessing from dashboard or from userProfile component. Helps remove the
-                          "remove" button. temporary. */}
-                        <Skill skill={skill.skill} commends={skill.commends} profile={true}/>
-
-                        {/* probably a better way to do the below? checks if the profile belongs to the logged in user or not */}
-
-                        {
-                          this.state.user.username == this.props.username || !this.props.isAuthenticated ?
-                          null : <div className="commend"><button className="commend_button" onClick={this.handleClick.bind(this,skill.id,idx,skill.skill)}>Commend</button></div>
-                        }
-
-                      </div>
-                    )
-                  })
-                }
+                  <div className="Xp">
+                    <h3 className="stat_header"> Total Xp Earned </h3>
+                    <h2> {this.state.user.xp} </h2>
+                  </div>
+                </div>
+                <hr/>
               </div>
-                :
-                null
-            }
-          </div>
-          :
-          <h2> loading .... </h2>
-        }
 
+
+              {
+                this.state.user.skills.length > 0 ?
+
+                <div className="user_skills">
+
+
+                  <h3 className="main_header">{this.state.user.username}'s skillset </h3>
+
+                    <div className="headers">
+                      <h3 className="skill_header">Skill</h3>
+                      <h3 className="commends_header">Commends Recieved</h3>
+                      {
+                        this.state.user.username == this.props.username || !this.props.isAuthenticated ?
+                        null : <h3 className="commends_header">Commend</h3>
+                      }
+                    </div>
+                    <hr className="skill_break"/>
+
+
+                  {
+                    this.state.user.skills.map((skill,idx) => {
+                      return (
+                        <div key={uuid.v4()} className="profile_skills">
+                          {/* profile props sent to Skill Component help determing if user is accessing from dashboard or from userProfile component. Helps remove the
+                            "remove" button. temporary. */}
+                          <Skill skill={skill.skill} commends={skill.commends} profile={true}/>
+
+                          {/* probably a better way to do the below? checks if the profile belongs to the logged in user or not */}
+
+                          {
+                            this.state.user.username == this.props.username || !this.props.isAuthenticated ?
+                            null : <div className="commend"><button className="commend_button" onClick={this.handleClick.bind(this,skill.id,idx,skill.skill)}>Commend</button></div>
+                          }
+
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+                  :
+                  null
+              }
+            </div>
+            :
+            <h2> loading .... </h2>
+          }
+
+        </div>
       </div>
     )
   }
