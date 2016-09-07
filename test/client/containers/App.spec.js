@@ -17,7 +17,7 @@ describe('<App/>',() => {
   })
 
   it('should show notifications is there are any unread messages',() => {
-    const wrapper = shallow(<App location="/" unread_notifications={[{id:1,message:"Megadeth"}]}/>)
+    const wrapper = shallow(<App location="/" unread_notifications={[{id:1,message:"Megadeth"}]} Projects={Projects}/>)
     expect(wrapper.find('#notification_panel')).to.have.length(1);
     expect(wrapper.find(Notification)).to.have.length(1)
   })
