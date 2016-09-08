@@ -74,7 +74,7 @@ export class App extends React.Component{
     if(process.env.NODE_ENV === 'production'){
       return (
         <div className="auth">
-          <button className="login_github"><a href= "/auth/github"> Register With Github </a></button>
+          <a href= "/auth/github"><button className="login_github"> Register With Github</button></a>
         </div>
       )
     }else{
@@ -143,7 +143,7 @@ export class App extends React.Component{
             this.authButtons()
             :
             <div className="auth">
-              <button className="logout_button"><a href="/logout">Logout</a> </button>
+              <a href="/logout"><button className="logout_button">Logout</button></a> 
             </div>
           }
 

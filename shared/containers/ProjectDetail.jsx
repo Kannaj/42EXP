@@ -60,24 +60,24 @@ class ProjectDetail extends React.Component{
         {
           this.state.project_details.github_link ?
 
-          <button><a href={this.state.project_details.github_link} className="link">Project Repo </a></button>
+          <a href={this.state.project_details.github_link} className="link"><button>Project Repo</button> </a>
           :
           null
         }
         {
           this.state.project_details.reddit_link ?
 
-          <button><a href={this.state.project_details.reddit_link} className="link">Reddit Discussion</a></button>
+          <a href={this.state.project_details.reddit_link} className="link"><button>Reddit Discussion</button></a>
           :
           null
         }
         {
           !this.props.isAuthenticated  ?
-          <button className="login_github">
-            <a href= "/auth/github">
-              Login To Join Project
-            </a>
-          </button>
+          <a href= "/auth/github">
+            <button className="login_github">
+                Login To Join Project
+            </button>
+          </a>
           :
           this.props.project ?
             this.props.project.role == 'owner' ?

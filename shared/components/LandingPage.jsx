@@ -11,11 +11,11 @@ export default class LandingPage extends React.Component{
           <div className="explanation">
             <p>A new way to gain experience in software development</p>
           </div>
-          <button className="login_github">
-            <a href= "/auth/github">
-              Register with Github
-            </a>
-          </button>
+          <a href= "/auth/github">
+            <button className="login_github">
+                Register with Github
+            </button>
+          </a>
         </section>
         <section className="landing portfolio">
           <div className="title">
