@@ -4,12 +4,20 @@ import {SocketCluster} from 'socketcluster';
 
 const main = () => {
 
+  let workerCount;
+
   if (typeof(window) == 'undefined'){
       global.window = new Object();
   }
 
+  if(process.env.NODE_ENV === 'development'){
+    workerCount = 1
+  }else{
+    workerCount = 2
+  }
+
   var socketcluster = new SocketCluster({
-    workers:1,
+    workers:workerCount,
     brokers:1,
     port: 8000,
     appName:null,

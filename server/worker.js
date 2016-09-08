@@ -19,7 +19,12 @@ import winston from 'winston';
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
 
-  winston.add(winston.transports.File,{filename:'logs/42exp.log'})
+  // winston.add(winston.transports.File,{filename:'logs/42exp.log'})
+
+  winston.add(require('winston-daily-rotate-file'),{
+    filename:'logs/42exp.log',
+    datePattern: '.dd-MM-yyyy'
+  })
 
   const app = express();
 
