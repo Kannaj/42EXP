@@ -74,7 +74,6 @@ class ProjectChat extends React.Component{
   }
 
   handleKeyPress(event){
-    console.log(event)
     if(event.key == 'Enter' && !event.shiftKey && this.state.message.trim() !== ""){
       this.handleSubmit();
     }else if (event.key=='Enter' && event.shiftKey){
