@@ -5,6 +5,7 @@ import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
 import validate from '../utils/validation.js';
 import update from 'react-addons-update';
 import categoryOpt from '../utils/categoryOptions';
+import _ from 'lodash';
 
 //known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
 // into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
@@ -40,12 +41,13 @@ class ProjectForm extends React.Component{
     if(this.props.project_description){
       this.setState({description: this.props.project_description})
     }
-    // if(this.props.skills){
-    //   this.props.skills.map((skill) => {
-    //     // this outputs only one skill
-    //     this.setState({skill:this.state.skill.concat([{value:skill.name,label:skill.name}])})
-    //   })
-    // }
+    if(this.props.skills){
+      let skill_list = []
+      this.props.skills.map((skill) => {
+        skill_list.push({value:skill.name,label:skill.name})
+      })
+      this.setState({skill:this.state.skill.concat(skill_list)})
+    }
   }
 
 
@@ -156,7 +158,7 @@ class ProjectForm extends React.Component{
             <Select.Async name="project_skills"
               placeholder="Pick the skills required for the project"
               minimumInput={1}
-              loadOptions={this.getOptions.bind(this,'skill')}
+              loadOptions={_.debounce(this.getOptions.bind(this,'skill'),1000)}
               onChange={this.handleChange.bind(this,'skill')}
               value={this.state.skill}
               multi={true}

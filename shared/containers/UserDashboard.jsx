@@ -7,6 +7,7 @@ import ProjectForm from '../components/ProjectForm';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import create_project from '../actions/projects/create_project';
+import _ from 'lodash';
 
 // function is responsible for returning autocomplete options to react-select
 // the proper function actually resides in autocomplete.js in utils folder.
@@ -40,7 +41,7 @@ export class Dashboard extends React.Component{
   }
 
   getOptions(input,callback){
-    if(socket && input.length > 3){
+    if(socket){
       socket.emit('skill:suggestions',{skill:input},(err,data) => {
         if(data){
           let opt = selOptions(data)
@@ -121,8 +122,8 @@ export class Dashboard extends React.Component{
               <div className="user_add_skill">
                   <Select.Async name="account_skills"
                                 placeholder="Add Skill"
-                                minimumInput={2}
-                                loadOptions={this.getOptions}
+                                loadOptions= {_.debounce(this.getOptions,1000)}
+                                minimumInput={1}
                                 onChange={this.handleChange}
                                 value={this.state.value}  />
                   <button className="submit_skill" onClick={this.handleSubmit}> Add Skill </button>
