@@ -119,7 +119,8 @@
 }
 
 .appbar{
-  height: 8%;
+  // height: 8%;
+  height: 60px;
   background: $tertiary;
   color: $primary;
   // border-bottom: 2px solid $primary;
@@ -265,7 +266,7 @@
   transition: all 0.5s ease-in;
   width:100%;
   // top: 8%;
-  top: calc(8% + 5px);
+  top: 65px;
   bottom:0;
   overflow: auto;
   right:0;

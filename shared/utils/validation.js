@@ -1,7 +1,7 @@
 const validate = values => {
   const errors = {}
   let github_url = new RegExp("^https?://([a-z0-9-]+\.)*(github)\.com(/.*)?$")
-  let reddit_url = new RegExp("^https?://([a-z0-9-]+\.)*(reddit)\.com(/r/42exp)(/.*)?$")
+  let reddit_url = new RegExp("^https?://([a-z0-9-]+\.)*(reddit)\.com(/r/42EXP)(/.*)?$")
   if(!values.name || /\s/.test(values.name) || !/^[a-zA-Z0-9-_]*$/.test(values.name)){
     errors.name = 'Please provide a proper name without spaces and no special characters'
   }

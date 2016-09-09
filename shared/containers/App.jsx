@@ -143,7 +143,7 @@ export class App extends React.Component{
             this.authButtons()
             :
             <div className="auth">
-              <a href="/logout"><button className="logout_button">Logout</button></a> 
+              <a href="/logout"><button className="logout_button">Logout</button></a>
             </div>
           }
 
