@@ -57,7 +57,7 @@ describe('Form Validation',() => {
   })
 
   it('should return valid if github domain is specified',() => {
-    submittedValues.reddit_link = 'https://www.reddit.com/r/42exp/'
+    submittedValues.reddit_link = 'https://www.reddit.com/r/42EXP/'
     errorObject = validate(submittedValues);
     expect(errorObject.reddit_link).to.be.undefined;
   })
