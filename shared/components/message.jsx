@@ -17,7 +17,8 @@ const md = new Remarkable({
     } catch (err) {}
 
     return ''; // use external default escaping
-  }
+  },
+  langPrefix: 'hljs language-'
 });
 
 class Message extends Component{

@@ -1,4 +1,7 @@
 import React from 'react';
+import Remarkable from 'remarkable';
+
+const md = new Remarkable({})
 
 class ProjectChip extends React.Component{
   render(){
@@ -11,7 +14,7 @@ class ProjectChip extends React.Component{
           Category : {this.props.project.project_category}
         </div>
         <div className="project_description">
-          {this.props.project.project_description}
+          <span dangerouslySetInnerHTML={{__html:md.render(this.props.project.project_description)}}/>
         </div>
         <div className="project_skills" >
         {
