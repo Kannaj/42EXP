@@ -3,7 +3,7 @@
 
 ### Greetings!
 
-This is the primary codebase that powers [42exp.com](https://42exp.com). Each folder has its own readme file which explains how everything works.
+This is the primary codebase that powers [42exp.com](http://42exp.com). Each folder has its own readme file which explains how everything works.
 
 -------
 
