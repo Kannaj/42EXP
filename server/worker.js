@@ -16,6 +16,14 @@ import user_profile_cleaner from './utils/user_profile_cleaner.js'
 import notification from './socketHandlers/notifications.js'
 import winston from 'winston';
 
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
+const config = require('../webpack.config.js')
+
+const compiler = webpack(config)
+
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
 
@@ -32,9 +40,18 @@ export const run = (worker) => {
   const scServer = worker.scServer;
 
   //standard express fluff
-  if(process.env.NODE_ENV.trim()==='development'){
-    app.use(serveStatic(path.resolve(__dirname, '../public')));
+  if(process.env.NODE_ENV.trim() === 'development'){
+    // app.use(serveStatic(path.resolve(__dirname, '../public')));
+    app.use(webpackDevMiddleware(compiler, {
+      publicPath: config.output.publicPath,
+      stats: {colors: true}
+    }))
+
+    app.use(webpackHotMiddleware(compiler, {
+      log: console.log
+    }))
   }
+  
   app.use(cookieParser())
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
