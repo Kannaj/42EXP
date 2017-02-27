@@ -64,10 +64,15 @@ export class App extends React.Component{
     this.state = {
       modalIsOpen:false,
       register: false,
-      login: false
+      login: false,
+      isSidebarOpen: true,
+      isProfileMenuOpen: false
     }
     this.closeModal = this.closeModal.bind(this)
     this.authButtons = this.authButtons.bind(this)
+    this.toggleSidebar = this.toggleSidebar.bind(this)
+    this.toggleProfileMenu = this.toggleProfileMenu.bind(this)
+    this.handleProfileBlur = this.handleProfileBlur.bind(this)
   }
 
   authButtons(){
@@ -87,6 +92,13 @@ export class App extends React.Component{
     }
   }
 
+  toggleSidebar(){
+    this.setState({isSidebarOpen: !this.state.isSidebarOpen})
+  }
+
+  toggleProfileMenu(){
+    this.setState({isProfileMenuOpen: !this.state.isProfileMenuOpen})
+  }
 
   openModal(type){
     this.setState({modalIsOpen:true,[type]:true})
@@ -96,41 +108,17 @@ export class App extends React.Component{
     this.setState({modalIsOpen:false,register:false,login:false})
   }
 
+  handleProfileBlur(e){
+    console.log('lost focus')
+
+    setTimeout(this.setState({isProfileMenuOpen : false}),2000)
+  }
+
   render(){
-    const appClass = classNames({
-      'appbar':true,
-      'app': !this.props.isAuthenticated && appStyle(this.props.location)
-    })
     return(
       <div>
-        <input type="checkbox" id="slide" name="" value=""/>
 
-        <div className="sidebar">
-          {/*
-            <ul className="sidebar_links">
-            <Link to="/" className="sidebar_link"> Home </Link>
-            <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Browse Projects </Link>
-            {
-              this.props.Projects.length > 1 ?
-              <div className="line_break">
-                <span className="links_header"> Your projects </span>
-              </div>
-              :
-              null
-            }
-            <div className="subscribed_projects">
-              {this.props.Projects ?
-                this.props.Projects.map((project) => {
-                  return (
-                    <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="sidebar_link" activeClassName="active_link"><span className="project_name">{project.project}</span>{unread(project.unread_messages)}</Link>
-                  )
-                })
-                :
-                null
-              }
-            </div>
-          </ul>
-        */}
+        <div className={`sidebar ${this.state.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
 
         <div className="sidebar__logo">
           <img src="http://placeskull.com/75/75"/>
@@ -141,7 +129,20 @@ export class App extends React.Component{
           <p> Projects that you've joined will be shown here </p>
         </div>
 
-        <div className="navigation">
+        <div className="subscribed_projects">
+        {
+          this.props.Projects ?
+          this.props.Projects.map((project) => {
+            return (
+              <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="subscribed_projects__item" activeClassName="active_link"><span className="project_name">{project.project}</span>{unread(project.unread_messages)}</Link>
+            )
+          })
+          :
+          null
+        }
+        </div>
+
+        <div className={`navigation--${this.props.Projects.length > 0 ? "bottom" : "top"}`}>
           <button className="navigation__explore_button">
             <i className="ion-search"/>  Explore
           </button>
@@ -151,22 +152,20 @@ export class App extends React.Component{
           </button>
         </div>
 
-        </div>
+      </div>
 
-        <div className={appClass}>
-        <label htmlFor="slide" className="toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
+        <div className={`appbar ${this.state.isSidebarOpen ? "appbar--sidebarOpen" : "appbar--sidebarClosed"}`}>
+        <button className={`appbar__toggle_button ${this.state.isSidebarOpen ? "ion-chevron-left" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button>
           {header(this.props.location)}
           {!this.props.isAuthenticated
             ?
             this.authButtons()
             :
             <div className="auth">
-              <button className="ion-person" aria-hidden="true"></button>
-              <a href="/logout"><button className="logout_button">Logout</button></a>
+              <button className="auth__profile_icon ion-android-person" onClick={this.toggleProfileMenu} aria-hidden="true"></button>
+              <div tabIndex="1" onMouseLeave={this.handleProfileBlur} className={`profile_menu profile_menu--${this.state.isProfileMenuOpen ? "visible" : "hidden"}`}>
+                <a href="/logout"><button className="profile_menu__logout_button">Logout</button></a>
+              </div>
             </div>
           }
 
@@ -181,7 +180,7 @@ export class App extends React.Component{
         </Modal>
 
 
-        <div id="Main">
+        <div className={`main ${this.state.isSidebarOpen ? "main--sidebarOpen" : "main--sidebarClosed"}`}>
           {this.props.children}
         </div>
 
