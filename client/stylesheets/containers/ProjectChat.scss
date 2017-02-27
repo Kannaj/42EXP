@@ -10,8 +10,8 @@
 
   .chat_room_title{
     text-align: center;
-    background-color: $primary;
-    color:$secondary;
+    background-color: $white;
+    color:$black;
     margin:0;
     padding:5px;
   }
@@ -43,7 +43,7 @@
         border: 0.5px solid black;
         border-radius: 2px;
         flex-grow:2;
-        background-color: $primary;
+        background-color: $white;
         border-radius: 4px;
         border: 1px solid #ccc;
         word-wrap: break-word;
@@ -55,13 +55,13 @@
       .submit_message{
         margin: 0 5px;
         padding:10px;
-        background: $primary;
-        border: 2.5px solid $tertiary;
+        background: $white;
+        border: 2.5px solid $blue;
         transition: all 0.2s ease-in;
         cursor: pointer;
         &:hover{
-          background: $tertiary;
-          color: $primary;
+          background: $blue;
+          color: $white;
         }
       }
     }

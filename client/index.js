@@ -18,7 +18,6 @@ import {update_user_stats} from '../shared/actions/User/actions'
 
 let port;
 
-// console.log('JSON is : ',JSON.parse(window.__INITIAL_STATE__))
 const initialState = window.__INITIAL_STATE__
 
 const middleware = routerMiddleware(browserHistory)

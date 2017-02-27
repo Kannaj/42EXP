@@ -9,14 +9,14 @@
     text-align: center;
     .submit{
       width:250px;
-      background: $primary;
-      border: 2.5px solid $tertiary;
+      background: $white;
+      border: 2.5px solid $blue;
       transition: all 0.2s ease-in;
       cursor: pointer;
       padding:15px;
       &:hover{
-        background: $tertiary;
-        color: $primary;
+        background: $blue;
+        color: $white;
       }
     }
   }
@@ -29,8 +29,8 @@
     padding: 15px;
     height: 15px;
     width: 15px;
-    background: $fourth;
-    color: $primary;
+    background: $blue;
+    color: $white;
   }
 
 }
@@ -49,7 +49,7 @@
     border:none !important;
     outline: none;
     border-radius: 0px !important;
-    border-bottom: 2px solid $fourth !important;
+    border-bottom: 2px solid $blue !important;
   }
   .block{
     display: block;
@@ -66,7 +66,7 @@
     input[id="reddit_link"],
     textarea[id="description"],
     {
-      background-color: $primary;
+      background-color: $white;
       border-radius: 4px;
       border: 1px solid #ccc;
       color: #333;
@@ -81,13 +81,13 @@
         border:none !important;
         width:100%;
         outline: none;
-        border-bottom: 2px solid $fourth !important;
+        border-bottom: 2px solid $blue !important;
         border-radius: 0px;
         .Select-arrow-zone{
           display: none;
         }
         .Select-value{
-          color: $fourth;
+          color: $blue;
         }
         .Select-clear{
           display: none;

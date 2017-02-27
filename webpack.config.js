@@ -60,7 +60,8 @@ module.exports = {
   plugins:[
     new ExtractTextPlugin({filename: 'style.css', allChunks: true}),
     new CopyWebpackPlugin([
-      {from: 'client/images' ,to: 'public/images'}
+      {from: 'client/images' ,to: 'images'},
+      {from: 'client/ionicons', to: 'assets'}
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })

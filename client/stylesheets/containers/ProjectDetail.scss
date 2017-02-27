@@ -5,14 +5,14 @@
   }
 
   .category{
-    color: $fourth;
+    color: $blue;
     padding:10px;
   }
 
   .owner{
     padding:10px;
     a{
-      color: $fourth;
+      color: $blue;
     }
   }
 
@@ -25,7 +25,7 @@
   }
 
   .link{
-    color:$primary;
+    color:$white;
   }
 
   .project_skills{
@@ -35,13 +35,13 @@
     // height: 5%;
     height: auto;
     box-sizing: border-box;
-    background-color: $primary;
+    background-color: $white;
     display: flex;
     flex-wrap: wrap;
     .skill_chip{
-      background-color: $tertiary;
+      background-color: $blue;
       border-radius: 5px;
-      color: $primary;
+      color: $white;
       box-shadow: none;
       margin: 5px 5px;
       width: auto;
@@ -60,8 +60,8 @@
     top: 15px;
     button{
       margin-right: 5px;
-      background: $fourth;
-      color: $primary;
+      background: $blue;
+      color: $white;
       border-radius: 5px;
       cursor: pointer;
     }

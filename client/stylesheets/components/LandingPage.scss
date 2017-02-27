@@ -14,9 +14,9 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    background: $tertiary;
+    background: $blue;
     text-align: center;
-    border-bottom: 0.2px solid $fourth;
+    border-bottom: 0.2px solid $blue;
     // text-decoration doesnt work.
     .intro {
       .title{
@@ -33,10 +33,10 @@
       font-size: 1.5em;
       font-weight: 300;
       padding: 10px 45px;
-      color: $primary;
+      color: $white;
     }
     h2{
-      color: $secondary;
+      color: $black;
     }
     p{
       word-wrap: break-word;

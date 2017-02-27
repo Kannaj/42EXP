@@ -44,8 +44,53 @@
   width: 20%;
   left: -20%;
   transition: all 0.5s ease-in;
-  background : $secondary;
+  background : $black;
   overflow-y: auto;
+  color: $white;
+
+  &__logo{
+    width: 100%;
+    height: 2rem;
+    text-align: center;
+    padding: 10px 0 25px 0;
+  }
+
+  &__text {
+    padding: 1.5em 2.5em;
+    h1{
+      padding-top: 1.5em;
+    }
+    p{
+      font-size: 0.6rem;
+      color: #8F918E;
+    }
+  }
+
+
+  .navigation{
+    width: 100%;
+    text-align: center;
+    &__explore_button{
+      width: 80%;
+      padding: 1em;
+      background: $blue;
+      border: 2px solid $blue;
+      color: $white;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin-bottom: 1em;
+    }
+    &__lobby_button{
+      width: 80%;
+      padding: 1em;
+      background: $blue;
+      border: 2px solid $blue;
+      color: $white;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+  }
+
   .sidebar_links{
     width: 100%;
     padding: 0;
@@ -60,7 +105,7 @@
       width:100%;
       margin-top:20px;
       height: 5px;
-      background-color: $fourth;
+      background-color: $blue;
       text-align: center;
       // border-bottom: 1px solid black;
       position: relative;
@@ -69,14 +114,14 @@
         top: -20px;
         right: 35%;
         padding: 10px;
-        background-color: $secondary;
+        background-color: $black;
       }
     }
     .subscribed_projects{
       margin-top: 25px;
     }
     .sidebar_link{
-      color: $primary;
+      color: $white;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -87,7 +132,7 @@
       letter-spacing: 1.5px;
       &:hover{
         // background: #242038; //make var if used more
-        color: $tertiary;
+        color: $blue;
       }
       .project_name{
         // text-align: left;
@@ -112,18 +157,18 @@
 
 .active_link{
   background-color: #232a40; //lighter shade of masstricht blue
-  color: $primary;
+  color: $white;
   &:hover{
-    color: $primary !important;
+    color: $white !important;
   }
 }
 
 .appbar{
   // height: 8%;
   height: 60px;
-  background: $tertiary;
-  color: $primary;
-  // border-bottom: 2px solid $primary;
+  background: $white;
+  color: $black;
+  border-bottom: 2px solid $gray;
   position: fixed;
   width: 100%;
   transition: all 0.5s ease-in;
@@ -135,10 +180,10 @@
   @media only screen and (max-width: 480px){
     padding: 3px;
   }
-  &.app{
-    background: $primary;
-    color: $fourth;
-  }
+  // &.app{
+  //   background: $white;
+  //   color: $blue;
+  // }
   .version{
     font-size: 0.5em;
   }
@@ -185,7 +230,7 @@
     flex-grow: 2;
     font-size: 1.5em;
     a{
-      color: $primary;
+      color: $white;
     }
     @media only screen and (max-width: 480px){
       font-size: 1em;
@@ -195,30 +240,27 @@
 }
 
 .auth{
-  // position: absolute;
-  // margin-top: 5px;
-  // right: 20px;
   .register,
   .login
   {
     margin: 5px;
-    background: $primary;
-    color: $secondary;
+    background: $white;
+    color: $black;
     border: none;
     padding: 5px;
     width: 90px;
     cursor: pointer;
     transition: border 0.3s ease-in;
     &:hover{
-      border: 0.5px solid $tertiary;
+      border: 0.5px solid $blue;
     }
   }
   .logout_button{
     margin-top: 5px;
     padding: 10px 15px;
     margin-right: 15px;
-    background: $fourth;
-    color:$primary;
+    background: $blue;
+    color:$white;
     width: auto;
     height:auto;
     @media only screen and (max-width: 480px){
@@ -227,7 +269,12 @@
       font-size: 10px;
     }
     a{
-      color: $primary;
+      color: $white;
+    }
+    i{
+      height: 100px;
+      width: 100px;
+
     }
   }
 }
@@ -250,8 +297,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-  background: $primary;
-  border: 2px solid $tertiary;
+  background: $white;
+  border: 2px solid $blue;
   height: auto;
   width: auto;
   transition: all 0.5s ease-in;
@@ -315,17 +362,17 @@
     z-index: 5;
     pointer-events: auto;
     .heading{
-      background: $fourth;
-      color: $primary;
+      background: $blue;
+      color: $white;
     }
     button{
-      background: $primary;
-      border: 2.5px solid $tertiary;
+      background: $white;
+      border: 2.5px solid $blue;
       transition: all 0.2s ease-in;
       cursor: pointer;
       &:hover{
-        background: $tertiary;
-        color: $primary;
+        background: $blue;
+        color: $white;
       }
     }
   }

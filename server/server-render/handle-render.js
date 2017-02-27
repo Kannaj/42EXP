@@ -60,6 +60,7 @@ const renderFullPage = (html,initialState) => {
         <title>42 Exp</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="/style.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/ionicons.min.css">
       </head>
       <body>
         <div id="app"><div>${html}</div></div>

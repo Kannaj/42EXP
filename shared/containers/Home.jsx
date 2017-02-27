@@ -1,5 +1,5 @@
 import React from 'react';
-import DashBoardContainer from '../containers/UserDashboard'
+import ProjectList from '../containers/ProjectList'
 import {connect} from 'react-redux';
 import user_add_skills from '../actions/User/actions.js'
 import {bindActionCreators} from 'redux';
@@ -11,7 +11,7 @@ export class Home extends React.Component{
       <div>
         {
           this.props.isAuthenticated ?
-            <DashBoardContainer {...this.props} />
+            <ProjectList {...this.props} />
             : <LandingPage/>
         }
       </div>

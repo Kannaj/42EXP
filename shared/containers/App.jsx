@@ -12,10 +12,10 @@ import classNames from 'classnames';
 //unread function helps show unread_message count for each project the user as signed up for.
 const unread = (count) => {
   if (count !== 0){
-    return(
+    return (
       <span className="unread_count">{count}</span>
     )
-  }else{
+  } else {
     null
   }
 }
@@ -106,7 +106,8 @@ export class App extends React.Component{
         <input type="checkbox" id="slide" name="" value=""/>
 
         <div className="sidebar">
-          <ul className="sidebar_links">
+          {/*
+            <ul className="sidebar_links">
             <Link to="/" className="sidebar_link"> Home </Link>
             <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Browse Projects </Link>
             {
@@ -129,6 +130,27 @@ export class App extends React.Component{
               }
             </div>
           </ul>
+        */}
+
+        <div className="sidebar__logo">
+          <img src="http://placeskull.com/75/75"/>
+        </div>
+
+        <div className="sidebar__text">
+          <h1> My Projects </h1>
+          <p> Projects that you've joined will be shown here </p>
+        </div>
+
+        <div className="navigation">
+          <button className="navigation__explore_button">
+            <i className="ion-search"/>  Explore
+          </button>
+
+          <button className="navigation__lobby_button">
+            <i className="ion-person-stalker"/> Visit Lobby
+          </button>
+        </div>
+
         </div>
 
         <div className={appClass}>
@@ -143,6 +165,7 @@ export class App extends React.Component{
             this.authButtons()
             :
             <div className="auth">
+              <button className="ion-person" aria-hidden="true"></button>
               <a href="/logout"><button className="logout_button">Logout</button></a>
             </div>
           }
@@ -165,7 +188,7 @@ export class App extends React.Component{
 
         {this.props.loading ?
           <div id="loading">
-            <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>
+            <i className="ion-load-a"></i>
           </div>
           :
           null

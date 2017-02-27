@@ -47,13 +47,13 @@
     margin:0;
     text-align: center;
     button{
-      background: $primary;
-      border: 2.5px solid $tertiary;
+      background: $white;
+      border: 2.5px solid $blue;
       transition: all 0.2s ease-in;
       cursor: pointer;
       &:hover{
-        background: $tertiary;
-        color: $primary;
+        background: $blue;
+        color: $white;
       }
     }
   }
