@@ -83,7 +83,22 @@ class UserSkills extends React.Component{
     return (
       <div className="user_skills">
         <h2 className="user_skills__header">{this.props.target_user.username}'s Skills</h2>
-
+          {
+            this.props.canEdit ?
+            <div className="user_skills__add">
+              <Select.Async name="account_skills"
+                            placeholder="Add Skill"
+                            loadOptions= {_.debounce(this.getOptions,1000)}
+                            minimumInput={1}
+                            onChange={this.handleChange}
+                            value={this.state.value}
+                            autoload={false}
+                            />
+              <button className="submit_skill" onClick={this.handleSubmit}> Add Skill </button>
+            </div>
+            :
+            null
+          }
           {
             this.props.target_user.skills.length > 0 ?
             <table className="user_skills__table">
@@ -104,20 +119,6 @@ class UserSkills extends React.Component{
                 }
               </tbody>
             </table>
-            :
-            null
-          }
-          {
-            this.props.canEdit ?
-            <div className="user_skills__add">
-              <Select.Async name="account_skills"
-                            placeholder="Add Skill"
-                            loadOptions= {_.debounce(this.getOptions,1000)}
-                            minimumInput={1}
-                            onChange={this.handleChange}
-                            value={this.state.value}  />
-              <button className="submit_skill" onClick={this.handleSubmit}> Add Skill </button>
-            </div>
             :
             null
           }

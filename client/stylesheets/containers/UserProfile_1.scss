@@ -12,12 +12,15 @@
     padding-top: 60px;
     box-sizing: border-box;
     width: 40%;
-    border-right: 2px solid $blue;
+    background: $white;
+    margin: 10px;
+    box-shadow: $box-shadow;
     flex-direction: column;
     justify-content: space-around;
+    border-bottom: 1px solid #e2e2e2;
     .user_avatar{
-      border-bottom: 2px solid $blue;
       padding-bottom: 2em;
+      border-bottom: 1px solid #e2e2e2;
       &__picture{
         height: 240px;
         width: 240px;
@@ -36,38 +39,41 @@
   .user_skills{
     text-align: center;
     width: 60%;
-    height: 100%;
+    height: auto;
+    overflow: overlay;
     display: flex;
     flex-direction: column;
+    background: $white;
+    margin-top: 10px;
+    box-shadow: $box-shadow;
+    position: relative;
     align-items: stretch;
     &__header{
       width: 100%;
       text-align: center;
-      flex: 1;
       vertical-align: middle;
     }
     &__add{
-      flex: 1;
       height: 3em;
-      margin-top: 3em;
       display: flex;
-      align-items: flex-start;
+      background: $blue;
+
       padding-left: 20px;
       padding-right: 20px;
+      align-items: flex-start;
       .Select{
         flex-grow: 3;
-        .Select-menu-outer {
-          top: auto;
-          bottom: 100%;
-        }
+      }
+      .submit_skill{
+        padding: 8px;
       }
     }
     &__table{
       width: 100%;
-      flex: 2;
+      flex-grow: 2;
+      margin-top: 50px;
       font-size: 1.5em;
       table-layout: fixed;
-      overflow-y: scroll;
     }
     &__skill_name{
       color: $blue;
