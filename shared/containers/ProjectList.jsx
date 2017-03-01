@@ -35,21 +35,22 @@ class ProjectList extends React.Component{
 
   render(){
     return(
-      <div id="List">
-        <div id="project_list">
-        {
-          this.state.project_list.length > 0 ?
-            this.state.project_list.map((project) => {
-              return (
-                <Link to = {`/projects/${project.project_id}/${project.project_name}`} key={project.project_id}>
-                  <ProjectChip key={project.project_id} project = {project}/>
-                </Link>
-              )
-            })
-            :
-            <h1> No projects yet! Signup to create one! </h1>
-        }
+      <div className="project_list">
+        <div className="jumbotron">
+          <h2> New here ? </h2>
         </div>
+      {
+        this.state.project_list.length > 0 ?
+          this.state.project_list.map((project) => {
+            return (
+              <Link to = {`/projects/${project.project_id}/${project.project_name}`} key={project.project_id}>
+                <ProjectChip key={project.project_id} project = {project}/>
+              </Link>
+            )
+          })
+          :
+          <h1> No projects yet! Signup to create one! </h1>
+      }
       </div>
     )
   }

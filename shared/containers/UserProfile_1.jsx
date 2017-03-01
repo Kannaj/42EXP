@@ -19,7 +19,7 @@ class UserSkillRow extends React.Component{
       <tr>
         <td className="user_skills__skill_name">{this.props.skill.skill}</td>
         <td className="user_skills__commend_score">{this.props.skill.commends}</td>
-        {this.props.canCommend ? <td><button className="user_skills__commend_button" onClick={this.props.handleCommend.bind(this,this.props.skill.id,this.props.idx,this.props.skill)}>Commend</button></td> : null}
+        {this.props.canCommend ? <td><button className="user_skills__commend_button ion-thumbsup" onClick={this.props.handleCommend.bind(this,this.props.skill.id,this.props.idx,this.props.skill)}></button></td> : null}
       </tr>
     )
   }
@@ -87,7 +87,7 @@ class UserSkills extends React.Component{
             this.props.canEdit ?
             <div className="user_skills__add">
               <Select.Async name="account_skills"
-                            placeholder="Add Skill"
+                            placeholder="Add a new skill"
                             loadOptions= {_.debounce(this.getOptions,1000)}
                             minimumInput={1}
                             onChange={this.handleChange}
@@ -101,7 +101,7 @@ class UserSkills extends React.Component{
           }
           {
             this.props.target_user.skills.length > 0 ?
-            <table className="user_skills__table">
+            <table className={`user_skills__table user_skills__table--${this.props.canEdit ? "" : "no_edit"}`}>
               <thead>
                 <tr>
                   <th className="user_skills__head"> Skill </th>
