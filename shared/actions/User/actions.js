@@ -2,7 +2,7 @@ import * as constants from './constants'
 import {add_notification} from '../notifications/notifications'
 import uuid from 'node-uuid';
 
-const user_add_skills_success = (skill_details) => {
+export const user_add_skills_success = (skill_details) => {
   return{
     type:constants.USER_ADD_SKILLS_SUCCESS,
     skill_details

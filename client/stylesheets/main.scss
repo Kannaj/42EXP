@@ -90,6 +90,7 @@ a {
 @import './containers/ProjectList.scss';
 @import './containers/UserProfile.scss';
 @import './containers/ProjectDetail.scss';
+@import './containers/UserProfile_1.scss';
 
 
 @import './components/Auth.scss';
@@ -97,7 +98,8 @@ a {
 @import './components/ProjectChip.scss';
 @import './components/message.scss';
 @import './components/LandingPage.scss';
-
+@import './components/Sidebar.scss';
+@import './components/Appbar.scss';
 
 @import './highlight/default.css';
 @import './react-select.min.css';

@@ -51,7 +51,7 @@ export const run = (worker) => {
       log: console.log
     }))
   }
-  
+
   app.use(cookieParser())
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))

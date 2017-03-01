@@ -1,0 +1,101 @@
+.sidebar{
+  height: 100%;
+  position: fixed;
+  width: 20%;
+  left: -20%;
+  transition: all 0.5s ease-in;
+  background : $black;
+  overflow-y: auto;
+  color: $white;
+
+  &.sidebar--open{
+    left: 0px
+  }
+
+  &.sidebar--closed{
+    left: -20%;
+  }
+
+  &__logo{
+    width: 100%;
+    height: 2rem;
+    text-align: center;
+    padding: 10px 0 25px 0;
+  }
+
+  .subscribed_projects{
+    width: 100%;
+    box-sizing:  border-box;
+    text-align: center;
+    color : $white;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    max-height: 350px;
+    &__item{
+      padding: 1em 0.5em;
+      text-decoration: none;
+      width: 100%;
+      transition: all 0.3s ease-in;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+      &:hover{
+        background-color: #1a1a1a;
+      }
+      &.active_link{
+        background-color: #1a1a1a;
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__text {
+    padding: 1em 2.5em;
+    h1{
+      padding-top: 1.5em;
+    }
+    p{
+      font-size: 0.6rem;
+      color: #8F918E;
+    }
+  }
+
+
+  .navigation{
+    width: 100%;
+    text-align: center;
+    &--bottom{
+      position: absolute;
+      bottom: 1em;
+      width: 100%;
+      text-align: center;
+    }
+    &__explore_button{
+      width: 80%;
+      padding: 1em;
+      background: $blue;
+      border: 2px solid $blue;
+      color: $white;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin-bottom: 1em;
+    }
+    &__lobby_button{
+      width: 80%;
+      padding: 1em;
+      background: $blue;
+      border: 2px solid $blue;
+      color: $white;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+  }
+
+  @media only screen and (max-width: 480px){
+    width: 80%;
+    left: -80%;
+  }
+}
