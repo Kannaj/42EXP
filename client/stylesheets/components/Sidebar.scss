@@ -37,6 +37,7 @@
       padding: 1em 0.5em;
       text-decoration: none;
       width: 100%;
+      color: $white;
       transition: all 0.3s ease-in;
       margin-bottom: 5px;
       box-sizing: border-box;
@@ -45,6 +46,7 @@
       }
       &.active_link{
         background-color: #1a1a1a;
+        color: $white;
       }
       &:last-child{
         margin-bottom: 0;
@@ -75,22 +77,27 @@
     }
     &__explore_button{
       width: 80%;
-      padding: 1em;
+      padding: 0.5em;
       background: $blue;
       border: 2px solid $blue;
       color: $white;
       box-sizing: border-box;
       border-radius: 4px;
-      margin-bottom: 1em;
+      margin-bottom: 0.5em;
+      margin-top: 0.5em;
     }
     &__lobby_button{
       width: 80%;
-      padding: 1em;
+      padding: 0.5em;
       background: $blue;
       border: 2px solid $blue;
       color: $white;
       box-sizing: border-box;
       border-radius: 4px;
+    }
+    &--top{
+      width: 100%;
+      text-align: center;
     }
   }
 

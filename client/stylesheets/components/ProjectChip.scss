@@ -69,6 +69,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
+    @media only screen and (max-width: 480px){
+      width: 90%;
+    }
   &__name{
     height: auto;
     word-wrap: break-word;

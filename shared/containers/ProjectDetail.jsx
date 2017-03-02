@@ -54,60 +54,62 @@ class ProjectDetail extends React.Component{
   render(){
     return(
       <div className="project_detail">
-        <h2 className="category"> Category : {this.state.project_details.project_category} </h2>
-        <h2 className="owner">Started by : <Link to={`/user/${this.state.project_details.project_owner}`}>{this.state.project_details.project_owner}</Link></h2>
-        <div className="project_detail_actions">
-        {
-          this.state.project_details.github_link ?
 
-          <a href={this.state.project_details.github_link} className="link"><button>Project Repo</button> </a>
-          :
-          null
-        }
-        {
-          this.state.project_details.reddit_link ?
-
-          <a href={this.state.project_details.reddit_link} className="link"><button>Reddit Discussion</button></a>
-          :
-          null
-        }
-        {
-          !this.props.isAuthenticated  ?
-          <a href= "/auth/github">
-            <button className="login_github">
-                Login To Join Project
-            </button>
-          </a>
-          :
-          this.props.project ?
-            this.props.project.role == 'owner' ?
-            <button className="edit_project" onClick={this.openModal}>Edit Project </button> :
-            null
+        <div className="main_content">
+          <h2 className="main_content__name">{this.state.project_details.project_name}</h2>
+          <h2 className="main_content__category"> Category : {this.state.project_details.project_category} </h2>
+          <h2 className="main_content__owner">Started by : <Link to={`/user/${this.state.project_details.project_owner}`}>{this.state.project_details.project_owner}</Link></h2>
+          <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.project_description)}}/></div>
+          {
+            !this.props.isAuthenticated  ?
+            <a href= "/auth/github">
+              <button className="main_content__login">
+                  Login To Join Project
+              </button>
+            </a>
             :
-            <button className="join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
-        }
-        </div>
-        <hr/>
-
-        <div className="project_skills" >
-          <h3>Skills Required : </h3>
-        {
-          this.state.project_details.skills?
-          this.state.project_details.skills.map((skill) => {
-            return (
-
-                <button className="skill_chip" key={skill.skill_id}>{skill.name}</button>
-            )
-          })
-          :
-          null
-        }
-
+            this.props.project ?
+              this.props.project.role == 'owner' ?
+              <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button> :
+              null
+              :
+              <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+          }
         </div>
 
+        <div className="secondary_content">
+          <div className="project_links">
+            {
+              this.state.project_details.github_link ?
 
+              <a href={this.state.project_details.github_link} className="project_links__item"><button>Project Repo</button> </a>
+              :
+              null
+            }
+            {
+              this.state.project_details.reddit_link ?
 
-        <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.project_description)}}/></div>
+              <a href={this.state.project_details.reddit_link} className="project_links__item"><button>Reddit Discussion</button></a>
+              :
+              null
+            }
+          </div>
+
+          <div className="project_skills" >
+            <h3>Skills Required : </h3>
+            {
+              this.state.project_details.skills?
+              this.state.project_details.skills.map((skill) => {
+                return (
+
+                    <button className="project_skills__skill" key={skill.skill_id}>{skill.name}</button>
+                )
+              })
+              :
+              null
+            }
+          </div>
+        </div>
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
                className="content-project"
@@ -120,9 +122,8 @@ class ProjectDetail extends React.Component{
             edit_project={this.props.edit_project} close={this.closeModal}/>
 
         </Modal>
+
       </div>
-
-
     )
   }
 }

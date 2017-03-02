@@ -28,10 +28,11 @@ export class App extends React.Component{
   render(){
     return(
       <div>
-      <Sidebar {...this.props} isSidebarOpen={this.state.isSidebarOpen}/>
-      <Appbar {...this.props} toggleSidebar={this.toggleSidebar} isSidebarOpen={this.state.isSidebarOpen} />
 
-        <div className={`main ${this.state.isSidebarOpen ? "main--sidebarOpen" : "main--sidebarClosed"}`}>
+      {this.props.isAuthenticated ? <Sidebar {...this.props} isSidebarOpen={this.state.isSidebarOpen}/> : null}
+      <Appbar {...this.props} toggleSidebar={this.toggleSidebar} isSidebarOpen={this.props.isAuthenticated ? this.state.isSidebarOpen : false} />
+
+        <div className={`main ${this.props.isAuthenticated ? this.state.isSidebarOpen ? "main--sidebarOpen" : "main--sidebarClosed" : "main--sidebarClosed"}`}>
           {this.props.children}
         </div>
 

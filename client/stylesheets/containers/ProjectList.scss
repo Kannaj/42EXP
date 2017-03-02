@@ -2,9 +2,15 @@
   .jumbotron{
     width: 90%;
     padding: 8px;
-    height: 300px;
+    height: auto;
     background: $white;
     box-shadow: $box-shadow;
+    text-align: center;
+  }
+  &__header{
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
   }
   display: flex;
   justify-content: center;

@@ -20,7 +20,7 @@ class Sidebar extends Component {
         <div className={`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
 
           <div className="sidebar__logo">
-            <img src="http://placeskull.com/75/75"/>
+            <Link to="/"><img src="http://placeskull.com/75/75"/></Link>
           </div>
 
           <div className="sidebar__text">
@@ -40,16 +40,22 @@ class Sidebar extends Component {
             null
           }
           </div>
-
-          <div className={`navigation--${this.props.Projects.length > 0 ? "bottom" : "top"}`}>
-            <button className="navigation__explore_button">
-              <i className="ion-search"/>  Explore
-            </button>
-
-            <button className="navigation__lobby_button">
-              <i className="ion-person-stalker"/> Visit Lobby
-            </button>
-          </div>
+          {
+            this.props.isAuthenticated ?
+            <div className={`navigation--${this.props.Projects.length > 0 ? "bottom" : "top"}`}>
+              <button className="navigation__lobby_button">
+                <i className="ion-person-stalker"/> Visit Lobby
+              </button>
+            </div>
+            :
+            <div className={`navigation--${this.props.Projects.length > 0 ? "bottom" : "top"}`}>
+              <Link to="/projects">
+                <button className="navigation__explore_button">
+                  <i className="ion-search"/>  Explore
+                </button>
+              </Link>
+            </div>
+          }
 
         </div>
       </div>

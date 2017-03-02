@@ -10,8 +10,10 @@ class ProjectList extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      project_list:[]
+      project_list:[],
+      show_jumbotron: true
     }
+    this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this)
   }
 
   fetchData(){
@@ -26,9 +28,26 @@ class ProjectList extends React.Component{
     }.bind(this))
   }
 
+  dismiss_jumbotron(){
+    localStorage.setItem('new_user', false)
+    this.setState({show_jumbotron: false})
+  }
+
   componentDidMount(){
     if(socket){
       this.fetchData()
+    }
+    console.log('hello')
+    let showJumbotron = localStorage.getItem('new_user')
+
+    console.log('showJumbotron : ',showJumbotron)
+
+    if(showJumbotron == 'undefined' || null){
+      localStorage.setItem('new_user',true)
+    }
+
+    if (showJumbotron === "false"){
+      this.setState({show_jumbotron: false})
     }
   }
 
@@ -36,9 +55,18 @@ class ProjectList extends React.Component{
   render(){
     return(
       <div className="project_list">
-        <div className="jumbotron">
-          <h2> New here ? </h2>
-        </div>
+        {this.state.show_jumbotron ?
+          <div className="jumbotron">
+            <h2> New here ? </h2>
+            <p> Welcome to 42exp. You can find a list of recent projects to join below. </p>
+            <p> Be sure to fill up your profile with your up-to-date skillset for other users to look at</p>
+            <p> Be sure to also visit the lobby chatroom if you have further questions </p>
+            <button className="jumbotron__dismiss" onClick={this.dismiss_jumbotron}> Got it </button>
+          </div>
+          :
+          null
+        }
+        <h3 className="project_list__header"> Recent Projects </h3>
       {
         this.state.project_list.length > 0 ?
           this.state.project_list.map((project) => {
