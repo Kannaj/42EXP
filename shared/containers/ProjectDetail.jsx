@@ -56,47 +56,42 @@ class ProjectDetail extends React.Component{
       <div className="project_detail">
 
         <div className="main_content">
-          <h2 className="main_content__name">{this.state.project_details.project_name}</h2>
-          <h2 className="main_content__category"> Category : {this.state.project_details.project_category} </h2>
-          <h2 className="main_content__owner">Started by : <Link to={`/user/${this.state.project_details.project_owner}`}>{this.state.project_details.project_owner}</Link></h2>
-          <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.project_description)}}/></div>
-          {
-            !this.props.isAuthenticated  ?
-            <a href= "/auth/github">
-              <button className="main_content__login">
-                  Login To Join Project
-              </button>
-            </a>
-            :
-            this.props.project ?
-              this.props.project.role == 'owner' ?
-              <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button> :
-              null
+          <h2 className="main_content__name">{this.state.project_details.name}</h2>
+          <h3 className="category_header"> Category </h3>
+          <p className="main_content__category">{this.state.project_details.category} </p>
+          <h3 className="members_header"> Members </h3>
+          <div className="member_list">
+            {
+              this.state.project_details.members ?
+              this.state.project_details.members.map((member,i) => {
+                return (
+                    <img className="member_list__members" key={i} src={`https://avatars1.githubusercontent.com/${member.name}` } />
+                )
+              })
               :
-              <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
-          }
-        </div>
-
-        <div className="secondary_content">
+              null
+            }
+          </div>
           <div className="project_links">
+          <h3> External links </h3>
             {
               this.state.project_details.github_link ?
 
-              <a href={this.state.project_details.github_link} className="project_links__item"><button>Project Repo</button> </a>
+              <a href={this.state.project_details.github_link} className="project_links__item"><button className="ion-social-github"></button> </a>
               :
               null
             }
             {
               this.state.project_details.reddit_link ?
 
-              <a href={this.state.project_details.reddit_link} className="project_links__item"><button>Reddit Discussion</button></a>
+              <a href={this.state.project_details.reddit_link} className="project_links__item"><button className="ion-social-reddit"></button></a>
               :
               null
             }
           </div>
 
           <div className="project_skills" >
-            <h3>Skills Required : </h3>
+            <h3>Skills</h3>
             {
               this.state.project_details.skills?
               this.state.project_details.skills.map((skill) => {
@@ -109,7 +104,31 @@ class ProjectDetail extends React.Component{
               null
             }
           </div>
+          <div className="main_content__CTA">
+            {
+              !this.props.isAuthenticated  ?
+              <a href= "/auth/github" className="show_register_message">
+                <button className="main_content__login">
+                    Login To Join Project
+                </button>
+              </a>
+              :
+              this.props.project ?
+                this.props.project.role == 'owner' ?
+                <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button> :
+                null
+                :
+                <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+            }
+          </div>
+
         </div>
+
+        <div className="secondary_content">
+          <h3 className="description_header"> Details </h3>
+          <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.description)}}/></div>
+        </div>
+
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
                className="content-project"

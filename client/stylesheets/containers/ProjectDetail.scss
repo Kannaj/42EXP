@@ -1,3 +1,61 @@
 .project_detail{
+  display: flex;
+  .main_content,
+  .secondary_content,
+  {
+    width: 50%;
+    background: $white;
+    box-shadow: $box-shadow;
+    padding: 1.5em;
+    box-sizing: border-box;
 
+  }
+  .main_content{
+    border-right: $border;
+    .category_header{
+      margin-bottom: 5px;
+    }
+    &__name {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    &__category{
+      margin-bottom: 5px;
+    }
+    &__CTA{
+      width: 100%;
+      text-align: center;
+    }
+    .member_list{
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      &__members{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+      }
+    }
+    .project_links{
+      margin-top: 1.5em;
+      &__item{
+        button{
+          background: none;
+          font-size: 2em;
+          cursor: pointer;
+        }
+      }
+    }
+    .project_skills{
+      margin-top : 1.5em;
+    }
+
+    &__edit_project,
+    &__join_project{
+      margin-top: 1.5em;
+    }
+  }
+
+  .secondary_content{
+  }
 }

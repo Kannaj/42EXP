@@ -26,11 +26,11 @@ class ProjectForm extends React.Component{
   }
 
   componentDidMount(){
-    if(this.props.project_category){
-      this.setState({category:{value:this.props.project_category,label:this.props.project_category}})
+    if(this.props.category){
+      this.setState({category:{value:this.props.category,label:this.props.category}})
     }
-    if(this.props.project_name){
-      this.setState({name:this.props.project_name})
+    if(this.props.name){
+      this.setState({name:this.props.name})
     }
     if(this.props.project_link){
       this.setState({github_link:this.props.project_link})
@@ -38,8 +38,8 @@ class ProjectForm extends React.Component{
     if(this.props.reddit_link){
       this.setState({reddit_link:this.props.reddit_link})
     }
-    if(this.props.project_description){
-      this.setState({description: this.props.project_description})
+    if(this.props.description){
+      this.setState({description: this.props.description})
     }
     if(this.props.skills){
       let skill_list = []
