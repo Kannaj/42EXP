@@ -4,6 +4,9 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {start_request,stop_request} from '../actions/loader'
+import Modal from 'react-modal';
+import ProjectForm from '../components/ProjectForm';
+import create_project from '../actions/projects/create_project';
 
 class ProjectList extends React.Component{
 
@@ -13,7 +16,17 @@ class ProjectList extends React.Component{
       project_list:[],
       show_jumbotron: true
     }
-    this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this)
+    this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal(){
+    this.setState({modalIsOpen:true})
+  }
+
+  closeModal(){
+    this.setState({modalIsOpen:false})
   }
 
   fetchData(){
@@ -67,6 +80,11 @@ class ProjectList extends React.Component{
           null
         }
         <h3 className="project_list__header"> Recent Projects </h3>
+        <div className="user_actions">
+          <button className="user_actions__new_project" onClick={this.openModal}>
+            New Project
+          </button>
+        </div>
       {
         this.state.project_list.length > 0 ?
           this.state.project_list.map((project) => {
@@ -79,6 +97,13 @@ class ProjectList extends React.Component{
           :
           <h1> No projects yet! Signup to create one! </h1>
       }
+
+      <Modal isOpen={this.state.modalIsOpen}
+             onRequestClose={this.closeModal}
+             className="new_project__form"
+             overlayClassName="new_project" >
+          <ProjectForm create_project={this.props.create_project} close={this.closeModal}/>
+      </Modal>
       </div>
     )
   }
@@ -87,7 +112,8 @@ class ProjectList extends React.Component{
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     start_request,
-    stop_request
+    stop_request,
+    create_project
   },dispatch)
 }
 

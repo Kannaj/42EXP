@@ -2,3 +2,4 @@ SELECT project.id AS project_id,project.name AS project_name,project.description
 from project
 LEFT OUTER JOIN project_skills on project.name=project_skills.project
 GROUP BY project_id,project_name,project_description,project_category
+ORDER BY project.create_date LIMIT 10

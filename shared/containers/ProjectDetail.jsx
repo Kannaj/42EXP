@@ -16,7 +16,8 @@ class ProjectDetail extends React.Component{
     super(props);
     this.state = {
       project_details:{},
-      modalIsOpen:false
+      modalIsOpen:false,
+      canJoin: true
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -32,10 +33,14 @@ class ProjectDetail extends React.Component{
 
   fetchData(id){
     socket.emit('project:detail',{id:id},function(err,data){
+      console.log('data : ',data)
       if(err){
         console.log('error: ',err)
       }else{
         this.setState({project_details:data})
+        if(this.props.username === data.owner){
+          this.setState({canJoin : false})
+        }
       }
     }.bind(this))
   }
@@ -52,11 +57,11 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
+    console.log('state : ',this.state)
     return(
       <div className="project_detail">
 
         <div className="main_content">
-          <h2 className="main_content__name">{this.state.project_details.name}</h2>
           <h3 className="category_header"> Category </h3>
           <p className="main_content__category">{this.state.project_details.category} </p>
           <h3 className="members_header"> Members </h3>
@@ -113,12 +118,11 @@ class ProjectDetail extends React.Component{
                 </button>
               </a>
               :
-              this.props.project ?
-                this.props.project.role == 'owner' ?
-                <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button> :
-                null
-                :
+
+              this.state.canJoin ?
                 <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+                :
+                <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button>
             }
           </div>
 

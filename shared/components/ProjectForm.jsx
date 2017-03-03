@@ -117,61 +117,64 @@ class ProjectForm extends React.Component{
 
   render(){
     return(
-      <div id="project_form">
-        <div className="title">
+      <div className="project_form">
+        <div className="project_form__title">
           {this.props.create_project ? <h1>Create a new Project </h1> : <h1> Edit Project </h1>}
         </div>
 
         <div className="close_button" onClick={this.props.close}>X</div>
-
-        <div id="project_details">
-          <div className="block">
-            <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
-            {this.state.errors.name ? <div className="error"> {this.state.errors.name} </div> : null}
-          </div>
-
-          <div className="block">
-            <input id="github_link" type="text" value={this.state.github_link} onChange={this.handlename.bind(this,'github_link')} placeholder="Repo Link"/>
-            {this.state.errors.github_link ? <div className="error"> {this.state.errors.github_link} </div> : null}
-          </div>
-
-          <div className="block">
-            <input id="reddit_link" type="text" value={this.state.reddit_link} onChange={this.handlename.bind(this,'reddit_link')} placeholder="Reddit Link"/>
-            {this.state.errors.reddit_link ? <div className="error"> {this.state.errors.reddit_link} </div> : null}
-          </div>
-
-          <div className="block">
-            <textarea cols="40" rows="25" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
-            {this.state.errors.description ? <div className="error"> {this.state.errors.description} </div> : null}
-          </div>
-
-          <div className="block">
-            <Select name="project_category"
-              placeholder="Select a Category"
-              options={categoryOpt}
-              onChange={this.handleChange.bind(this,'category')}
-              value={this.state.category} />
-              {this.state.errors.category ? <div className="error">{this.state.errors.category} </div> : null}
-          </div>
-
-          <div className="block">
-            <Select.Async name="project_skills"
-              placeholder="Pick the skills required for the project"
-              minimumInput={1}
-              loadOptions={_.debounce(this.getOptions.bind(this,'skill'),1000)}
-              onChange={this.handleChange.bind(this,'skill')}
-              value={this.state.skill}
-              multi={true}
-              />
+        <div className="primary_content">
+          <div className="project_form__details">
+            <div className="project_form__name item">
+              <h3>Name</h3>
+              <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
+              {this.state.errors.name ? <div className="error"> {this.state.errors.name} </div> : null}
             </div>
 
-        </div>
+            <div className="project_form__github_link item">
+              <h3>Repo link</h3>
+              <input id="github_link" type="text" value={this.state.github_link} onChange={this.handlename.bind(this,'github_link')} placeholder="Repo Link"/>
+              {this.state.errors.github_link ? <div className="error"> {this.state.errors.github_link} </div> : null}
+            </div>
 
-        <div className="submit_project">
-          <button className="submit" onClick={this.handleSubmit.bind(this)}>Submit</button>
-        </div>
+            <div className="project_form__category item">
+              <h3> Category </h3>
+              <Select name="project_category"
+                placeholder="Select a Category"
+                options={categoryOpt}
+                onChange={this.handleChange.bind(this,'category')}
+                value={this.state.category} />
+                {this.state.errors.category ? <div className="error">{this.state.errors.category} </div> : null}
+            </div>
 
-      </div>
+            <div className="project_form__skills item">
+              <h3>Skills</h3>
+              <Select.Async name="project_skills"
+                placeholder="Pick the skills required for the project"
+                minimumInput={1}
+                loadOptions={_.debounce(this.getOptions.bind(this,'skill'),1000)}
+                onChange={this.handleChange.bind(this,'skill')}
+                value={this.state.skill}
+                multi={true}
+                autoload={false}
+                />
+            </div>
+
+            <div className="form_submit">
+              <button className="submit" onClick={this.handleSubmit.bind(this)}>Submit</button>
+            </div>
+          </div>
+          </div>
+
+          <div className="secondary_content">
+            <div className="project_form__description item">
+              <h3> Details </h3>
+              <textarea cols="40" rows="25" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
+              {this.state.errors.description ? <div className="error"> {this.state.errors.description} </div> : null}
+            </div>
+          </div>
+
+        </div>
     )
   }
 }
