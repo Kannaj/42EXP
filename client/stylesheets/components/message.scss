@@ -1,44 +1,29 @@
 .new_message{
-  padding-top: 5px;
-  padding-left: 15px;
-  position:relative;
+  background: $white;
+  box-shadow: $box-shadow;
+  padding: 10px;
+  position: relative;
   display: flex;
-  &:hover{
-    background: #e5e5e5;
-  }
-  .avatar{
+  flex-direction: row;
+  border-bottom: $border;
+  &__avatar{
     .user_avatar{
       img{
-        width:40px;
-        height:40px;
-        border-radius: 5px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
       }
     }
   }
-  .message_details{
-    flex-grow: 2;
-    display: flex;
-    flex-direction: column;
-    .username{
-      font-size: 1.2em;
-      font-weight: bold;
-      color: $black;
-      margin-left: 15px;
-    }
-    .message{
-      flex-grow: 2;
-      margin-top:0;
-      margin-left: 15px;
-      span p,pre{
-        margin-top:0;
-      }
-    }
-  }
-  .timestamp{
+  &__timestamp{
     position: absolute;
-    top:5px;
-    right:5px;
-    font-size: 0.8em;
+    top: 10px;
+    right: 10px;
   }
-
+  &__message_details{
+    margin-left: 20px;
+    .username{
+      text-decoration: underline;
+    }
+  }
 }

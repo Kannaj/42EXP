@@ -64,8 +64,14 @@
     margin: 0 15px 0;
     flex-grow: 2;
     font-size: 1.5em;
-    a{
-      color: $white;
+    display: flex;
+    flex-direction: column;
+    button{
+      margin: 0;
+      width: 35px;
+      padding: 2px;
+      background: $gray;
+      border-radius: 4px;
     }
     @media only screen and (max-width: 480px){
       font-size: 1em;
@@ -107,6 +113,52 @@
 
       &--visible{
         display: block;
+      }
+    }
+  }
+}
+
+.overlay-members{
+  position: fixed;
+  top : 0;
+  left: 0;
+  right : 0;
+  bottom  : 0;
+  background-color : rgba(0,0,0,0.55);
+  transition: all 0.5s ease-in;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .content-members{
+    background: $gray;
+    height: 500px;
+    width: 400px;
+    overflow: auto;
+    padding: 10px;
+    position: relative;
+    .member_list{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      &__close{
+        position: absolute;
+        top: 0.5px;
+        right: 10px;
+      }
+      &__member{
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        margin-bottom: 5px;
+        background: $white;
+        text-align: center;
+        text-align: center;
+        img{
+          height: 50px;
+          width: 50px;
+          margin-right: 10px;
+        }
       }
     }
   }

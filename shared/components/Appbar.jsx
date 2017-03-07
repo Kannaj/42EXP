@@ -3,9 +3,10 @@ import {Link} from 'react-router';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Auth from './Auth';
+import MemberList from '../components/MemberList';
 
 //below function helps determine main header. avoid repeating regex
-const header = (location) => {
+const header = (location,openMemberModal) => {
   if(location == '/projects'){
     return (
       <h3 className="page_title">Projects</h3>
@@ -15,7 +16,10 @@ const header = (location) => {
     const name = messageHeaderRegex[2]
     const id = messageHeaderRegex[1]
     return (
-      <h3 className="page_title"><Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link></h3>
+      <h3 className="page_title">
+        <Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link>
+        <button className="ion-person-stalker" onClick={() => openMemberModal(name)}></button>
+      </h3>
     )
   }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
     const name = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')[2]
@@ -42,12 +46,16 @@ class Appbar extends Component{
       modalIsOpen:false,
       register: false,
       login: false,
+      memberModal: false,
+      memberModal_name: ""
     }
     this.authButtons = this.authButtons.bind(this)
     this.toggleProfileMenu = this.toggleProfileMenu.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.toggleSidebar = this.toggleSidebar.bind(this)
     this.handleOutsideClick = this.handleOutsideClick.bind(this)
+    this.openMemberModal = this.openMemberModal.bind(this)
+    this.closeMemberModal = this.closeMemberModal.bind(this)
   }
 
   authButtons(){
@@ -104,13 +112,21 @@ class Appbar extends Component{
     document.removeEventListener('click', this.handleOutsideClick, false);
   }
 
+  openMemberModal(project_name){
+    console.log('called')
+    this.setState({memberModal : true, memberModal_name : project_name})
+  }
+
+  closeMemberModal(){
+    this.setState({memberModal: false})
+  }
 
   render(){
     return(
       <div>
         <div className={`appbar ${this.props.isSidebarOpen ? "appbar--sidebarOpen" : "appbar--sidebarClosed"}`}>
           {this.props.isAuthenticated ? <button className={`appbar__toggle_button ${this.props.isSidebarOpen ? "ion-chevron-left" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button> : null}
-            {header(this.props.location)}
+            {header(this.props.location,this.openMemberModal)}
             {!this.props.isAuthenticated
               ?
               this.authButtons()
@@ -130,6 +146,10 @@ class Appbar extends Component{
                 <Auth url={'/auth/login'}/>
               : <Auth url={'/auth/register'}/>
             }
+        </Modal>
+
+        <Modal isOpen={this.state.memberModal} onRequestClose={this.closeMemberModal} className="content-members" overlayClassName="overlay-members">
+            <MemberList project_name={this.state.memberModal_name} close={this.closeMemberModal}/>
         </Modal>
       </div>
     )

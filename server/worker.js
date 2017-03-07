@@ -220,6 +220,17 @@ export const run = (worker) => {
                 })
     })
 
+    socket.on('project:member_list',function(data,res){
+      return db.any('select id,username from account_projects where project = $1',data.name)
+                .then(function(data){
+                  res(null,data)
+                })
+                .catch(function(err){
+                  res('Couldnt retrieve member list')
+                  winston.error('Couldnt retrieve member list: ',err)
+                })
+    })
+
 
     // When user commends another for a particular skill.
     socket.on('user:vote',function(data,res){

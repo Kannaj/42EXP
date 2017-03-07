@@ -27,7 +27,7 @@ class Message extends Component{
     return(
       <li className="new_message">
 
-        <div className="avatar">
+        <div className="new_message__avatar">
           <Link to ={`/user/${this.props.message.username}`}>
             <div className="user_avatar">
               <img src={`https://avatars1.githubusercontent.com/${this.props.message.username}`}/>
@@ -35,16 +35,16 @@ class Message extends Component{
           </Link>
         </div>
 
-        <div className="message_details">
+        <div className="new_message__message_details">
           <Link to ={`/user/${this.props.message.username}`} className="username">
             {this.props.message.username}
           </Link>
 
-          <div className="timestamp">
+          <div className="new_message__timestamp">
             {moment(this.props.message.timestamp).calendar()|| null}
           </div>
 
-          <div className="message">
+          <div className="new_message__message">
             <span dangerouslySetInnerHTML={{__html: md.render(this.props.message.message)}}/>
           </div>
         </div>
