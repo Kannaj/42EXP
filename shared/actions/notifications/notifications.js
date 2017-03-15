@@ -6,11 +6,3 @@ export const add_notification = (messageDetails) => {
     messageDetails
   }
 }
-
-export const remove_notification = (messageId,server) => {
-  return {
-    type: constants.CLOSE_NOTIFICATION,
-    messageId,
-    server
-  }
-}

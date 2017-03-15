@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 import {Link} from 'react-router';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import Auth from './Auth';
-import MemberList from '../components/MemberList';
+import UserProfile from './UserProfile';
+import UserNotifications from './UserNotifications';
+import MemberList from '../../components/MemberList';
 
 //below function helps determine main header. avoid repeating regex
 const header = (location,openMemberModal) => {
@@ -42,18 +43,10 @@ class Appbar extends Component{
   constructor(props){
     super(props);
     this.state = {
-      isProfileMenuOpen : false,
-      modalIsOpen:false,
-      register: false,
-      login: false,
       memberModal: false,
       memberModal_name: ""
     }
-    this.authButtons = this.authButtons.bind(this)
-    this.toggleProfileMenu = this.toggleProfileMenu.bind(this)
-    this.closeModal = this.closeModal.bind(this)
     this.toggleSidebar = this.toggleSidebar.bind(this)
-    this.handleOutsideClick = this.handleOutsideClick.bind(this)
     this.openMemberModal = this.openMemberModal.bind(this)
     this.closeMemberModal = this.closeMemberModal.bind(this)
   }
@@ -75,45 +68,11 @@ class Appbar extends Component{
     }
   }
 
-  openModal(type){
-    this.setState({modalIsOpen:true,[type]:true})
-  }
-
-  closeModal(){
-    this.setState({modalIsOpen:false,register:false,login:false})
-  }
-
-
-  toggleProfileMenu(){
-    this.setState({isProfileMenuOpen: !this.state.isProfileMenuOpen})
-  }
-
   toggleSidebar(){
     this.props.toggleSidebar()
   }
 
-  componentWillMount(){
-    // check if click happens in profile menu or outside of it
-    // http://stackoverflow.com/questions/23821768/how-to-listen-for-click-events-that-are-outside-of-a-component
-    // if statement because server cant recognize document
-    if(typeof window !== 'undefined'){
-      document.addEventListener('click',this.handleOutsideClick,false)
-    }
-  }
-
-  handleOutsideClick(e){
-    // if click happens outside of profile-menu, hide profile-menu
-    if(!ReactDOM.findDOMNode(this).contains(e.target)){
-      this.setState({isProfileMenuOpen: false})
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick, false);
-  }
-
   openMemberModal(project_name){
-    console.log('called')
     this.setState({memberModal : true, memberModal_name : project_name})
   }
 
@@ -127,26 +86,20 @@ class Appbar extends Component{
         <div className={`appbar ${this.props.isSidebarOpen ? "appbar--sidebarOpen" : "appbar--sidebarClosed"}`}>
           {this.props.isAuthenticated ? <button className={`appbar__toggle_button ${this.props.isSidebarOpen ? "ion-chevron-left" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button> : null}
             {header(this.props.location,this.openMemberModal)}
-            {!this.props.isAuthenticated
-              ?
-              this.authButtons()
-              :
-              <div className="auth">
-                <img className="auth__profile_icon" src={`https://avatars1.githubusercontent.com/${this.props.User.username}` } onClick={this.toggleProfileMenu}/>
-                <div tabIndex="1" onClick={this.toggleProfileMenu} ref={(profile_menu) => {this.profile_menu = profile_menu}} className={`profile_menu profile_menu--${this.state.isProfileMenuOpen ? "visible" : "hidden"}`}>
-                  <button className="profile_menu__item"><Link to={`/user/${this.props.User.username}`} className="profile_menu__item">Profile</Link></button>
-                  <button className="profile_menu__item"><a href="/logout">Logout</a></button>
-                </div>
-              </div>
-          }
-        </div>
 
-        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="content-auth" overlayClassName="overlay-auth">
-            {!this.state.register ?
-                <Auth url={'/auth/login'}/>
-              : <Auth url={'/auth/register'}/>
+            {
+              this.props.isAuthenticated
+              ?
+              <div className="user_nav">
+                <UserNotifications Notification={this.props.Notifications} unread={this.props.unread}/>
+                <UserProfile {...this.props}/>
+              </div>
+              :
+              <div className="user_nav">
+                <UserProfile {...this.props}/>
+              </div>
             }
-        </Modal>
+        </div>
 
         <Modal isOpen={this.state.memberModal} onRequestClose={this.closeMemberModal} className="content-members" overlayClassName="overlay-members">
             <MemberList project_name={this.state.memberModal_name} close={this.closeMemberModal}/>

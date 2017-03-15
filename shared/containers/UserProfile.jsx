@@ -11,6 +11,7 @@ import update from 'react-addons-update';
 import uuid from 'node-uuid';
 
 import {add_notification} from '../actions/notifications/notifications';
+import {add_message} from '../actions/flash_messages/flash_messages';
 import {user_add_skills_success} from '../actions/User/actions';
 
 class UserSkillRow extends React.Component{
@@ -70,9 +71,9 @@ class UserSkills extends React.Component{
     if(socket){
       socket.emit('user:vote',{account_skill_id:id,voter_level:this.props.User.level,votee:this.props.target_user.username,skill},function(err,data){
         if(err){
-          this.props.add_notification({id:uuid.v4(),heading:'Error',message:`Looks like you've already commended ${this.props.target_user.username}!!`,unread:true,server:false})
+          this.props.add_message({id:uuid.v4(),heading:'Error',message:`Looks like you've already commended ${this.props.target_user.username}!!`,unread:true})
         }else{
-          this.props.add_notification({id:uuid.v4(),heading:'Info',message:`You\'ve successfully commended ${this.props.target_user.username}!!`,unread:true,server:false})
+          this.props.add_message({id:uuid.v4(),heading:'Info',message:`You\'ve successfully commended ${this.props.target_user.username}!!`,unread:true})
           this.props.addCommend(idx)
         }
       }.bind(this))
@@ -244,7 +245,8 @@ const mapDispatchToProps = (dispatch) => {
     stop_request,
     user_add_skills,
     user_add_skills_success,
-    add_notification
+    add_notification,
+    add_message
   },dispatch)
 }
 

@@ -116,7 +116,8 @@ a {
 @import './components/message.scss';
 @import './components/LandingPage.scss';
 @import './components/Sidebar.scss';
-@import './components/Appbar.scss';
+@import './components/Appbar/Appbar.scss';
+@import './components/Appbar/UserNotifications.scss';
 
 @import './highlight/default.css';
 @import './react-select.min.css';

@@ -9,7 +9,6 @@ import rootReducer from '../shared/reducers/index';
 import style from './stylesheets/main.scss';
 import SocketCluster from 'socketcluster-client';
 import log_middleware from '../shared/middleware/log_middleware.js'
-import notificationsMiddleware from '../shared/middleware/notifications_unread.js'
 import thunk from 'redux-thunk';
 import {new_chat_message} from '../shared/actions/projects/project_messages'
 import {set_unread} from '../shared/actions/projects/set_unread'
@@ -22,7 +21,7 @@ const initialState = window.__INITIAL_STATE__
 
 const middleware = routerMiddleware(browserHistory)
 
-const createStoreWithMiddleware = applyMiddleware(log_middleware,thunk,middleware,notificationsMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(log_middleware,thunk,middleware)(createStore);
 const store = createStoreWithMiddleware(rootReducer,initialState)
 
 const history = syncHistoryWithStore(browserHistory,store)

@@ -209,14 +209,26 @@ export const run = (worker) => {
         })
     })
 
-    socket.on('set_notification',function(data,res){
-      return db.any('update account_notifications set unread=false where id = $1',data.id)
-                .then(function(){
-                  res(null,'ok')
+    // socket.on('set_notification',function(data,res){
+    //   return db.any('update account_notifications set unread=false where id = $1',data.id)
+    //             .then(function(){
+    //               res(null,'ok')
+    //             })
+    //             .catch(function(err){
+    //               res(err)
+    //               winston.error('Cant set notification to unread : ',err)
+    //             })
+    // })
+
+    socket.on('notifications:set_to_read',function(data,res){
+      let user = socket.getAuthToken().username;
+      return db.any('update account_notifications set unread=false where username = $1',user)
+                .then(function(result){
+                  res(null,result)
                 })
                 .catch(function(err){
-                  res(err)
-                  winston.error('Cant set notification to unread : ',err)
+                  res('Couldnt update notifs to "read"')
+                  winston.error('Couldnt update account_notifications : ',err)
                 })
     })
 

@@ -1,0 +1,37 @@
+.user_notifications{
+  margin-right: 5px;
+  position: relative;
+  &__icon{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    background: none;
+    font-size: 2em;
+  }
+  &__bar{
+    max-height: 250px;
+    background: $gray;
+    position: absolute;
+    top: 55px;
+    outline: none;
+    border: 1px solid #ccc;
+    right: 1.5em;
+    // padding: 10px;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    display: none;
+    width: 350px;
+    border-radius: 2px;
+    overflow-y: scroll;
+    &--visible{
+      display: block;
+    }
+
+  }
+  &__message{
+    background: $white;
+    padding: 5px;
+    box-shadow: $box-shadow;
+    border-bottom: $border;
+  }
+}

@@ -4,10 +4,10 @@ import Modal from 'react-modal';
 import Auth from '../components/Auth';
 import {Link} from 'react-router';
 import {bindActionCreators} from 'redux';
-import {remove_notification} from '../actions/notifications/notifications';
-import Notification from '../components/notifications';
+import {remove_message} from '../actions/flash_messages/flash_messages';
+import Flash_message from '../components/Flash_message';
 import Sidebar from '../components/Sidebar';
-import Appbar from '../components/Appbar';
+import Appbar from '../components/Appbar/Appbar';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 
@@ -46,13 +46,13 @@ export class App extends React.Component{
         }
 
 
-        {
-          this.props.unread_notifications ?
-          <div id="notification_panel">
+        { /* Probably move away from ReactCSSTransitionGroup */
+          this.props.Flash_messages.length > 0 ?
+          <div id="flash_message_panel">
             <ReactCSSTransitionGroup transitionName="notification" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-              {this.props.unread_notifications.map((notification) => {
+              {this.props.Flash_messages.map((message) => {
                 return (
-                  <Notification key={notification.id} {...notification} remove={this.props.remove_notification}/>
+                  <Flash_message key={message.id} {...message} remove={this.props.remove_message}/>
                 )
               })}
             </ReactCSSTransitionGroup>
@@ -70,20 +70,24 @@ export class App extends React.Component{
 const mapStateToProps = (state,ownProps) => {
   const location = ownProps.location.pathname;
   const {isAuthenticated} = state.User;
-  const {Projects,Notifications,User} = state;
+  const {Projects,Notifications,User, Flash_messages} = state;
   const {loading} = state.loader;
-  // Probably dont need loader to be a separate object in state.
-  // const {Notifications} = state;
 
-  const unread_notifications = Notifications.filter((notification) => {
-    return notification.unread === true
-  });
+  let unread = false;
+  // if there are unread notifs
+  Notifications.map((notification) => {
+    if(notification.unread === true){
+      unread = true
+    }
+  })
 
   return {
     isAuthenticated,
     Projects,
     User,
-    unread_notifications,
+    Flash_messages,
+    Notifications,
+    unread,
     loading,
     location
   }
@@ -91,7 +95,7 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    remove_notification
+    remove_message
   },dispatch)
 }
 

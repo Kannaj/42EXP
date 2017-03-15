@@ -8,20 +8,9 @@ const Notifications = (state=[],action) => {
   switch(action.type){
     case constants.ADD_NOTIFICATION:
       return [
+        action.messageDetails,
         ...state,
-        action.messageDetails
       ]
-    case constants.CLOSE_NOTIFICATION:
-      target = state.findIndex((notification) => {
-        return notification.id == action.messageId
-      })
-      return update(state,{
-        [target]:{
-          unread:{
-            $set: false
-          }
-        }
-      })
   }
 
   return state;
