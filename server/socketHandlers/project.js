@@ -13,6 +13,17 @@ export const get_more_messages = function(data,res){
           })
 }
 
+export const get_messages = function(data,res){
+  return db.any(queries.getMessages,data.projectId)
+            .then(function(messages){
+              res(null,messages.reverse())
+            })
+            .catch(function(err){
+              winstor.error('Error retrieving messages : ',err)
+              res('Error retrieving messages')
+            })
+}
+
 export const project_check_name = function(data,res){
   return db.one("select name from project where LOWER(name) like LOWER('$1#')",data.name)
             .then(function(name){

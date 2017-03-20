@@ -28,5 +28,6 @@ export const queries = {
   ProjectDetail : sql(path.join(__dirname,'queries/project_detail.sql')),
   UserProjects:sql(path.join(__dirname,'queries/get_user_projects.sql')),
   UserNotifications: sql(path.join(__dirname,'queries/get_user_notifications.sql')),
-  GetMoreMessages: sql(path.join(__dirname,'queries/get_more_messages.sql'))
+  GetMoreMessages: sql(path.join(__dirname,'queries/get_more_messages.sql')),
+  getMessages: sql(path.join(__dirname,'queries/get_messages.sql'))
 }

@@ -26,8 +26,9 @@ const getInitialState = (id_token) => {
                           return {User:User,Projects:[]}
                         }else{
 
-                          let newProjects = invert_message_list(message_list_cleaner(userProjects))
-                          return {User:User,Projects:newProjects}
+                          // let newProjects = invert_message_list(message_list_cleaner(userProjects))
+                          userProjects.forEach((project) => project.messages = [])
+                          return {User:User,Projects:userProjects}
                         }
                       })
                       .then(function(userProfileAndProjects){

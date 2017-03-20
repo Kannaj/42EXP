@@ -9,7 +9,17 @@ import bodyParser from 'body-parser';
 import {Register,Login} from './local_Auth/localAuth.js'
 import {skill_suggestions,skill_user} from './socketHandlers/skills.js'
 import {category_suggestions} from './socketHandlers/category.js'
-import {createNewProject,project_list,project_detail,join_project,update_last_activity,project_check_name,edit_project,get_more_messages} from './socketHandlers/project.js';
+import {
+        createNewProject,
+        project_list,
+        project_detail,
+        join_project,
+        update_last_activity,
+        project_check_name,
+        edit_project,
+        get_more_messages,
+        get_messages
+        } from './socketHandlers/project.js';
 import {vote} from './socketHandlers/vote.js';
 import {db,queries} from './config';
 import user_profile_cleaner from './utils/user_profile_cleaner.js'
@@ -179,6 +189,7 @@ export const run = (worker) => {
     // edit an existing project.
     socket.on('project:edit',edit_project)
 
+    socket.on('project:get_messages',get_messages)
     // retrieve past messages for chat room.
     socket.on('project:get_more_messages',get_more_messages)
 

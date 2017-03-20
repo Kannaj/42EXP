@@ -7,6 +7,7 @@ import {set_last_activity} from '../actions/projects/set_last_activity';
 import {set_unread} from '../actions/projects/set_unread.js';
 import Waypoint from 'react-waypoint';
 import get_more_messages from '../actions/projects/get_more_messages';
+import get_messages from '../actions/projects/get_messages';
 
 class ProjectChat extends React.Component{
 
@@ -27,6 +28,9 @@ class ProjectChat extends React.Component{
   componentDidMount(){
     this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
     this.setState({waypointReady:true})
+    if(socket){
+      this.props.get_messages(this.props.params.projectId)
+    }
   }
 
   setLastActivity(projectId){
@@ -98,7 +102,7 @@ class ProjectChat extends React.Component{
   }
 
   activateWayPoint(){
-    if(this.state.waypointReady){
+    if(this.state.waypointReady && this.props.project[0].canRetrieveMore){
       this.props.get_more_messages(this.props.params.projectId,this.props.messages[0].id)
     }else{
       return null
@@ -113,6 +117,7 @@ class ProjectChat extends React.Component{
             !this.props.project.length > 0 ?
             <h1> You need to be a member of this project to be part of the chat room </h1>
             :
+            messages ?
             <div className="chat_room">
               <div className="messages" ref="messages">
                 <Waypoint onEnter={this.activateWayPoint}/>
@@ -130,6 +135,8 @@ class ProjectChat extends React.Component{
                 <button className="submit_message" onClick={this.handleSubmit}>Submit</button>
               </div>
             </div>
+            :
+            null
           }
 
 
@@ -158,7 +165,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     set_last_activity,
     set_unread,
-    get_more_messages
+    get_more_messages,
+    get_messages
   },dispatch)
 }
 

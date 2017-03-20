@@ -33,7 +33,6 @@ class ProjectDetail extends React.Component{
 
   fetchData(id){
     socket.emit('project:detail',{id:id},function(err,data){
-      console.log('data : ',data)
       if(err){
         console.log('error: ',err)
       }else{
@@ -46,7 +45,6 @@ class ProjectDetail extends React.Component{
   }
 
   componentDidMount(){
-    console.log('mounted')
     if(socket){
       this.fetchData(this.props.params.projectId)
     }
@@ -57,7 +55,6 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
-    console.log('state : ',this.state)
     return(
       <div className="project_detail">
 

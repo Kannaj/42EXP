@@ -2,7 +2,7 @@ import * as constants from '../../actions/projects/constants'
 import update from 'react-addons-update';
 
 const Projects = (state=[],action) => {
-  let target;
+  let target, canRetrieveMore;
   switch(action.type){
     case constants.CREATE_PROJECT_SUCCESS:
       return [
@@ -30,6 +30,7 @@ const Projects = (state=[],action) => {
             }
           }
       })
+      break;
     case constants.SET_LAST_ACTIVITY:
       target = state.findIndex((project) => {
         return project.id == action.data.id
@@ -41,6 +42,7 @@ const Projects = (state=[],action) => {
           }
         }
       })
+      break;
     case constants.SET_UNREAD:
       target = state.findIndex((project) => {
         return project.id == action.id
@@ -52,6 +54,7 @@ const Projects = (state=[],action) => {
           }
         }
       })
+      break;
     case constants.EDIT_PROJECT_SUCCESS:
       target = state.findIndex((project) => {
         return project.id == action.projectDetails.id
@@ -69,19 +72,36 @@ const Projects = (state=[],action) => {
           ...state
         ]
       }
-
+      break;
     case constants.GET_MORE_MESSAGES_SUCCESS:
       target = state.findIndex((project) => {
         return project.id == action.projectId
       })
+      // if recievedMessages are length 10 -> can retrieve more in the future
+      canRetrieveMore = action.messages.length == 10 ? true : false;
+
       return update(state,{
         [target]:{
           messages:{
             $unshift:action.messages
-          }
+          },
+          $merge: {canRetrieveMore: canRetrieveMore}
         }
       })
-  }
+      break;
+
+    case constants.GET_MESSAGES_SUCCESS:
+      target = state.findIndex((project) => {
+        return project.id = action.projectId
+      })
+      canRetrieveMore = action.messages.length == 10 ? true : false;
+      // first time retrieving project messages in session
+      return update(state,{
+        [target]:{
+          $merge:{messages:action.messages,canRetrieveMore: canRetrieveMore}
+        }
+      })
+    }
   return state
 }
 
