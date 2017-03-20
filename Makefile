@@ -7,9 +7,6 @@ migration-up:
 migration-down:
 	docker-compose run --rm --no-deps web ./node_modules/.bin/pg-migrate down
 
-webpack-update:
-	docker-compose run --rm --no-deps web ./node_modules/.bin/webpack --progress
-
 migration-create:
 	docker-compose run --rm --no-deps web ./node_modules/.bin/pg-migrate create $(name) && sudo chown -R ${whoami}:${whoami} migrations
 

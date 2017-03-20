@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import UserProfile from './UserProfile';
 import UserNotifications from './UserNotifications';
 import MemberList from '../../components/MemberList';
+import slugify from '../../utils/slugify';
 
 //below function helps determine main header. avoid repeating regex
 const header = (location,openMemberModal) => {
@@ -18,14 +19,14 @@ const header = (location,openMemberModal) => {
     const id = messageHeaderRegex[1]
     return (
       <h3 className="page_title">
-        <Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link>
+        <Link to={`/projects/${id}/${name}`}>{slugify("deslugify",name)} </Link>
         <button className="ion-person-stalker" onClick={() => openMemberModal(name)}></button>
       </h3>
     )
   }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
     const name = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')[2]
     return (
-      <h3 className="page_title"> Project - {name}</h3>
+      <h3 className="page_title">{slugify("deslugify",name)}</h3>
     )
   }else if (location.match('/user/(\\S+)')){
     const name = location.match('/user/(\\S+)')[1]

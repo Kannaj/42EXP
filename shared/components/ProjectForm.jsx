@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Select from 'react-select';
 import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
 import validate from '../utils/validation.js';
+import slugify from '../utils/slugify.js'
 import update from 'react-addons-update';
 import categoryOpt from '../utils/categoryOptions';
 import _ from 'lodash';
@@ -107,9 +108,9 @@ class ProjectForm extends React.Component{
       this.setState({errors:errors})
     }else{
       if (this.props.create_project){
-        this.props.create_project(this.state)
+        this.props.create_project(slugify("slugify",this.state))
       }else{
-        this.props.edit_project({project:this.state,id:this.props.id})
+        this.props.edit_project({project: slugify("slugify",this.state), id:this.props.id})
       }
     }
   }

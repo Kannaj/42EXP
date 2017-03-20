@@ -1,7 +1,6 @@
 select p.id AS id,
       p.name as name,
       p.github_link as github_link,
-      p.reddit_link as reddit_link,
       p.description as description,
       p.category as category,
       p.owner as owner,

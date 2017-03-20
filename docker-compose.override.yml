@@ -15,5 +15,9 @@ services:
       - "8000:8000"
       - "8080:8080"
 
+  postgres:
+    ports:
+      - "5432:5432"
+
 volumes:
   node_modules:

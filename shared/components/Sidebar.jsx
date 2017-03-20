@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router';
+import slugify from '../utils/slugify';
 
 //unread function helps show unread_message count for each project the user as signed up for.
 // find a better way
@@ -33,7 +34,7 @@ class Sidebar extends Component {
             this.props.Projects ?
             this.props.Projects.map((project) => {
               return (
-                <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="subscribed_projects__item" activeClassName="active_link"><span className="project_name">{project.project}</span>{unread(project.unread_messages)}</Link>
+                <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="subscribed_projects__item" activeClassName="active_link"><span className="project_name">{slugify("deslugify",project.project)}</span>{unread(project.unread_messages)}</Link>
               )
             })
             :

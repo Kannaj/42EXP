@@ -1,5 +1,7 @@
 import React from 'react';
 import Remarkable from 'remarkable';
+import slugify from '../utils/slugify';
+
 
 const md = new Remarkable({})
 
@@ -8,7 +10,7 @@ class ProjectChip extends React.Component{
     return(
       <div className="project_card">
         <div className="project_card__name">
-          {this.props.project.project_name}
+          {slugify("deslugify",this.props.project.project_name)}
         </div>
         <div className="project_card__category">
           {this.props.project.project_category}
