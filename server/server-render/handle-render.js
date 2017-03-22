@@ -12,46 +12,7 @@ import getInitialState from './getInitialState.js';
 import log_middleware from '../../shared/middleware/log_middleware.js'
 import thunk from 'redux-thunk';
 
-const handleRender = (req,res) => {
-
-  let id_token;
-  if (req.cookies){
-
-    id_token = req.cookies.id_token
-  }else{
-
-    id_token = null;
-  }
-
-  match({ routes,location: req.url}, (err,redirect,renderProps) => {
-    if (err) {
-      return res.status(500).end('Internal server error');
-    }
-    if (!renderProps) return res.status(404).end('Not found');
-    getInitialState(id_token)
-      .then((initialState) => {
-          // const store = createStore(rootReducer,initialState);
-          const createStoreWithMiddleware = applyMiddleware(log_middleware,thunk)(createStore);
-          const store = createStoreWithMiddleware(rootReducer,initialState)
-
-          const html = renderToString(
-            <Provider store={store}>
-
-                <RouterContext {...renderProps} />
-
-            </Provider>
-          );
-
-          res.send(renderFullPage(html,initialState));
-        })
-      .catch(function(err){
-        //what to do here ?? getInitialState actually returns isAuth=false for this as well
-        console.log('error: ',err)
-      })
-    });
-}
-
-const renderFullPage = (html,initialState) => {
+const renderFullPage = (html, initialState) => {
   return `
     <!doctype html>
     <html>
@@ -68,7 +29,45 @@ const renderFullPage = (html,initialState) => {
         </script>
         <script src="/bundle.js"></script>
       </body>
-    </html>`
+    </html>`;
+};
+
+const handleRender = (req,res) => {
+
+  let id_token;
+  if (req.cookies) {
+    id_token = req.cookies.id_token
+  } else {
+    id_token = null;
+  }
+
+  match({ routes, location: req.url }, (err, redirect, renderProps) => {
+    if (err) {
+      return res.status(500).end('Internal server error');
+    }
+    if (!renderProps) return res.status(404).end('Not found');
+    getInitialState(id_token)
+      .then((initialState) => {
+          // const store = createStore(rootReducer,initialState);
+        const createStoreWithMiddleware = applyMiddleware(log_middleware, thunk)(createStore);
+        const store = createStoreWithMiddleware(rootReducer, initialState);
+
+        const html = renderToString(
+            <Provider store={store}>
+
+              <RouterContext {...renderProps} />
+
+            </Provider>
+          );
+
+        res.send(renderFullPage(html, initialState));
+      })
+      .catch(function (err) {
+        // what to do here ?? getInitialState actually returns isAuth=false for this as well
+        console.log('error: ',err)
+      })
+  });
 }
+
 
 export default handleRender;

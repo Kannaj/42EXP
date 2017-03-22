@@ -4,25 +4,18 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Auth from '../Auth';
 
-class ProfileMenu extends Component{
-  constructor(props){
+class ProfileMenu extends Component {
+  constructor(props) {
     super(props);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     // check if click happens in profile menu or outside of it
     // http://stackoverflow.com/questions/23821768/how-to-listen-for-click-events-that-are-outside-of-a-component
     // if statement because server cant recognize document
-    if(typeof window !== 'undefined'){
-      document.addEventListener('click',this.handleOutsideClick,false)
-    }
-  }
-
-  handleOutsideClick(e){
-    // if click happens outside of profile-menu, hide profile-menu
-    if(!ReactDOM.findDOMNode(this).contains(e.target)){
-      this.props.toggleProfileMenu()
+    if (typeof window !== 'undefined') {
+      document.addEventListener('click', this.handleOutsideClick, false)
     }
   }
 
@@ -30,13 +23,29 @@ class ProfileMenu extends Component{
     document.removeEventListener('click', this.handleOutsideClick, false);
   }
 
-  render(){
+  handleOutsideClick(e) {
+    // if click happens outside of profile-menu, hide profile-menu
+    if (!ReactDOM.findDOMNode(this).contains(e.target)) {
+      this.props.toggleProfileMenu()
+    }
+  }
+
+
+  render() {
     return (
-      <div tabIndex="1" onClick={this.props.toggleProfileMenu} ref={(profile_menu) => {this.profile_menu = profile_menu}} className={`profile_menu profile_menu--${this.props.isProfileMenuOpen ? "visible" : "hidden"}`}>
-        <button className="profile_menu__item"><Link to={`/user/${this.props.User.username}`} className="profile_menu__item">Profile</Link></button>
+      <div tabIndex="1"
+        onClick={this.props.toggleProfileMenu}
+        ref={(profile_menu) => { this.profile_menu = profile_menu }}
+        className={`profile_menu profile_menu--${this.props.isProfileMenuOpen ? "visible" : "hidden"}`}
+      >
+        <button className="profile_menu__item">
+          <Link to={`/user/${this.props.User.username}`} className="profile_menu__item">Profile</Link>
+        </button>
+
         <button className="profile_menu__item"><a href="/logout">Logout</a></button>
+
       </div>
-    )
+    );
   }
 }
 

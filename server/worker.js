@@ -104,7 +104,7 @@ export const run = (worker) => {
 
   scServer.on('connection',(socket) => {
     console.log('socket connected : ',socket.id)
-    //what the above does is decode the socket cookie. decode the string > sets auth profile to socket.
+    // what the above does is decode the socket cookie. decode the string > sets auth profile to socket.
     if(socket.request.headers.cookie){
       const cookie = decodeURIComponent(socket.request.headers.cookie)
       const id_token = JSON.parse(cookie.split('=')[1])

@@ -1,25 +1,26 @@
 export const skillOptions = (coll) => {
-  let newColl = [];
+  const newColl = [];
   coll.map((skill) => {
-    let newSkill = {};
+    const newSkill = {};
     newSkill.value = skill.name;
     newSkill.label = skill.name;
-    newColl.push(newSkill)
-  })
-  return newColl
-}
+    newColl.push(newSkill);
+  });
+  return newColl;
+};
 
 export const categoryOptions = (coll) => {
-  let newColl = [];
+  const newColl = [];
   coll.map((category) => {
-    let newCategory = {};
+    const newCategory = {};
     newCategory.value = category.name;
     newCategory.label = category.name;
-    newColl.push(newCategory)
-  })
+    newColl.push(newCategory);
+  });
   return newColl;
-}
+};
 
 // The above help to turn the suggested skill-set returned by the server
-// to valid {value,label} options to be used by react-select. They could probably be meshed as one function.
+// to valid {value,label} options to be used by react-select.
+// They could probably be meshed as one function.
 // seeing that they both accomplish the same thing anyway.

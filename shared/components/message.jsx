@@ -1,5 +1,5 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 import moment from 'moment';
 import Remarkable from 'remarkable';
 import hljs from 'highlight.js';
@@ -18,34 +18,34 @@ const md = new Remarkable({
 
     return ''; // use external default escaping
   },
-  langPrefix: 'hljs language-'
+  langPrefix: 'hljs language-',
 });
 
-class Message extends Component{
+class Message extends Component {
 
-  render(){
-    return(
+  render() {
+    return (
       <li className="new_message">
 
         <div className="new_message__avatar">
-          <Link to ={`/user/${this.props.message.username}`}>
+          <Link to={`/user/${this.props.message.username}`}>
             <div className="user_avatar">
-              <img src={`https://avatars1.githubusercontent.com/${this.props.message.username}`}/>
+              <img alt="" src={`https://avatars1.githubusercontent.com/${this.props.message.username}`} />
             </div>
           </Link>
         </div>
 
         <div className="new_message__message_details">
-          <Link to ={`/user/${this.props.message.username}`} className="username">
+          <Link to={`/user/${this.props.message.username}`} className="username">
             {this.props.message.username}
           </Link>
 
           <div className="new_message__timestamp">
-            {moment(this.props.message.timestamp).calendar()|| null}
+            { moment(this.props.message.timestamp).calendar() || null }
           </div>
 
           <div className="new_message__message">
-            <span dangerouslySetInnerHTML={{__html: md.render(this.props.message.message)}}/>
+            <span dangerouslySetInnerHTML={{ __html: md.render(this.props.message.message) }} />
           </div>
         </div>
       </li>
