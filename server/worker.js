@@ -172,7 +172,8 @@ export const run = (worker) => {
 
     // function allowing user to join a project group.
     socket.on('project:join',function(data,res){
-      data.username = socket.getAuthToken().username
+      data.username = socket.getAuthToken().username;
+      
       join_project(data)
         .then(function(result){
           res(null,result)
@@ -219,17 +220,6 @@ export const run = (worker) => {
           res('User profile not available')
         })
     })
-
-    // socket.on('set_notification',function(data,res){
-    //   return db.any('update account_notifications set unread=false where id = $1',data.id)
-    //             .then(function(){
-    //               res(null,'ok')
-    //             })
-    //             .catch(function(err){
-    //               res(err)
-    //               winston.error('Cant set notification to unread : ',err)
-    //             })
-    // })
 
     socket.on('notifications:set_to_read',function(data,res){
       let user = socket.getAuthToken().username;

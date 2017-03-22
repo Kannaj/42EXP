@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 class Notificationbar extends Component{
   constructor(props){
     super(props);
-    console.log('recieved notifications : ',this.props)
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
@@ -21,7 +20,6 @@ class Notificationbar extends Component{
     if(socket && this.props.unread_messages){
       socket.emit('notifications:set_to_read',{},function(err,data){
         if(data){
-          console.log('data recieved :',data)
           this.props.toggleUnread()
         }
       }.bind(this))
@@ -42,7 +40,7 @@ class Notificationbar extends Component{
   render(){
     return (
       <div tabIndex="1" onClick={this.props.toggleNotificationBar} className={`user_notifications__bar user_notifications__bar--${this.props.isNotificationBarOpen ? "visible" : "hidden"}`}>
-        {
+        {this.props.Notification.length > 0 ?
           this.props.Notification.map((notification) => {
             return (
               <div className="user_notifications__message" key={notification.id}>
@@ -50,6 +48,10 @@ class Notificationbar extends Component{
               </div>
             )
           })
+          :
+            <div className="user_notifications__no_notifications">
+              <p> No Notifications :( </p>
+            </div>
         }
       </div>
     )
@@ -73,9 +75,11 @@ class UserNotifications extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-    //dirty check if latest notif is not the same as prev renders notif
-    if(this.props.Notification[0].id !== nextProps.Notification[0].id){
-      this.setState({unread_messages: true})
+    // dirty check if latest notif is not the same as prev renders notif
+    if(this.props.Notification.length > 0){
+      if(this.props.Notification[0].id !== nextProps.Notification[0].id){
+        this.setState({unread_messages: true})
+      }
     }
   }
 
