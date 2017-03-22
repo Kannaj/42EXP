@@ -92,7 +92,7 @@ const Projects = (state=[],action) => {
 
     case constants.GET_MESSAGES_SUCCESS:
       target = state.findIndex((project) => {
-        return project.id = action.projectId
+        return project.id == action.projectId
       })
       canRetrieveMore = action.messages.length == 10 ? true : false;
       // first time retrieving project messages in session
@@ -112,6 +112,7 @@ export default Projects
 API for a project object
 id : project_id,
 last_activity: last_activity of user in project,
+canRetrieveMore: Boolean,
 messages:[],
 project: name,
 role: member or owner

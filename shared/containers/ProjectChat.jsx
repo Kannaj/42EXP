@@ -28,7 +28,9 @@ class ProjectChat extends React.Component{
   componentDidMount(){
     this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
     this.setState({waypointReady:true})
-    if(socket){
+
+    // mounting project chat room for the first time?
+    if(socket && this.props.project[0].canRetrieveMore == undefined){
       this.props.get_messages(this.props.params.projectId)
     }
   }
@@ -50,11 +52,18 @@ class ProjectChat extends React.Component{
       // the above sets the scrollbar to prevVersions earliest message.could make it better.
     }
 
+    // switching to a new Project Chat room for the first time in the session?
+    if ((nextProps.project[0].id !== this.props.project[0].id) &&
+        (nextProps.project[0].canRetrieveMore == undefined))
+        {
+          nextProps.get_messages(nextProps.params.projectId)
+        }
+
   }
 
   componentDidUpdate(prevProps,prevState){
 
-    if(this.props.messages[this.props.messages.length - 1] !== prevProps.messages[prevProps.messages.length - 1] && this.props.params.projectId == prevProps.params.projectId){
+    if((this.props.messages[this.props.messages.length - 1] !== prevProps.messages[prevProps.messages.length - 1] ) && (this.props.params.projectId == prevProps.params.projectId)){
       // new message recieved. i.e = last message or prev props not the same as last message of new props and same page.
       this.props.set_unread(this.props.params.projectId)
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight

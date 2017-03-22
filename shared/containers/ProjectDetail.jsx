@@ -51,7 +51,7 @@ class ProjectDetail extends React.Component{
   }
 
   handleJoinProject(){
-    this.props.join_project({id:this.props.params.projectId,project:this.state.project_details.project_name})
+    this.props.join_project({id:this.props.params.projectId,project:this.state.project_details.name})
   }
 
   render(){
@@ -80,13 +80,6 @@ class ProjectDetail extends React.Component{
               this.state.project_details.github_link ?
 
               <a href={this.state.project_details.github_link} className="project_links__item"><button className="ion-social-github"></button> </a>
-              :
-              null
-            }
-            {
-              this.state.project_details.reddit_link ?
-
-              <a href={this.state.project_details.reddit_link} className="project_links__item"><button className="ion-social-reddit"></button></a>
               :
               null
             }
