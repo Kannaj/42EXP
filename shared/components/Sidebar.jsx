@@ -15,41 +15,48 @@ const unread = (count) => {
 }
 
 class Sidebar extends Component {
+
   render(){
+    const projects = this.props.Projects.slice(1)
+    console.log('projects : ',projects)
     return(
       <div>
         <div className={`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
 
           <div className="sidebar__logo">
-            <Link to="/"><img src="http://placeskull.com/75/75"/></Link>
+            <Link to="/"><img src="/images/42exp_logo.svg"/></Link>
           </div>
 
           <div className="sidebar__text">
-            <h1> My Projects </h1>
+            <h2> My Projects </h2>
             <p> Projects that you've joined will be shown here </p>
           </div>
 
           <div className="subscribed_projects">
           {
-            this.props.Projects ?
-            this.props.Projects.map((project) => {
+            projects.map((project) => {
               return (
-                <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="subscribed_projects__item" activeClassName="active_link"><span className="project_name">{slugify("deslugify",project.project)}</span>{unread(project.unread_messages)}</Link>
+                <Link
+                to = {`/projects/${project.id}/${project.project}/messages`}
+                key={project.id}
+                className="subscribed_projects__item"
+                activeClassName="active_link"
+                >
+                <span className="project_name">{slugify("deslugify",project.project)}</span>{unread(project.unread_messages)}
+                </Link>
               )
             })
-            :
-            null
           }
           </div>
           {
             this.props.isAuthenticated ?
-            <div className={`navigation--${this.props.Projects.length > 0 ? "bottom" : "top"}`}>
+            <div className={`navigation--${projects.length > 0 ? "bottom" : "top"}`}>
               <button className="navigation__lobby_button">
                 <i className="ion-person-stalker"/> Visit Lobby
               </button>
             </div>
             :
-            <div className={`navigation--${this.props.Projects.length > 0 ? "bottom" : "top"}`}>
+            <div className={`navigation--${projects.length > 0 ? "bottom" : "top"}`}>
               <Link to="/projects">
                 <button className="navigation__explore_button">
                   <i className="ion-search"/>  Explore

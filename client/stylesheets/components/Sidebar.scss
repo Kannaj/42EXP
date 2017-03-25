@@ -4,9 +4,9 @@
   width: 20%;
   left: -20%;
   transition: all 0.5s ease-in;
-  background : $black;
+  background : $secondary;
   overflow-y: auto;
-  color: $white;
+  color: $tertiary;
 
   &.sidebar--open{
     left: 0px
@@ -18,18 +18,22 @@
 
   &__logo{
     width: 100%;
-    height: 2rem;
+    height: auto;
     text-align: center;
-    padding: 10px 0 25px 0;
+    // padding: 10px 0 25px 0;
+    img{
+      height: 8em;
+      width: 8em;
+    }
   }
 
   .subscribed_projects{
     width: 100%;
     box-sizing:  border-box;
     text-align: center;
-    color : $white;
-    border-top: 1px solid #1a1a1a;
-    border-bottom: 1px solid #1a1a1a;
+    color : $card-color;
+    // border-top: $border;
+    // border-bottom: 1px solid #1a1a1a;
     display: flex;
     flex-direction: column;
     max-height: 350px;
@@ -37,16 +41,16 @@
       padding: 1em 0.5em;
       text-decoration: none;
       width: 100%;
-      color: $white;
+      color: $tertiary;
       transition: all 0.3s ease-in;
-      margin-bottom: 5px;
+      margin-bottom: 0.2px;
       box-sizing: border-box;
       &:hover{
-        background-color: #1a1a1a;
+        color: $white;
       }
       &.active_link{
-        background-color: #1a1a1a;
-        color: $white;
+        background-color: #111214;
+        color: $card-color;
       }
       &:last-child{
         margin-bottom: 0;
@@ -61,7 +65,7 @@
     }
     p{
       font-size: 0.6rem;
-      color: #8F918E;
+      color: $card-color;
     }
   }
 
@@ -78,9 +82,9 @@
     &__explore_button{
       width: 80%;
       padding: 0.5em;
-      background: $blue;
-      border: 2px solid $blue;
-      color: $white;
+      background: $white;
+      border: 2px solid $tertiary;
+      color: $text;
       box-sizing: border-box;
       border-radius: 4px;
       margin-bottom: 0.5em;
@@ -89,9 +93,9 @@
     &__lobby_button{
       width: 80%;
       padding: 0.5em;
-      background: $blue;
-      border: 2px solid $blue;
-      color: $white;
+      background: $white;
+      border: 2px solid $tertiary;
+      color: $text;
       box-sizing: border-box;
       border-radius: 4px;
     }

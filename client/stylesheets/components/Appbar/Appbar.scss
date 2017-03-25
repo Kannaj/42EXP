@@ -1,9 +1,9 @@
 
 .appbar{
   height: 60px;
-  background: $white;
-  color: $black;
-  border-bottom: 2px solid $gray;
+  background: $card-color;
+  color: $secondary;
+  border-bottom: $border;
   position: fixed;
   width: 100%;
   transition: all 0.5s ease-in;
@@ -56,7 +56,7 @@
     position: absolute;
     height: 13%;
     width: 100%;
-    background: black;
+    background: $secondary;
     border-radius: 15px;
     opacity: 1;
     left: 0;
@@ -74,7 +74,7 @@
       margin: 0;
       width: 35px;
       padding: 2px;
-      background: $gray;
+      background: $tertiary;
       border-radius: 4px;
     }
     @media only screen and (max-width: 480px){
@@ -96,7 +96,7 @@
     }
     .profile_menu{
       max-height: 150px;
-      background: $white;
+      background: $primary;
       position: absolute;
       top: 65px;
       border: 1px solid #ccc;
@@ -110,8 +110,8 @@
       &__item {
         width: 100%;
         padding: 1em;
-        background: none;
-        border-bottom: 1px solid $black;
+        background: $card-color;
+        border-bottom: $border;
         text-align: center;
       }
 

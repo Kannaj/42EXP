@@ -1,25 +1,32 @@
 
 @import url(https://fonts.googleapis.com/css?family=Merriweather);
 
-$black-text: #F3F2BF;
-
-
-//v2 color-pallete
-// $primary:#FFFFFF; //WHITE
-// $secondary:#0B132B; //MAASTRICHT BLUE
-// $tertiary: #281985; //PIXIE POWDER
-// $fourth:#02020A; // RICH BLACK
-// $fifth:#CECFC7;
-
-$white : #FFFFFF;
 $black : #000000;
 $blue : #791E94;
 $gray : #EFEFEF;
 
-$box-shadow: 0 1px 2px rgba(0,0,0,.1);
-$border : 2px solid #e2e2e2;
 
-$activeLink:#242038;
+$primary: #ECEDE8;
+$secondary: #2E3136;
+$tertiary: #B5B6B5;
+$card-color: #FCF7FF;
+$white: #FCF7FF;
+
+
+$discord-black: #1e2124;
+$discord-black-tint: #282b30;
+$discord-black-text: #1b64d2;
+$discord-black-shade: #2E3136;
+
+
+$text: #000000;
+// $box-shadow: 0 1px 2px rgba(0,0,0,.1);
+// $border : 2px solid #e2e2e2;
+
+$box-shadow: 0 1px 2px $tertiary;
+$border : 2px solid $tertiary;
+
+$activeLink: #B5B6B5;
 
 html{
   letter-spacing: 1px;
@@ -49,17 +56,23 @@ button{
   border: none;
   font-family: 'Merriweather';
   letter-spacing: 1px;
+  background-color: $secondary;
+  color: $tertiary;
   @media only screen and (max-width: 480px){
     padding:3px;
     font-size: 10px;
   }
 }
 
+a:visited{
+  color: $text;
+}
+
 input,
 textarea{
   background-color: #fff;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid $tertiary;
   color: #333;
   height: 36px;
   line-height: 25px;
@@ -80,7 +93,7 @@ a {
   padding: 15px;
   width: auto;
   font-size: 1em;
-  color: $white;
+  color: $card-color;
   background-color: $blue;
   font-weight: bolder;
   box-shadow: none;

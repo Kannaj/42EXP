@@ -101,7 +101,7 @@ export const update_last_activity = function(data,res){
 
 export const createNewProject = (data) => {
   return db.tx((t) => {
-  return t.one("insert into project (name,category,description,github_link,reddit_link,owner) values (${name},${category},${description},${github_link},${reddit_link},${username}) returning *",data)
+  return t.one("insert into project (name,category,description,github_link,owner) values (${name},${category},${description},${github_link},${username}) returning *",data)
           .then(function(project){
             return t.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,project.name,'owner'])
 

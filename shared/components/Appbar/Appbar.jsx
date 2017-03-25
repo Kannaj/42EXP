@@ -34,9 +34,7 @@ const header = (location,openMemberModal) => {
       <h3 className="page_title"> Profile - {name} </h3>
     )
   }else{
-    return(
-      <h3 className="page_title"> 42exp</h3>
-    )
+    return null
   }
 }
 
