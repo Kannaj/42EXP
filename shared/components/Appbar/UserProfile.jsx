@@ -33,8 +33,8 @@ class ProfileMenu extends Component{
   render(){
     return (
       <div tabIndex="1" onClick={this.props.toggleProfileMenu} ref={(profile_menu) => {this.profile_menu = profile_menu}} className={`profile_menu profile_menu--${this.props.isProfileMenuOpen ? "visible" : "hidden"}`}>
-        <button className="profile_menu__item"><Link to={`/user/${this.props.User.username}`} className="profile_menu__item">Profile</Link></button>
-        <button className="profile_menu__item"><a href="/logout">Logout</a></button>
+        <Link to={`/user/${this.props.User.username}`} className="profile_menu__item"><button className="profile_menu__item">Profile</button></Link>
+        <a href="/logout"><button className="profile_menu__item">Logout</button></a>
       </div>
     )
   }
