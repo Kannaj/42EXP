@@ -10,6 +10,7 @@ import Sidebar from '../components/Sidebar';
 import Appbar from '../components/Appbar/Appbar';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
+import create_project from '../actions/projects/create_project';
 
 export class App extends React.Component{
   constructor(props){
@@ -95,7 +96,8 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    remove_message
+    remove_message,
+    create_project
   },dispatch)
 }
 

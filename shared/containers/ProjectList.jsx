@@ -50,10 +50,8 @@ class ProjectList extends React.Component{
     if(socket){
       this.fetchData()
     }
-    console.log('hello')
+    
     let showJumbotron = localStorage.getItem('new_user')
-
-    console.log('showJumbotron : ',showJumbotron)
 
     if(showJumbotron == 'undefined' || null){
       localStorage.setItem('new_user',true)

@@ -74,16 +74,17 @@ class ProjectDetail extends React.Component{
               null
             }
           </div>
-          <div className="project_links">
-          <h3> External links </h3>
+
             {
               this.state.project_details.github_link ?
-
-              <a href={this.state.project_details.github_link} className="project_links__item"><button className="ion-social-github"></button> </a>
+              <div className="project_links">
+                <h3> External links </h3>
+                <a href={this.state.project_details.github_link} className="project_links__item"><button className="ion-social-github"></button> </a>
+              </div>
               :
               null
             }
-          </div>
+
 
           <div className="project_skills" >
             <h3>Skills</h3>
