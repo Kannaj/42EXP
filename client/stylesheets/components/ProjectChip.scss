@@ -1,101 +1,63 @@
-// .project_chip{
-//   border: 0px solid rgba(123, 123, 123, 0.498039);
-//   // display: inline-block;
-//   display: flex;
-//   flex-direction: column;
-//   height: 400px;
-//   width: 350px;
-//   margin: 10px;
-//   vertical-align: top;
-//   position: relative;
-//   background-color: $white;
-//   box-shadow: 0 1px 2px rgba(0, 0, 0, 5);
-//   text-decoration: none;
-//   cursor: pointer;
-//   @media only screen and (max-width: 480px){
-//     width: 90%;
-//   }
-//   .project_name{
-//     padding: 5px;
-//     background-color: $blue;
-//     color: $white;
-//     font-weight: bold;
-//     text-align: center;
-//   }
-//   .project_description{
-//     color: $blue;
-//     padding:10px;
-//     height:40%;
-//     overflow:hidden;
-//     text-overflow: ellipsis;
-//     flex-grow: 2;
-//   }
-//   .project_category{
-//     text-align: center;
-//     background-color: $blue;
-//     color: $white;
-//     padding:5px;
-//     font-weight: bold;
-//     border-bottom: 0.5px solid black;
-//   }
-//   .project_skills{
-//     // position:absolute;
-//     box-sizing: border-box;
-//     width: 100%;
-//     background-color: $blue;
-//     margin:0;
-//     padding:5px;
-//     bottom:0;
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     .skill_chip{
-//       background-color: $blue;
-//       border-radius: 5px;
-//       color: $white;
-//       box-shadow: none;
-//       margin:2px;
-//       max-height: 25px;
-//     }
-//   }
-// }
-
 .project_card{
-  width: 450px;
-  height: 250px;
-  box-shadow: $box-shadow;
-  background: $white;
-  margin: 1em;
-  position: relative;
+  width: 75%;
+  height: auto;
+  padding: 15px;
   display: flex;
-  flex-direction: column;
-    @media only screen and (max-width: 480px){
-      width: 90%;
+  // border: $border;
+  &__owner{
+    flex: 1;
+    img{
+      padding-top: 1.5em;
+      height: 60px;
+      width: 60px;
     }
-  &__name{
-    height: auto;
-    word-wrap: break-word;
-    text-align: center;
-    font-size: 1.5em;
-    padding: 5px;
-    border-bottom: 1px solid $gray;
   }
-  &__category{
-    border-bottom: 1px solid $gray;
-    padding: 5px;
+
+  &__details{
+    flex: 8;
+    display: flex;
+    flex-direction: column;
+
+    .name{
+
+      h3 {
+        margin-bottom: 0;
+      }
+    }
+    .category{
+      color: #a5a5a5;
+      h4{
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+    .description{
+      height: 6em;
+      overflow-y: hidden;
+    }
+    .skill{
+      button{
+        font-size: 0.8em;
+        background: none;
+        padding: 5px;
+        color: #0f0f0f;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+      }
+    }
   }
-  &__description{
-    flex-grow: 2;
-    padding: 5px;
-    border-bottom: 1px solid $gray;
-    overflow: hidden;
-  }
-  &__skill{
-    padding: 10px;
-    overflow: hidden;
-    &_chip{
-      margin-right: 5px;
-      margin-bottom: 5px;
+
+  &__actions{
+    flex: 1;
+    padding: 15px;
+    a {
+      background: none;
+      border: 1px solid #52489c;
+      border-radius: 4px;
+      color: #52489c;
+      padding: 5px 15px;
+      margin-top: 1.5em;
+      font-weight: bold;
     }
   }
 }

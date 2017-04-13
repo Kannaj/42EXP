@@ -83,7 +83,7 @@ class UserSkills extends React.Component{
   render(){
     return (
       <div className="user_skills">
-        <h2 className="user_skills__header">{this.props.target_user.username}'s Skills</h2>
+        <h2 className="user_skills__header">Skills</h2>
           {
             this.props.canEdit ?
             <div className="user_skills__add">
