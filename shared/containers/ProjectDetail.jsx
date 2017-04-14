@@ -7,6 +7,8 @@ import ProjectForm from '../components/ProjectForm';
 import Modal from 'react-modal';
 import {Link} from 'react-router';
 import Remarkable from 'remarkable';
+import slugify from '../utils/slugify';
+import loader from '../components/Loader';
 
 const md = new Remarkable({})
 
@@ -17,7 +19,9 @@ class ProjectDetail extends React.Component{
     this.state = {
       project_details:{},
       modalIsOpen:false,
-      canJoin: true
+      canJoin: true,
+      isFetching: true,
+      canEdit: false
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -36,9 +40,13 @@ class ProjectDetail extends React.Component{
       if(err){
         console.log('error: ',err)
       }else{
-        this.setState({project_details:data})
+        this.setState({project_details:data, isFetching: false})
         if(this.props.username === data.owner){
-          this.setState({canJoin : false})
+          this.setState({canEdit : true, canJoin: false})
+        }
+        if(this.props.project.role === 'member'){
+          // user has already joined project
+          this.setState({ canJoin : false})
         }
       }
     }.bind(this))
@@ -55,79 +63,83 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
+    if(this.state.isFetching){
+      return (
+        loader()
+      )
+    }
     return(
       <div className="project_detail">
 
         <div className="main_content">
-          <h3 className="category_header"> Category </h3>
-          <p className="main_content__category">{this.state.project_details.category} </p>
-          <h3 className="members_header"> Members </h3>
+          <h2 className="main_content__project_name">{slugify('deslugify',this.state.project_details.name)}</h2>
+          <h3 className="main_content__category">{this.state.project_details.category} </h3>
+
+          <div className="project_skills" >
+            {
+              this.state.project_details.skills?
+              this.state.project_details.skills.map((skill) => {
+                return
+                (
+                  <button className="project_skills__skill"
+                          key={skill.skill_id}>#{skill.name}
+                  </button>
+                )
+              })
+              :
+              null
+            }
+          </div>
+
+
+          <h4 className="members_header"> Members </h4>
           <div className="member_list">
             {
-              this.state.project_details.members ?
               this.state.project_details.members.map((member,i) => {
                 return (
                     <img className="member_list__members" key={i} src={`https://avatars1.githubusercontent.com/${member.name}` } />
                 )
               })
-              :
-              null
             }
           </div>
 
             {
               this.state.project_details.github_link ?
               <div className="project_links">
-                <h3> External links </h3>
+                <h4> External links </h4>
                 <a href={this.state.project_details.github_link} className="project_links__item"><button className="ion-social-github"></button> </a>
               </div>
               :
               null
             }
 
-
-          <div className="project_skills" >
-            <h3>Skills</h3>
-            {
-              this.state.project_details.skills?
-              this.state.project_details.skills.map((skill) => {
-                return (
-
-                    <button className="project_skills__skill" key={skill.skill_id}>{skill.name}</button>
-                )
-              })
-              :
-              null
-            }
-          </div>
-          <div className="main_content__CTA">
-            {
-              !this.props.isAuthenticated  ?
-              <a href= "/auth/github" className="show_register_message">
-                <button className="main_content__login">
-                    Login To Join Project
-                </button>
-              </a>
-              :
-
-              this.state.canJoin ?
-                <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
-                :
-                <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button>
-            }
-          </div>
-
         </div>
 
         <div className="secondary_content">
-          <h3 className="description_header"> Details </h3>
+          <h4 className="description_header"> Details </h4>
           <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.description)}}/></div>
+          <div className="secondary_content__action_buttons">
+            <div className="secondary_content__CTA">
+              {
+                !this.props.isAuthenticated  ?
+                <a href= "/auth/github" className="show_register_message">
+                  <button className="main_content__login">
+                      Login To Join Project
+                  </button>
+                </a>
+                :
+                null
+              }
+              {this.state.canJoin && <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>}
+              {this.state.canEdit && <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button>}
+            </div>
+          </div>
         </div>
 
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
-               className="content-project"
-               overlayClassName="overlay-project" >
+               className="new_project__form"
+               overlayClassName="new_project" >
 
             <ProjectForm
               {...this.state.project_details}
@@ -162,7 +174,7 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     join_project,
-    edit_project
+    edit_project,
   },dispatch)
 }
 

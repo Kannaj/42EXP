@@ -9,7 +9,7 @@ import _ from 'lodash';
 import {skillOptions} from '../utils/Autocomplete';
 import update from 'react-addons-update';
 import uuid from 'node-uuid';
-
+import loader from '../components/Loader';
 import {add_notification} from '../actions/notifications/notifications';
 import {add_message} from '../actions/flash_messages/flash_messages';
 import {user_add_skills_success} from '../actions/User/actions';
@@ -133,7 +133,8 @@ class UserProfile extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      user: null
+      user: null,
+      isFetching: true
     }
     this.addSkill = this.addSkill.bind(this);
     this.addCommend = this.addCommend.bind(this);
@@ -143,13 +144,10 @@ class UserProfile extends React.Component{
     let username = this.props.params.username;
 
     if(socket){
-      this.props.start_request()
       socket.emit('user:profile',{username: username},function(err,data){
         if(err){
-          this.props.stop_request()
         }else{
-          this.props.stop_request()
-          this.setState({user:data})
+          this.setState({user:data,isFetching: false})
         }
       }.bind(this))
     }
@@ -185,6 +183,10 @@ class UserProfile extends React.Component{
         canEdit = this.state.user.username === this.props.User.username;
         canCommend = this.state.user.username !== this.props.User.username;
       }
+    }
+
+    if(this.state.isFetching){
+      return loader()
     }
 
     return (

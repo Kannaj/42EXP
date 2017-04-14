@@ -23,11 +23,6 @@ const header = (location,openMemberModal) => {
         <button className="ion-person-stalker" onClick={() => openMemberModal(name)}></button>
       </h3>
     )
-  }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
-    const name = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')[2]
-    return (
-      <h3 className="page_title">{slugify("deslugify",name)}</h3>
-    )
   }else if (location.match('/user/(\\S+)')){
     const name = location.match('/user/(\\S+)')[1]
     return (

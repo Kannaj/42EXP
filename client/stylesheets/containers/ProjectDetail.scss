@@ -1,5 +1,6 @@
 .project_detail{
   display: flex;
+  height: 100%;
   .main_content,
   .secondary_content,
   {
@@ -8,20 +9,14 @@
     box-shadow: $box-shadow;
     padding: 1.5em;
     box-sizing: border-box;
-
   }
   .main_content{
-    border-right: $border;
-    .category_header{
-      margin-bottom: 5px;
+    &__project_name{
+      margin-bottom: 0;
     }
     &__category{
       margin-bottom: 5px;
-      padding-left: 20px;
-    }
-    &__CTA{
-      width: 100%;
-      text-align: center;
+      color: #a5a5a5;
     }
     .member_list{
       display: flex;
@@ -29,8 +24,8 @@
       overflow: hidden;
       padding-left: 20px;
       &__members{
-        height: 50px;
-        width: 50px;
+        height: 35px;
+        width: 35px;
         border-radius: 50%;
       }
     }
@@ -50,8 +45,15 @@
     }
     .project_skills{
       margin-top : 1.5em;
-      button:first-child{
-        padding-left: 20px;
+      button{
+        font-size: 0.8em;
+        background: none;
+        padding: 5px;
+        color: #0f0f0f;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 5px;
       }
     }
 
@@ -62,5 +64,23 @@
   }
 
   .secondary_content{
+    display: flex;
+    flex-direction: column;
+    .description{
+      background: #f8f9fc;
+      flex: 8;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    &__action_buttons{
+      text-align: right;
+      padding-right: 10px;
+      button{
+        background: #52489c;
+        border-radius: 4px;
+        color: #f8f8f8;
+        font-weight: 300;
+      }
+    }
   }
 }

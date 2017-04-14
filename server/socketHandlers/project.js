@@ -152,8 +152,8 @@ const editProject = (data) => {
   return db.tx((t) => {
     return t.any('DELETE from project_skills WHERE project = (SELECT name from project where id = $1) returning *',[data.id])
             .then(function(deletedSkills){
-              return t.one('update project set name=$1,description=$2,github_link=$3,reddit_link=$4,category=$5 where id=$6 returning *',
-              [data.project.name,data.project.description,data.project.github_link,data.project.reddit_link,data.project.category.value,data.id])
+              return t.one('update project set name=$1,description=$2,github_link=$3,category=$4 where id=$5 returning *',
+              [data.project.name,data.project.description,data.project.github_link,data.project.category.value,data.id])
                         .then(function(updatedProject){
                           if(data.project.skill.length > 0){
                             const queries = data.project.skill.map(function(skill){

@@ -1,0 +1,40 @@
+$base-line-height: 24px;
+$blue: #52489c;
+$off-blue: rgba($blue, 0.2);
+$spin-duration: 1s;
+$pulse-duration: 750ms;
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    background: $off-blue;
+  }
+}
+
+.loader{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left:0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loading {
+    border-radius: 50%;
+    width: $base-line-height;
+    height: $base-line-height;
+    border: .25rem solid $off-blue;
+    border-top-color: $blue;
+    animation: spin $spin-duration infinite linear;
+  }
+}

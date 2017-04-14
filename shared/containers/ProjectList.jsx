@@ -5,8 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {start_request,stop_request} from '../actions/loader'
 import Modal from 'react-modal';
-// import ProjectForm from '../components/ProjectForm';
-// import create_project from '../actions/projects/create_project';
+import loader from '../components/Loader';
 
 class ProjectList extends React.Component{
 
@@ -14,29 +13,18 @@ class ProjectList extends React.Component{
     super(props);
     this.state = {
       project_list:[],
-      show_jumbotron: true
+      show_jumbotron: true,
+      isFetching: true
     }
     this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this);
-    // this.openModal = this.openModal.bind(this);
-    // this.closeModal = this.closeModal.bind(this);
   }
 
-  // openModal(){
-  //   this.setState({modalIsOpen:true})
-  // }
-  //
-  // closeModal(){
-  //   this.setState({modalIsOpen:false})
-  // }
-
   fetchData(){
-    this.props.start_request()
     socket.emit('project:list',{},function(err,data){
       if(err){
-        this.props.stop_request()
       }else{
-        this.props.stop_request()
-        this.setState({project_list:data})
+
+        this.setState({project_list:data,isFetching: false})
       }
     }.bind(this))
   }
@@ -64,6 +52,9 @@ class ProjectList extends React.Component{
 
 
   render(){
+    if(this.state.isFetching){
+      return loader()
+    }
     return(
       <div className="project_list">
         {this.state.show_jumbotron ?
@@ -78,13 +69,6 @@ class ProjectList extends React.Component{
           null
         }
         <h3 className="project_list__header"> Recent Projects </h3>
-        { /*
-        <div className="user_actions">
-          <button className="user_actions__new_project" onClick={this.openModal}>
-            New Project
-          </button>
-        </div>
-        */}
       {
         this.state.project_list.length > 0 ?
           this.state.project_list.map((project) => {
@@ -95,15 +79,6 @@ class ProjectList extends React.Component{
           :
           <h1> No projects yet! Signup to create one! </h1>
       }
-
-      {/*
-        <Modal isOpen={this.state.modalIsOpen}
-             onRequestClose={this.closeModal}
-             className="new_project__form"
-             overlayClassName="new_project" >
-          <ProjectForm create_project={this.props.create_project} close={this.closeModal}/>
-      </Modal>
-      */}
 
       </div>
     )

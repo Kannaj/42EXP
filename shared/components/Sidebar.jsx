@@ -58,7 +58,6 @@ class Sidebar extends Component {
 
   constructor(props){
     super(props);
-    console.log('props recieved : ',props)
     this.state = {
       modalIsOpen: false
     }
@@ -76,8 +75,8 @@ class Sidebar extends Component {
 
   render(){
     // remove 42exp from project list
-    const projects = this.props.Projects.slice(1)
-    console.log('sending projects : ',projects)
+    const projects = this.props.Projects.slice(1);
+
     return(
       <div>
         <div className={`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>

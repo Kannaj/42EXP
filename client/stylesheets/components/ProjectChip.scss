@@ -4,6 +4,7 @@
   padding: 15px;
   display: flex;
   // border: $border;
+  background: #f8f9fc;
   &__owner{
     flex: 1;
     img{
@@ -32,17 +33,21 @@
       }
     }
     .description{
-      height: 6em;
+      height: 5em;
       overflow-y: hidden;
+      text-overflow: ellipsis;
     }
     .skill{
       button{
         font-size: 0.8em;
         background: none;
         padding: 5px;
+        overflow-y: hidden;
         color: #0f0f0f;
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 5px;
       }
     }
   }
