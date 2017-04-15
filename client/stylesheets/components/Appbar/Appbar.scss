@@ -95,24 +95,29 @@
       margin-top: 1em;
     }
     .profile_menu{
-      max-height: 150px;
-      background: $primary;
+      // max-height: 150px;
+      // background: $primary;
       position: absolute;
       top: 65px;
       border: 1px solid #ccc;
       right: 2.5em;
       z-index: 999;
-      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+      background: #fcf7ff;
+      // box-shadow: 0 2px 10px rgba(0,0,0,.2);
       display: none;
-      width: 150px;
-      border-radius: 2px;
+      width: auto;
+      height: auto;
+      border-radius: 4px;
 
       &__item {
         width: 100%;
         padding: 1em;
-        background: $card-color;
+        background: $white;
         border-bottom: $border;
         text-align: center;
+        font-size: 10px;
+        cursor: pointer;
+        color: $black;
       }
 
       &--visible{

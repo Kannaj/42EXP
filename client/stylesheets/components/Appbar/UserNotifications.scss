@@ -1,6 +1,14 @@
 .user_notifications{
   margin-right: 5px;
   position: relative;
+  padding: 0;
+  &__header{
+    height: 1.5em;
+    padding: 5px;
+    color: $black;
+    background: #ecede8;
+    text-align: left;
+  }
   &__icon{
     height: 50px;
     width: 50px;
@@ -9,22 +17,23 @@
     font-size: 2em;
   }
   &__bar{
-    max-height: 250px;
-    background: $gray;
+    max-height: 35em;
+    background: #fcf7ff;
     position: absolute;
     top: 55px;
+    padding: 10px;
     outline: none;
     border: 1px solid #ccc;
     right: 1.5em;
-    // padding: 10px;
     z-index: 999;
-    box-shadow: 0 2px 10px rgba(0,0,0,.2);
     display: none;
-    width: 350px;
-    border-radius: 2px;
-    overflow-y: scroll;
+    width: 30em;
+    height: auto;
+    border-radius: 4px;
+    overflow-y: auto;
     &--visible{
       display: block;
+      padding: 0;
     }
 
   }
@@ -33,5 +42,13 @@
     padding: 5px;
     box-shadow: $box-shadow;
     border-bottom: $border;
+    .notifications_timestamp{
+      width: 100%;
+      color: #a5a5a5;
+      text-align: right;
+    }
+  }
+  &__no_notifications {
+    text-align: center;
   }
 }

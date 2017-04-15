@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 
 class Notificationbar extends Component{
   constructor(props){
@@ -40,17 +41,19 @@ class Notificationbar extends Component{
   render(){
     return (
       <div tabIndex="1" onClick={this.props.toggleNotificationBar} className={`user_notifications__bar user_notifications__bar--${this.props.isNotificationBarOpen ? "visible" : "hidden"}`}>
+        <div className="user_notifications__header">Notifications</div>
         {this.props.Notification.length > 0 ?
           this.props.Notification.map((notification) => {
             return (
               <div className="user_notifications__message" key={notification.id}>
                 <p>{notification.message}</p>
+                <p className="notifications_timestamp">{moment(notification.timestamp).calendar() || null}</p>
               </div>
             )
           })
           :
             <div className="user_notifications__no_notifications">
-              <p> No Notifications :( </p>
+              <p> No Notifications  </p>
             </div>
         }
       </div>

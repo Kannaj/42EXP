@@ -77,12 +77,11 @@ class ProjectDetail extends React.Component{
 
           <div className="project_skills" >
             {
-              this.state.project_details.skills?
+              this.state.project_details.skills.length > 0 ?
               this.state.project_details.skills.map((skill) => {
-                return
-                (
-                  <button className="project_skills__skill"
-                          key={skill.skill_id}>#{skill.name}
+                return (
+                  <button className="project_skills__skill" key={skill.skill_id}>
+                           #{skill.name}
                   </button>
                 )
               })

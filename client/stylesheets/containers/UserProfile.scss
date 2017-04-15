@@ -54,16 +54,17 @@
     &__add{
       height: 3em;
       display: flex;
-      background: $blue;
-
       padding-left: 20px;
       padding-right: 20px;
       align-items: flex-start;
       .Select{
-        flex-grow: 3;
+        flex: 8;
       }
       .submit_skill{
-        padding: 9px;
+        flex: 2;
+        background: #52489C;
+        color: $white;
+        padding: 7px;
         border-radius: 4px;
       }
     }
@@ -73,7 +74,7 @@
       flex-grow: 2;
       padding-top: 10px;
       margin-top: 50px;
-      font-size: 1.5em;
+      font-size: 1em;
       padding-bottom: 25px;
       table-layout: fixed;
       &--no_edit{
