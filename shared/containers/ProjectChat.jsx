@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Message from '../components/message';
 import uuid from 'node-uuid';
-import {bindActionCreators} from 'redux';
-import {set_last_activity} from '../actions/projects/set_last_activity';
+import { bindActionCreators } from 'redux';
+import { set_last_activity } from '../actions/projects/set_last_activity';
 import {set_unread} from '../actions/projects/set_unread.js';
 import Waypoint from 'react-waypoint';
 import get_more_messages from '../actions/projects/get_more_messages';
 import get_messages from '../actions/projects/get_messages';
+import loader from '../components/Loader';
 
 class ProjectChat extends React.Component{
 
@@ -16,6 +17,7 @@ class ProjectChat extends React.Component{
     this.state = {
       message: '',
       waypointReady: false,
+      retrieveLatestMessages: true
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,12 +28,13 @@ class ProjectChat extends React.Component{
   }
 
   componentDidMount(){
-    this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
-    this.setState({waypointReady:true})
+    // this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+    // this.setState({ waypointReady: true })
 
     // mounting project chat room for the first time?
     if(socket && this.props.project[0].canRetrieveMore == undefined){
       this.props.get_messages(this.props.params.projectId)
+      this.setState({ retrieveLatestMessages: false })
     }
   }
 
@@ -53,26 +56,42 @@ class ProjectChat extends React.Component{
     }
 
     // switching to a new Project Chat room for the first time in the session?
+    // bring up the loader component and then remove once latest messages are recieved
     if ((nextProps.project[0].id !== this.props.project[0].id) &&
         (nextProps.project[0].canRetrieveMore == undefined))
         {
+          this.setState({retrieveLatestMessages: true})
           nextProps.get_messages(nextProps.params.projectId)
+          this.setState({retrieveLatestMessages: false})
+          this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
         }
 
   }
 
   componentDidUpdate(prevProps,prevState){
+    const oldMessageList = prevProps.messages,
+          newMessageList = this.props.messages,
+          oldProjectId = prevProps.params.projectId,
+          newProjectId = this.props.params.projectId,
 
-    if((this.props.messages[this.props.messages.length - 1] !== prevProps.messages[prevProps.messages.length - 1] ) && (this.props.params.projectId == prevProps.params.projectId)){
+          isSameRoom = oldProjectId === newProjectId,
+          isNewMessage = newMessageList[newMessageList.length - 1] !== oldMessageList[oldMessageList.length - 1] && isSameRoom
+
+    if (oldMessageList.length == 0 && newMessageList.length > 0 && isSameRoom){
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+      this.setState({ waypointReady : true})
+    }
+
+    if(isNewMessage){
       // new message recieved. i.e = last message or prev props not the same as last message of new props and same page.
       this.props.set_unread(this.props.params.projectId)
-      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
     }
     // User has switched to a different chat Room.
-    if(this.props.params.projectId !== prevProps.params.projectId){
-      this.setLastActivity(prevProps.params.projectId);
+    if(newProjectId !== oldProjectId){
+      this.setLastActivity(oldProjectId);
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight
-      this.setState({message:''})
+      this.setState({message:'', waypointReady: false})
     }
   }
 
@@ -119,17 +138,38 @@ class ProjectChat extends React.Component{
   }
 
   render(){
-    const messages = this.props.messages;
+    // const messages = this.props.messages;
+    const {messages, project} = this.props;
+
+    if (this.state.retrieveLatestMessages){
+      return (
+        <div id="project_chat">
+          {loader()}
+          <div ref="messages">
+
+          </div>
+        </div>
+      )
+    }
+
     return(
       <div id="project_chat">
-          {
-            !this.props.project.length > 0 ?
+          { /* project.length is used to see if the user actually is a member of the project*/
+            !project.length > 0 ?
             <h1> You need to be a member of this project to be part of the chat room </h1>
             :
             messages ?
             <div className="chat_room">
               <div className="messages" ref="messages">
-                <Waypoint onEnter={this.activateWayPoint}/>
+              {
+                project[0].canRetrieveMore ?
+                <div className="chat_room__fetch_more">
+                  <Waypoint onEnter={this.activateWayPoint}/>
+                  {loader()}
+                </div>
+                :
+                null
+              }
                 <ul>
                   {messages.map((message) => {
                     return(

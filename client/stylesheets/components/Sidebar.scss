@@ -48,10 +48,11 @@
     display: flex;
     flex-direction: column;
     // max-height: 350px;
-    flex: 7.2;
+    flex: 6;
     // border-top: $border;
     border-bottom: $border;
-    // min-height: 350px;
+    max-height: 55em;
+    overflow-y: auto;
 
     &__header{
       text-align: left;
@@ -88,7 +89,7 @@
     // justify-content: center;
     // min-height: 500px;
     border-bottom: $border;
-    flex: 7.2;
+    flex: 2;
     h1{
       padding-top: 1.5em;
     }

@@ -89,6 +89,11 @@ class Sidebar extends Component {
             sidebarContent(projects,this.openModal)
           }
 
+          <div className="sidebar__text">
+            <a href="#" className="create_project" onClick={this.openModal}><i className="ion-plus-round" />   Start A New Project </a>
+            <Link to="/" className="explore_projects"><i className="ion-search"/>   Explore </Link>
+          </div>
+
           {
             this.props.isAuthenticated ?
             <div className={`navigation--bottom`}>

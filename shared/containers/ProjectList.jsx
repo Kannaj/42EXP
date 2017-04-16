@@ -6,6 +6,8 @@ import {bindActionCreators} from 'redux';
 import {start_request,stop_request} from '../actions/loader'
 import Modal from 'react-modal';
 import loader from '../components/Loader';
+import Waypoint from 'react-waypoint';
+
 
 class ProjectList extends React.Component{
 
@@ -14,17 +16,34 @@ class ProjectList extends React.Component{
     this.state = {
       project_list:[],
       show_jumbotron: true,
-      isFetching: true
+      isFetching: true,
+      fetchMore: false,
     }
     this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this);
+    this.activateWayPoint = this.activateWayPoint.bind(this)
   }
 
   fetchData(){
     socket.emit('project:list',{},function(err,data){
       if(err){
+        //
       }else{
+        let fetchMore = data.length == 5 ? true : false
+        this.setState({ project_list: data, isFetching: false, fetchMore})
+      }
+    }.bind(this))
+  }
 
-        this.setState({project_list:data,isFetching: false})
+  activateWayPoint(){
+    let project_list = this.state.project_list
+    let lastId = project_list[project_list.length - 1].project_id
+    socket.emit('project:list_more',{ lastId },function(err,data){
+      if (err) {
+        console.log('there was an error : ',err)
+      } else {
+        let newList = project_list.concat(data)
+        let fetchMore = data.length == 5 ? true : false
+        this.setState({ project_list : newList, fetchMore })
       }
     }.bind(this))
   }
@@ -79,8 +98,17 @@ class ProjectList extends React.Component{
           :
           <h1> No projects yet! Signup to create one! </h1>
       }
-
+      {
+        this.state.fetchMore ?
+        <div className="project_list__fetch_more">
+          <Waypoint onEnter={this.activateWayPoint}/>
+          {loader()}
+        </div>
+        :
+        null
+      }
       </div>
+
     )
   }
 }

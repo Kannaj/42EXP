@@ -15,9 +15,7 @@ const create_project_success = (projectDetails) => {
 }
 
 const create_project = (projectDetails) => {
-  console.log('arguments of create_project: ',arguments)
   if(socket) {
-    console.log('dispatching action : ',projectDetails)
     return function(dispatch){
       dispatch(start_request())
       socket.emit('project:create',projectDetails,function(err,data){

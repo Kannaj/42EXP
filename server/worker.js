@@ -158,6 +158,17 @@ export const run = (worker) => {
         })
     })
 
+    socket.on('project:list_more',function(data,res){
+      db.any(queries.ProjectListPaginate,data.lastId)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          winston.error('Problem with project:list_more : ',err)
+          res('Couldnt retrieve more projects')
+        })
+    })
+
     // project detail.
     socket.on('project:detail',function(data,res){
       project_detail(data)
@@ -173,7 +184,7 @@ export const run = (worker) => {
     // function allowing user to join a project group.
     socket.on('project:join',function(data,res){
       data.username = socket.getAuthToken().username;
-      
+
       join_project(data)
         .then(function(result){
           res(null,result)

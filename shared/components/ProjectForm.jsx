@@ -31,13 +31,10 @@ class ProjectForm extends React.Component{
       this.setState({category:{value:this.props.category,label:this.props.category}})
     }
     if(this.props.name){
-      this.setState({name:this.props.name})
+      this.setState({name: slugify('deslugify', this.props.name)})
     }
     if(this.props.project_link){
       this.setState({github_link:this.props.project_link})
-    }
-    if(this.props.reddit_link){
-      this.setState({reddit_link:this.props.reddit_link})
     }
     if(this.props.description){
       this.setState({description: this.props.description})
@@ -112,11 +109,13 @@ class ProjectForm extends React.Component{
       }else{
         this.props.edit_project({project: slugify("slugify",this.state), id:this.props.id})
       }
+      this.props.close();
     }
   }
 }
 
   render(){
+    console.log('this.props : ',this.props)
     return(
       <div className="project_form">
         <div className="project_form__title">
