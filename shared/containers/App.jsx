@@ -17,6 +17,7 @@ export class App extends React.Component{
     super(props);
     this.state = {
       isSidebarOpen: true,
+      isMobile: false
     }
     this.toggleSidebar = this.toggleSidebar.bind(this)
   }
@@ -26,11 +27,23 @@ export class App extends React.Component{
     this.setState({isSidebarOpen: !this.state.isSidebarOpen})
   }
 
+  componentWillMount(){
+
+  }
+
+  componentDidMount(){
+    if (typeof global.window !== 'undefined'){
+      if(window.innerHeight > window.innerWidth){
+        this.setState({isSidebarOpen : false, isMobile: true})
+      }
+    }
+  }
+
   render(){
     return(
       <div>
 
-      {this.props.isAuthenticated ? <Sidebar {...this.props} isSidebarOpen={this.state.isSidebarOpen}/> : null}
+      {this.props.isAuthenticated ? <Sidebar {...this.props} isSidebarOpen={this.state.isSidebarOpen} isMobile={this.state.isMobile} toggleSidebar={this.toggleSidebar}/>  : null}
       <Appbar {...this.props} toggleSidebar={this.toggleSidebar} isSidebarOpen={this.props.isAuthenticated ? this.state.isSidebarOpen : false} />
 
         <div className={`main ${this.props.isAuthenticated ? this.state.isSidebarOpen ? "main--sidebarOpen" : "main--sidebarClosed" : "main--sidebarClosed"}`}>

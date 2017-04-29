@@ -116,7 +116,9 @@ class ProjectDetail extends React.Component{
 
         <div className="secondary_content">
           <h4 className="description_header"> Details </h4>
-          <div className="description"> <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.description)}}/></div>
+          <div className="description">
+            <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.description)}}/>
+          </div>
           <div className="secondary_content__action_buttons">
             <div className="secondary_content__CTA">
               {

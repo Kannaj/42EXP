@@ -6,6 +6,9 @@
   display: flex;
   height: 100%;
   flex-direction: row;
+  @media only screen and (max-width: 480px){
+    flex-direction: column;
+  }
   .user_stats{
     display: flex;
     text-align: center;
@@ -17,6 +20,9 @@
     flex-direction: column;
     justify-content: space-around;
     border-bottom: $border;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
     .user_avatar{
       padding-bottom: 2em;
       border-bottom: $border;
@@ -46,6 +52,9 @@
     box-shadow: $box-shadow;
     position: relative;
     align-items: stretch;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
     &__header{
       width: 100%;
       text-align: center;

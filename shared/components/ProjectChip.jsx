@@ -21,6 +21,7 @@ class ProjectChip extends React.Component{
           </div>
           <div className="description">
             <span dangerouslySetInnerHTML={{__html:md.render(this.props.project.project_description)}}/>
+            <div className="description__fade_out"></div>
           </div>
           <div className="skill" >
             {

@@ -3,14 +3,25 @@
   height: auto;
   padding: 15px;
   display: flex;
-  // border: $border;
   background: #f8f9fc;
+  @media only screen and (max-width: 480px){
+    flex-direction: column;
+    border-bottom: 1px solid #020202;
+  }
   &__owner{
     flex: 1;
+    @media only screen and (max-width: 480px){
+      text-align: center;
+    }
     img{
       padding-top: 1.5em;
       height: 60px;
       width: 60px;
+      @media only screen and (max-width: 480px){
+        height: 30px;
+        width: 30px;
+        padding-top: 1em;
+      }
     }
   }
 
@@ -20,14 +31,13 @@
     flex-direction: column;
 
     .name{
-
       h3 {
         margin-bottom: 0;
       }
     }
     .category{
       color: #a5a5a5;
-      h4{
+      h4 {
         margin-top: 0;
         margin-bottom: 0;
       }
@@ -36,6 +46,14 @@
       height: 5em;
       overflow-y: hidden;
       text-overflow: ellipsis;
+      @media only screen and (max-width: 480px){
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      &__fade_out{
+        height: 0.5em;
+        width: 100%;
+      }
     }
     .skill{
       button{
@@ -48,6 +66,10 @@
         border-radius: 4px;
         margin-right: 5px;
         margin-bottom: 5px;
+      }
+      @media only screen and (max-width: 480px){
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
     }
   }
@@ -63,6 +85,13 @@
       padding: 5px 15px;
       margin-top: 1.5em;
       font-weight: bold;
+      @media only screen and (max-width: 480px){
+        width: 80%;
+      }
+    }
+    @media only screen and (max-width: 480px){
+      padding-left: 0;
+      text-align: center;
     }
   }
 }

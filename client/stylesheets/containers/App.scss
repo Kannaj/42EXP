@@ -83,7 +83,8 @@
     box-shadow: 0 1px 1px 1px;
     background-color: $card-color;
     display: block;
-    height: 20%;
+    // height: 20%;
+    height: auto;
     border: 1px solid black;
     margin-bottom: 5px;
     z-index: 5;

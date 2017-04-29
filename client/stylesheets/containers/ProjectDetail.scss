@@ -1,6 +1,9 @@
 .project_detail{
   display: flex;
   height: 100%;
+  @media only screen and (max-width: 480px){
+    flex-direction: column;
+  }
   .main_content,
   .secondary_content,
   {
@@ -9,6 +12,9 @@
     box-shadow: $box-shadow;
     padding: 1.5em;
     box-sizing: border-box;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
   }
   .main_content{
     &__project_name{
@@ -80,6 +86,9 @@
         border-radius: 4px;
         color: #f8f8f8;
         font-weight: 300;
+      }
+      @media only screen and (max-width: 480px){
+        text-align: center;
       }
     }
   }

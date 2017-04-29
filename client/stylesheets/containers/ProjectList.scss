@@ -44,7 +44,13 @@
   // background: #F1F1F1;
   background-color : rgba(0,0,0,0.55);
   z-index:2;
+  @media only screen and (max-width: 480px){
+    overflow: scroll;
+  }
   &__form{
     padding: 50px;
+    @media only screen and (max-width: 480px){
+      padding: 0;
+    }
   }
 }

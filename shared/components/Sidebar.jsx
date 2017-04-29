@@ -17,7 +17,7 @@ const unread = (count) => {
 }
 
 // Either show beginner text if user hasnt subbed to a project yet. Or show list of subbed projects.
-const sidebarContent = (projects,openModal = null) => {
+const sidebarContent = (projects,openModal = null, closeSidebar) => {
   if (projects.length === 0){
     return (
       <div className="sidebar__text">
@@ -41,6 +41,7 @@ const sidebarContent = (projects,openModal = null) => {
                 key={project.id}
                 className="subscribed_projects__item"
                 activeClassName="active_link"
+                onClick={() => closeSidebar()}
               >
                 <span className="project_name">{slugify("deslugify",project.project)}</span>
                 {unread(project.unread_messages)}
@@ -63,6 +64,7 @@ class Sidebar extends Component {
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.closeSidebar = this.closeSidebar.bind(this);
   }
 
   openModal(){
@@ -71,6 +73,11 @@ class Sidebar extends Component {
 
   closeModal(){
     this.setState({modalIsOpen:false})
+  }
+
+  // if portrait mode - invoke function to close sidebar on every link click
+  closeSidebar(){
+    this.props.isMobile ? this.props.toggleSidebar() : false;
   }
 
   render(){
@@ -82,11 +89,11 @@ class Sidebar extends Component {
         <div className={`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
 
           <div className="sidebar__logo">
-            <Link to="/"><img src="/images/42exp_logo.svg"/></Link>
+            <Link to="/" onClick={() => this.closeSidebar()}><img src="/images/42exp_logo.svg"/></Link>
           </div>
 
           {
-            sidebarContent(projects,this.openModal)
+            sidebarContent(projects,this.openModal, this.closeSidebar)
           }
 
           <div className="sidebar__text">
@@ -97,7 +104,7 @@ class Sidebar extends Component {
           {
             this.props.isAuthenticated ?
             <div className={`navigation--bottom`}>
-              <Link to="/projects/1/42exp/messages"><button className="navigation__lobby_button">
+              <Link to="/projects/1/42exp/messages" ><button className="navigation__lobby_button">
                 <i className="ion-person-stalker"/> Visit Lobby
               </button></Link>
             </div>

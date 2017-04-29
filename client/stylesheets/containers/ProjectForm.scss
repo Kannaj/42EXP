@@ -6,6 +6,12 @@
   position: relative;
   padding: 2.5em;
   height: 500px;
+  @media only screen and (max-width: 480px){
+    flex-direction: column;
+    height: auto;
+    overflow: scroll;
+    padding: 1em;
+  }
   &__title{
     position: absolute;
     top: 5px;
@@ -14,8 +20,11 @@
   }
   .close_button{
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    font-size: 2em;
+    cursor: pointer;
   }
   .primary_content,
   .secondary_content
@@ -31,10 +40,17 @@
         margin-bottom: 5px;
       }
     }
+    @media only screen and (max-width: 480px){
+      width: 100%;
+      padding-left: 0px;
+    }
   }
   .secondary_content{
     textarea{
       height: 303px;
+      @media only screen and (max-width: 480px){
+        margin-bottom: 20px;
+      }
     }
   }
   .form_submit{
@@ -42,6 +58,15 @@
     bottom: 60px;
     transform: translate(-50%);
     left: 50%;
+    button {
+      padding: 10px;
+      background: #52489c;
+      color: #f5f5f5;
+    }
+    @media only screen and (max-width: 480px){
+      bottom: 10px;
+
+    }
   }
 
 }

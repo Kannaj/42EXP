@@ -1,10 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Message from '../components/message';
 import uuid from 'node-uuid';
 import { bindActionCreators } from 'redux';
 import { set_last_activity } from '../actions/projects/set_last_activity';
-import {set_unread} from '../actions/projects/set_unread.js';
+import { set_unread } from '../actions/projects/set_unread.js';
 import Waypoint from 'react-waypoint';
 import get_more_messages from '../actions/projects/get_more_messages';
 import get_messages from '../actions/projects/get_messages';
@@ -28,9 +28,6 @@ class ProjectChat extends React.Component{
   }
 
   componentDidMount(){
-    // this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
-    // this.setState({ waypointReady: true })
-
     // mounting project chat room for the first time?
     if(socket && this.props.project[0].canRetrieveMore == undefined){
       this.props.get_messages(this.props.params.projectId)
@@ -60,9 +57,9 @@ class ProjectChat extends React.Component{
     if ((nextProps.project[0].id !== this.props.project[0].id) &&
         (nextProps.project[0].canRetrieveMore == undefined))
         {
-          this.setState({retrieveLatestMessages: true})
+          this.setState({ retrieveLatestMessages: true })
           nextProps.get_messages(nextProps.params.projectId)
-          this.setState({retrieveLatestMessages: false})
+          this.setState({ retrieveLatestMessages: false })
           this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
         }
 
@@ -102,7 +99,7 @@ class ProjectChat extends React.Component{
   }
 
   handleChange(event){
-    this.setState({message:event.target.value})
+    this.setState({ message: event.target.value })
   }
 
   handleKeyPress(event){
@@ -138,7 +135,6 @@ class ProjectChat extends React.Component{
   }
 
   render(){
-    // const messages = this.props.messages;
     const {messages, project} = this.props;
 
     if (this.state.retrieveLatestMessages){
