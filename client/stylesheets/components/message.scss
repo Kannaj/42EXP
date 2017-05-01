@@ -1,4 +1,4 @@
-.new_message{
+.new_message {
   background: $white;
   box-shadow: $box-shadow;
   padding: 10px;
@@ -24,5 +24,13 @@
     .username{
       text-decoration: underline;
     }
+  }
+  &.general{
+    padding: 0;
+  }
+  &__general_message{
+    width: 100%;
+    background: #F8F3F3;
+    text-align: center;
   }
 }

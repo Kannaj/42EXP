@@ -51,15 +51,6 @@ export class App extends React.Component{
         </div>
 
 
-        {this.props.loading ?
-          <div id="loading">
-            <i className="ion-load-a"></i>
-          </div>
-          :
-          null
-        }
-
-
         { /* Probably move away from ReactCSSTransitionGroup */
           this.props.Flash_messages.length > 0 ?
           <div id="flash_message_panel">
@@ -83,9 +74,8 @@ export class App extends React.Component{
 
 const mapStateToProps = (state,ownProps) => {
   const location = ownProps.location.pathname;
-  const {isAuthenticated} = state.User;
-  const {Projects,Notifications,User, Flash_messages} = state;
-  const {loading} = state.loader;
+  const { isAuthenticated } = state.User;
+  const { Projects, Notifications,User, Flash_messages } = state;
 
   let unread = false;
   // if there are unread notifs
@@ -102,7 +92,6 @@ const mapStateToProps = (state,ownProps) => {
     Flash_messages,
     Notifications,
     unread,
-    loading,
     location
   }
 }

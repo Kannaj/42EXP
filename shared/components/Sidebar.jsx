@@ -68,32 +68,32 @@ class Sidebar extends Component {
   }
 
   openModal(){
-    this.setState({modalIsOpen:true})
+    this.setState({ modalIsOpen: true })
   }
 
   closeModal(){
-    this.setState({modalIsOpen:false})
+    this.setState({ modalIsOpen: false })
   }
 
   // if portrait mode - invoke function to close sidebar on every link click
-  closeSidebar(){
+  closeSidebar() {
     this.props.isMobile ? this.props.toggleSidebar() : false;
   }
 
-  render(){
+  render() {
     // remove 42exp from project list
     const projects = this.props.Projects.slice(1);
 
-    return(
+    return (
       <div>
-        <div className={`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
+        <div className = {`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
 
-          <div className="sidebar__logo">
-            <Link to="/" onClick={() => this.closeSidebar()}><img src="/images/42exp_logo.svg"/></Link>
+          <div className = "sidebar__logo">
+            <Link to = "/" onClick = {() => this.closeSidebar()}> <img src = "/images/42exp_logo.svg"/></Link>
           </div>
 
           {
-            sidebarContent(projects,this.openModal, this.closeSidebar)
+            sidebarContent(projects, this.openModal, this.closeSidebar)
           }
 
           <div className="sidebar__text">
@@ -113,12 +113,17 @@ class Sidebar extends Component {
           }
 
         </div>
+
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this.closeModal}
                className="new_project__form"
                overlayClassName="new_project" >
-            <ProjectForm create_project={this.props.create_project} close={this.closeModal}/>
+            <ProjectForm
+              create_project={this.props.create_project}
+              close={this.closeModal}
+              admin={this.props.User.admin}/>
         </Modal>
+
       </div>
     )
   }

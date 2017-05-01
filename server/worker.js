@@ -187,7 +187,13 @@ export const run = (worker) => {
 
       join_project(data)
         .then(function(result){
-          res(null,result)
+          scServer.exchange.publish(data.id,{ project_id: data.id,
+            timestamp: result.roomMessage.timestamp,
+            message: result.roomMessage.message,
+            username: result.roomMessage.username,
+            message_type: result.roomMessage.message_type
+          })
+          res(null,result.result)
         })
         .catch(function(err){
           winston.error('User cant join project : ',err)

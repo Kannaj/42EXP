@@ -5,7 +5,6 @@
 
 const project_list_cleaner = (results) => {
   let newResults = []
-  console.log('results : ',results)
   results.map((result) => {
     if(result.skills === null){
       newResults.push(result)

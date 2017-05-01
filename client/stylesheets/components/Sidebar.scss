@@ -69,6 +69,16 @@
       transition: all 0.3s ease-in;
       margin-bottom: 0.2px;
       box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+
+      .unread_count {
+        color: red;
+        border-radius: 35%;
+        background: #FCF7FF;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
       &:hover{
         color: #343434;
       }
@@ -134,10 +144,8 @@
     &__lobby_button{
       width: 80%;
       padding: 0.5em;
-      // background: $white;
+      cursor: pointer;
       background: #52489c;
-      // border: 2px solid $tertiary;
-      // color: $text;
       color: #FCF7FF;
       box-sizing: border-box;
       border-radius: 4px;

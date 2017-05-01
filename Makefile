@@ -1,4 +1,5 @@
-copwhoami := $(shell whoami)
+# copwhoami := $(shell whoami)
+whoami := $(shell whoami)
 
 migration-up:
 	docker-compose run --rm --no-deps  web \

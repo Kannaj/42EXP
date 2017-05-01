@@ -1,26 +1,25 @@
 import React from 'react';
 import ProjectChip from '../components/ProjectChip';
-import {Link} from 'react-router';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {start_request,stop_request} from '../actions/loader'
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
 import loader from '../components/Loader';
 import Waypoint from 'react-waypoint';
 
 
-class ProjectList extends React.Component{
+class ProjectList extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      project_list:[],
+      project_list: [],
       show_jumbotron: true,
       isFetching: true,
       fetchMore: false,
     }
     this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this);
-    this.activateWayPoint = this.activateWayPoint.bind(this)
+    this.activateWayPoint = this.activateWayPoint.bind(this);
   }
 
   fetchData(){
@@ -28,7 +27,7 @@ class ProjectList extends React.Component{
       if(err){
         //
       }else{
-        let fetchMore = data.length == 5 ? true : false
+        let fetchMore = data.length >= 5 ? true : false
         this.setState({ project_list: data, isFetching: false, fetchMore})
       }
     }.bind(this))
@@ -48,35 +47,35 @@ class ProjectList extends React.Component{
     }.bind(this))
   }
 
-  dismiss_jumbotron(){
+  dismiss_jumbotron() {
     localStorage.setItem('new_user', false)
-    this.setState({show_jumbotron: false})
+    this.setState({ show_jumbotron: false })
   }
 
-  componentDidMount(){
-    if(socket){
+  componentDidMount() {
+    if(socket) {
       this.fetchData()
     }
 
     let showJumbotron = localStorage.getItem('new_user')
 
-    if(showJumbotron == 'undefined' || null){
+    if (showJumbotron == 'undefined' || null) {
       localStorage.setItem('new_user',true)
     }
 
-    if (showJumbotron === "false"){
-      this.setState({show_jumbotron: false})
+    if (showJumbotron === "false") {
+      this.setState({ show_jumbotron: false })
     }
   }
 
 
   render(){
-    if(this.state.isFetching){
+    if (this.state.isFetching) {
       return loader()
     }
-    return(
+    return (
       <div className="project_list">
-        {this.state.show_jumbotron ?
+        { this.state.show_jumbotron ?
           <div className="jumbotron">
             <h2> New here ? </h2>
             <p> Welcome to 42exp. You can find a list of recent projects to join below. </p>
@@ -102,7 +101,7 @@ class ProjectList extends React.Component{
         this.state.fetchMore ?
         <div className="project_list__fetch_more">
           <Waypoint onEnter={this.activateWayPoint}/>
-          {loader()}
+          { loader() }
         </div>
         :
         null
@@ -115,8 +114,8 @@ class ProjectList extends React.Component{
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    start_request,
-    stop_request,
+    // start_request,
+    // stop_request,
     // create_project
   },dispatch)
 }

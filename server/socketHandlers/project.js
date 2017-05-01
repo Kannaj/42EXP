@@ -1,4 +1,4 @@
-import {db,queries} from '../config.js'
+import { db, queries } from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
 import winston from 'winston';
 
@@ -60,24 +60,25 @@ export const project_detail = function(data){
 
 export const join_project = function(data){
   let result;
-  return db.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,data.project,'member'])
+    return db.tx(t => {
+      return t.batch([
+        t.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,data.project,'member']),
+        t.one('insert into project_messages (project,message,username,message_type) values ($1,$2,$3,$4) returning *',[data.project,`${data.username} has joined`,data.username,"general"])
+      ])
+    })
     .then(function(projectDetails){
       result = {
-        id: data.id,
-        last_activity: projectDetails.last_activity,
-        project: data.project,
-        role: projectDetails.role,
-        unread_messages:0
-      }
-      return db.any('SELECT id,message,username,timestamp FROM project_messages where project=$1',data.project)
-        .then(function(data){
-          if(data.length >= 1){
-              result.messages = data
-          }else{
-            result.messages = []
+            id: data.id,
+            last_activity: projectDetails[0].last_activity,
+            project: data.project,
+            role: projectDetails[0].role,
+            unread_messages: 0,
+            messages: []
           }
-          return(result)
-        })
+          return {
+            result,
+            roomMessage: projectDetails[1]
+          }
     })
     .catch(function(err){
       winston.error('User cant join project : ',err, ' data: ',data)
@@ -90,7 +91,7 @@ export const update_last_activity = function(data,res){
     [this.getAuthToken().username,data.id]
   )
   .then(function(result){
-    res(null,{last_activity:result.last_activity})
+    res(null,{ last_activity: result.last_activity })
   })
   .catch(function(err){
     winston.error('Couldnt update last_activity: ',err, ' data: ',data)
@@ -101,21 +102,28 @@ export const update_last_activity = function(data,res){
 
 export const createNewProject = (data) => {
   return db.tx((t) => {
-  return t.one("insert into project (name,category,description,github_link,owner) values (${name},${category},${description},${github_link},${username}) returning *",data)
-          .then(function(project){
+  return t.one("insert into project (name,category,description,github_link,owner, pinned) values (${name},${category},${description},${github_link},${username}, ${pinned}) returning *",data)
+          .then(function(project) {
             return t.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,project.name,'owner'])
 
           .then(function(accountProjects){
-            if(data.skill.length > 0){
-              const queries = data.skill.map(function(skill){
+            if (data.skill.length > 0) {
+              const queries = data.skill.map(function(skill) {
                 return t.one("insert into project_skills (project,skill) values ($1,$2) returning *",[project.name,skill.value])
               })
               return t.batch(queries)
                       .then(function(projectSkills){
-                        return {'project':project,'accountProjects':accountProjects,'projectSkills':projectSkills}
+                        return {
+                          'project': project,
+                          'accountProjects': accountProjects,
+                          'projectSkills':projectSkills
+                        }
                       })
-            }else{
-              return {'project':project,'accountProjects':accountProjects}
+            } else {
+              return {
+                'project': project,
+                'accountProjects': accountProjects
+              }
             }
           })
         })

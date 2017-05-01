@@ -121,8 +121,8 @@ class ProjectChat extends React.Component{
   }
 
   handleSubmit(){
-    socket.emit('new_chat_message',{id:this.props.params.projectId,message:this.state.message})
-    this.setState({message:''})
+    socket.emit('new_chat_message',{ id: this.props.params.projectId, message: this.state.message})
+    this.setState({ message: '' })
     this.refs.message_box.rows = 1
   }
 

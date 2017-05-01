@@ -85,7 +85,7 @@ const Projects = (state=[],action) => {
           messages:{
             $unshift:action.messages
           },
-          $merge: {canRetrieveMore: canRetrieveMore}
+          $merge: { canRetrieveMore: canRetrieveMore }
         }
       })
       break;
@@ -98,7 +98,7 @@ const Projects = (state=[],action) => {
       // first time retrieving project messages in session
       return update(state,{
         [target]:{
-          $merge:{messages:action.messages,canRetrieveMore: canRetrieveMore}
+          $merge:{ messages: action.messages, canRetrieveMore: canRetrieveMore }
         }
       })
     }

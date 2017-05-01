@@ -28,19 +28,19 @@ class ProjectDetail extends React.Component{
   }
 
   openModal(){
-    this.setState({modalIsOpen:true})
+    this.setState({ modalIsOpen: true })
   }
 
   closeModal(){
-    this.setState({modalIsOpen:false})
+    this.setState({ modalIsOpen: false })
   }
 
-  fetchData(id){
-    socket.emit('project:detail',{id:id},function(err,data){
-      if(err){
+  fetchData(id) {
+    socket.emit('project:detail',{id: id},function(err,data) {
+      if(err) {
         console.log('error: ',err)
-      }else{
-        this.setState({project_details:data, isFetching: false})
+      } else {
+        this.setState({ project_details: data, isFetching: false})
         if(this.props.username === data.owner){
           this.setState({canEdit : true, canJoin: false})
         }
@@ -52,18 +52,18 @@ class ProjectDetail extends React.Component{
     }.bind(this))
   }
 
-  componentDidMount(){
-    if(socket){
+  componentDidMount() {
+    if(socket) {
       this.fetchData(this.props.params.projectId)
     }
   }
 
-  handleJoinProject(){
-    this.props.join_project({id:this.props.params.projectId,project:this.state.project_details.name})
+  handleJoinProject() {
+    this.props.join_project({ id: this.props.params.projectId, project: this.state.project_details.name })
   }
 
   render(){
-    if(this.state.isFetching){
+    if(this.state.isFetching) {
       return (
         loader()
       )
@@ -163,12 +163,14 @@ const mapStateToProps = (state,ownProps) => {
 
   project = state.Projects[projectIndex]
 
-  const {isAuthenticated} = state.User
+  const { isAuthenticated } = state.User
   if(isAuthenticated){
     username = state.User.username
   }
   return {
-    isAuthenticated,username,project
+    isAuthenticated,
+    username,
+    project
   }
 }
 

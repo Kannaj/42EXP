@@ -24,6 +24,17 @@ const md = new Remarkable({
 class Message extends Component{
 
   render(){
+
+    if(this.props.message.message_type == 'general'){
+      return (
+        <li className="new_message general">
+          <div className="new_message__general_message">
+            <span dangerouslySetInnerHTML={{__html: md.render(this.props.message.message)}}/>
+          </div>
+        </li>
+      )
+    }
+
     return(
       <li className="new_message">
 
