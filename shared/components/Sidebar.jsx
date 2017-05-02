@@ -23,8 +23,6 @@ const sidebarContent = (projects,openModal = null, closeSidebar) => {
       <div className="sidebar__text">
         <h3> My Projects </h3>
         <p> Projects that you're a part of will be shown here </p>
-        <a href="#" className="create_project" onClick={() => openModal()}><i className="ion-plus-round" />   Start A New Project </a>
-        <Link to="/" className="explore_projects"><i className="ion-search"/>   Explore </Link>
       </div>
     )
   } else {

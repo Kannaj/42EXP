@@ -28,73 +28,115 @@ class ProjectChat extends React.Component{
   }
 
   componentDidMount(){
+
     // mounting project chat room for the first time?
-    if(socket && this.props.project[0].canRetrieveMore == undefined){
+    let project = this.props.project[0]
+    if(socket && project.canRetrieveMore == undefined){
       this.props.get_messages(this.props.params.projectId)
+    }
+
+    // remounting previously mounted room?
+    if (typeof project.canRetrieveMore === 'boolean'){
       this.setState({ retrieveLatestMessages: false })
     }
+
   }
 
   setLastActivity(projectId){
 
-    socket.emit('update_last_activity',{id:projectId},function(err,data){
+    socket.emit('update_last_activity',{id: projectId},function(err,data){
       if(data){
-        this.props.set_last_activity({id:projectId,timestamp:data.last_activity})
+        this.props.set_last_activity({ id:projectId, timestamp:data.last_activity })
       }else{
         throw(err)
       }
     }.bind(this))
   }
 
-  componentWillReceiveProps(nextProps){
-    if(this.props.messages[0] !== nextProps.messages[0]){
-      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
-      // the above sets the scrollbar to prevVersions earliest message.could make it better.
+  componentWillReceiveProps(nextProps) {
+
+    const oldProjectProps = this.props.project[0],
+          newProjectProps = nextProps.project[0],
+          oldMessageList = oldProjectProps.messages,
+          newMessageList = newProjectProps.messages
+
+    const isSameRoom = oldProjectProps.id === newProjectProps.id ;
+    const isNewMessage = newMessageList[newMessageList.length - 1] !== oldMessageList[oldMessageList.length - 1] && isSameRoom && !(typeof this.props.project[0].canRetrieveMore === 'undefined')
+    const fetchedLatestMessages = typeof oldProjectProps.canRetrieveMore === 'undefined' && typeof newProjectProps.canRetrieveMore === 'boolean' && isSameRoom
+
+    // once you've recieved the latest messages. switch of the retrieveLatestMessages state to hide the loader.
+    if (fetchedLatestMessages){
+      this.setState({ retrieveLatestMessages: false})
     }
 
-    // switching to a new Project Chat room for the first time in the session?
-    // bring up the loader component and then remove once latest messages are recieved
-    if ((nextProps.project[0].id !== this.props.project[0].id) &&
-        (nextProps.project[0].canRetrieveMore == undefined))
-        {
-          this.setState({ retrieveLatestMessages: true })
-          nextProps.get_messages(nextProps.params.projectId)
-          this.setState({ retrieveLatestMessages: false })
-          this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
-        }
-
-  }
-
-  componentDidUpdate(prevProps,prevState){
-    const oldMessageList = prevProps.messages,
-          newMessageList = this.props.messages,
-          oldProjectId = prevProps.params.projectId,
-          newProjectId = this.props.params.projectId,
-
-          isSameRoom = oldProjectId === newProjectId,
-          isNewMessage = newMessageList[newMessageList.length - 1] !== oldMessageList[oldMessageList.length - 1] && isSameRoom
-
-    if (oldMessageList.length == 0 && newMessageList.length > 0 && isSameRoom){
-      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
-      this.setState({ waypointReady : true})
-    }
-
-    if(isNewMessage){
-      // new message recieved. i.e = last message or prev props not the same as last message of new props and same page.
+    if (isNewMessage) {
+      // new message recieved?  i.e = last message or prev props not the same as last message of new props
       this.props.set_unread(this.props.params.projectId)
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
     }
-    // User has switched to a different chat Room.
-    if(newProjectId !== oldProjectId){
-      this.setLastActivity(oldProjectId);
-      this.refs.messages.scrollTop = this.refs.messages.scrollHeight
-      this.setState({message:'', waypointReady: false})
+
+
+    // switching to a new room for which latest messages havent been retrieved yet?
+    if (!isSameRoom && typeof newProjectProps.canRetrieveMore === 'undefined') {
+      this.setState({ retrieveLatestMessages: true, waypointReady: false})
+      nextProps.get_messages(nextProps.params.projectId)
+    }
+
+    // switching to a new room? update last_activity time for previous room
+    if (!isSameRoom) {
+      this.setLastActivity(oldProjectProps.id)
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+      this.setState({ message: '', waypointReady: false })
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const oldProject = prevProps.project[0]
+    const newProject = this.props.project[0]
+    const isSameRoom = oldProject.id === newProject.id
 
+    // whats going on here? this triggers when we're retrieving past messages for the room
+    // if the total number of messages = 20. it would be preferable to scroll to the first message shown before triggering the fetch.
+    // i.e - total messages after retrival of old messages = 20. scroll to the 10th message.
+    // minor adjustments done for the first few retrievals.
+    if (isSameRoom && oldProject.messages[0] !== newProject.messages[0] && oldProject.messages.length !== 0){
+      const messageList = document.getElementsByClassName('new_message')
+      let earliestMessage = (Math.floor(messageList.length/10) - 1) * 10
+      if (earliestMessage == 0){
+        if(messageList.length > 10){
+          earliestMessage = 10
+        }else{
+          earliestMessage = 1
+        }
+      }
+      messageList[messageList.length - earliestMessage].scrollIntoView()
+    }
+
+    if(!prevState.waypointReady && this.state.waypointReady){
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+    }
+
+    // triggered on first fetch of messages for project.
+    if ( prevState.retrieveLatestMessages !== this.state.retrieveLatestMessages){
+      if (!prevState.waypointReady){
+        this.setState({ waypointReady: true })
+      }
+    }
+
+    // triggered on page change.
+    if (oldProject.id !== newProject.id){
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+      this.setState({ waypointReady: true })
+    }
+
+    // triggered on new chat message recieved in room
+    if(oldProject.messages[oldProject.messages.length - 1] !== newProject.messages[newProject.messages.length -1]){
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+    }
+  }
 
   componentWillUnmount(){
+    console.log('unmounted')
     this.setLastActivity(this.props.params.projectId)
   }
 
@@ -127,15 +169,16 @@ class ProjectChat extends React.Component{
   }
 
   activateWayPoint(){
-    if(this.state.waypointReady && this.props.project[0].canRetrieveMore){
+    if (this.state.waypointReady && this.props.project[0].canRetrieveMore) {
       this.props.get_more_messages(this.props.params.projectId,this.props.messages[0].id)
-    }else{
+    } else {
       return null
     }
   }
 
   render(){
-    const {messages, project} = this.props;
+    const { messages, project } = this.props;
+    const { waypointReady } = this.state;
 
     if (this.state.retrieveLatestMessages){
       return (
@@ -158,7 +201,7 @@ class ProjectChat extends React.Component{
             <div className="chat_room">
               <div className="messages" ref="messages">
               {
-                project[0].canRetrieveMore ?
+                project[0].canRetrieveMore && waypointReady ?
                 <div className="chat_room__fetch_more">
                   <Waypoint onEnter={this.activateWayPoint}/>
                   {loader()}
@@ -166,13 +209,17 @@ class ProjectChat extends React.Component{
                 :
                 null
               }
+
                 <ul>
-                  {messages.map((message) => {
+                  {
+                    messages.map((message) => {
                     return(
                       <Message key={uuid.v4()} message={message}/>
                     )
-                  })}
+                  })
+                  }
                 </ul>
+
               </div>
 
               <div className="chat_message_box">
@@ -183,8 +230,6 @@ class ProjectChat extends React.Component{
             :
             null
           }
-
-
       </div>
     )
   }
