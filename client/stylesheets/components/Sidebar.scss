@@ -4,10 +4,9 @@
   width: 20%;
   left: -20%;
   transition: all 0.5s ease-in;
-  // background : $secondary;
-  background: #F8F8F8;
+  // background: #f5f4f7;
+  background: #f7f5fa;
   overflow-y: auto;
-  // color: $tertiary;
   color: #343434;
   border-right: 1px solid #E2E2E2;
   box-sizing: border-box;
@@ -24,32 +23,25 @@
   }
 
   &__logo{
-    width: 100%;
+    // width: 100%;
     height: auto;
     text-align: center;
     flex: 1;
-    // padding: 10px 0 25px 0;
-    border-bottom: $border;
+    padding: 5px;
     img{
-      height: 5.1em;
-      width: 8em;
+      height: 3em;
+      width: auto;
     }
   }
 
   .subscribed_projects{
     width: 100%;
     box-sizing:  border-box;
-    // text-align: center;
-
-    // color : $card-color;
-    color: #e2e2e2;
-    // border-top: $border;
-    // border-bottom: 1px solid #1a1a1a;
+    color: $black;
+    background: #e7e5ea;
     display: flex;
     flex-direction: column;
-    // max-height: 350px;
     flex: 6;
-    // border-top: $border;
     border-bottom: $border;
     max-height: 55em;
     overflow-y: auto;
@@ -58,19 +50,30 @@
       text-align: left;
       margin-bottom: 0px;
       padding-left: 1em;
-      color: #0f0f0f;
+      color: $ghost-white;
+      background: $blue;
     }
 
     &__item{
       padding: 0.5em 2em;
       text-decoration: none;
       width: 100%;
-      color: $tertiary;
+      // color: $blue;
+      color: #878684;
       transition: all 0.3s ease-in;
       margin-bottom: 0.2px;
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
+      outline: none;
+      transition: all 0.3s ease-in;
+
+      .project_name{
+        transition: border-bottom 0.10s linear;
+          &:hover{
+            border-bottom: 1px solid $black;
+          }
+      }
 
       .unread_count {
         color: red;
@@ -84,7 +87,12 @@
       }
       &.active_link{
         // background-color: #111214;
-        color: #343434;
+        color: $blue;
+        // border-bottom: 1px solid $black;
+        .project_name {
+
+          border-bottom: 1px solid $black;
+        }
       }
       &:last-child{
         margin-bottom: 0;
@@ -113,6 +121,7 @@
       color: #52489c;
       width: auto;
       font-size: 1.2em;
+      outline: none;
       &:hover{
         border-bottom: 1.5px dotted #52489c;
       }
@@ -120,6 +129,7 @@
     .explore_projects{
       color: #52489c;
       width: auto;
+      outline: none;
       font-size: 1.2em;
       &:hover{
         border-bottom: 1.5px dotted #52489c;

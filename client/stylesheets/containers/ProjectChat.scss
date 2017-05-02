@@ -43,13 +43,13 @@
     .chat_message_box{
       // flex-shrink: 0;
       flex: 1;
-      padding:5px;
+      padding:1.5px;
       display: flex;
       flex-direction: row;
       .message_box{
-        padding: 10px 10px;
+        padding: 5px 5px;
         border: 0.5px solid black;
-        border-radius: 2px;
+        // border-radius: 2px;
         flex-grow:2;
         background-color: $white;
         border-radius: 4px;
@@ -61,16 +61,14 @@
         box-sizing: border-box;
       }
       .submit_message{
-        margin: 0 5px;
-        padding:10px;
-        background: $white;
+        // margin: 0 5px;
+        padding: 20px;
+        background: $blue;
+        color: $ghost-white;
         border: 2.5px solid $blue;
-        transition: all 0.2s ease-in;
+        border-radius: 4px;
+        align-self: flex-end;
         cursor: pointer;
-        &:hover{
-          background: $blue;
-          color: $white;
-        }
       }
     }
   }

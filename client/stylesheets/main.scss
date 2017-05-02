@@ -19,17 +19,25 @@ $discord-black-text: #1b64d2;
 $discord-black-shade: #2E3136;
 
 
+$black: #0f0f0f;
+$platinum: #e2e2e2;
+$white: #f8f8f8;
+$ghost-white: #fcf7ff;
+$blue: #52489C;
+
+$border: 1px solid #E2E2E2;
+
 $text: #000000;
-// $box-shadow: 0 1px 2px rgba(0,0,0,.1);
+$box-shadow: 0 1px 2px rgba(0,0,0,.1);
 // $border : 2px solid #e2e2e2;
 
-$box-shadow: 0 1px 2px $tertiary;
+// $box-shadow: 0 1px 2px $tertiary;
 // $border : 2px solid $tertiary;
-$border: 1px solid #E2E2E2;
+
 
 $activeLink: #B5B6B5;
 
-html{
+html {
   letter-spacing: 1px;
 }
 
@@ -48,7 +56,7 @@ body{
 }
 
 
-html,body{
+html, body{
   height: 100%;
 }
 
@@ -65,7 +73,7 @@ button{
   }
 }
 
-a:visited{
+a:visited {
   color: $text;
 }
 
@@ -115,6 +123,26 @@ a {
     color: $white;
   }
 }
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+
 
 @import './containers/App.scss';
 @import './containers/ProjectForm.scss';
