@@ -7,6 +7,7 @@ import slugify from '../utils/slugify.js'
 import update from 'react-addons-update';
 import categoryOpt from '../utils/categoryOptions';
 import _ from 'lodash';
+import loader from './Loader';
 
 //known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
 // into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
@@ -22,7 +23,8 @@ class ProjectForm extends React.Component{
       category: "",
       skill: [],
       errors: {},
-      pinned: false
+      pinned: false,
+      submitting: false
     }
     this.togglePinnedStatus = this.togglePinnedStatus.bind(this)
   }
@@ -92,7 +94,7 @@ class ProjectForm extends React.Component{
             }
           })})
         } else {
-          this.setState({ errors:update(this.state.errors,{
+          this.setState({ errors: update(this.state.errors,{
             ['name']: {
               $set:''
             }
@@ -122,26 +124,26 @@ class ProjectForm extends React.Component{
     return(
       <div className="project_form">
         <div className="project_form__title">
-          {this.props.create_project ? <h1>Create a new Project </h1> : <h1> Edit Project </h1>}
+          {this.props.create_project ? <h1> New Project </h1> : <h1> { this.state.name }</h1>}
         </div>
 
         <div className="close_button" onClick={this.props.close}>X</div>
         <div className="primary_content">
           <div className="project_form__details">
             <div className="project_form__name item">
-              <h3> Name </h3>
+              <h3> Name <span> (Spaces allowed but no non alpha-numeric characters)</span> </h3>
               <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
               { this.state.errors.name ? <div className="error"> {this.state.errors.name} </div> : null }
             </div>
 
             <div className="project_form__github_link item">
-              <h3>Repo link</h3>
+              <h3>Repo link <span>(A link to your public repo if available.)</span></h3>
               <input id="github_link" type="text" value={this.state.github_link} onChange={this.handlename.bind(this,'github_link')} placeholder="Repo Link"/>
               {this.state.errors.github_link ? <div className="error"> {this.state.errors.github_link} </div> : null}
             </div>
 
             <div className="project_form__category item">
-              <h3> Category </h3>
+              <h3> Category <span>(Communication,Entertainment etc.)</span></h3>
               <Select name="project_category"
                 placeholder="Select a Category"
                 options={categoryOpt}
@@ -151,7 +153,7 @@ class ProjectForm extends React.Component{
             </div>
 
             <div className="project_form__skills item">
-              <h3>Skills</h3>
+              <h3>Skills <span>(Skills you're looking for from other contributors.)</span></h3>
               <Select.Async name="project_skills"
                 placeholder="Pick the skills required for the project"
                 minimumInput={ 1 }
@@ -163,7 +165,8 @@ class ProjectForm extends React.Component{
                 />
             </div>
 
-            { this.props.admin ?
+            {
+              this.props.admin ?
               <div className="project_form__pin">
                 <input className="pin" type="checkbox" value={this.state.pinned} onClick={this.togglePinnedStatus}/>
                 Pin
@@ -173,14 +176,22 @@ class ProjectForm extends React.Component{
             }
 
             <div className="form_submit">
-              <button className="submit" onClick={ this.handleSubmit.bind(this) }> Submit </button>
+              <button className="submit" onClick={ this.handleSubmit.bind(this) }>
+                {
+                  this.state.submitting ?
+                  loader()
+                  :
+                  "Submit"
+                }
+
+              </button>
             </div>
           </div>
           </div>
 
           <div className="secondary_content">
             <div className="project_form__description item">
-              <h3> Details </h3>
+              <h3> Details <span>(Explain as much as you can about your idea/project.)</span> </h3>
               <textarea cols="40" rows="25" id="description" value={this.state.description} onChange={this.handlename.bind(this,'description')} placeholder="Project Description"/>
               {this.state.errors.description ? <div className="error"> {this.state.errors.description} </div> : null}
             </div>

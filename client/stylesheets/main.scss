@@ -24,6 +24,8 @@ $platinum: #e2e2e2;
 $white: #f8f8f8;
 $ghost-white: #fcf7ff;
 $blue: #52489C;
+$dark-gray: #E7E5EA;
+$error: #96031a;
 
 $border: 1px solid #E2E2E2;
 
@@ -161,6 +163,7 @@ a {
 @import './components/Appbar/Appbar.scss';
 @import './components/Appbar/UserNotifications.scss';
 @import './components/loader.scss';
+@import './components/Flash_messages.scss';
 
 @import './highlight/default.css';
 @import './react-select.min.css';

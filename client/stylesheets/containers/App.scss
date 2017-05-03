@@ -62,49 +62,7 @@
   z-index: 1;
 }
 
-#flash_message_panel{
-  position: absolute;
-  right:0;
-  bottom:0;
-  top:0;
-  padding:5px;
-  margin:0;
-  width: 20%;
-  text-align: center;
-  display: flex;
-  pointer-events: none;
-  flex-direction: column-reverse;
-  @media only screen and (max-width: 480px){
-    width: 50%;
-  }
-  .notification_wrapper{
-    padding:5px;
-    border-radius: 1px;
-    box-shadow: 0 1px 1px 1px;
-    background-color: $card-color;
-    display: block;
-    // height: 20%;
-    height: auto;
-    border: 1px solid black;
-    margin-bottom: 5px;
-    z-index: 5;
-    pointer-events: auto;
-    .heading{
-      background: $primary;
-      color: $secondary;
-    }
-    button{
-      background: $secondary;
-      border: 2.5px solid $tertiary;
-      transition: all 0.2s ease-in;
-      cursor: pointer;
-      &:hover{
-        background: $blue;
-        color: $white;
-      }
-    }
-  }
-}
+
 
 .notification-enter{
   opacity: 0.01;

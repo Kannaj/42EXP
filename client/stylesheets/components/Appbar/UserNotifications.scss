@@ -15,6 +15,9 @@
     cursor: pointer;
     background: none;
     font-size: 2em;
+    &.unread{
+      color: $error;
+    }
   }
   &__bar{
     max-height: 35em;

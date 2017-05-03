@@ -92,7 +92,7 @@
       }
     }
     &__skill_name{
-      color: $blue;
+      color: $black;
     }
   }
 }
@@ -100,7 +100,8 @@
 .user_skills__commend_button{
   background: none;
   padding: 10px;
-  font-size: 1em;
+  font-size: 1.5em;
   cursor: pointer;
   outline: none;
+  color: $blue;
 }

@@ -87,7 +87,7 @@ class Sidebar extends Component {
         <div className = {`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
 
           <div className = "sidebar__logo">
-            <Link to = "/" onClick = {() => this.closeSidebar()}> <img src = "#"/></Link>
+            <Link to = "/" onClick = {() => this.closeSidebar()}> <img src = "/images/42exp_logo.svg"/></Link>
           </div>
 
           <h3 className="subscribed_projects__header"> Projects </h3>

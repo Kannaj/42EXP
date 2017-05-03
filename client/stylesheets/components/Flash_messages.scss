@@ -1,0 +1,52 @@
+#flash_message_panel{
+  position: absolute;
+  right:0;
+  bottom:0;
+  top:0;
+  padding:5px;
+  margin:0;
+  width: 20%;
+  text-align: center;
+  display: flex;
+  pointer-events: none;
+  flex-direction: column-reverse;
+  @media only screen and (max-width: 480px){
+    width: 50%;
+  }
+  .notification_wrapper{
+    // padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 1px;
+    background-color: $ghost-white;
+    display: block;
+    height: auto;
+    border: 1px solid $dark-gray;
+    margin-bottom: 5px;
+    z-index: 5;
+    pointer-events: auto;
+    .heading{
+      background: $primary;
+      color: $secondary;
+      &.Info{
+        background: $blue;
+        color: $white;
+      }
+      &.Error{
+        background: $error;
+        color: $white;
+      }
+    }
+
+    .message{
+      padding: 10px;
+    }
+    button{
+      background: $blue;
+      border-radius: 4px;
+      border: 2.5px solid $black;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+      color: $white;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import {new_chat_message} from './project_messages';
 
 import {add_notification} from '../notifications/notifications'
 import uuid from 'node-uuid';
-
+import slugify from '../../utils/slugify.js';
 
 const create_project_success = (projectDetails) => {
   return{
@@ -15,12 +15,13 @@ const create_project_success = (projectDetails) => {
 
 const create_project = (projectDetails) => {
   if(socket) {
-    return function(dispatch){
+    return function(dispatch) {
       socket.emit('project:create', projectDetails ,function(err,data){
         if(err) {
           dispatch(add_notification({ id:uuid.v4(), heading:'error', message: 'Couldnt create your project', unread: true, server: false }))
         } else {
-          dispatch(add_notification({ heading:'Info', message: 'Your project was created', id: uuid.v4(), unread: true, server: false }))
+          dispatch(add_notification({ heading:'Info',timestamp: Date.now(), message: `Project \" ${slugify("deslugify",projectDetails.name)} \" was created`, id: uuid.v4(), unread: true, server: false }))
+          dispatch(create_project_success(data))
           socket.subscribe(data.id).watch((data) => {
             dispatch(new_chat_message(data))
           })

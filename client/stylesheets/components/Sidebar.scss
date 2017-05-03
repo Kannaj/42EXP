@@ -29,8 +29,11 @@
     flex: 1;
     padding: 5px;
     img{
-      height: 3em;
-      width: auto;
+      height: 5.5em;
+      width: 100%;
+      padding-right: 45px;
+      box-sizing: border-box;
+      padding-top: 15px;
     }
   }
 
@@ -104,9 +107,6 @@
     padding: 1em 2.5em;
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    // min-height: 500px;
-    border-bottom: $border;
     flex: 2;
     h1{
       padding-top: 1.5em;
@@ -142,9 +142,7 @@
     width: 100%;
     text-align: center;
     &--bottom{
-      // position: absolute;
       flex: 1;
-      // bottom: 1em;
       height: auto;
       width: 100%;
       text-align: center;

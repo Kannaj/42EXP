@@ -36,12 +36,16 @@ class ProjectChip extends React.Component{
               :
               null
             }
+            <div className="bottom_divider">
+              <div className="divider"></div>
+            </div>
           </div>
         </div>
         <div className="project_card__actions">
           <Link to={`/projects/${this.props.project.project_id}/${this.props.project.project_name}/`} className="view"> View </Link>
 
         </div>
+
       </div>
     )
   }

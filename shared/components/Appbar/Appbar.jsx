@@ -20,7 +20,7 @@ const header = (location,openMemberModal) => {
     return (
       <h3 className="page_title">
         <Link to={`/projects/${id}/${name}`}>{slugify("deslugify",name)} </Link>
-        <button className="ion-person-stalker member_list" onClick={() => openMemberModal(name)}></button>
+        <button className="ion-person-stalker member_list" onClick={() => openMemberModal(name)}>  Members</button>
       </h3>
     )
   } else if (location.match('/user/(\\S+)')) {
@@ -52,7 +52,7 @@ class Appbar extends Component{
           <a href= "/auth/github"><button className="login_github"> Register With Github</button></a>
         </div>
       )
-    }else{
+    } else {
       return (
         <div className="auth">
           <button name="register" className="register" onClick={this.openModal.bind(this,"register")}> Register </button>

@@ -93,7 +93,7 @@ class UserNotifications extends Component{
   render(){
     return(
       <div className="user_notifications">
-        <button className= {`user_notifications__icon ${this.state.unread_messages ? "ion-android-notifications" : "ion-android-notifications-none"}`} onClick={this.toggleNotificationBar}/>
+        <button className= {`user_notifications__icon ${this.state.unread_messages ? "ion-android-notifications unread" : "ion-android-notifications-none"}`} onClick={this.toggleNotificationBar}/>
         {
           this.state.isNotificationBarOpen ?
           <Notificationbar unread_messages={this.state.unread_messages} toggleUnread={this.toggleUnread} toggleNotificationBar={this.toggleNotificationBar} {...this.props} isNotificationBarOpen={this.state.isNotificationBarOpen}/>

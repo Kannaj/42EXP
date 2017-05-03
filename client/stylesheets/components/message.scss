@@ -21,8 +21,13 @@
   }
   &__message_details{
     margin-left: 20px;
+    width: 100%;
     .username{
       text-decoration: underline;
+      color: $black;
+      &:visited{
+        color: $black;
+      }
     }
   }
   &.general{

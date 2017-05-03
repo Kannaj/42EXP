@@ -2,6 +2,7 @@
   width: 75%;
   height: auto;
   padding: 15px;
+  padding-top: 0;
   display: flex;
   background: #f8f9fc;
   @media only screen and (max-width: 480px){
@@ -58,10 +59,10 @@
     .skill{
       button{
         font-size: 0.8em;
-        background: none;
+        background: $dark-gray;
         padding: 5px;
         overflow-y: hidden;
-        color: #0f0f0f;
+        color: $black;
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 4px;
         margin-right: 5px;
@@ -71,6 +72,16 @@
         margin-top: 10px;
         margin-bottom: 10px;
       }
+      .bottom_divider{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .divider{
+          width: 15%;
+          height: 2.5em;
+          border-bottom: 2px solid $black;
+        }
+      }
     }
   }
 
@@ -79,9 +90,11 @@
     padding: 15px;
     a {
       background: none;
-      border: 1px solid #52489c;
+      // border: 1px solid #52489c;
+      background: $blue;
+      color: $white;
       border-radius: 4px;
-      color: #52489c;
+      // color: #52489c;
       padding: 5px 15px;
       margin-top: 1.5em;
       font-weight: bold;
