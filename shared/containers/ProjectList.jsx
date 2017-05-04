@@ -81,7 +81,7 @@ class ProjectList extends React.Component {
             <p> Welcome to 42exp. You can find a list of recent projects to join below. </p>
             <p> Be sure to fill up your profile with your up-to-date skillset for other users to look at</p>
             <p> Be sure to also visit the lobby chatroom if you have further questions </p>
-            <button className="jumbotron__dismiss" onClick={this.dismiss_jumbotron}> Got it </button>
+            <div className="dismiss"><button className="jumbotron__dismiss" onClick={this.dismiss_jumbotron}> Got it </button></div>
           </div>
           :
           null

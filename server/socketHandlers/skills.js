@@ -3,12 +3,11 @@ import winston from 'winston';
 
 export const skill_suggestions = function(data,res) {
   db.any("SELECT * from skill WHERE LOWER(name) LIKE LOWER('%$1#%')",data.skill)
-    .then((skill) => {
-      res(null,skill)
+    .then(function(skill){
+      return skill
     })
-    .catch((err) => {
-
-      res('No Skills suggested')
+    .catch(function(err){
+      return err
     })
 }
 

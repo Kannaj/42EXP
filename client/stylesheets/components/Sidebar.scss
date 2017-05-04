@@ -45,7 +45,7 @@
     display: flex;
     flex-direction: column;
     flex: 6;
-    border-bottom: $border;
+    border-bottom: 2px solid $accent;
     max-height: 55em;
     overflow-y: auto;
 
@@ -153,8 +153,8 @@
       width: 80%;
       padding: 0.5em;
       cursor: pointer;
-      background: #52489c;
-      color: #FCF7FF;
+      background: $accent;
+      color: $ghost-white;
       box-sizing: border-box;
       border-radius: 4px;
     }

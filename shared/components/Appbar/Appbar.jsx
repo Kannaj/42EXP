@@ -89,7 +89,7 @@ class Appbar extends Component{
                 <UserProfile {...this.props}/>
               </div>
               :
-              <div className="user_nav">
+              <div className="user_nav anonymous_user">
                 <UserProfile {...this.props}/>
               </div>
             }

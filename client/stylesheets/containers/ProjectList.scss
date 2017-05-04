@@ -3,9 +3,25 @@
     width: 90%;
     padding: 8px;
     height: auto;
-    background: $white;
+    background: $light-blue;
     box-shadow: $box-shadow;
-    text-align: center;
+    h2 {
+      color: $black;
+      text-align: center;
+    }
+    p{
+      color: $ghost-white;
+      padding-left: 15px;
+    }
+    .dismiss{
+      padding-left: 15px;
+      button{
+        padding: 5px 15px;
+        border-radius: 4px;
+        color: $ghost-white;
+        background: $dark-blue;
+      }
+    }
   }
   .user_actions{
     display: block;
@@ -13,7 +29,7 @@
     padding-left: 3.5em;
   }
   &__header{
-    width: 100%;
+    width: 75%;
     text-align: center;
     text-decoration: underline;
   }

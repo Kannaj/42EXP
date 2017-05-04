@@ -91,11 +91,11 @@
     a {
       background: none;
       // border: 1px solid #52489c;
-      background: $blue;
-      color: $white;
+      background: $dark-blue;
+      color: $ghost-white;
       border-radius: 4px;
       // color: #52489c;
-      padding: 5px 15px;
+      padding: 10px 15px;
       margin-top: 1.5em;
       font-weight: bold;
       @media only screen and (max-width: 480px){

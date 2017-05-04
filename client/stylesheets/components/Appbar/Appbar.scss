@@ -18,6 +18,11 @@
 
   .user_nav{
     display: flex;
+    &.anonymous_user{
+      width: 100%;
+      justify-content: flex-end;
+      margin-right: 10px;
+    }
   }
 
   &.appbar--sidebarOpen{

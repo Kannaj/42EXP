@@ -1,10 +1,6 @@
 
 @import url(https://fonts.googleapis.com/css?family=Merriweather);
 
-$black : #020202;
-$blue : #791E94;
-$gray : #EFEFEF;
-
 
 $primary: #ECEDE8;
 $secondary: #2E3136;
@@ -19,6 +15,7 @@ $discord-black-text: #1b64d2;
 $discord-black-shade: #2E3136;
 
 
+// main theme
 $black: #0f0f0f;
 $platinum: #e2e2e2;
 $white: #f8f8f8;
@@ -26,15 +23,15 @@ $ghost-white: #fcf7ff;
 $blue: #52489C;
 $dark-gray: #E7E5EA;
 $error: #96031a;
-
+$gray: #EFEFEF;
+$dark-blue: #261C6E;
+$light-blue: #A29BD4;
+$accent: #FF7400;
 $border: 1px solid #E2E2E2;
+
 
 $text: #000000;
 $box-shadow: 0 1px 2px rgba(0,0,0,.1);
-// $border : 2px solid #e2e2e2;
-
-// $box-shadow: 0 1px 2px $tertiary;
-// $border : 2px solid $tertiary;
 
 
 $activeLink: #B5B6B5;
@@ -75,9 +72,14 @@ button{
   }
 }
 
-a:visited {
-  color: $text;
+a {
+  outline: none;
+  text-decoration: none;
+  &:visited {
+    color: $black;
+  }
 }
+
 
 input,
 textarea{
@@ -96,35 +98,6 @@ textarea{
   font-family: 'Merriweather';
 }
 
-a {
-  text-decoration: none;
-}
-
-.login_github{
-  padding: 15px;
-  width: auto;
-  font-size: 1em;
-  color: $card-color;
-  background-color: $blue;
-  font-weight: bolder;
-  box-shadow: none;
-  border: $blue;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  @media only screen and (max-width: 480px){
-    padding:10px;
-  }
-  &:hover{
-    box-shadow: 0.2px 1px 0.2px 0.2px #15B358;
-  }
-  img{
-    background-color: $black;
-  }
-  a{
-    color: $white;
-  }
-}
 
 /// Slightly lighten a color
 /// @access public

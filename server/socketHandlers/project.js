@@ -2,35 +2,46 @@ import { db, queries } from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
 import winston from 'winston';
 
-export const get_more_messages = function(data,res){
+export const get_more_messages = function(data){
   return db.any(queries.GetMoreMessages,[data.projectId,data.lastMessageId])
           .then(function(messages){
-            res(null,messages)
+            return messages
           })
           .catch(function(err){
             winston.error('Error retrieving old messages : ',err)
-            res('error retrieving messages')
+            return 'error retrieving messages'
           })
 }
 
-export const get_messages = function(data,res){
-  return db.any(queries.getMessages,data.projectId)
+export const get_messages = function(data){
+  return db.any(queries.GetMessages,data.projectId)
             .then(function(messages){
-              res(null,messages.reverse())
+              return messages.reverse()
             })
             .catch(function(err){
               winstor.error('Error retrieving messages : ',err)
-              res('Error retrieving messages')
+              return "Error retrieving messages"
             })
 }
 
-export const project_check_name = function(data,res){
-  return db.one("select name from project where LOWER(name) like LOWER('$1#')",data.name)
+export const new_project_message = function(data){
+  return db.one(queries.NewProjectMessage, [data.id,data.message,data.username,data.timestamp])
+    .then(function(projectMessageDetails){
+      return ''
+    })
+    .catch(function(err){
+      winston.error('Couldnt insert message : ',data,' error: ',err)
+      return 'couldnt insert message'
+    })
+}
+
+export const project_check_name = function(data){
+  return db.one(queries.ProjectCheckName,data.name)
             .then(function(name){
-              res(name)
+              return name
             })
             .catch(function(){
-              res(null,'ok')
+              return 'ok'
             })
 }
 
@@ -60,74 +71,92 @@ export const project_detail = function(data){
 
 export const join_project = function(data){
   let result;
-    return db.tx(t => {
-      return t.batch([
-        t.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,data.project,'member']),
-        t.one('insert into project_messages (project,message,username,message_type) values ($1,$2,$3,$4) returning *',[data.project,`${data.username} has joined`,data.username,"general"])
-      ])
-    })
-    .then(function(projectDetails){
-      result = {
-            id: data.id,
-            last_activity: projectDetails[0].last_activity,
-            project: data.project,
-            role: projectDetails[0].role,
-            unread_messages: 0,
-            messages: []
-          }
-          return {
-            result,
-            roomMessage: projectDetails[1]
-          }
-    })
-    .catch(function(err){
-      winston.error('User cant join project : ',err, ' data: ',data)
-      throw 'Couldnt join Project'
-    })
+  return db.tx(t => {
+    return t.batch([
+      t.one(queries.JoinProjectAccountProjects,[data.username,data.project,'member']),
+      t.one(queries.JoinProjectMessages,[data.project,`${data.username} has joined`,data.username,"general"])
+    ])
+  })
+  .then(function(projectDetails){
+    result = {
+          id: data.id,
+          last_activity: projectDetails[0].last_activity,
+          project: data.project,
+          role: projectDetails[0].role,
+          unread_messages: 0,
+          messages: []
+        }
+        return {
+          result,
+          roomMessage: projectDetails[1]
+        }
+  })
+  .catch(function(err){
+    winston.error('User cant join project : ',err, ' data: ',data)
+    throw 'Couldnt join Project'
+  })
 }
 
-export const update_last_activity = function(data,res){
-  return db.one('update account_projects set last_activity = Now() where username=$1 AND project=(SELECT name from project where id = $2) returning last_activity',
-    [this.getAuthToken().username,data.id]
-  )
+export const update_last_activity = function(data,username){
+  return db.one(queries.UpdateLastActivity,[username,data.id])
   .then(function(result){
-    res(null,{ last_activity: result.last_activity })
+    return { last_activity: result.last_activity }
   })
   .catch(function(err){
     winston.error('Couldnt update last_activity: ',err, ' data: ',data)
-    res('couldnt update last timestamp')
+    return 'Couldnt update last timestamp'
   })
-
 }
 
-export const createNewProject = (data) => {
-  return db.tx((t) => {
-  return t.one("insert into project (name,category,description,github_link,owner, pinned) values (${name},${category},${description},${github_link},${username}, ${pinned}) returning *",data)
-          .then(function(project) {
-            return t.one('insert into account_projects (username,project,role) values ($1,$2,$3) returning *',[data.username,project.name,'owner'])
+export const project_paginate = function(data){
+  return db.any(queries.ProjectListPaginate,data.lastId)
+    .then(function(result){
+      return result
+    })
+    .catch(function(err){
+      winston.error('Problem with project:list_more : ',err)
+      return 'Couldnt retrieve more projects'
+    })
+}
 
-          .then(function(accountProjects){
-            if (data.skill.length > 0) {
-              const queries = data.skill.map(function(skill) {
-                return t.one("insert into project_skills (project,skill) values ($1,$2) returning *",[project.name,skill.value])
-              })
-              return t.batch(queries)
-                      .then(function(projectSkills){
-                        return {
-                          'project': project,
-                          'accountProjects': accountProjects,
-                          'projectSkills':projectSkills
-                        }
-                      })
-            } else {
+export const project_member_list = function(data){
+  return db.any(queries.ProjectMemberList,data.name)
+    .then(function(data){
+      return data
+    })
+    .catch(function(err){
+      winston.error('Couldnt retrieve member list: ',err)
+      return 'Couldnt retrieve member list'
+    })
+}
+
+export const create_new_project = (data) => {
+  return db.tx((t) => {
+  return t.one(queries.CreateNewProject,data)
+      .then(function(project) {
+        return t.one(queries.CreateAccountProjects,[data.username,project.name,'owner'])
+      .then(function(accountProjects){
+        if (data.skill.length > 0) {
+          const queries = data.skill.map(function(skill) {
+            return t.one(queries.CreateProjectSkills,[project.name,skill.value])
+          })
+          return t.batch(queries)
+            .then(function(projectSkills){
               return {
                 'project': project,
-                'accountProjects': accountProjects
+                'accountProjects': accountProjects,
+                'projectSkills':projectSkills
               }
-            }
-          })
-        })
+            })
+        } else {
+          return {
+            'project': project,
+            'accountProjects': accountProjects
+          }
+        }
       })
+    })
+  })
   .then(function(details){
     winston.info('Project created : ',details)
     return {
@@ -145,38 +174,36 @@ export const createNewProject = (data) => {
   })
 }
 
-export const edit_project = function(data,res){
+export const edit_project = function(data){
   editProject(data)
     .then(function(result){
-      res(null,result)
+      return result
     })
     .catch(function(err){
-      res('Couldnt edit project')
       winston.error('User cant edit project : ',err,' data : ',data)
+      return 'Couldnt edit project'
     })
 }
 
 const editProject = (data) => {
   return db.tx((t) => {
-    return t.any('DELETE from project_skills WHERE project = (SELECT name from project where id = $1) returning *',[data.id])
-            .then(function(deletedSkills){
-              return t.one('update project set name=$1,description=$2,github_link=$3,category=$4 where id=$5 returning *',
-              [data.project.name,data.project.description,data.project.github_link,data.project.category.value,data.id])
-                        .then(function(updatedProject){
-                          if(data.project.skill.length > 0){
-                            const queries = data.project.skill.map(function(skill){
-                              return t.one("insert into project_skills (project,skill) values ($1,$2) returning *",[updatedProject.name,skill.value])
-                            })
-                            return t.batch(queries)
-                                    .then(function(projectSkills){
-                                      console.log('skills updated : ',projectSkills)
-                                      return {'project':updatedProject,'skills':projectSkills}
-                                    })
-                          }else{
-                            return {'project':updatedProject}
-                          }
-                        })
+    return t.any(queries.DeleteProjectSkills,[data.id])
+      .then(function(deletedSkills){
+        return t.one(queries.UpdateProject,[data.project.name,data.project.description,data.project.github_link,data.project.category.value,data.id])
+        .then(function(updatedProject) {
+          if (data.project.skill.length > 0) {
+            const queries = data.project.skill.map(function(skill){
+              return t.one(queries.CreateProjectSkills,[updatedProject.name,skill.value])
             })
+            return t.batch(queries)
+              .then(function(projectSkills) {
+                return {'project':updatedProject,'skills':projectSkills}
+              })
+          } else {
+            return { 'project': updatedProject }
+          }
+        })
+      })
   })
   .then(function(details){
     return {

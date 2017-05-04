@@ -6,26 +6,15 @@ import passport from './passport/passport_github.js';
 import jwt from 'jsonwebtoken';
 import handleRender from './server-render/handle-render.js';
 import bodyParser from 'body-parser';
-import {Register,Login} from './local_Auth/localAuth.js'
-import {skill_suggestions,skill_user} from './socketHandlers/skills.js'
-import {category_suggestions} from './socketHandlers/category.js'
-import {
-        createNewProject,
-        project_list,
-        project_detail,
-        join_project,
-        update_last_activity,
-        project_check_name,
-        edit_project,
-        get_more_messages,
-        get_messages
-        } from './socketHandlers/project.js';
-import {vote} from './socketHandlers/vote.js';
-import {db,queries} from './config';
-import user_profile_cleaner from './utils/user_profile_cleaner.js'
-import notification from './socketHandlers/notifications.js'
+import { Register, Login } from './local_Auth/localAuth.js'
+import { skill_suggestions, skill_user } from './socketHandlers/skills.js'
+import { category_suggestions } from './socketHandlers/category.js'
+import * as projectHandlers from './socketHandlers/project.js'
+import { vote } from './socketHandlers/vote.js';
+import { user_profile } from './socketHandlers/user.js';
+import { db, queries } from './config';
 import winston from 'winston';
-
+import {vote_notification, set_to_read_notification} from './socketHandlers/notifications.js'
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -36,8 +25,6 @@ const compiler = webpack(config)
 
 export const run = (worker) => {
   console.log(' >> worker PID: ',process.pid);
-
-  // winston.add(winston.transports.File,{filename:'logs/42exp.log'})
 
   winston.add(require('winston-daily-rotate-file'),{
     filename:'logs/42exp.log',
@@ -54,9 +41,8 @@ export const run = (worker) => {
     // app.use(serveStatic(path.resolve(__dirname, '../public')));
     app.use(webpackDevMiddleware(compiler, {
       publicPath: config.output.publicPath,
-      stats: {colors: true}
+      stats: { colors: true }
     }))
-
     app.use(webpackHotMiddleware(compiler, {
       log: console.log
     }))
@@ -70,7 +56,7 @@ export const run = (worker) => {
   app.get('/auth/github',passport.authenticate('github'))
 
   // To-Do : Failure Redirect
-  app.get('/auth/github/callback',passport.authenticate('github',{failureRedirect:'/fail'}),
+  app.get('/auth/github/callback',passport.authenticate('github',{ failureRedirect: '/fail' }),
     function(req,res){
       var text=  JSON.stringify(req.user.token)
       res.cookie('id_token',text,{ expires: new Date(Date.now() + (24 * 60 * 60 * 1000 * 30 * 12 * 10)), httpOnly: true })
@@ -105,16 +91,24 @@ export const run = (worker) => {
   scServer.on('connection',(socket) => {
     console.log('socket connected : ',socket.id)
     //what the above does is decode the socket cookie. decode the string > sets auth profile to socket.
-    if(socket.request.headers.cookie){
+    if (socket.request.headers.cookie) {
       const cookie = decodeURIComponent(socket.request.headers.cookie)
       const id_token = JSON.parse(cookie.split('=')[1])
       const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
       winston.info('User logged in : ',decoded.username)
-      socket.setAuthToken({username:decoded.username})
+      socket.setAuthToken({ username: decoded.username })
     }
 
     // skill suggestions for user profile.
-    socket.on('skill:suggestions',skill_suggestions)
+    socket.on('skill:suggestions',function(data,res){
+      skill_suggestions(data)
+        .then(function(skill){
+          res(null,skill)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
 
     // saving skills to a user skillset.
     socket.on('skills:user',function(data,res){
@@ -130,12 +124,20 @@ export const run = (worker) => {
     })
 
     // category suggestions for projects.
-    socket.on('category:suggestions',category_suggestions)
+    socket.on('category:suggestions',function(data,res){
+      category_suggestions(data)
+        .then(function(category){
+          res(null,category)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
 
     // project creation.
     socket.on('project:create',function(data,res){
       data.username = socket.getAuthToken().username;
-      createNewProject(data)
+      projectHandlers.create_new_project(data)
         .then(function(details){
           winston.info('new project created : ',details)
           res(null,details)
@@ -148,7 +150,7 @@ export const run = (worker) => {
 
     //Retrieves a list of projects
     socket.on('project:list',function(data,res){
-      project_list(data)
+      projectHandlers.project_list(data)
         .then(function(result){
           res(null,result)
         })
@@ -158,20 +160,20 @@ export const run = (worker) => {
         })
     })
 
+    //pagination
     socket.on('project:list_more',function(data,res){
-      db.any(queries.ProjectListPaginate,data.lastId)
+      projectHandlers.project_paginate(data)
         .then(function(result){
           res(null,result)
         })
         .catch(function(err){
-          winston.error('Problem with project:list_more : ',err)
-          res('Couldnt retrieve more projects')
+          res(err)
         })
     })
 
     // project detail.
     socket.on('project:detail',function(data,res){
-      project_detail(data)
+      projectHandlers.project_detail(data)
         .then(function(result){
           res(null,result)
         })
@@ -184,9 +186,9 @@ export const run = (worker) => {
     // function allowing user to join a project group.
     socket.on('project:join',function(data,res){
       data.username = socket.getAuthToken().username;
-
-      join_project(data)
+      projectHandlers.join_project(data)
         .then(function(result){
+          //broadcast user join to chat room
           scServer.exchange.publish(data.id,{ project_id: data.id,
             timestamp: result.roomMessage.timestamp,
             message: result.roomMessage.message,
@@ -201,64 +203,108 @@ export const run = (worker) => {
         })
     })
 
+    socket.on('project:member_list',function(data,res){
+      projectHandlers.project_member_list(data)
+        .then(function(data){
+          res(null,data)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
+
     // check if project_name already exists.
-    socket.on('project:check_name',project_check_name)
+    socket.on('project:check_name',function(data,res){
+      projectHandlers.project_check_name(data)
+        .then(function(name){
+          res(null,name)
+        })
+        .catch(function(err){
+          res(null,err)
+        })
+    })
 
     // edit an existing project.
-    socket.on('project:edit',edit_project)
+    socket.on('project:edit',function(data,res){
+      projectHandlers.edit_project(data)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
 
-    socket.on('project:get_messages',get_messages)
+    socket.on('project:get_messages',function(data,res){
+      projectHandlers.get_messages(data)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
     // retrieve past messages for chat room.
-    socket.on('project:get_more_messages',get_more_messages)
+    socket.on('project:get_more_messages',function(data,res){
+      projectHandlers.get_more_messages(data)
+        .then(function(messages){
+          res(null,messages)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
 
     socket.on('new_chat_message',function(data){
-      let timestamp = new Date().toISOString()
-      scServer.exchange.publish(data.id,{project_id:data.id,timestamp: timestamp,message:data.message,username:socket.getAuthToken().username})
-      return db.one('insert into project_messages (project,message,username,timestamp) values ((SELECT name from project where id=$1),$2,$3,$4) returning *',
-        [data.id,data.message,socket.getAuthToken().username,timestamp]
-      ).then(function(projectMessageDetails){
-        return ''
-      }).catch(function(err){
-        winston.error('Couldnt insert message : ',data,' error: ',err)
-      })
-
+      data.timestamp = new Date().toISOString()
+      data.username = socket.getAuthToken().username
+      const messageDetails = {
+        project_id: data.id,
+        timestamp: data.timestamp,
+        message: data.message,
+        username:socket.getAuthToken().username
+      }
+      scServer.exchange.publish(data.id,messageDetails)
+      projectHandlers.new_project_message(data)
+        .then(function(data){
+          return ''
+        })
+        .catch(function(err){
+          console.log('err: ',err)
+        })
     })
 
     // users last_activity in a project chat room. Essential to determine unread_messaages.
-    socket.on('update_last_activity',update_last_activity)
-
-    socket.on('user:profile',function(data,res){
-      db.one(queries.UserProfile,data.username)
-        .then(function(data){
-          res(null,user_profile_cleaner(data))
+    socket.on('update_last_activity',function(data,res){
+      const username = socket.getAuthToken().username
+      projectHandlers.update_last_activity(data,username)
+        .then(function(result){
+          res(null,result)
         })
         .catch(function(err){
-          winston.error('Couldnt retrieve user profile : ',err)
-          res('User profile not available')
+          res(err)
+        })
+    })
+
+    socket.on('user:profile',function(data,res){
+      user_profile(data)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          res(err)
         })
     })
 
     socket.on('notifications:set_to_read',function(data,res){
       let user = socket.getAuthToken().username;
-      return db.any('update account_notifications set unread=false where username = $1',user)
-                .then(function(result){
-                  res(null,result)
-                })
-                .catch(function(err){
-                  res('Couldnt update notifs to "read"')
-                  winston.error('Couldnt update account_notifications : ',err)
-                })
-    })
-
-    socket.on('project:member_list',function(data,res){
-      return db.any('select id,username from account_projects where project = $1',data.name)
-                .then(function(data){
-                  res(null,data)
-                })
-                .catch(function(err){
-                  res('Couldnt retrieve member list')
-                  winston.error('Couldnt retrieve member list: ',err)
-                })
+      set_to_read_notification(data,user)
+        .then(function(result){
+          res(null,result)
+        })
+        .catch(function(err){
+          res(err)
+        })
     })
 
 
@@ -267,7 +313,7 @@ export const run = (worker) => {
       data.voter = socket.getAuthToken().username;
       vote(data)
         .then(function(status){
-          notification.call(socket,data,status)
+          vote_notification.call(socket,data,status)
             .then(function(result){
               res(null,status.vote)
             })
@@ -295,6 +341,6 @@ export const run = (worker) => {
         })
       }
     })
-  })
 
+  })
 }
