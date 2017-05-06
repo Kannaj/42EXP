@@ -67,11 +67,11 @@ class Appbar extends Component{
   }
 
   openMemberModal(project_name){
-    this.setState({memberModal : true, memberModal_name : project_name})
+    this.setState({ memberModal: true, memberModal_name: project_name })
   }
 
   closeMemberModal(){
-    this.setState({memberModal: false})
+    this.setState({ memberModal: false })
   }
 
   render(){

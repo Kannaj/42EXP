@@ -137,10 +137,10 @@ export const create_new_project = (data) => {
         return t.one(queries.CreateAccountProjects,[data.username,project.name,'owner'])
       .then(function(accountProjects){
         if (data.skill.length > 0) {
-          const queries = data.skill.map(function(skill) {
+          const queryList = data.skill.map(function(skill) {
             return t.one(queries.CreateProjectSkills,[project.name,skill.value])
           })
-          return t.batch(queries)
+          return t.batch(queryList)
             .then(function(projectSkills){
               return {
                 'project': project,

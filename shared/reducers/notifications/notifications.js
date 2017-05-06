@@ -1,4 +1,4 @@
-import * as constants from '../../actions/notifications/constants'
+import * as constants from '../../actions/notifications/constants';
 import update from 'react-addons-update';
 
 

@@ -1,4 +1,4 @@
-require('dotenv').config({silent:true});
+require('dotenv').config({ silent:true });
 
 import chaiAsPromised from 'chai-as-promised';
 import chai from 'chai';

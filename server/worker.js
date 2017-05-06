@@ -14,7 +14,7 @@ import { vote } from './socketHandlers/vote.js';
 import { user_profile } from './socketHandlers/user.js';
 import { db, queries } from './config';
 import winston from 'winston';
-import {vote_notification, set_to_read_notification} from './socketHandlers/notifications.js'
+import * as notificationHandlers from './socketHandlers/notifications.js'
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -298,7 +298,7 @@ export const run = (worker) => {
 
     socket.on('notifications:set_to_read',function(data,res){
       let user = socket.getAuthToken().username;
-      set_to_read_notification(data,user)
+      notificationHandlers.et_to_read_notification(data,user)
         .then(function(result){
           res(null,result)
         })
@@ -313,7 +313,7 @@ export const run = (worker) => {
       data.voter = socket.getAuthToken().username;
       vote(data)
         .then(function(status){
-          vote_notification.call(socket,data,status)
+          notificationHandlers.vote_notification.call(socket,data,status)
             .then(function(result){
               res(null,status.vote)
             })

@@ -2,7 +2,7 @@ version: '2'
 
 services:
   node:
-    container_name: web
+    container_name: test-web
     build: .
     env_file: .env
     volumes:

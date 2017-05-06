@@ -15,7 +15,11 @@
   }
   &__title{
     position: absolute;
-    top: 5px;
+    top: 0px;
+    width: 100%;
+    text-align: center;
+    background: $dark-blue;
+    color: $ghost-white;
     left: 50%;
     transform: translate(-50%);
   }
@@ -35,6 +39,7 @@
     padding: 5px;
     font-size: 2em;
     cursor: pointer;
+    color: $ghost-white;
   }
   .primary_content,
   .secondary_content
