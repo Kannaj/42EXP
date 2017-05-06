@@ -22,6 +22,19 @@
      id="defs4">
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient4161"
+       osb:paint="gradient">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4163" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4165" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient5608">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
@@ -33,18 +46,6 @@
          id="stop5612" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
-       id="linearGradient5600">
-      <stop
-         style="stop-color:#000000;stop-opacity:1;"
-         offset="0"
-         id="stop5602" />
-      <stop
-         style="stop-color:#000000;stop-opacity:0;"
-         offset="1"
-         id="stop5604" />
-    </linearGradient>
-    <linearGradient
        id="linearGradient5592"
        osb:paint="solid">
       <stop
@@ -52,17 +53,6 @@
          offset="0"
          id="stop5594" />
     </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5600"
-       id="radialGradient5606"
-       cx="302.33902"
-       cy="506.55081"
-       fx="302.33902"
-       fy="506.55081"
-       r="244.94675"
-       gradientTransform="matrix(1,0,0,0.34968915,71.951799,402.87738)"
-       gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient5608"
@@ -74,19 +64,17 @@
        r="245.44675"
        gradientTransform="matrix(1,0,0,0.35101389,0,309.41642)"
        gradientUnits="userSpaceOnUse" />
-    <filter
+    <radialGradient
        inkscape:collect="always"
-       style="color-interpolation-filters:sRGB"
-       id="filter5628"
-       x="-0.0080314651"
-       width="1.0160629"
-       y="-0.022967443"
-       height="1.0459349">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.6394012"
-         id="feGaussianBlur5630" />
-    </filter>
+       xlink:href="#linearGradient4161"
+       id="radialGradient4171"
+       cx="374.2908"
+       cy="580.01267"
+       fx="374.2908"
+       fy="580.01267"
+       r="248.8813"
+       gradientTransform="matrix(1,0,0,0.35996994,0,371.22554)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -118,7 +106,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -138,18 +126,18 @@
            x="151.42857"
            y="260.93362"
            style="font-size:27.5px" /></flowRegion><flowPara
-         id="flowPara4142"></flowPara></flowRoot>    <text
+         id="flowPara4142" /></flowRoot>    <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:83.30194092px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.98999999;fill:url(#radialGradient5606);fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5628)"
-       x="127.28234"
-       y="627.05743"
+       style="font-style:normal;font-weight:normal;font-size:80.44508362px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#f5f5f5;fill-opacity:0.80538922;stroke:#000000;stroke-width:1.449;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       x="102.87311"
+       y="588.84155"
        id="text4144"
        sodipodi:linespacing="125%"
-       transform="matrix(0.98275067,0,0,1.0175521,-20.203051,-56.568543)"><tspan
+       transform="scale(1.0182218,0.98210429)"><tspan
          sodipodi:role="line"
          id="tspan4146"
-         x="127.28234"
-         y="627.05743"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:187.42936707px;font-family:Asap;-inkscape-font-specification:'Asap Bold';fill:url(#radialGradient5606);fill-opacity:0;stroke:#000000;stroke-width:1.5;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">42exp</tspan></text>
+         x="102.87311"
+         y="588.84155"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:181.00143433px;font-family:Asap;-inkscape-font-specification:'Asap Bold';fill:#f5f5f5;fill-opacity:0.80538922;stroke:#000000;stroke-width:1.449;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">42exp</tspan></text>
   </g>
 </svg>
