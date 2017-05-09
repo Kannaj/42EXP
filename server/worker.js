@@ -18,6 +18,7 @@ import * as notificationHandlers from './socketHandlers/notifications.js'
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import Joi from 'joi';
 
 const config = require('../webpack.config.js')
 
@@ -101,6 +102,16 @@ export const run = (worker) => {
 
     // skill suggestions for user profile.
     socket.on('skill:suggestions',function(data,res){
+
+      const schema = Joi.object().keys({
+        skill: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       skill_suggestions(data)
         .then(function(skill){
           res(null,skill)
@@ -112,6 +123,16 @@ export const run = (worker) => {
 
     // saving skills to a user skillset.
     socket.on('skills:user',function(data,res){
+      const schema = Joi.object().keys({
+        value: Joi.string().required(),
+        label: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       data.username = socket.getAuthToken().username;
       skill_user(data)
         .then(function(result){
@@ -125,6 +146,8 @@ export const run = (worker) => {
 
     // category suggestions for projects.
     socket.on('category:suggestions',function(data,res){
+      // client side doesnt hit this any longer. probably remove this or existing implementation.
+      console.log('category:suggestions data ',data)
       category_suggestions(data)
         .then(function(category){
           res(null,category)
@@ -136,6 +159,23 @@ export const run = (worker) => {
 
     // project creation.
     socket.on('project:create',function(data,res){
+
+      const schema = Joi.object().keys({
+        name: Joi.string().required(),
+        github_link: Joi.string().allow(''),
+        category: Joi.string().required(),
+        skill: Joi.array().required(),
+        description: Joi.string().required(),
+        submitting: Joi.boolean(),
+        errors: Joi.object(),
+        pinned: Joi.boolean().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       data.username = socket.getAuthToken().username;
       projectHandlers.create_new_project(data)
         .then(function(details){
@@ -150,6 +190,7 @@ export const run = (worker) => {
 
     //Retrieves a list of projects
     socket.on('project:list',function(data,res){
+      // data is an empty object
       projectHandlers.project_list(data)
         .then(function(result){
           res(null,result)
@@ -160,8 +201,18 @@ export const run = (worker) => {
         })
     })
 
-    //pagination
+    // project list pagination
     socket.on('project:list_more',function(data,res){
+
+      const schema = Joi.object().keys({
+        lastId: Joi.number().integer().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       projectHandlers.project_paginate(data)
         .then(function(result){
           res(null,result)
@@ -173,6 +224,16 @@ export const run = (worker) => {
 
     // project detail.
     socket.on('project:detail',function(data,res){
+
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res('Type mismatch ' + result.error)
+      }
+
       projectHandlers.project_detail(data)
         .then(function(result){
           res(null,result)
@@ -185,6 +246,17 @@ export const run = (worker) => {
 
     // function allowing user to join a project group.
     socket.on('project:join',function(data,res){
+
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+        project: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res('Type mismatch ' + result.error)
+      }
+
       data.username = socket.getAuthToken().username;
       projectHandlers.join_project(data)
         .then(function(result){
@@ -204,6 +276,16 @@ export const run = (worker) => {
     })
 
     socket.on('project:member_list',function(data,res){
+      const schema = Joi.object().keys({
+        // name refers to project name
+        name: Joi.string().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res('Type mismatch ' + result.error)
+      }
+
       projectHandlers.project_member_list(data)
         .then(function(data){
           res(null,data)
@@ -217,7 +299,7 @@ export const run = (worker) => {
     socket.on('project:check_name',function(data,res){
       projectHandlers.project_check_name(data)
         .then(function(name){
-          res(null,name)
+          res('project already exists')
         })
         .catch(function(err){
           res(null,err)
@@ -226,6 +308,18 @@ export const run = (worker) => {
 
     // edit an existing project.
     socket.on('project:edit',function(data,res){
+
+      const schema = Joi.object().keys({
+        // project object has same schema as project:create
+        project: Joi.object().required(),
+        id: Joi.number().integer().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       projectHandlers.edit_project(data)
         .then(function(result){
           res(null,result)
@@ -236,6 +330,16 @@ export const run = (worker) => {
     })
 
     socket.on('project:get_messages',function(data,res){
+
+      const schema = Joi.object().keys({
+        projectId: Joi.number().integer().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       projectHandlers.get_messages(data)
         .then(function(result){
           res(null,result)
@@ -244,8 +348,20 @@ export const run = (worker) => {
           res(err)
         })
     })
+
     // retrieve past messages for chat room.
     socket.on('project:get_more_messages',function(data,res){
+
+      const schema = Joi.object().keys({
+        projectId: Joi.number().integer().required(),
+        lastMessageId: Joi.number().integer().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       projectHandlers.get_more_messages(data)
         .then(function(messages){
           res(null,messages)
@@ -256,6 +372,17 @@ export const run = (worker) => {
     })
 
     socket.on('new_chat_message',function(data){
+
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+        message: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       data.timestamp = new Date().toISOString()
       data.username = socket.getAuthToken().username
       const messageDetails = {
@@ -276,6 +403,16 @@ export const run = (worker) => {
 
     // users last_activity in a project chat room. Essential to determine unread_messaages.
     socket.on('update_last_activity',function(data,res){
+
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       const username = socket.getAuthToken().username
       projectHandlers.update_last_activity(data,username)
         .then(function(result){
@@ -287,6 +424,16 @@ export const run = (worker) => {
     })
 
     socket.on('user:profile',function(data,res){
+
+      const schema = Joi.object().keys({
+        username: Joi.string().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       user_profile(data)
         .then(function(result){
           res(null,result)
@@ -297,8 +444,9 @@ export const run = (worker) => {
     })
 
     socket.on('notifications:set_to_read',function(data,res){
+      console.log('notifications:set_to_read data ',data)
       let user = socket.getAuthToken().username;
-      notificationHandlers.et_to_read_notification(data,user)
+      notificationHandlers.set_to_read_notification(data,user)
         .then(function(result){
           res(null,result)
         })
@@ -310,6 +458,19 @@ export const run = (worker) => {
 
     // When user commends another for a particular skill.
     socket.on('user:vote',function(data,res){
+
+      const schema = Joi.object().keys({
+        account_skill_id: Joi.number().integer().required(),
+        voter_level: Joi.number().integer().required(),
+        votee: Joi.string().required(),
+        skill: Joi.object().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       data.voter = socket.getAuthToken().username;
       vote(data)
         .then(function(status){
@@ -329,13 +490,21 @@ export const run = (worker) => {
     })
 
     socket.on('raw',function(data){
+
+      const schema = Joi.string().required()
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
       let pattern = new RegExp('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
       let match = data.match(pattern)
       if(match){
         db.one('update account_projects SET last_activity=Now() where project=(SELECT name from project where id=$1) AND username=$2 returning *',
           [parseInt(match[1]),socket.getAuthToken().username]
         ).then(function(data){
-
+          // what goes here?
         }).catch(function(err){
           winston.error('Couldnt update last_activity of user : ',err)
         })

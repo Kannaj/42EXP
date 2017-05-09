@@ -2,7 +2,7 @@ import {db} from '../config.js'
 import winston from 'winston';
 
 export const skill_suggestions = function(data,res) {
-  db.any("SELECT * from skill WHERE LOWER(name) LIKE LOWER('%$1#%')",data.skill)
+  return db.any("SELECT * from skill WHERE LOWER(name) LIKE LOWER('%$1#%')",data.skill)
     .then(function(skill){
       return skill
     })

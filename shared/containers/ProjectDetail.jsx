@@ -36,7 +36,7 @@ class ProjectDetail extends React.Component{
   }
 
   fetchData(id) {
-    socket.emit('project:detail',{id: id},function(err,data) {
+    socket.emit('project:detail',{ id: id },function(err,data) {
       if(err) {
         console.log('error: ',err)
       } else {

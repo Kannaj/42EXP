@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Select from 'react-select';
-import {skillOptions,categoryOptions} from '../utils/Autocomplete.js';
+import { skillOptions, categoryOptions } from '../utils/Autocomplete.js';
 import validate from '../utils/validation.js';
 import slugify from '../utils/slugify.js'
 import update from 'react-addons-update';

@@ -1,4 +1,4 @@
-import {db} from '../config.js'
+import { db } from '../config.js'
 
 export const category_suggestions = function(data){
   db.any("SELECT * from category WHERE LOWER(name) LIKE LOWER('%$1#%')",data.category)

@@ -1,6 +1,7 @@
 import { db, queries } from '../config.js'
 import project_list_cleaner from '../utils/project_list_cleaner.js'
 import winston from 'winston';
+import slugify from '../../shared/utils/slugify';
 
 export const get_more_messages = function(data){
   return db.any(queries.GetMoreMessages,[data.projectId,data.lastMessageId])
@@ -36,9 +37,10 @@ export const new_project_message = function(data){
 }
 
 export const project_check_name = function(data){
+  data = slugify('slugify',data)
   return db.one(queries.ProjectCheckName,data.name)
             .then(function(name){
-              return name
+              return 'project already exists'
             })
             .catch(function(){
               return 'ok'
@@ -175,7 +177,7 @@ export const create_new_project = (data) => {
 }
 
 export const edit_project = function(data){
-  editProject(data)
+  return editProject(data)
     .then(function(result){
       return result
     })
@@ -192,12 +194,12 @@ const editProject = (data) => {
         return t.one(queries.UpdateProject,[data.project.name,data.project.description,data.project.github_link,data.project.category.value,data.id])
         .then(function(updatedProject) {
           if (data.project.skill.length > 0) {
-            const queries = data.project.skill.map(function(skill){
+            const queryList = data.project.skill.map(function(skill){
               return t.one(queries.CreateProjectSkills,[updatedProject.name,skill.value])
             })
-            return t.batch(queries)
+            return t.batch(queryList)
               .then(function(projectSkills) {
-                return {'project':updatedProject,'skills':projectSkills}
+                return {'project': updatedProject,'skills': projectSkills}
               })
           } else {
             return { 'project': updatedProject }
