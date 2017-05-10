@@ -1,4 +1,4 @@
-import {db} from '../config.js';
+import { db } from '../config.js';
 import winston from 'winston';
 
 export const vote = function(data){
@@ -26,5 +26,5 @@ export const vote = function(data){
 /*
   current rules specify that a user can only commend the skill of another user ONLY ONCE.
   This will change in the future with better rules.
-  
+
 */

@@ -38,7 +38,7 @@ export const run = (worker) => {
   const scServer = worker.scServer;
 
   //standard express fluff
-  if(process.env.NODE_ENV.trim() === 'development'){
+  if (process.env.NODE_ENV.trim() === 'development') {
     // app.use(serveStatic(path.resolve(__dirname, '../public')));
     app.use(webpackDevMiddleware(compiler, {
       publicPath: config.output.publicPath,
@@ -444,7 +444,6 @@ export const run = (worker) => {
     })
 
     socket.on('notifications:set_to_read',function(data,res){
-      console.log('notifications:set_to_read data ',data)
       let user = socket.getAuthToken().username;
       notificationHandlers.set_to_read_notification(data,user)
         .then(function(result){

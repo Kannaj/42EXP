@@ -1,4 +1,4 @@
-import {db, queries} from '../config.js';
+import { db, queries } from '../config.js';
 
 
 export const vote_notification = function(data,status){

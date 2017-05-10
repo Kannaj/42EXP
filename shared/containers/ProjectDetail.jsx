@@ -1,14 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import join_project from '../actions/projects/join_project';
 import edit_project from '../actions/projects/edit_project';
 import ProjectForm from '../components/ProjectForm';
 import Modal from 'react-modal';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import Remarkable from 'remarkable';
 import slugify from '../utils/slugify';
 import loader from '../components/Loader';
+import PropTypes from 'prop-types';
 
 const md = new Remarkable({})
 
@@ -63,6 +64,7 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
+    console.log('DetailPage : ',this.props)
     if(this.state.isFetching) {
       return (
         loader()
@@ -155,6 +157,15 @@ class ProjectDetail extends React.Component{
   }
 }
 
+ProjectDetail.PropTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+  project: PropTypes.object.isRequired,
+  join_project: PropTypes.func.isRequired,
+  edit_project: PropTypes.func.isRequired,
+  params: PropTypes.object.isRequired
+}
+
 const mapStateToProps = (state,ownProps) => {
   let username,project
   let projectIndex = state.Projects.findIndex((proj) => {
@@ -164,7 +175,8 @@ const mapStateToProps = (state,ownProps) => {
   project = state.Projects[projectIndex]
 
   const { isAuthenticated } = state.User
-  if(isAuthenticated){
+
+  if (isAuthenticated) {
     username = state.User.username
   }
   return {

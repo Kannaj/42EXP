@@ -1,4 +1,4 @@
-import {db} from '../config.js'
+import { db } from '../config.js'
 import winston from 'winston';
 
 export const skill_suggestions = function(data,res) {

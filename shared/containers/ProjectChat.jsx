@@ -9,6 +9,7 @@ import Waypoint from 'react-waypoint';
 import get_more_messages from '../actions/projects/get_more_messages';
 import get_messages from '../actions/projects/get_messages';
 import loader from '../components/Loader';
+import PropTypes from 'prop-types';
 
 class ProjectChat extends React.Component{
 
@@ -44,9 +45,9 @@ class ProjectChat extends React.Component{
 
   setLastActivity(projectId){
 
-    socket.emit('update_last_activity',{id: projectId},function(err,data){
+    socket.emit('update_last_activity',{ id: projectId },function(err,data){
       if(data){
-        this.props.set_last_activity({ id:projectId, timestamp:data.last_activity })
+        this.props.set_last_activity({ id: projectId, timestamp: data.last_activity })
       }else{
         throw(err)
       }
@@ -200,23 +201,23 @@ class ProjectChat extends React.Component{
             messages ?
             <div className="chat_room">
               <div className="messages" ref="messages">
-              {
-                project[0].canRetrieveMore && waypointReady ?
-                <div className="chat_room__fetch_more">
-                  <Waypoint onEnter={this.activateWayPoint}/>
-                  {loader()}
-                </div>
-                :
-                null
-              }
+                {
+                  project[0].canRetrieveMore && waypointReady ?
+                  <div className="chat_room__fetch_more">
+                    <Waypoint onEnter={this.activateWayPoint}/>
+                    {loader()}
+                  </div>
+                  :
+                  null
+                }
 
                 <ul>
                   {
                     messages.map((message) => {
-                    return(
-                      <Message key={uuid.v4()} message={message}/>
-                    )
-                  })
+                      return(
+                        <Message key={ uuid.v4() } message={ message }/>
+                      )
+                    })
                   }
                 </ul>
 
@@ -233,6 +234,16 @@ class ProjectChat extends React.Component{
       </div>
     )
   }
+}
+
+ProjectChat.PropTypes = {
+  get_messages: PropTypes.func.isRequired,
+  get_more_messages: PropTypes.func.isRequired,
+  messages: PropTypes.array.isRequired,
+  project: PropTypes.array.isRequired,
+  set_last_activity: PropTypes.func.isRequired,
+  set_unread: PropTypes.func.isRequired,
+  unread: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state,ownProps) => {

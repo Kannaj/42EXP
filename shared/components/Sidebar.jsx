@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import slugify from '../utils/slugify';
 import Modal from 'react-modal';
 import ProjectForm from './ProjectForm';
+import PropTypes from 'prop-types';
 
 //unread function helps show unread_message count for each project the user as signed up for.
 // find a better way
@@ -42,7 +43,7 @@ const sidebarContent = (projects,openModal = null, closeSidebar) => {
                 onClick={() => closeSidebar()}
               >
                 <span className="project_name">{slugify("deslugify",project.project)}</span>
-                {unread(project.unread_messages)}
+                { unread(project.unread_messages) }
               </Link>
             )
           })
@@ -81,7 +82,6 @@ class Sidebar extends Component {
   render() {
     // remove 42exp from project list
     const projects = this.props.Projects.slice(1);
-
     return (
       <div>
         <div className = {`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
@@ -103,7 +103,7 @@ class Sidebar extends Component {
           {
             this.props.isAuthenticated ?
             <div className={`navigation--bottom`}>
-              <Link to="/projects/1/42exp/messages" ><button className="navigation__lobby_button">
+              <Link to="/projects/1/42exp/messages" onClick = {() => this.closeSidebar()}><button className="navigation__lobby_button">
                 <i className="ion-person-stalker"/> Visit Lobby
               </button></Link>
             </div>
@@ -126,6 +126,21 @@ class Sidebar extends Component {
       </div>
     )
   }
+}
+
+Sidebar.PropTypes = {
+  Flash_messages: PropTypes.array,
+  Notifications: PropTypes.array,
+  Projects: PropTypes.array,
+  User: PropTypes.object,
+  children: PropTypes.object,
+  create_project: PropTypes.func,
+  history: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
+  location: PropTypes.string,
+  toggleSidebar: PropTypes.func.isRequired
 }
 
 export default Sidebar;

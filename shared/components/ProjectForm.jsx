@@ -8,10 +8,7 @@ import update from 'react-addons-update';
 import categoryOpt from '../utils/categoryOptions';
 import _ from 'lodash';
 import loader from './Loader';
-
-//known bug - in case this component is invoked for editing purposes (i.e the state is pre-filled). the react-select component is unable to pull the value
-// into its box (depite having a value for this.state.category || this.state.skills). as of now , the edit form does not have pre-filled values for category & skills
-// meaning the user has to manually fill in those values again.
+import PropTypes from 'prop-types';
 
 class ProjectForm extends React.Component{
   constructor(props){
@@ -30,22 +27,23 @@ class ProjectForm extends React.Component{
   }
 
   componentDidMount() {
-    if(this.props.category) {
-      this.setState({ category: { value:this.props.category, label:this.props.category } })
+    const { category, name, project_link, description, skills } = this.props
+    if(category) {
+      this.setState({ category: { value: category, label: category } })
     }
-    if(this.props.name) {
-      this.setState({ name: slugify('deslugify', this.props.name) })
+    if(name) {
+      this.setState({ name: slugify('deslugify', name) })
     }
-    if(this.props.project_link) {
-      this.setState({ github_link: this.props.project_link })
+    if(project_link) {
+      this.setState({ github_link: project_link })
     }
-    if(this.props.description) {
-      this.setState({ description: this.props.description })
+    if(description) {
+      this.setState({ description: description })
     }
-    if(this.props.skills) {
+    if(skills) {
       let skill_list = []
-      this.props.skills.map((skill) => {
-        skill_list.push({ value:skill.name, label:skill.name })
+      skills.map((skill) => {
+        skill_list.push({ value: skill.name, label: skill.name })
       })
       this.setState({ skill: this.state.skill.concat(skill_list) })
     }
@@ -200,6 +198,20 @@ class ProjectForm extends React.Component{
         </div>
     )
   }
+}
+
+ProjectForm.PropTypes = {
+  admin: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  create_project: PropTypes.func,
+  category: PropTypes.string,
+  description: PropTypes.string,
+  edit_project: PropTypes.func,
+  github_link: PropTypes.string,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  owner: PropTypes.string,
+  skills: PropTypes.array
 }
 
 export default ProjectForm;

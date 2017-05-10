@@ -6,6 +6,7 @@ import UserProfile from './UserProfile';
 import UserNotifications from './UserNotifications';
 import MemberList from '../../components/MemberList';
 import slugify from '../../utils/slugify';
+import PropTypes from 'prop-types';
 
 //below function helps determine main header. avoid repeating regex
 const header = (location,openMemberModal) => {
@@ -79,20 +80,22 @@ class Appbar extends Component{
       <div>
         <div className={`appbar ${this.props.isSidebarOpen ? "appbar--sidebarOpen" : "appbar--sidebarClosed"}`}>
           {this.props.isAuthenticated ? <button className={`appbar__toggle_button ${this.props.isSidebarOpen ? "ion-chevron-left" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button> : null}
-            {header(this.props.location,this.openMemberModal)}
 
-            {
-              this.props.isAuthenticated
-              ?
-              <div className="user_nav">
-                <UserNotifications Notification={this.props.Notifications} unread={this.props.unread}/>
-                <UserProfile {...this.props}/>
-              </div>
-              :
-              <div className="user_nav anonymous_user">
-                <UserProfile {...this.props}/>
-              </div>
-            }
+          { header(this.props.location, this.openMemberModal) }
+
+          {
+            this.props.isAuthenticated
+            ?
+            <div className="user_nav">
+              <UserNotifications Notification={this.props.Notifications} unread={this.props.unread}/>
+              <UserProfile {...this.props}/>
+            </div>
+            :
+            <div className="user_nav anonymous_user">
+              <UserProfile {...this.props}/>
+            </div>
+          }
+
         </div>
 
         <Modal isOpen={this.state.memberModal} onRequestClose={this.closeMemberModal} className="content-members" overlayClassName="overlay-members">
@@ -101,6 +104,25 @@ class Appbar extends Component{
       </div>
     )
   }
+}
+
+Appbar.PropTypes = {
+  history: PropTypes.object,
+  location: PropTypes.string,
+  params: PropTypes.object,
+  route: PropTypes.object,
+  routeParams: PropTypes.object,
+  routes: PropTypes.array,
+  children: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  Projects: PropTypes.array.isRequired,
+  User: PropTypes.object,
+  Flash_messages: PropTypes.array.isRequired,
+  Notifications: PropTypes.array.isRequired,
+  create_project: PropTypes.func,
+  remove_message: PropTypes.func,
+  toggleSidebar: PropTypes.func,
+  unread: PropTypes.bool
 }
 
 export default Appbar;

@@ -1,18 +1,18 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {start_request,stop_request} from '../actions/loader';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Select from 'react-select';
 import user_add_skills from '../actions/User/actions';
 import Skill from '../components/skill';
 import _ from 'lodash';
-import {skillOptions} from '../utils/Autocomplete';
+import { skillOptions } from '../utils/Autocomplete';
 import update from 'react-addons-update';
 import uuid from 'node-uuid';
 import loader from '../components/Loader';
-import {add_notification} from '../actions/notifications/notifications';
-import {add_message} from '../actions/flash_messages/flash_messages';
-import {user_add_skills_success} from '../actions/User/actions';
+import { add_notification } from '../actions/notifications/notifications';
+import { add_message } from '../actions/flash_messages/flash_messages';
+import { user_add_skills_success } from '../actions/User/actions';
+import PropTypes from 'prop-types';
 
 class UserSkillRow extends React.Component{
   render(){
@@ -41,24 +41,24 @@ class UserSkills extends React.Component{
 
   getOptions(input,callback){
     if(socket){
-      socket.emit('skill:suggestions',{skill:input},(err,data) => {
+      socket.emit('skill:suggestions',{ skill: input},(err,data) => {
         if(data){
           let opt = skillOptions(data)
-          callback(null,{options:opt,complete:true})
+          callback(null,{ options:opt, complete:true})
         }
       })
     }
   }
 
   handleChange(input){
-    this.setState({value:input})
+    this.setState({ value: input})
   }
 
   handleSubmit(){
     if(socket){
-      socket.emit('skills:user',this.state.value,function(err,data){
+      socket.emit('skills:user', this.state.value, function(err,data){
         if(err){
-          this.props.add_notification({id:uuid.v4(),heading:'error',message:'You\"ve already added the skill',unread:true,server:false})
+          this.props.add_notification({ id:uuid.v4(), heading:'error',message:'You\"ve already added the skill', unread: true, server: false})
         }else{
           this.props.user_add_skills_success(data)
           this.props.addSkill(data)
@@ -233,9 +233,17 @@ class UserProfile extends React.Component{
   }
 }
 
+UserProfile.PropTypes = {
+  User: PropTypes.object.isRequired,
+  user_add_skills: PropTypes.func.isRequired,
+  user_add_skills_success: PropTypes.func.isRequired,
+  add_notification: PropTypes.func.isRequired,
+  add_message: PropTypes.func.isRequired
+}
+
 
 const mapStateToProps = (state,ownProps) => {
-  const {User} = state;
+  const { User } = state;
   return {
     User
   }
@@ -243,8 +251,6 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    start_request,
-    stop_request,
     user_add_skills,
     user_add_skills_success,
     add_notification,

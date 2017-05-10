@@ -1,8 +1,9 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Auth from '../Auth';
+import PropTypes from 'prop-types';
 
 class ProfileMenu extends Component{
   constructor(props){
@@ -40,6 +41,13 @@ class ProfileMenu extends Component{
   }
 }
 
+ProfileMenu.PropTypes = {
+  toggleProfileMenu: PropTypes.func.isRequired,
+  isProfileMenuOpen: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  User: PropTypes.object.isRequired,
+}
+
 class UserProfile extends Component{
   constructor(props){
     super(props);
@@ -72,15 +80,15 @@ class UserProfile extends Component{
   }
 
   openModal(type){
-    this.setState({modalIsOpen:true,[type]:true})
+    this.setState({ modalIsOpen:true, [type]:true })
   }
 
   closeModal(){
-    this.setState({modalIsOpen:false,register:false,login:false})
+    this.setState({ modalIsOpen:false, register:false, login:false })
   }
 
   toggleProfileMenu(){
-    this.setState({isProfileMenuOpen: !this.state.isProfileMenuOpen})
+    this.setState({ isProfileMenuOpen: !this.state.isProfileMenuOpen })
   }
 
   render(){
@@ -116,6 +124,12 @@ class UserProfile extends Component{
         </div>
     )
   }
+}
+
+UserProfile.PropTypes = {
+  User: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
 }
 
 export default UserProfile;

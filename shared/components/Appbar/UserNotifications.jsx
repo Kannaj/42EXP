@@ -1,7 +1,8 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router';
+import React,{ Component } from 'react';
+import { Link } from 'react-router';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 class Notificationbar extends Component{
   constructor(props){
@@ -61,6 +62,15 @@ class Notificationbar extends Component{
   }
 }
 
+Notificationbar.PropTypes = {
+  unread_messages: PropTypes.bool.isRequired,
+  toggleUnread: PropTypes.func.isRequired,
+  toggleNotificationBar: PropTypes.func.isRequired,
+  Notification: PropTypes.array.isRequired,
+  unread: PropTypes.bool.isRequired,
+  isNotificationBarOpen: PropTypes.bool.isRequired,
+}
+
 
 class UserNotifications extends Component{
   constructor(props){
@@ -74,20 +84,20 @@ class UserNotifications extends Component{
   }
 
   toggleNotificationBar(){
-    this.setState({isNotificationBarOpen: !this.state.isNotificationBarOpen})
+    this.setState({ isNotificationBarOpen: !this.state.isNotificationBarOpen })
   }
 
   componentWillReceiveProps(nextProps){
     // dirty check if latest notif is not the same as prev renders notif
     if(this.props.Notification.length > 0){
       if(this.props.Notification[0].id !== nextProps.Notification[0].id){
-        this.setState({unread_messages: true})
+        this.setState({ unread_messages: true })
       }
     }
   }
 
   toggleUnread(){
-    this.setState({unread_messages: false})
+    this.setState({ unread_messages: false })
   }
 
   render(){
@@ -103,6 +113,11 @@ class UserNotifications extends Component{
       </div>
     )
   }
+}
+
+UserNotifications.PropTypes = {
+  Notifications: PropTypes.array.isRequired,
+  unread: PropTypes.bool.isRequired,
 }
 
 export default UserNotifications;

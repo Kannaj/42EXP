@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import loader from '../components/Loader';
 import Waypoint from 'react-waypoint';
 
-
+// TO-DO : move ProjectList to Component Folder as we do not need to use redux
 class ProjectList extends React.Component {
 
   constructor(props){

@@ -4,7 +4,7 @@
   width: 20%;
   left: -20%;
   transition: all 0.5s ease-in;
-  // background: #f5f4f7;
+  z-index: 99;
   background: #f7f5fa;
   overflow-y: auto;
   color: #343434;
@@ -20,10 +20,12 @@
 
   &.sidebar--closed{
     left: -20%;
+    @media only screen and (max-width: 480px){
+      left: -80%;
+    }
   }
 
   &__logo{
-    // width: 100%;
     height: auto;
     text-align: center;
     flex: 1;
