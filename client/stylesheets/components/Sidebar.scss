@@ -4,7 +4,6 @@
   width: 20%;
   left: -20%;
   transition: all 0.5s ease-in;
-  z-index: 99;
   background: #f7f5fa;
   overflow-y: auto;
   color: #343434;
@@ -14,14 +13,22 @@
   display: flex;
   flex-direction: column;
 
+  @media only screen and (max-width: 480px){
+    width: 100%;
+    // left: 100%;
+  }
+
   &.sidebar--open{
-    left: 0px
+    left: 0px;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
   }
 
   &.sidebar--closed{
     left: -20%;
     @media only screen and (max-width: 480px){
-      left: -80%;
+      left: -100%;
     }
   }
 

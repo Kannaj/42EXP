@@ -71,7 +71,9 @@
       }
       .submit_skill{
         flex: 2;
-        background: #52489C;
+        background: $dark-blue;
+        height: 100%;
+        cursor: pointer;
         color: $white;
         padding: 7px;
         border-radius: 4px;

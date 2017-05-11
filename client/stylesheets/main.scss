@@ -1,5 +1,5 @@
 
-@import url(https://fonts.googleapis.com/css?family=Merriweather);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 
 
 $primary: #ECEDE8;
@@ -46,7 +46,7 @@ body{
   margin: 0;
   line-height: 25px;
   font-size: 12px;
-  font-family: 'Merriweather', 'Arial';
+  font-family: 'Ubuntu', 'sans-serif';
   min-height: 100%;
   @media only screen and (max-width: 480px){
     font-size: 10px;
@@ -62,7 +62,7 @@ html, body{
 button{
   padding: 5px;
   border: none;
-  font-family: 'Merriweather';
+  font-family: 'Ubuntu';
   letter-spacing: 1px;
   background-color: $secondary;
   color: $tertiary;
@@ -95,7 +95,7 @@ textarea{
   padding-right: 10px;
   width: 100%;
   box-sizing: border-box;
-  font-family: 'Merriweather';
+  font-family: 'Ubuntu';
 }
 
 
