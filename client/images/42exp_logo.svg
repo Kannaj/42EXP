@@ -11,70 +11,72 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="138.05649mm"
-   height="51.456039mm"
-   viewBox="0 0 489.17653 182.32455"
-   id="svg2"
+   width="140.43161mm"
+   height="64.658768mm"
+   viewBox="0 0 497.59232 229.10586"
+   id="svg4171"
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="42exp_logo.svg">
   <defs
-     id="defs4">
+     id="defs4173">
+    <linearGradient
+       id="linearGradient4851"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#f5f5f5;stop-opacity:1;"
+         offset="0"
+         id="stop4853" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4161"
+       id="linearGradient4765"
        osb:paint="gradient">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
-         id="stop4163" />
+         id="stop4767" />
       <stop
          style="stop-color:#000000;stop-opacity:0;"
          offset="1"
-         id="stop4165" />
+         id="stop4769" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
-       id="linearGradient5608">
+       id="linearGradient4759"
+       osb:paint="solid">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
-         id="stop5610" />
-      <stop
-         style="stop-color:#000000;stop-opacity:0;"
-         offset="1"
-         id="stop5612" />
+         id="stop4761" />
     </linearGradient>
     <linearGradient
-       id="linearGradient5592"
+       id="linearGradient4743"
        osb:paint="solid">
       <stop
-         style="stop-color:#52489c;stop-opacity:0;"
+         style="stop-color:#020202;stop-opacity:1;"
          offset="0"
-         id="stop5594" />
+         id="stop4745" />
     </linearGradient>
-    <radialGradient
+    <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient5608"
-       id="radialGradient5618"
-       cx="271.50253"
-       cy="476.76895"
-       fx="271.50253"
-       fy="476.76895"
-       r="245.44675"
-       gradientTransform="matrix(1,0,0,0.35101389,0,309.41642)"
-       gradientUnits="userSpaceOnUse" />
-    <radialGradient
+       xlink:href="#linearGradient4743"
+       id="linearGradient4885"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.79871564,0,0,0.79871563,141.98939,97.896746)"
+       x1="451.27032"
+       y1="574.60699"
+       x2="575.80518"
+       y2="574.60699" />
+    <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4161"
-       id="radialGradient4171"
-       cx="374.2908"
-       cy="580.01267"
-       fx="374.2908"
-       fy="580.01267"
-       r="248.8813"
-       gradientTransform="matrix(1,0,0,0.35996994,0,371.22554)"
-       gradientUnits="userSpaceOnUse" />
+       xlink:href="#linearGradient4851"
+       id="linearGradient4887"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(8.2638548,-2.9634835)"
+       x1="493.76273"
+       y1="559.8078"
+       x2="594.02936"
+       y2="559.8078" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -83,30 +85,30 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="180.29307"
-     inkscape:cy="90.404332"
+     inkscape:zoom="0.35"
+     inkscape:cx="-417.76091"
+     inkscape:cy="269.42743"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
+     fit-margin-top="5"
+     fit-margin-left="2"
+     fit-margin-right="2"
+     fit-margin-bottom="5"
      inkscape:window-width="1366"
-     inkscape:window-height="705"
+     inkscape:window-height="715"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0" />
+     inkscape:window-maximized="1" />
   <metadata
-     id="metadata7">
+     id="metadata4176">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -114,30 +116,47 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-105.06353,-440.44198)">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4136"
-       style="font-style:normal;font-weight:normal;font-size:27.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4138"><rect
-           id="rect4140"
-           width="540"
-           height="277.14285"
-           x="151.42857"
-           y="260.93362"
-           style="font-size:27.5px" /></flowRegion><flowPara
-         id="flowPara4142" /></flowRoot>    <text
+     transform="translate(-134.18949,-344.11235)">
+    <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:80.44508362px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#f5f5f5;fill-opacity:0.80538922;stroke:#000000;stroke-width:1.449;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       x="102.87311"
-       y="588.84155"
+       x="137.46838"
+       y="497.30878"
        id="text4144"
        sodipodi:linespacing="125%"
        transform="scale(1.0182218,0.98210429)"><tspan
          sodipodi:role="line"
          id="tspan4146"
-         x="102.87311"
-         y="588.84155"
+         x="137.46838"
+         y="497.30878"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:181.00143433px;font-family:Asap;-inkscape-font-specification:'Asap Bold';fill:#f5f5f5;fill-opacity:0.80538922;stroke:#000000;stroke-width:1.449;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">42exp</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="442.85715"
+       y="552.36218"
+       id="text4749"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4751"
+         x="442.85715"
+         y="552.36218"></tspan><tspan
+         sodipodi:role="line"
+         x="442.85715"
+         y="652.36218"
+         id="tspan4753" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:48.82797623px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4885);fill-opacity:1;stroke:url(#linearGradient4887);stroke-width:0.79871559px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0"
+       x="498.0152"
+       y="575.02368"
+       id="text4755"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0372192,0.96411637)"><tspan
+         sodipodi:role="line"
+         id="tspan4757"
+         x="498.0152"
+         y="575.02368"
+         style="fill:url(#linearGradient4885);fill-opacity:1;stroke:url(#linearGradient4887);stroke-width:0.79871559px;stroke-opacity:0">beta</tspan></text>
   </g>
 </svg>
