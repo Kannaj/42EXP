@@ -10,7 +10,7 @@ export const vote = function(data){
       .then(function(){
         return t.one('UPDATE account SET xp = xp + $1 where username=$2 returning xp,level',[xp_value,data.votee])
       }).then(function(stats){
-        return {vote:'success',stats:stats,skillName:data.skill,xp_value}
+        return {vote:'success', stats: stats,skillName: data.skill,xp_value}
       })
   })
   .then(function(status){

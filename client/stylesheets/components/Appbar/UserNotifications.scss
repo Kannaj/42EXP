@@ -34,6 +34,11 @@
     height: auto;
     border-radius: 4px;
     overflow-y: auto;
+    @media only screen and (max-width: 480px){
+      top: 40px;
+      right: 2em;
+      width: 25em;
+    }
     &--visible{
       display: block;
       padding: 0;

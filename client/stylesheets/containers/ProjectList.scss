@@ -3,6 +3,7 @@
     width: 90%;
     padding: 8px;
     height: auto;
+    position: relative;
     background: $light-blue;
     box-shadow: $box-shadow;
     h2 {
@@ -13,13 +14,31 @@
       color: $ghost-white;
       padding-left: 15px;
     }
-    .dismiss{
+    .actions{
       padding-left: 15px;
-      button{
-        padding: 5px 15px;
-        border-radius: 4px;
+      text-align: center;
+      &__dismiss{
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        padding: 7.5px 10px;
+        border-radius: 50%;
         color: $ghost-white;
         background: $dark-blue;
+        cursor: pointer;
+      }
+      &__lobby{
+        background: $accent;
+        color: $ghost-white;
+        padding: 5px 15px;
+        border-radius: 4px;
+        margin-right: 1em;
+      }
+      &__profile{
+        background: $blue;
+        color: $ghost-white;
+        padding: 5px 15px;
+        border-radius: 4px;
       }
     }
   }
@@ -32,6 +51,9 @@
     width: 75%;
     text-align: center;
     text-decoration: underline;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
   }
   display: flex;
   justify-content: center;

@@ -75,13 +75,19 @@ class ProjectList extends React.Component {
     }
     return (
       <div className="project_list">
-        { this.state.show_jumbotron ?
+        { this.state.show_jumbotron && this.props.isAuthenticated ?
           <div className="jumbotron">
             <h2> New here ? </h2>
             <p> Welcome to 42exp. You can find a list of recent projects to join below. </p>
             <p> Be sure to fill up your profile with your up-to-date skillset for other users to look at</p>
             <p> Be sure to also visit the lobby chatroom if you have further questions </p>
-            <div className="dismiss"><button className="jumbotron__dismiss" onClick={this.dismiss_jumbotron}> Got it </button></div>
+
+            <div className="actions">
+              <Link className="actions__lobby" to="/projects/1/42exp/messages">Visit Lobby</Link>
+              <Link className="actions__profile" to={`/user/${this.props.username}`}> Profile </Link>
+              <button className="actions__dismiss" onClick={this.dismiss_jumbotron}> X </button>
+            </div>
+
           </div>
           :
           null
@@ -111,6 +117,11 @@ class ProjectList extends React.Component {
     )
   }
 }
+
+// const mapStateToProps = (state) => {
+//   const User = state.User
+//   return { User }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({

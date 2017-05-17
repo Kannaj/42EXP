@@ -69,7 +69,7 @@ class UserProfile extends Component{
           <a href= "/auth/github"><button className="login_github"> Register With Github</button></a>
         </div>
       )
-    }else{
+    } else {
       return (
         <div className="auth">
           <button name="register" className="register" onClick={this.openModal.bind(this,"register")}> Register </button>
@@ -80,11 +80,11 @@ class UserProfile extends Component{
   }
 
   openModal(type){
-    this.setState({ modalIsOpen:true, [type]:true })
+    this.setState({ modalIsOpen: true, [type]:true })
   }
 
   closeModal(){
-    this.setState({ modalIsOpen:false, register:false, login:false })
+    this.setState({ modalIsOpen: false, register: false, login: false })
   }
 
   toggleProfileMenu(){
@@ -100,7 +100,9 @@ class UserProfile extends Component{
             this.authButtons()
             :
             <div className="auth">
-              <img className="auth__profile_icon" src={`https://avatars1.githubusercontent.com/${this.props.User.username}` } onClick={this.toggleProfileMenu}/>
+              <button className="auth__profile_icon" onClick={this.toggleProfileMenu}>
+                <img src={`https://avatars1.githubusercontent.com/${this.props.User.username}` } />
+              </button>
               {
                 this.state.isProfileMenuOpen
                 ?

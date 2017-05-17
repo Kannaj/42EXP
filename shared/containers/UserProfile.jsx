@@ -12,7 +12,9 @@ import loader from '../components/Loader';
 import { add_notification } from '../actions/notifications/notifications';
 import { add_message } from '../actions/flash_messages/flash_messages';
 import { user_add_skills_success } from '../actions/User/actions';
+import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+import FaqXP from '../components/Faq_XP.jsx';
 
 class UserSkillRow extends React.Component{
   render(){
@@ -31,12 +33,23 @@ class UserSkills extends React.Component{
     super(props);
     this.state = {
       skills : {},
-      value : ""
+      value : "",
+      modalIsOpen: false
     }
     this.getOptions = this.getOptions.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCommend = this.handleCommend.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal(){
+    this.setState({ modalIsOpen: true })
+  }
+
+  closeModal(){
+    this.setState({ modalIsOpen: false })
   }
 
   getOptions(input,callback){
@@ -83,7 +96,7 @@ class UserSkills extends React.Component{
   render(){
     return (
       <div className="user_skills">
-        <h2 className="user_skills__header">Skills</h2>
+        <h2 className="user_skills__header">Skills <span onClick={this.openModal} className="help_icon ion-help-circled"></span></h2>
           {
             this.props.canEdit ?
             <div className="user_skills__add">
@@ -123,6 +136,13 @@ class UserSkills extends React.Component{
             :
             null
           }
+
+          <Modal isOpen={this.state.modalIsOpen}
+                 onRequestClose={this.closeModal}
+                 className="xp_FAQ"
+                 overlayClassName="FAQ" >
+                 <FaqXP/>
+          </Modal>
       </div>
     )
   }

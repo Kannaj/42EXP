@@ -24,6 +24,39 @@
   transition: all 0.5s ease-in;
 }
 
+.FAQ{
+  position: fixed;
+  top : 0;
+  left: 0;
+  right : 0;
+  bottom  : 0;
+  background-color : rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  .xp_FAQ{
+    height: auto;
+    width: 65%;
+    background: $white;
+    border-radius: 4px;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
+    .faq{
+      &__header{
+        text-align: center;
+        color: $dark-blue;
+      }
+    }
+  }
+}
+
+
 .main{
   padding: 0;
   margin: 0;

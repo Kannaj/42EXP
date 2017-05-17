@@ -8,6 +8,7 @@
   @media only screen and (max-width: 480px){
     flex-direction: column;
     border-bottom: 1px solid #020202;
+    width: 90%;
   }
   &__owner{
     flex: 1;
@@ -19,8 +20,8 @@
       height: 60px;
       width: 60px;
       @media only screen and (max-width: 480px){
-        height: 30px;
-        width: 30px;
+        height: 50px;
+        width: 50px;
         padding-top: 1em;
       }
     }
@@ -68,10 +69,6 @@
         margin-right: 5px;
         margin-bottom: 5px;
       }
-      @media only screen and (max-width: 480px){
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
       .bottom_divider{
         width: 100%;
         display: flex;
@@ -80,6 +77,16 @@
           width: 15%;
           height: 2.5em;
           border-bottom: 2px solid $black;
+        }
+      }
+      @media only screen and (max-width: 480px){
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .bottom_divider{
+          display: none;
+          .divider{
+            display: none;
+          }
         }
       }
     }
