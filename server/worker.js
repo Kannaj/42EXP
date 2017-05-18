@@ -19,6 +19,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import Joi from 'joi';
+import flood from './utils/rate_limiter.js';
 
 const config = require('../webpack.config.js')
 
@@ -146,8 +147,8 @@ export const run = (worker) => {
 
     // category suggestions for projects.
     socket.on('category:suggestions',function(data,res){
-      // client side doesnt hit this any longer. probably remove this or existing implementation.
-      console.log('category:suggestions data ',data)
+      // client side doesnt hit this any longer. All categories are stored as list on client side.
+      // Either move away from that or remove this.
       category_suggestions(data)
         .then(function(category){
           res(null,category)
@@ -190,7 +191,8 @@ export const run = (worker) => {
 
     //Retrieves a list of projects
     socket.on('project:list',function(data,res){
-      // data is an empty object
+      // data is an empty object. Perhaps integrate this with project:list_more.
+
       projectHandlers.project_list(data)
         .then(function(result){
           res(null,result)
@@ -209,7 +211,8 @@ export const run = (worker) => {
       })
 
       const result = Joi.validate(data,schema)
-      if(result.error){
+
+      if (result.error) {
         return res(result.error)
       }
 
@@ -374,6 +377,7 @@ export const run = (worker) => {
     socket.on('new_chat_message',function(data){
 
       const schema = Joi.object().keys({
+        // id is the project id
         id: Joi.number().integer().required(),
         message: Joi.string().required()
       })
@@ -499,7 +503,7 @@ export const run = (worker) => {
 
       let pattern = new RegExp('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
       let match = data.match(pattern)
-      if(match){
+      if (match) {
         db.one('update account_projects SET last_activity=Now() where project=(SELECT name from project where id=$1) AND username=$2 returning *',
           [parseInt(match[1]),socket.getAuthToken().username]
         ).then(function(data){
@@ -511,4 +515,17 @@ export const run = (worker) => {
     })
 
   })
+
+  // apply the rate limiter to all function calls.
+  scServer.addMiddleware(scServer.MIDDLEWARE_EMIT,
+    function(req,next){
+
+      if(flood.protect(req.socket)){
+        next()
+      } else {
+        next('Disconnecting socket')
+      }
+    }
+  )
+
 }

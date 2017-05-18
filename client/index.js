@@ -26,13 +26,13 @@ const store = createStoreWithMiddleware(rootReducer,initialState)
 
 const history = syncHistoryWithStore(browserHistory,store)
 
-if(process.env.NODE_ENV === 'production'){
-  if(window.location.protocol === 'https:'){
+if (process.env.NODE_ENV === 'production') {
+  if (window.location.protocol === 'https:') {
     port = 443
-  }else{
+  } else {
     port = 80
   }
-}else{
+} else {
   port = 8000
 }
 

@@ -64,13 +64,14 @@ class ProjectDetail extends React.Component{
   }
 
   render(){
-    console.log('DetailPage : ',this.props)
+
     if(this.state.isFetching) {
       return (
         loader()
       )
     }
-    return(
+
+    return (
       <div className="project_detail">
 
         <div className="main_content">
