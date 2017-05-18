@@ -1,22 +1,21 @@
 import chai from 'chai'
-import {expect} from 'chai';
-import {project_list} from '../../../server/socketHandlers/project.js';
-// import sinon from 'sinon';
-
-
-
+import { expect } from 'chai';
+import { project_list } from '../../../server/socketHandlers/project.js';
 
 describe('project_list',function(){
   let data = {},result;
 
   before(function(done){
-    project_list(data).then(function(results){
-      result = results;
-      done()
-    }).catch(function(err){
-      console.log('there was an error : ',err)
+    project_list(data)
+      .then(function(results){
+        console.log('project ist results : ',results)
+        result = results;
+        done();
+      })
+      .catch(function(err){
+        console.log('there was an error : ',err)
+      })
     })
-  })
 
   it('should retrieve a list',function(){
     expect(result).to.be.an('array')

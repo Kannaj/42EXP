@@ -1,4 +1,5 @@
-copwhoami := $(shell whoami)
+# copwhoami := $(shell whoami)
+whoami := $(shell whoami)
 
 migration-up:
 	docker-compose run --rm --no-deps  web \
@@ -6,9 +7,6 @@ migration-up:
 
 migration-down:
 	docker-compose run --rm --no-deps web ./node_modules/.bin/pg-migrate down
-
-webpack-update:
-	docker-compose run --rm --no-deps web ./node_modules/.bin/webpack --progress
 
 migration-create:
 	docker-compose run --rm --no-deps web ./node_modules/.bin/pg-migrate create $(name) && sudo chown -R ${whoami}:${whoami} migrations
@@ -22,6 +20,11 @@ npm-install-dep:
 npm-install-devDep:
 	docker-compose run --rm --no-deps web npm install --save-dev $(package) && sudo chown -R ${whoami}:${whoami} package.json
 
+npm-update-dep:
+	docker-compose run --rm --no-deps web npm update --save $(package) && sudo chown -R ${whoami}:${whoami} package.json
+
+npm-update-devDep:
+	docker-compose run --rm --no-deps web npm update --save-dev $(package) && sudo chown -R ${whoami}:${whoami} package.json
 
 build:
 	docker build -t kannaj/42exp .

@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS Project(
   Owner VARCHAR REFERENCES Account (Username) ON UPDATE CASCADE ON DELETE CASCADE,
   Description text,
   github_Link VARCHAR,
-  reddit_link varchar,
   Category VARCHAR REFERENCES Category (name) ,
-  Create_date TIMESTAMPTZ DEFAULT NOW()
+  Create_date TIMESTAMPTZ DEFAULT NOW(),
+  pinned BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS Account_Projects(
@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS Project_Messages(
   Project VARCHAR REFERENCES Project (name) ON DELETE CASCADE ON UPDATE CASCADE,
   Message Text,
   Username VARCHAR REFERENCES Account (Username),
+  message_type VARCHAR DEFAULT 'message',
   timestamp TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -168,3 +169,4 @@ INSERT INTO account (username) VALUES ('test_user_1');
 INSERT INTO account (username) VALUES ('test_user_2');
 
 INSERT INTO project (name,owner,category) VALUES ('test_project_1','test_user_1','Gaming');
+INSERT INTO project (name,owner,category) VALUES ('DeadWing','test_user_1','Gaming')

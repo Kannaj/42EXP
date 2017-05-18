@@ -11,15 +11,5 @@ describe('Notifications reducer',() => {
     let newState = Notifications([],action);
     expect(newState[0]).to.have.deep.property('heading','error')
   })
-
-  it('should remove read notification',() => {
-    // let id = uuid.v4()
-    let oldState = [{id:1,heading:'error',message:'First notification',unread:true,server:false}]
-    let server = true; // fluff. dont bother
-    let action = {type:'CLOSE_NOTIFICATION',messageId:1,server}
-    let newState = Notifications(oldState,action)
-    expect(newState[0]).to.have.deep.property('unread',false)
-
-  })
-
+  
 })

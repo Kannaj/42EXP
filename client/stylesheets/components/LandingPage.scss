@@ -14,42 +14,88 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    background: $tertiary;
+    background: $ghost-white;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#52489c+5,4096ee+100 */
+    // background: #52489c; /* Old browsers */
+    // background: -moz-linear-gradient(45deg,  #52489c 5%, #4096ee 100%); /* FF3.6-15 */
+    // background: -webkit-linear-gradient(45deg,  #52489c 5%,#4096ee 100%); /* Chrome10-25,Safari5.1-6 */
+    // background: linear-gradient(45deg,  #52489c 5%,#4096ee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52489c', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     text-align: center;
-    border-bottom: 0.2px solid $fourth;
+    border-bottom: 0.2px solid $blue;
     // text-decoration doesnt work.
     .intro {
       .title{
         text-decoration: underline;
       }
     }
-    .title{
+    .title {
       font-size: 2em;
       line-height: 2em;
       padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      img{
+        height: 4.5em;
+        width: 100%;
+      }
     }
     .explanation{
       text-align: center;
       font-size: 1.5em;
       font-weight: 300;
       padding: 10px 45px;
-      color: $primary;
+      color: $black;
     }
     h2{
-      color: $secondary;
+      color: $black;
     }
     p{
       word-wrap: break-word;
       justify-content: center;
       text-align: center;
     }
+    .action_buttons{
+      display: flex;
+
+      .action {
+        padding: 10px;
+        width: auto;
+        font-size: 1.5em;
+        color: $white;
+        background-color: $dark-blue;
+        box-shadow: none;
+        border: $blue;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease-in;
+        margin: 1em;
+        &.source_code{
+          background: $accent;
+        }
+        @media only screen and (max-width: 480px){
+          padding:10px;
+        }
+        .logo{
+          padding-right: 10px;
+          margin-right: 10px;
+          border-right: 0.5px solid $white;
+        }
+        img{
+          background-color: $black;
+        }
+        a{
+          color: $white;
+        }
+      }
+    }
   }
   @media only screen and (max-width: 480px){
     line-height: 15px;
-    h2{
+    h2 {
       font-size: 1.5em
     }
-    p{
+    p {
       font-size: 1em;
     }
   }

@@ -10,7 +10,6 @@ import {createStore, applyMiddleware} from 'redux';
 import rootReducer from '../../shared/reducers/index.js';
 import getInitialState from './getInitialState.js';
 import log_middleware from '../../shared/middleware/log_middleware.js'
-import notificationsMiddleware from '../../shared/middleware/notifications_unread.js'
 import thunk from 'redux-thunk';
 
 const handleRender = (req,res) => {
@@ -32,7 +31,7 @@ const handleRender = (req,res) => {
     getInitialState(id_token)
       .then((initialState) => {
           // const store = createStore(rootReducer,initialState);
-          const createStoreWithMiddleware = applyMiddleware(log_middleware,thunk,notificationsMiddleware)(createStore);
+          const createStoreWithMiddleware = applyMiddleware(log_middleware,thunk)(createStore);
           const store = createStoreWithMiddleware(rootReducer,initialState)
 
           const html = renderToString(
@@ -60,6 +59,7 @@ const renderFullPage = (html,initialState) => {
         <title>42 Exp</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="/style.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/ionicons.min.css">
       </head>
       <body>
         <div id="app"><div>${html}</div></div>

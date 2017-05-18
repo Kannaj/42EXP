@@ -1,6 +1,6 @@
-import {skill_suggestions,skill_user} from '../../../server/socketHandlers/skills.js';
-import {expect} from 'chai';
-import {db} from '../init_db.js';
+import { skill_suggestions, skill_user} from '../../../server/socketHandlers/skills.js';
+import { expect } from 'chai';
+import { db } from '../init_db.js';
 
 describe('skill_user',() => {
 

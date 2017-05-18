@@ -1,97 +1,111 @@
-#project_form{
-  padding: 20px;
-  height:95%;
-  overflow-y: auto;
-  .title{
-    text-align: center;
+.project_form{
+  display: flex;
+  flex-direction: row;
+  background: $white;
+  box-shadow: $box-shadow;
+  position: relative;
+  padding: 2.5em;
+  height: 500px;
+  border-radius: 4px;
+  @media only screen and (max-width: 480px){
+    flex-direction: column;
+    height: auto;
+    overflow: scroll;
+    padding: 1em;
   }
-  .submit_project{
+  &__title{
+    position: absolute;
+    top: 0px;
+    width: 100%;
     text-align: center;
-    .submit{
-      width:250px;
-      background: $primary;
-      border: 2.5px solid $tertiary;
-      transition: all 0.2s ease-in;
-      cursor: pointer;
-      padding:15px;
-      &:hover{
-        background: $tertiary;
-        color: $primary;
-      }
+    background: $dark-blue;
+    color: $ghost-white;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  &__pin {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    .pin {
+      width: auto;
+      margin-right: 15px;
     }
   }
   .close_button{
-    position:absolute;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    font-size: 2em;
     cursor: pointer;
-    font-size: 14px;
-    right:0;
-    top:0;
-    padding: 15px;
-    height: 15px;
-    width: 15px;
-    background: $fourth;
-    color: $primary;
+    color: $ghost-white;
   }
-
-}
-
-#project_details{
-
-  .error{
-    margin:5px;
-    color: red;
-
-  }
-  input,
-  textarea
+  .primary_content,
+  .secondary_content
   {
-    display: inline-block;
-    border:none !important;
-    outline: none;
-    border-radius: 0px !important;
-    border-bottom: 2px solid $fourth !important;
+    width: 50%;
+    padding: 10px;
+    margin-top: 35px;
+    .item {
+      height: 100%;
+      width: 100%;
+      margin-bottom: 10px;
+      .error{
+        color: $error;
+      }
+      h3 {
+        span {
+          font-size: 0.58em;
+          color: #a5a5a5;
+        }
+      }
+      &:last-child{
+        margin-bottom: 5px;
+      }
+      .Select{
+        .Select-control{
+          .Select-multi-value-wrapper{
+            .Select-input{
+              input {
+                box-sizing: border-box !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    @media only screen and (max-width: 480px){
+      width: 100%;
+      padding-left: 0px;
+    }
   }
-  .block{
-    display: block;
-    margin: 25px;
-    #name{
+
+  .secondary_content{
+    textarea{
+      height: 303px;
+      @media only screen and (max-width: 480px){
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .form_submit{
+    position: absolute;
+    bottom: 30px;
+    transform: translate(-50%);
+    left: 50%;
+    button {
+      padding: 10px;
+      border-radius: 4px;
+      background: $dark-blue;
+      color: $white;
+      cursor: pointer;
+      position: relative;
+    }
+    @media only screen and (max-width: 480px){
+      bottom: 10px;
 
     }
-    #description{
-      height: 150px;
-      overflow: auto;
-    }
-    input[id="name"],
-    input[id="github_link"],
-    input[id="reddit_link"],
-    textarea[id="description"],
-    {
-      background-color: $primary;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      color: #333;
-      height: 36px;
-      line-height: 34px;
-      width: 100%;
-      outline:0;
-      padding: 0 10px;
-      box-sizing: border-box;
-    }
-    .Select-control{
-        border:none !important;
-        width:100%;
-        outline: none;
-        border-bottom: 2px solid $fourth !important;
-        border-radius: 0px;
-        .Select-arrow-zone{
-          display: none;
-        }
-        .Select-value{
-          color: $fourth;
-        }
-        .Select-clear{
-          display: none;
-        }
-    }
   }
+
 }

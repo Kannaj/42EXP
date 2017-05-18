@@ -13,16 +13,11 @@ services:
       - NODE_ENV=development
     ports:
       - "8000:8000"
+      - "8080:8080"
 
-  webpack:
-    container_name: webpack
-    build: ./webpack/
-    depends_on:
-      - web
-    volumes_from:
-      - web
-    working_dir: /usr/src/app
-    command: webpack --watch
+  postgres:
+    ports:
+      - "5432:5432"
 
 volumes:
   node_modules:

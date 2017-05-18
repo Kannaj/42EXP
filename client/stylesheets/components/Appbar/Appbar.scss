@@ -1,0 +1,198 @@
+
+.appbar{
+  height: 60px;
+  background: $ghost-white;
+  color: $black;
+  border-bottom: $border;
+  position: fixed;
+  width: 100%;
+  transition: all 0.5s ease-in;
+  padding: 5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media only screen and (max-width: 480px){
+    padding: 3px;
+  }
+
+  .user_nav{
+    display: flex;
+    &.anonymous_user{
+      width: 100%;
+      justify-content: flex-end;
+      margin-right: 10px;
+    }
+  }
+
+  &.appbar--sidebarOpen{
+    margin-left: 20%;
+    width:80%;
+    @media only screen and (max-width: 480px){
+      margin-left: 100%;
+    }
+  }
+
+  &__toggle_button{
+    background: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+  .version{
+    font-size: 0.5em;
+  }
+  .toggle{
+    position: relative;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.61);
+    height:25px;
+    width: 1.5em;
+    padding: 0;
+    margin:0;
+    z-index: 3;
+    margin-top: 10px;
+  }
+  .toggle span{
+    padding:0;
+    display: block;
+    position: absolute;
+    height: 13%;
+    width: 100%;
+    background: $secondary;
+    border-radius: 15px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+  }
+  .page_title{
+    padding:5px;
+    margin: 0 15px 0;
+    flex-grow: 2;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    a{
+      color: $black;
+      &:visited{
+        color: $black;
+      }
+    }
+    button{
+      margin: 0;
+      width: 10em;
+      font-size: 0.6em;
+      padding: 2px;
+      border: none;
+      cursor: pointer;
+      background: none;
+      color: $black;
+      background: $dark-gray;
+      border-radius: 4px;
+    }
+    @media only screen and (max-width: 480px){
+      font-size: 1em;
+      margin:0;
+    }
+  }
+  .auth{
+    &__profile_icon{
+      background: none;
+      padding: 5px;
+      cursor: pointer;
+      img{
+
+        border-radius: 50%;
+        margin-right: 1em;
+        outline: none;
+        height: 2em;
+        width: 2em;
+        margin-top: 0.4em;
+      }
+      @media only screen and (max-width: 480px){
+        margin-top: 1em;
+        margin-right: 1em;
+        font-size: 1em;
+        margin:0;
+      }
+    }
+    .profile_menu{
+      position: absolute;
+      top: 65px;
+      border: 1px solid #ccc;
+      right: 2.5em;
+      z-index: 999;
+      background: #fcf7ff;
+      display: none;
+      width: auto;
+      height: auto;
+      border-radius: 4px;
+
+      &__item {
+        width: 100%;
+        padding: 1em;
+        background: $white;
+        border-bottom: $border;
+        text-align: center;
+        font-size: 10px;
+        cursor: pointer;
+        color: $black;
+      }
+
+      &--visible{
+        display: block;
+      }
+    }
+  }
+}
+
+.overlay-members{
+  position: fixed;
+  top : 0;
+  left: 0;
+  right : 0;
+  bottom  : 0;
+  background-color : rgba(0,0,0,0.55);
+  transition: all 0.5s ease-in;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .content-members{
+    background: $gray;
+    height: 500px;
+    width: 400px;
+    overflow: auto;
+    padding: 10px;
+    position: relative;
+    border-radius: 4px;
+    .member_list{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      &__close{
+        position: absolute;
+        top: 0.5px;
+        right: 10px;
+        cursor: pointer;
+      }
+      &__member{
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        // margin-bottom: 5px;
+        background: $white;
+        text-align: center;
+        text-align: center;
+        img{
+          height: 50px;
+          width: 50px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

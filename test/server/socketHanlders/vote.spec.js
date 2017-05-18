@@ -80,12 +80,4 @@ describe('Commending a user skill',() => {
       expect(err).to.equal('Cannot commend already commended user')
     })
   })
-
-  //below cant be done
-  // it('should add a notification for the votee ',() => {
-  //   return db.one("SELECT username,message from account_notifications where username='test_user_1'")
-  //     .then(function(stats){
-  //       expect(stats.message).to.be.true;
-  //     })
-  // })
 })

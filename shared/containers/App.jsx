@@ -1,184 +1,76 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Auth from '../components/Auth';
-import {Link} from 'react-router';
-import {bindActionCreators} from 'redux';
-import {remove_notification} from '../actions/notifications/notifications';
-import Notification from '../components/notifications';
+import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { remove_message } from '../actions/flash_messages/flash_messages';
+import Flash_message from '../components/Flash_message';
+import Sidebar from '../components/Sidebar';
+import Appbar from '../components/Appbar/Appbar';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
-
-//unread function helps show unread_message count for each project the user as signed up for.
-const unread = (count) => {
-  if (count !== 0){
-    return(
-      <span className="unread_count">{count}</span>
-    )
-  }else{
-    null
-  }
-}
-
-//below function helps determine main header. avoid repeating regex
-const header = (location) => {
-  if(location == '/projects'){
-    return (
-      <h3 className="page_title">Projects</h3>
-    )
-  }else if(location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')){
-    let messageHeaderRegex = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)/messages')
-    const name = messageHeaderRegex[2]
-    const id = messageHeaderRegex[1]
-    return (
-      <h3 className="page_title"><Link to={`/projects/${id}/${name}`}>Chat Room - {name} </Link></h3>
-    )
-  }else if (location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')){
-    const name = location.match('/projects/(\\d+)/((?:[a-zA-Z0-9-_]|%20)+)')[2]
-    return (
-      <h3 className="page_title"> Project - {name}</h3>
-    )
-  }else if (location.match('/user/(\\S+)')){
-    const name = location.match('/user/(\\S+)')[1]
-    return (
-      <h3 className="page_title"> Profile - {name} </h3>
-    )
-  }else{
-    return(
-      <h3 className="page_title"> 42exp</h3>
-    )
-  }
-}
-
-const appStyle = (location) => {
-  if(location.match('^/$')){
-    return true
-  }else{
-    return false
-  }
-}
+import create_project from '../actions/projects/create_project';
+import PropTypes from 'prop-types';
 
 export class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      modalIsOpen:false,
-      register: false,
-      login: false
+      isSidebarOpen: true,
+      isMobile: false
     }
-    this.closeModal = this.closeModal.bind(this)
-    this.authButtons = this.authButtons.bind(this)
+    this.toggleSidebar = this.toggleSidebar.bind(this)
   }
 
-  authButtons(){
-    if(process.env.NODE_ENV === 'production'){
-      return (
-        <div className="auth">
-          <a href= "/auth/github"><button className="login_github"> Register With Github</button></a>
-        </div>
-      )
-    }else{
-      return (
-        <div className="auth">
-          <button name="register" className="register" onClick={this.openModal.bind(this,"register")}> Register </button>
-          <button name="login" className="login" onClick={this.openModal.bind(this,"login")}> Login </button>
-        </div>
-      )
+
+  toggleSidebar(){
+    this.setState({ isSidebarOpen: !this.state.isSidebarOpen })
+  }
+
+  componentWillMount(){
+
+  }
+
+  componentDidMount(){
+    if (typeof global.window !== 'undefined'){
+      if(window.innerHeight > window.innerWidth){
+        this.setState({ isSidebarOpen: false, isMobile: true })
+      }
     }
-  }
-
-
-  openModal(type){
-    this.setState({modalIsOpen:true,[type]:true})
-  }
-
-  closeModal(){
-    this.setState({modalIsOpen:false,register:false,login:false})
   }
 
   render(){
-    const appClass = classNames({
-      'appbar':true,
-      'app': !this.props.isAuthenticated && appStyle(this.props.location)
-    })
+
     return(
       <div>
-        <input type="checkbox" id="slide" name="" value=""/>
 
-        <div className="sidebar">
-          <ul className="sidebar_links">
-            <Link to="/" className="sidebar_link"> Home </Link>
-            <Link to="/projects" className="sidebar_link" activeClassName="active_link"> Browse Projects </Link>
-            {
-              this.props.Projects.length > 1 ?
-              <div className="line_break">
-                <span className="links_header"> Your projects </span>
-              </div>
-              :
-              null
-            }
-            <div className="subscribed_projects">
-              {this.props.Projects ?
-                this.props.Projects.map((project) => {
-                  return (
-                    <Link to = {`/projects/${project.id}/${project.project}/messages`} key={project.id} className="sidebar_link" activeClassName="active_link"><span className="project_name">{project.project}</span>{unread(project.unread_messages)}</Link>
-                  )
-                })
-                :
-                null
-              }
-            </div>
-          </ul>
-        </div>
-
-        <div className={appClass}>
-        <label htmlFor="slide" className="toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
-          {header(this.props.location)}
-          {!this.props.isAuthenticated
+      {
+        this.props.isAuthenticated
             ?
-            this.authButtons()
+            <Sidebar {...this.props}
+              isSidebarOpen={this.state.isSidebarOpen}
+              isMobile={this.state.isMobile}
+              toggleSidebar={this.toggleSidebar}/>
+
             :
-            <div className="auth">
-              <a href="/logout"><button className="logout_button">Logout</button></a>
-            </div>
-          }
+            null
+      }
 
-        </div>
+      <Appbar {...this.props} toggleSidebar={this.toggleSidebar} isSidebarOpen={this.props.isAuthenticated ? this.state.isSidebarOpen : false} />
 
-
-        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="content-auth" overlayClassName="overlay-auth">
-            {!this.state.register ?
-                <Auth url={'/auth/login'}/>
-              : <Auth url={'/auth/register'}/>
-            }
-        </Modal>
-
-
-        <div id="Main">
+        <div className={`main ${this.props.isAuthenticated ? this.state.isSidebarOpen ? "main--sidebarOpen" : "main--sidebarClosed" : "main--sidebarClosed"}`}>
           {this.props.children}
         </div>
 
 
-        {this.props.loading ?
-          <div id="loading">
-            <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>
-          </div>
-          :
-          null
-        }
-
-
-        {
-          this.props.unread_notifications ?
-          <div id="notification_panel">
+        { /* Probably move away from ReactCSSTransitionGroup */
+          this.props.Flash_messages.length > 0 ?
+          <div id="flash_message_panel">
             <ReactCSSTransitionGroup transitionName="notification" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-              {this.props.unread_notifications.map((notification) => {
+              {this.props.Flash_messages.map((message) => {
                 return (
-                  <Notification key={notification.id} {...notification} remove={this.props.remove_notification}/>
+                  <Flash_message key={message.id} {...message} remove={this.props.remove_message}/>
                 )
               })}
             </ReactCSSTransitionGroup>
@@ -192,31 +84,52 @@ export class App extends React.Component{
   }
 }
 
+App.PropTypes = {
+  Flash_messages: PropTypes.array.isRequired,
+  Notifications: PropTypes.array.isRequired,
+  Projects: PropTypes.array.isRequired,
+  User: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
+  create_project: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  location: PropTypes.string.isRequired,
+  params: PropTypes.object.isRequired,
+  remove_message: PropTypes.func.isRequired,
+  route: PropTypes.object.isRequired,
+  routeParams: PropTypes.object.isRequired,
+  routes: PropTypes.array.isRequired,
+  unread: PropTypes.bool.isRequired
+}
 
 const mapStateToProps = (state,ownProps) => {
   const location = ownProps.location.pathname;
-  const {isAuthenticated} = state.User;
-  const {Projects,Notifications} = state;
-  const {loading} = state.loader;
-  // Probably dont need loader to be a separate object in state.
-  // const {Notifications} = state;
+  const { isAuthenticated } = state.User;
+  const { Projects, Notifications,User, Flash_messages } = state;
 
-  const unread_notifications = Notifications.filter((notification) => {
-    return notification.unread === true
-  });
+  let unread = false;
+  // if there are unread notifs
+  Notifications.map((notification) => {
+    if(notification.unread === true){
+      unread = true
+    }
+  })
 
-  return{
+  return {
     isAuthenticated,
     Projects,
-    unread_notifications,
-    loading,
+    User,
+    Flash_messages,
+    Notifications,
+    unread,
     location
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    remove_notification
+    remove_message,
+    create_project
   },dispatch)
 }
 

@@ -6,31 +6,20 @@ export default class LandingPage extends React.Component{
       <div id ="landing_page">
         <section className="landing intro">
           <div className="title">
-            <h2> 42exp </h2>
+            <img src = "/images/42exp_logo_landing_page.svg"/>
           </div>
           <div className="explanation">
             <p>A new way to gain experience in software development</p>
           </div>
-          <a href= "/auth/github">
-            <button className="login_github">
-                Register with Github
-            </button>
-          </a>
-        </section>
-        <section className="landing portfolio">
-          <div className="title">
-            <h2>Build your portfolio ! </h2>
-          </div>
-          <div className="explanation">
-            <p>Work on projects based on your intrests/preferred stack/skill level together with teams</p>
-          </div>
-        </section>
-        <section className="landing showcase">
-          <div className="title">
-            <h2>Showcase your skillset to the world ! </h2>
-          </div>
-          <div className="explanation">
-            Have your knowledge on various technologies rated by your team-mates based on your contributions to the project.
+          <div className="action_buttons">
+            <a href= "/auth/github" className="action login_github">
+              <span className="ion-social-octocat logo"></span>
+                    Register with Github
+            </a>
+            <a href= "https://github.com/kannaj/42exp" className="action source_code">
+              <span className="ion-social-octocat logo"></span>
+                    View Source Code
+            </a>
           </div>
         </section>
       </div>

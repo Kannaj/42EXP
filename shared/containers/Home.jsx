@@ -1,9 +1,10 @@
 import React from 'react';
-import DashBoardContainer from '../containers/UserDashboard'
-import {connect} from 'react-redux';
+import ProjectList from '../containers/ProjectList'
+import { connect } from 'react-redux';
 import user_add_skills from '../actions/User/actions.js'
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import LandingPage from '../components/LandingPage';
+import PropTypes from 'prop-types';
 
 export class Home extends React.Component{
   render(){
@@ -11,26 +12,25 @@ export class Home extends React.Component{
       <div>
         {
           this.props.isAuthenticated ?
-            <DashBoardContainer {...this.props} />
-            : <LandingPage/>
+            <ProjectList {...this.props} />
+            :
+            <LandingPage/>
         }
       </div>
     )
   }
 }
 
-
-// WutFace???? theres a better way to get props. but its 3AM and brain dead.
+Home.PropTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  username: PropTypes.string
+}
 
 const mapStateToProps = (state) => {
-  if(state.User.isAuthenticated){
-    const {isAuthenticated,username,level,xp,skills} = state.User
-    return {isAuthenticated,username,level,xp,skills}
-  }else{
-    const {isAuthenticated} = state.User
-    return {
-      isAuthenticated
-    }
+  const { isAuthenticated, username } = state.User
+  return {
+    isAuthenticated,
+    username
   }
 }
 

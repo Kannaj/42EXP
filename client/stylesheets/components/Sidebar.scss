@@ -1,0 +1,176 @@
+.sidebar{
+  height: 100%;
+  position: fixed;
+  width: 20%;
+  left: -20%;
+  transition: all 0.5s ease-in;
+  background: #f7f5fa;
+  overflow-y: auto;
+  color: #343434;
+  border-right: 1px solid #E2E2E2;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: 480px){
+    width: 100%;
+    // left: 100%;
+  }
+
+  &.sidebar--open{
+    left: 0px;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
+  }
+
+  &.sidebar--closed{
+    left: -20%;
+    @media only screen and (max-width: 480px){
+      left: -100%;
+    }
+  }
+
+  &__logo{
+    height: auto;
+    text-align: center;
+    flex: 1;
+    padding: 5px;
+    img{
+      height: 5.5em;
+      width: 100%;
+      padding-right: 45px;
+      box-sizing: border-box;
+      padding-top: 15px;
+    }
+  }
+
+  .subscribed_projects{
+    width: 100%;
+    box-sizing:  border-box;
+    color: $black;
+    background: #e7e5ea;
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+    border-bottom: 2px solid $accent;
+    max-height: 55em;
+    overflow-y: auto;
+
+    &__header{
+      text-align: left;
+      margin-bottom: 0px;
+      padding-left: 1em;
+      color: $ghost-white;
+      background: $blue;
+    }
+
+    &__item{
+      padding: 0.5em 2em;
+      text-decoration: none;
+      width: 100%;
+      // color: $blue;
+      color: #878684;
+      transition: all 0.3s ease-in;
+      margin-bottom: 0.2px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      outline: none;
+      transition: all 0.3s ease-in;
+
+      .project_name{
+        transition: border-bottom 0.10s linear;
+          &:hover{
+            border-bottom: 1px solid $black;
+          }
+      }
+
+      .unread_count {
+        color: red;
+        border-radius: 35%;
+        background: #FCF7FF;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      &:hover{
+        color: #343434;
+      }
+      &.active_link{
+        // background-color: #111214;
+        color: $blue;
+        // border-bottom: 1px solid $black;
+        .project_name {
+
+          border-bottom: 1px solid $black;
+        }
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__text {
+    padding: 1em 2.5em;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    h1{
+      padding-top: 1.5em;
+    }
+    p{
+
+    }
+    a {
+      margin-top: 1.5em;
+    }
+    .create_project{
+      color: #52489c;
+      width: auto;
+      font-size: 1.2em;
+      outline: none;
+      &:hover{
+        border-bottom: 1.5px dotted #52489c;
+      }
+    }
+    .explore_projects{
+      color: #52489c;
+      width: auto;
+      outline: none;
+      font-size: 1.2em;
+      &:hover{
+        border-bottom: 1.5px dotted #52489c;
+      }
+    }
+  }
+
+
+  .navigation{
+    width: 100%;
+    text-align: center;
+    &--bottom{
+      flex: 1;
+      height: auto;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    &__lobby_button{
+      width: 80%;
+      padding: 0.5em;
+      cursor: pointer;
+      background: $accent;
+      color: $ghost-white;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+  }
+
+  @media only screen and (max-width: 480px){
+    width: 80%;
+    left: -80%;
+  }
+}

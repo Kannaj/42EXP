@@ -1,70 +1,97 @@
 .project_detail{
-  bottom:0;
-  .header{
-    padding:10px;
+  display: flex;
+  height: 100%;
+  @media only screen and (max-width: 480px){
+    flex-direction: column;
   }
-
-  .category{
-    color: $fourth;
-    padding:10px;
-  }
-
-  .owner{
-    padding:10px;
-    a{
-      color: $fourth;
-    }
-  }
-
-  .description{
-    padding:15px;
-    overflow-y: auto;
-    box-sizing: border-box;
-    height: auto;
-    margin-top: 10px;
-  }
-
-  .link{
-    color:$primary;
-  }
-
-  .project_skills{
-    padding:10px;
-    align-items: center;
-    display: flex;
-    // height: 5%;
-    height: auto;
-    box-sizing: border-box;
-    background-color: $primary;
-    display: flex;
-    flex-wrap: wrap;
-    .skill_chip{
-      background-color: $tertiary;
-      border-radius: 5px;
-      color: $primary;
-      box-shadow: none;
-      margin: 5px 5px;
-      width: auto;
-
-      height: 50%;
-    }
-  }
-
-
-  .project_detail_actions
+  .main_content,
+  .secondary_content,
   {
-    // position: absolute;
-    padding: 10px;
-    display: flex;
-    right: 10px;
-    top: 15px;
-    button{
-      margin-right: 5px;
-      background: $fourth;
-      color: $primary;
-      border-radius: 5px;
-      cursor: pointer;
+    width: 50%;
+    background: $white;
+    box-shadow: $box-shadow;
+    padding: 1.5em;
+    box-sizing: border-box;
+    @media only screen and (max-width: 480px){
+      width: 100%;
+    }
+  }
+  .main_content{
+    &__project_name{
+      margin-bottom: 0;
+    }
+    &__category{
+      margin-bottom: 5px;
+      color: #a5a5a5;
+    }
+    .member_list{
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      padding-left: 20px;
+      &__members{
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+      }
+    }
+    .project_links{
+      margin-top: 1.5em;
+      h3{
+        margin-bottom: 0;
+      }
+      &__item{
+        padding-left: 20px;
+        button{
+          background: none;
+          font-size: 2em;
+          cursor: pointer;
+        }
+      }
+    }
+    .project_skills{
+      margin-top : 1.5em;
+      button{
+        font-size: 0.8em;
+        background: $dark-gray;
+        padding: 5px;
+        color: $black;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+    }
+
+    &__edit_project,
+    &__join_project{
+      margin-top: 1.5em;
     }
   }
 
+  .secondary_content{
+    display: flex;
+    flex-direction: column;
+    .description{
+      background: #f8f9fc;
+      flex: 8;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    &__action_buttons{
+      text-align: right;
+      padding-right: 10px;
+      button{
+        background: $dark-blue;
+        border-radius: 4px;
+        color: $ghost-white;
+        font-weight: 300;
+        padding: 10px;
+        cursor: pointer;
+      }
+      @media only screen and (max-width: 480px){
+        text-align: center;
+      }
+    }
+  }
 }

@@ -1,0 +1,62 @@
+.user_notifications{
+  margin-right: 5px;
+  position: relative;
+  padding: 0;
+  &__header{
+    height: 1.5em;
+    padding: 5px;
+    color: $black;
+    background: #ecede8;
+    text-align: left;
+  }
+  &__icon{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    background: none;
+    font-size: 2em;
+    &.unread{
+      color: $error;
+    }
+  }
+  &__bar{
+    max-height: 35em;
+    background: #fcf7ff;
+    position: absolute;
+    top: 55px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #ccc;
+    right: 1.5em;
+    z-index: 999;
+    display: none;
+    width: 30em;
+    height: auto;
+    border-radius: 4px;
+    overflow-y: auto;
+    @media only screen and (max-width: 480px){
+      top: 40px;
+      right: 2em;
+      width: 25em;
+    }
+    &--visible{
+      display: block;
+      padding: 0;
+    }
+
+  }
+  &__message{
+    background: $white;
+    padding: 5px;
+    box-shadow: $box-shadow;
+    border-bottom: $border;
+    .notifications_timestamp{
+      width: 100%;
+      color: #a5a5a5;
+      text-align: right;
+    }
+  }
+  &__no_notifications {
+    text-align: center;
+  }
+}

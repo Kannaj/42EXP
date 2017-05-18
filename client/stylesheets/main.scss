@@ -1,19 +1,42 @@
 
-@import url(https://fonts.googleapis.com/css?family=Merriweather);
-
-$secondary-text: #F3F2BF;
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 
 
-//v2 color-pallete
-$primary:#FFFFFF; //WHITE
-$secondary:#0B132B; //MAASTRICHT BLUE
-$tertiary: #281985; //PIXIE POWDER
-$fourth:#02020A; // RICH BLACK
-$fifth:#CECFC7;
+$primary: #ECEDE8;
+$secondary: #2E3136;
+$tertiary: #B5B6B5;
+$card-color: #FCF7FF;
+$white: #FCF7FF;
 
-$activeLink:#242038;
 
-html{
+$discord-black: #1e2124;
+$discord-black-tint: #282b30;
+$discord-black-text: #1b64d2;
+$discord-black-shade: #2E3136;
+
+
+// main theme
+$black: #0f0f0f;
+$platinum: #e2e2e2;
+$white: #f8f8f8;
+$ghost-white: #fcf7ff;
+$blue: #52489C;
+$dark-gray: #E7E5EA;
+$error: #96031a;
+$gray: #EFEFEF;
+$dark-blue: #261C6E;
+$light-blue: #A29BD4;
+$accent: #FF7400;
+$border: 1px solid #E2E2E2;
+
+
+$text: #000000;
+$box-shadow: 0 1px 2px rgba(0,0,0,.1);
+
+
+$activeLink: #B5B6B5;
+
+html {
   letter-spacing: 1px;
 }
 
@@ -23,7 +46,7 @@ body{
   margin: 0;
   line-height: 25px;
   font-size: 12px;
-  font-family: 'Merriweather';
+  font-family: 'Ubuntu', 'sans-serif';
   min-height: 100%;
   @media only screen and (max-width: 480px){
     font-size: 10px;
@@ -32,15 +55,17 @@ body{
 }
 
 
-html,body{
+html, body{
   height: 100%;
 }
 
 button{
   padding: 5px;
   border: none;
-  font-family: 'Merriweather';
+  font-family: 'Ubuntu';
   letter-spacing: 1px;
+  background-color: $secondary;
+  color: $tertiary;
   @media only screen and (max-width: 480px){
     padding:3px;
     font-size: 10px;
@@ -48,42 +73,58 @@ button{
 }
 
 a {
+  outline: none;
   text-decoration: none;
+  &:visited {
+    color: $black;
+  }
 }
 
-.login_github{
-  padding: 15px;
-  width: auto;
-  font-size: 1em;
-  color: $primary;
-  background-color: $fourth;
-  font-weight: bolder;
-  box-shadow: none;
-  border: $fourth;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  @media only screen and (max-width: 480px){
-    padding:10px;
-  }
-  &:hover{
-    box-shadow: 0.2px 1px 0.2px 0.2px #15B358;
-  }
-  img{
-    background-color: $secondary;
-  }
-  a{
-    color: $primary;
-  }
+
+input,
+textarea{
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid $tertiary;
+  color: #333;
+  height: 36px;
+  line-height: 25px;
+  font-size: 12px;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Ubuntu';
 }
+
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+
 
 @import './containers/App.scss';
 @import './containers/ProjectForm.scss';
 @import './containers/ProjectChat.scss';
-@import './containers/UserDashboard.scss';
 @import './containers/ProjectList.scss';
-@import './containers/UserProfile.scss';
 @import './containers/ProjectDetail.scss';
+@import './containers/UserProfile.scss';
 
 
 @import './components/Auth.scss';
@@ -91,8 +132,11 @@ a {
 @import './components/ProjectChip.scss';
 @import './components/message.scss';
 @import './components/LandingPage.scss';
-
+@import './components/Sidebar.scss';
+@import './components/Appbar/Appbar.scss';
+@import './components/Appbar/UserNotifications.scss';
+@import './components/loader.scss';
+@import './components/Flash_messages.scss';
 
 @import './highlight/default.css';
-@import './font-awesome/font-awesome.min.css';
 @import './react-select.min.css';

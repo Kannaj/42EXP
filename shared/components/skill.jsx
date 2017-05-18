@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 export default class Skill extends React.Component{
   render(){
@@ -14,3 +15,8 @@ export default class Skill extends React.Component{
       )
     }
   }
+
+Skill.PropTypes = {
+  skill: PropTypes.string.isRequired,
+  commends: PropTypes.number.isRequired
+}

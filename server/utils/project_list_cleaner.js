@@ -6,7 +6,10 @@
 const project_list_cleaner = (results) => {
   let newResults = []
   results.map((result) => {
-    if (result.skills[0].skill_id == null){
+    if(result.skills === null){
+      newResults.push(result)
+    }
+    else if (result.skills[0].skill_id == null){
       result.skills = []
       newResults.push(result)
     }else{
