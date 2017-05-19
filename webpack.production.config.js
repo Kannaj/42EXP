@@ -45,9 +45,9 @@ module.exports = {
       }
     ]
   },
-  postcss: function(){
-    return [autoprefixer];
-  },
+  // postcss: function(){
+  //   return [autoprefixer];
+  // },
   resolve:{
     extensions:['', '.js', '.jsx']
   },
@@ -62,6 +62,7 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new CopyWebpackPlugin([
       {from: 'client/images' ,to: 'public/images'}
-    ])
+    ]),
+    new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })
   ]
 }
