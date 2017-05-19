@@ -61,7 +61,9 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CopyWebpackPlugin([
-      {from: 'client/images' ,to: 'public/images'}
+      // {from: 'client/images' ,to: 'public/images'}
+      {from: 'client/images' ,to: 'images'},
+      {from: 'client/ionicons', to: 'assets'}
     ]),
     new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })
   ]
