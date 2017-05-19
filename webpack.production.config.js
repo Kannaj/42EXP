@@ -49,7 +49,7 @@ module.exports = {
   //   return [autoprefixer];
   // },
   resolve:{
-    extensions:['', '.js', '.jsx']
+    extensions:['.js', '.jsx']
   },
   plugins:[
       new ExtractTextPlugin({filename: 'style.css', allChunks: true}),
