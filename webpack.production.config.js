@@ -4,6 +4,18 @@ var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
+var extract_loaders = [
+  {
+    loader: 'css-loader',
+  },
+  {
+    loader: 'postcss-loader'
+  },
+  {
+    loader: 'sass-loader'
+  }
+]
+
 module.exports = {
   entry:[
     './client/index.js'
@@ -24,7 +36,7 @@ module.exports = {
       { test: /\.json$/, loader: 'json-loader' },
       {
         test: /(\.css|\.scss)$/,
-        loader: ExtractTextPlugin.extract('style',['css','postcss','sass'])
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader',loader: extract_loaders})
         //css modules are such a pain when rendering from server. hence not using them
       },
       {
