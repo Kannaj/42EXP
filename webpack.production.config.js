@@ -26,7 +26,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   module:{
-    loaders:[
+    rules:[
       {
         test:/(\.js|\.jsx)$/,
         // include: path.resolve(__dirname,'client'),
