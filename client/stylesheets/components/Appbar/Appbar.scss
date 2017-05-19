@@ -68,6 +68,20 @@
     transform: rotate(0deg);
     transition: .25s ease-in-out;
   }
+  .logo{
+    width: 13em;
+    @media only screen and (max-width: 480px){
+      width:  25em;
+    }
+    img{
+      height: 4em;
+      width: 100%;
+      margin-right: 35em;
+      @media only screen and (max-width: 480px){
+        margin-right: 0;
+      }
+    }
+  }
   .page_title{
     padding:5px;
     margin: 0 15px 0;

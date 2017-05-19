@@ -15,15 +15,12 @@
     justify-content:center;
     align-items: center;
     background: $ghost-white;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#52489c+5,4096ee+100 */
-    // background: #52489c; /* Old browsers */
-    // background: -moz-linear-gradient(45deg,  #52489c 5%, #4096ee 100%); /* FF3.6-15 */
-    // background: -webkit-linear-gradient(45deg,  #52489c 5%,#4096ee 100%); /* Chrome10-25,Safari5.1-6 */
-    // background: linear-gradient(45deg,  #52489c 5%,#4096ee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52489c', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     text-align: center;
     border-bottom: 0.2px solid $blue;
     // text-decoration doesnt work.
+    @media only screen and (max-width: 480px){
+      height: 100%;
+    }
     .intro {
       .title{
         text-decoration: underline;
@@ -34,10 +31,18 @@
       line-height: 2em;
       padding: 10px;
       width: 100%;
+      margin-right: 1em;
       box-sizing: border-box;
-      img{
+      @media only screen and (max-width: 480px){
+        margin-right: 2em;
+        margin-top: 2em;
+      }
+      img {
         height: 4.5em;
         width: 100%;
+        @media only screen and (max-width: 480px){
+          height: 4em;
+        }
       }
     }
     .explanation{
@@ -57,6 +62,9 @@
     }
     .action_buttons{
       display: flex;
+      @media only screen and (max-width: 480px){
+        flex-direction: column;
+      }
 
       .action {
         padding: 10px;
@@ -72,6 +80,9 @@
         margin: 1em;
         &.source_code{
           background: $accent;
+        }
+        &.explore{
+          background: $black;
         }
         @media only screen and (max-width: 480px){
           padding:10px;

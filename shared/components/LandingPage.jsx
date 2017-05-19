@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class LandingPage extends React.Component{
   render(){
@@ -12,14 +13,24 @@ export default class LandingPage extends React.Component{
             <p>A new way to gain experience in software development</p>
           </div>
           <div className="action_buttons">
+
+
             <a href= "/auth/github" className="action login_github">
               <span className="ion-social-octocat logo"></span>
                     Register with Github
             </a>
+
+            <Link to="/projects" className="action explore">
+              <span className="ion-search logo"></span>
+                    Explore
+            </Link>
+
+
             <a href= "https://github.com/kannaj/42exp" className="action source_code">
               <span className="ion-social-octocat logo"></span>
                     View Source Code
             </a>
+
           </div>
         </section>
       </div>

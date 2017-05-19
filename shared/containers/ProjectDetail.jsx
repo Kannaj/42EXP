@@ -41,14 +41,25 @@ class ProjectDetail extends React.Component{
       if(err) {
         console.log('error: ',err)
       } else {
-        this.setState({ project_details: data, isFetching: false})
-        if(this.props.username === data.owner){
-          this.setState({canEdit : true, canJoin: false})
+        this.setState({ project_details: data, isFetching: false })
+
+        if (this.props.username === data.owner) {
+          this.setState({ canEdit : true, canJoin: false })
         }
-        if(this.props.project.role === 'member'){
+        if(typeof this.props.project !== 'undefined' && this.props.project.role === 'member'){
           // user has already joined project
-          this.setState({ canJoin : false})
+          this.setState({ canJoin: false})
         }
+
+        if (typeof this.props.project === 'undefined' && this.props.isAuthenticated){
+          // user is not a member of the project
+          this.setState({ canJoin: true })
+        }
+
+        if(!this.props.isAuthenticated){
+          this.setState({ canJoin: false, canEdit: false})
+        }
+        
       }
     }.bind(this))
   }

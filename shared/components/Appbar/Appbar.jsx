@@ -1,5 +1,5 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import UserProfile from './UserProfile';
@@ -9,7 +9,7 @@ import slugify from '../../utils/slugify';
 import PropTypes from 'prop-types';
 
 //below function helps determine main header. avoid repeating regex
-const header = (location,openMemberModal) => {
+const header = ( location, openMemberModal ) => {
   if(location == '/projects'){
     return (
       <h3 className="page_title">Projects</h3>
@@ -81,7 +81,7 @@ class Appbar extends Component{
         <div className={`appbar ${this.props.isSidebarOpen ? "appbar--sidebarOpen" : "appbar--sidebarClosed"}`}>
           {this.props.isAuthenticated ? <button className={`appbar__toggle_button ${this.props.isSidebarOpen ? "ion-chevron-left" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button> : null}
 
-          { header(this.props.location, this.openMemberModal) }
+          { this.props.isAuthenticated ?  header(this.props.location, this.openMemberModal) : <a href="/" className="logo"><img src="/images/42exp_logo.svg" /></a> }
 
           {
             this.props.isAuthenticated
