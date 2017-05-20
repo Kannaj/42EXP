@@ -1,0 +1,28 @@
+.static_page{
+  // padding: 25px;
+
+  &__header{
+    text-align: center;
+    margin-bottom: 2em;
+  }
+
+  &__content{
+    .block {
+      margin-bottom: 4em;
+      margin-left: 25px;
+      margin-right: 25px;
+      p{
+        a{
+          text-decoration: underline;
+          text-decoration-color: $blue;
+        }
+      }
+      ul{
+        li{
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+
+}
