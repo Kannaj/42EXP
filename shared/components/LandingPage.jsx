@@ -10,7 +10,7 @@ export default class LandingPage extends React.Component{
             <img src = "/images/42exp_logo_landing_page.svg"/>
           </div>
           <div className="explanation">
-            <p>A new way to gain experience in software development</p>
+            <p>A place to find and colloborate on new projects with other developers</p>
           </div>
           <div className="action_buttons">
 

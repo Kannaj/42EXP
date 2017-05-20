@@ -146,7 +146,8 @@
       border-radius: 4px;
 
       &__item {
-        width: 100%;
+        width: 100px;
+        display: block;
         padding: 1em;
         background: $white;
         border-bottom: $border;
@@ -154,6 +155,9 @@
         font-size: 10px;
         cursor: pointer;
         color: $black;
+        span{
+          margin-right: 1em;
+        }
       }
 
       &--visible{

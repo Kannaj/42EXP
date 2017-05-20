@@ -34,8 +34,9 @@ class ProfileMenu extends Component{
   render(){
     return (
       <div tabIndex="1" onClick={this.props.toggleProfileMenu} ref={(profile_menu) => {this.profile_menu = profile_menu}} className={`profile_menu profile_menu--${this.props.isProfileMenuOpen ? "visible" : "hidden"}`}>
-        <Link to={`/user/${this.props.User.username}`}><button className="profile_menu__item">Profile</button></Link>
-        <a href="/logout"><button className="profile_menu__item">Logout</button></a>
+        <Link to={`/user/${this.props.User.username}`}><button className="profile_menu__item"><span className="ion-person"/>Profile</button></Link>
+        <Link to="/about"><button className="profile_menu__item"><span className="ion-information-circled"/>About</button></Link>
+        <a href="/logout"><button className="profile_menu__item"><span className="ion-reply"/>Logout</button></a>
       </div>
     )
   }

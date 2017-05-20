@@ -49,9 +49,7 @@ class Appbar extends Component{
   authButtons(){
     if(process.env.NODE_ENV === 'production'){
       return (
-        <div className="auth">
-          <a href= "/auth/github"><button className="login_github"> Register With Github</button></a>
-        </div>
+        null
       )
     } else {
       return (
