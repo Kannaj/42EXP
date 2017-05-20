@@ -4,6 +4,18 @@ var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
+var extract_loaders = [
+  {
+    loader: 'css-loader',
+  },
+  {
+    loader: 'postcss-loader'
+  },
+  {
+    loader: 'sass-loader'
+  }
+]
+
 module.exports = {
   entry:[
     './client/index.js'
@@ -14,17 +26,17 @@ module.exports = {
     filename: 'bundle.js'
   },
   module:{
-    loaders:[
+    rules:[
       {
         test:/(\.js|\.jsx)$/,
         // include: path.resolve(__dirname,'client'),
         exclude: /(node_modules)/,
-        loader: 'babel',
+        loader: 'babel-loader',
       },
       { test: /\.json$/, loader: 'json-loader' },
       {
         test: /(\.css|\.scss)$/,
-        loader: ExtractTextPlugin.extract('style',['css','postcss','sass'])
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader',loader: extract_loaders})
         //css modules are such a pain when rendering from server. hence not using them
       },
       {
@@ -33,14 +45,14 @@ module.exports = {
       }
     ]
   },
-  postcss: function(){
-    return [autoprefixer];
-  },
+  // postcss: function(){
+  //   return [autoprefixer];
+  // },
   resolve:{
-    extensions:['', '.js', '.jsx']
+    extensions:['.js', '.jsx']
   },
   plugins:[
-    new ExtractTextPlugin('style.css',{allChunks:true}),
+      new ExtractTextPlugin({filename: 'style.css', allChunks: true}),
     // new webpack.optimize.CommonsChunkPlugin('common.js'),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -49,7 +61,10 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CopyWebpackPlugin([
-      {from: 'client/images' ,to: 'public/images'}
-    ])
+      // {from: 'client/images' ,to: 'public/images'}
+      {from: 'client/images' ,to: 'images'},
+      {from: 'client/ionicons', to: 'assets'}
+    ]),
+    new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })
   ]
 }
