@@ -20,6 +20,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import Joi from 'joi';
 import flood from './utils/rate_limiter.js';
+import parseCookie from './utils/cookie_parser.js';
 
 const config = require('../webpack.config.js')
 
@@ -96,13 +97,8 @@ export const run = (worker) => {
     if (socket.request.headers.cookie) {
       const cookie = decodeURIComponent(socket.request.headers.cookie)
 
-      // this assumes that the first item in the cookie list is the id_token.
-      // Probably change this later to search the array for string starting with 'id_token'
-      const cookieValues = cookie.split(';')[0]
+      const id_token = JSON.parse(parseCookie('id_token',cookie))
 
-      const id_token = JSON.parse(cookieValues.split('=')[1])
-
-      console.log('id_token : ',id_token)
       const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
       winston.info('User logged in : ',decoded.username)
       socket.setAuthToken({ username: decoded.username })
