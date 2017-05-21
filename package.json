@@ -43,6 +43,7 @@
     "react-addons-css-transition-group": "^15.2.1",
     "react-addons-update": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-ga": "^2.2.0",
     "react-modal": "^1.4.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",

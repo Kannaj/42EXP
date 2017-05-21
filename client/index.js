@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
-import { Router, Route, browserHistory ,IndexRoute} from 'react-router';
-import { syncHistoryWithStore ,routerMiddleware} from 'react-router-redux'
+import { createStore, applyMiddleware } from 'redux';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 import routes from '../shared/routes/routes';
 import rootReducer from '../shared/reducers/index';
 import style from './stylesheets/main.scss';
 import SocketCluster from 'socketcluster-client';
 import log_middleware from '../shared/middleware/log_middleware.js'
 import thunk from 'redux-thunk';
-import {new_chat_message} from '../shared/actions/projects/project_messages'
-import {set_unread} from '../shared/actions/projects/set_unread'
-import {add_notification} from '../shared/actions/notifications/notifications'
-import {update_user_stats} from '../shared/actions/User/actions'
+import { new_chat_message } from '../shared/actions/projects/project_messages';
+import { set_unread } from '../shared/actions/projects/set_unread';
+import { add_notification } from '../shared/actions/notifications/notifications';
+import { update_user_stats } from '../shared/actions/User/actions';
+import ReactGA from 'react-ga';
 
 let port;
 
@@ -41,6 +42,14 @@ const options = {
 }
 
 global.socket = SocketCluster.connect(options)
+
+// is this safe to show in the code?
+ReactGA.initialize('UA-99632194-1');
+
+function logPageView() {
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
 
 
 
@@ -90,7 +99,7 @@ socket.on('disconnect',function(){
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={history} onUpdate={logPageView}>
       {routes}
     </Router>
   </Provider>
