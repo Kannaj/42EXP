@@ -16,14 +16,41 @@
     align-items: center;
     background: $ghost-white;
     text-align: center;
-    border-bottom: 0.2px solid $blue;
     // text-decoration doesnt work.
     @media only screen and (max-width: 480px){
       height: 100%;
     }
-    .intro {
+    &.intro {
       .title{
         text-decoration: underline;
+      }
+    }
+    &.project_idea{
+      background: $gray;
+      .explanation{
+        h3{
+          color: $dark-blue;
+        }
+      }
+    }
+    &.new_dev{
+      .explanation{
+        .explore_button{
+          margin-top: 4em;
+        }
+        .explore{
+          padding: 10px;
+          width: auto;
+          font-size: 1em;
+          color: $white;
+          box-shadow: none;
+          border: $blue;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.2s ease-in;
+          margin: 1em;
+          background: $black;
+        }
       }
     }
     .title {

@@ -20,11 +20,6 @@ export default class LandingPage extends React.Component{
                     Register with Github
             </a>
 
-            <Link to="/projects" className="action explore">
-              <span className="ion-search logo"></span>
-                    Explore
-            </Link>
-
 
             <a href= "https://github.com/kannaj/42exp" className="action source_code">
               <span className="ion-social-octocat logo"></span>
@@ -33,6 +28,33 @@ export default class LandingPage extends React.Component{
 
           </div>
         </section>
+
+        <section className="landing project_idea">
+          <div className="explanation">
+            <h3> Find a team for your project idea </h3>
+            <p> Are you a backend developer who would love to work with a frontend dev or vice versa ? Have a project idea but are too overwhelmed with all the stuff you need to do?</p>
+            <p> 42exp helps you find a team of interested developers to work with on your project.</p>
+
+          </div>
+        </section>
+
+        <section className="landing new_dev">
+          <div className="explanation">
+            <h3> Build your portfolio </h3>
+            <p>
+              Are you a new developer looking for intresting projects that could use your skills? 42exp contains a number of intresting projects you can contribute to.
+            </p>
+
+            <div className="explore_button">
+              <Link to="/projects" className="action explore">
+                <span className="ion-search logo"></span>
+                      Explore Projects
+              </Link>
+            </div>
+
+          </div>
+        </section>
+
       </div>
     )
   }
