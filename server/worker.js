@@ -93,15 +93,23 @@ export const run = (worker) => {
 
   scServer.on('connection',(socket) => {
     console.log('socket connected : ',socket.id)
-    //what the above does is decode the socket cookie. decode the string > sets auth profile to socket.
+    
+    //what the below does is decode the socket cookie. decode the string -> sets auth profile to socket.
     if (socket.request.headers.cookie) {
       const cookie = decodeURIComponent(socket.request.headers.cookie)
 
-      const id_token = JSON.parse(parseCookie('id_token',cookie))
+      // search for id_token value in cookie
+      let id_token = parseCookie('id_token',cookie)
 
-      const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
-      winston.info('User logged in : ',decoded.username)
-      socket.setAuthToken({ username: decoded.username })
+      if(id_token){
+        // remove quotes from fetched value
+        id_token = JSON.parse(id_token)
+        // verify token
+        const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
+        winston.info('User logged in : ',decoded.username)
+        socket.setAuthToken({ username: decoded.username })
+      }
+
     }
 
     // skill suggestions for user profile.
