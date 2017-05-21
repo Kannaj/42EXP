@@ -95,7 +95,14 @@ export const run = (worker) => {
     //what the above does is decode the socket cookie. decode the string > sets auth profile to socket.
     if (socket.request.headers.cookie) {
       const cookie = decodeURIComponent(socket.request.headers.cookie)
-      const id_token = JSON.parse(cookie.split('=')[1])
+
+      // this assumes that the first item in the cookie list is the id_token.
+      // Probably change this later to search the array for string starting with 'id_token'
+      const cookieValues = cookie.split(';')[0]
+
+      const id_token = JSON.parse(cookieValues.split('=')[1])
+
+      console.log('id_token : ',id_token)
       const decoded = jwt.verify(id_token,process.env.JWT_SECRET)
       winston.info('User logged in : ',decoded.username)
       socket.setAuthToken({ username: decoded.username })
