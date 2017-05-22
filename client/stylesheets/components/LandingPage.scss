@@ -28,13 +28,46 @@
     &.project_idea{
       background: $gray;
       .explanation{
-        h3{
-          color: $dark-blue;
+        display: flex;
+        flex-direction: column;
+        @media only screen and (max-width: 480px){
+          padding: 0;
+        }
+        .content{
+          .icon{
+            font-size: 4em;
+            color: $accent;
+          }
+          padding: 0 100px;
+          @media only screen and (max-width: 480px){
+            padding: 0 15px;
+          }
+          h3{
+            color: $dark-blue;
+          }
+        }
+        .snapshot{
+          img{
+            height: 500px;
+            box-shadow: $box-shadow;
+            border-radius: 4px;
+            @media only screen and (max-width: 480px){
+              height: 150px;
+            }
+          }
         }
       }
     }
     &.new_dev{
       .explanation{
+        padding: 0 100px;
+        .icon{
+          font-size: 4em;
+          color: $dark-blue;
+        }
+        @media only screen and (max-width: 480px){
+          padding: 10px 45px;
+        }
         .explore_button{
           margin-top: 4em;
         }

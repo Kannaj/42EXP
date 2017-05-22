@@ -77,8 +77,8 @@ const Projects = (state=[],action) => {
       target = state.findIndex((project) => {
         return project.id == action.projectId
       })
-      // if recievedMessages are length 10 -> can retrieve more in the future
-      canRetrieveMore = action.messages.length == 10 ? true : false;
+      // if recievedMessages are length 20 -> can retrieve more in the future
+      canRetrieveMore = action.messages.length == 20 ? true : false;
 
       return update(state,{
         [target]:{
@@ -94,7 +94,7 @@ const Projects = (state=[],action) => {
       target = state.findIndex((project) => {
         return project.id == action.projectId
       })
-      canRetrieveMore = action.messages.length == 10 ? true : false;
+      canRetrieveMore = action.messages.length == 20 ? true : false;
       // first time retrieving project messages in session
       return update(state,{
         [target]:{

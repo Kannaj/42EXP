@@ -40,10 +40,13 @@ export const project_check_name = function(data){
   data = slugify('slugify',data)
   return db.one(queries.ProjectCheckName,data.name)
             .then(function(name){
-              return 'project already exists'
+
+              // throw 'project already exists'
+              return false
             })
             .catch(function(){
-              return 'ok'
+              
+              return true
             })
 }
 

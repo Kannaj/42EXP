@@ -9,4 +9,4 @@ from project
 LEFT OUTER JOIN project_skills on project.name = project_skills.project
 WHERE project.id != 1 AND project.id < $1 AND project.pinned = false
 GROUP BY project_id, project_name, project_description, project_category
-ORDER BY project.create_date DESC LIMIT 5
+ORDER BY project.create_date DESC LIMIT 10

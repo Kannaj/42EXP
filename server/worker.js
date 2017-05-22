@@ -93,7 +93,7 @@ export const run = (worker) => {
 
   scServer.on('connection',(socket) => {
     console.log('socket connected : ',socket.id)
-    
+
     //what the below does is decode the socket cookie. decode the string -> sets auth profile to socket.
     if (socket.request.headers.cookie) {
       const cookie = decodeURIComponent(socket.request.headers.cookie)
@@ -313,10 +313,15 @@ export const run = (worker) => {
     socket.on('project:check_name',function(data,res){
       projectHandlers.project_check_name(data)
         .then(function(name){
-          res('project already exists')
+          // name arg is a boolean value. works for now.
+          if (!name){
+            res('project already exists!')
+          }else{
+            res(null,'ok')
+          }
         })
         .catch(function(err){
-          res(null,err)
+          res('project already exists')
         })
     })
 

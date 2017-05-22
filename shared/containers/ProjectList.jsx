@@ -41,7 +41,7 @@ class ProjectList extends React.Component {
         console.log('there was an error : ',err)
       } else {
         let newList = project_list.concat(data)
-        let fetchMore = data.length == 5 ? true : false
+        let fetchMore = data.length == 10 ? true : false
         this.setState({ project_list : newList, fetchMore })
       }
     }.bind(this))

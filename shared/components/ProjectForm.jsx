@@ -83,8 +83,9 @@ class ProjectForm extends React.Component{
   }
 
   handleBlur(event) {
-    if(socket) {
-      socket.emit('project:check_name', { name: event.target.value }, function(err,data) {
+    const projectName =  event.target.value
+    if(socket && projectName.length >= 1) {
+      socket.emit('project:check_name', { name: projectName }, function(err,data) {
         if(err) {
           this.setState({ errors: update(this.state.errors, {
             ['name']: {
@@ -129,7 +130,7 @@ class ProjectForm extends React.Component{
         <div className="primary_content">
           <div className="project_form__details">
             <div className="project_form__name item">
-              <h3> Name <span> (Spaces allowed but no non alpha-numeric characters)</span> </h3>
+              <h3> Name <span> (Spaces allowed but no non alpha-numeric characters.)</span> </h3>
               <input id="name" type="text" value={this.state.name} onChange={this.handlename.bind(this,'name')} onBlur={this.handleBlur.bind(this)} placeholder="Project Name"/>
               { this.state.errors.name ? <div className="error"> {this.state.errors.name} </div> : null }
             </div>
