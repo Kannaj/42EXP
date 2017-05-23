@@ -46,8 +46,15 @@
       padding:1.5px;
       display: flex;
       flex-direction: row;
+
+      position: relative;
+      margin-left: 15px;
+      margin-right: 25px;
+      border-top: 1px solid $dark-gray;
+      box-sizing: border-box;
+
       .message_box{
-        padding: 5px 5px;
+        // padding: 5px 5px;
         border: 0.5px solid black;
         border-radius: none;
         flex-grow:2;
@@ -59,16 +66,34 @@
         height:auto;
         overflow: visible;
         box-sizing: border-box;
+
+        position: absolute;
+        bottom: 10px;
+        padding: 8px 35px 5px 10px;
+        box-sizing: border-box;
+        width: 100%;
+
       }
       .submit_message{
         // margin: 0 5px;
-        padding: 20px;
-        background: $blue;
-        color: $ghost-white;
-        border: 2.5px solid $blue;
+        // padding: 20px;
+        // background: $blue;
+        // color: $ghost-white;
+        // border: 2.5px solid $blue;
         // border-radius: 4px;
         align-self: flex-end;
         cursor: pointer;
+
+        position: absolute;
+        border: none;
+        bottom: 21px;
+        border-radius: 50%;
+        color: $black;
+        right: 10px;
+        background: none;
+        padding: 2.5px 5px;
+        background: $blue;
+        color: $white;
       }
     }
   }
