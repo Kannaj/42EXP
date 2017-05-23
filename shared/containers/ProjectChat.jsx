@@ -224,8 +224,24 @@ class ProjectChat extends React.Component{
               </div>
 
               <div className="chat_message_box">
-                <textarea rows="1" cols="20" type='text' ref="message_box" onKeyPress={this.handleKeyPress} onKeyDown={this.handleKeyDown} onChange={this.handleChange} value={this.state.message} className="message_box" placeholder="enter message"/>
-                <button className="submit_message ion-arrow-up-c" onClick={this.handleSubmit}></button>
+
+                <textarea
+                  rows="1"
+                  cols="20"
+                  type='text'
+                  ref="message_box"
+                  onKeyPress={this.handleKeyPress}
+                  onKeyDown={this.handleKeyDown}
+                  onChange={this.handleChange}
+                  value={this.state.message}
+                  className="message_box"
+                  placeholder="Start typing. Github style markdown supported" />
+
+                <button
+                  className="submit_message ion-arrow-up-c"
+                  onClick={this.handleSubmit}>
+                </button>
+
               </div>
             </div>
             :
