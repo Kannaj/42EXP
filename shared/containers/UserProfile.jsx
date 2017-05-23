@@ -134,7 +134,14 @@ class UserSkills extends React.Component{
               </tbody>
             </table>
             :
-            null
+            <div className="user_skills__no_skills">
+              {
+                this.props.canEdit ?
+                <p> Update your skillset </p>
+                :
+                <p> The user has not updated his skillset </p>
+              }
+            </div>
           }
 
           <Modal isOpen={this.state.modalIsOpen}
@@ -219,6 +226,7 @@ class UserProfile extends React.Component{
               <div className="user_avatar">
                 <img className="user_avatar__picture" src={`https://avatars1.githubusercontent.com/${this.state.user.username}`}/>
                 <h2 className="user_avatar__username">{this.state.user.username}</h2>
+                <a href={`https://github.com/${this.state.user.username}`}><span className="ion-social-github github_icon" /></a>
               </div>
 
               <div className="user_score">

@@ -59,7 +59,7 @@ class ProjectDetail extends React.Component{
         if(!this.props.isAuthenticated){
           this.setState({ canJoin: false, canEdit: false})
         }
-        
+
       }
     }.bind(this))
   }
@@ -82,17 +82,18 @@ class ProjectDetail extends React.Component{
       )
     }
 
+    const { category, description, github_link, id, members, name, owner, skills } =  this.state.project_details
     return (
       <div className="project_detail">
 
         <div className="main_content">
-          <h2 className="main_content__project_name">{slugify('deslugify',this.state.project_details.name)}</h2>
-          <h3 className="main_content__category">{this.state.project_details.category} </h3>
+          <h2 className="main_content__project_name">{ slugify('deslugify',name) }</h2>
+          <h3 className="main_content__category">{ category } </h3>
 
           <div className="project_skills" >
             {
-              this.state.project_details.skills.length > 0 ?
-              this.state.project_details.skills.map((skill) => {
+              skills.length > 0 ?
+              skills.map((skill) => {
                 return (
                   <button className="project_skills__skill" key={skill.skill_id}>
                            #{skill.name}
@@ -104,34 +105,48 @@ class ProjectDetail extends React.Component{
             }
           </div>
 
-
-          <h4 className="members_header"> Members </h4>
-          <div className="member_list">
-            {
-              this.state.project_details.members.map((member,i) => {
-                return (
-                    <img className="member_list__members" key={i} src={`https://avatars1.githubusercontent.com/${member.name}` } />
-                )
-              })
-            }
+          <div className="owner">
+            <h4 className="owner_header"> Project Owner </h4>
+            <Link to={`/user/${ owner[0].name }`}>
+              <img className="owner_img" src={`https://avatars1.githubusercontent.com/${this.state.project_details.owner[0].name}` } />
+            </Link>
           </div>
 
-            {
-              this.state.project_details.github_link ?
-              <div className="project_links">
-                <h4> External links </h4>
-                <a href={this.state.project_details.github_link} className="project_links__item"><button className="ion-social-github"></button> </a>
-              </div>
-              :
-              null
-            }
+          {
+            members && members.length > 0 ?
+
+            <div className="member_list">
+              <h4 className="members_header"> Members </h4>
+              {
+                members.map((member,i) => {
+                  return (
+                    <Link to={`/user/${member.name}`} >
+                      <img className="member_list__members" key={i} src={`https://avatars1.githubusercontent.com/${member.name}` } />
+                    </Link>
+                  )
+                })
+              }
+            </div>
+            :
+            null
+          }
+
+          {
+            github_link ?
+            <div className="project_links">
+              <h4> External links </h4>
+              <a href={ github_link } className="project_links__item"><button className="ion-social-github"></button> </a>
+            </div>
+            :
+            null
+          }
 
         </div>
 
         <div className="secondary_content">
           <h4 className="description_header"> Details </h4>
           <div className="description">
-            <span dangerouslySetInnerHTML={{__html:md.render(this.state.project_details.description)}}/>
+            <span dangerouslySetInnerHTML={{__html:md.render(description)}}/>
           </div>
           <div className="secondary_content__action_buttons">
             <div className="secondary_content__CTA">

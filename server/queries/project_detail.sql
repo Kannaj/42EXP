@@ -12,7 +12,12 @@ select p.id AS id,
       (
         SELECT array_agg(json_build_object('role',ap.role,'name',ap.Username)) AS members
         from account_projects ap
-        where ap.project = p.name
-      ) as members
+        where ap.project = p.name AND ap.role = 'member'
+      ) as members,
+      (
+        SELECT array_agg(json_build_object('role',ap.role,'name',ap.Username)) AS members
+        from account_projects ap
+        where ap.project = p.name AND ap.role = 'owner'
+      ) as owner
 from project p
 where p.id = $1;

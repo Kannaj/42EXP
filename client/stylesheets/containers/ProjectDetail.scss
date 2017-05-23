@@ -24,11 +24,23 @@
       margin-bottom: 5px;
       color: #a5a5a5;
     }
+    .owner{
+      display: flex;
+      flex-direction: column;
+      a{
+        .owner_img{
+          height: 35px;
+          width: 35px;
+          border-radius: 50%;
+        }
+      }
+    }
     .member_list{
       display: flex;
+      flex-direction: column;
       width: 100%;
       overflow: hidden;
-      padding-left: 20px;
+      // padding-left: 20px;
       &__members{
         height: 35px;
         width: 35px;
@@ -77,6 +89,9 @@
       flex: 8;
       overflow-y: auto;
       padding: 10px;
+      @media only screen and (max-width: 480px){
+        overflow-y: auto;
+      }
     }
     &__action_buttons{
       text-align: right;
