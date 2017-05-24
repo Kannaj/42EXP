@@ -42,8 +42,7 @@ class ProjectDetail extends React.Component{
         console.log('error: ',err)
       } else {
         this.setState({ project_details: data, isFetching: false })
-
-        if (this.props.username === data.owner) {
+        if (this.props.username === data.owner[0].name) {
           this.setState({ canEdit : true, canJoin: false })
         }
         if(typeof this.props.project !== 'undefined' && this.props.project.role === 'member'){
