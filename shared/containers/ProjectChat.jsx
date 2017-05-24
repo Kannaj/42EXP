@@ -119,6 +119,7 @@ class ProjectChat extends React.Component{
 
     // triggered on first fetch of messages for project.
     if ( prevState.retrieveLatestMessages !== this.state.retrieveLatestMessages){
+      this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
       if (!prevState.waypointReady){
         this.setState({ waypointReady: true })
       }

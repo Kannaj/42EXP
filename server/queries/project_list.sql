@@ -5,6 +5,7 @@
     project.owner AS project_owner,
     project.description as project_description,
     project.category as project_category,
+    project.pinned as project_pinned,
     array_agg(json_build_object('skill_id', project_skills.id,'name', project_skills.skill)) AS skills
   from project
   LEFT OUTER JOIN project_skills on project.name = project_skills.project
@@ -20,6 +21,7 @@
     project.owner AS project_owner,
     project.description as project_description,
     project.category as project_category,
+    project.pinned as project_pinned,
     array_agg(json_build_object('skill_id', project_skills.id,'name', project_skills.skill)) AS skills
   from project
   LEFT OUTER JOIN project_skills on project.name = project_skills.project

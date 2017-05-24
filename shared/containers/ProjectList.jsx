@@ -17,13 +17,16 @@ class ProjectList extends React.Component {
       show_jumbotron: true,
       isFetching: true,
       fetchMore: false,
+      filterPinned: false
     }
     this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this);
     this.activateWayPoint = this.activateWayPoint.bind(this);
+    this.changeFilters = this.changeFilters.bind(this);
   }
 
-  fetchData(){
-    socket.emit('project:list',{},function(err,data){
+  fetchData(filterPinned){
+    this.setState({ isFetching: true })
+    socket.emit('project:list', filterPinned, function(err,data){
       if(err){
         //
       }else{
@@ -53,19 +56,37 @@ class ProjectList extends React.Component {
   }
 
   componentDidMount() {
-    if(socket) {
-      this.fetchData()
+
+    let filterPinned = localStorage.getItem('filterPinned')
+    if (filterPinned === null) {
+      filterPinned = false;
+      localStorage.setItem('filterPinned', false)
+    }
+    if(filterPinned === 'true' || 'false'){
+      filterPinned = JSON.parse(filterPinned)
+      this.setState({ filterPinned })
     }
 
-    let showJumbotron = localStorage.getItem('new_user')
-
+    const showJumbotron = localStorage.getItem('new_user')
     if (showJumbotron == 'undefined' || null) {
       localStorage.setItem('new_user',true)
     }
-
     if (showJumbotron === "false") {
       this.setState({ show_jumbotron: false })
     }
+
+
+    if(socket) {
+      this.fetchData({ filterPinned: filterPinned })
+    }
+
+  }
+
+  changeFilters(){
+    let filterPinned = !this.state.filterPinned
+    this.setState({ filterPinned })
+    this.fetchData({ filterPinned })
+    localStorage.setItem('filterPinned',filterPinned)
   }
 
 
@@ -73,6 +94,7 @@ class ProjectList extends React.Component {
     if (this.state.isFetching) {
       return loader()
     }
+
     return (
       <div className="project_list">
         { this.state.show_jumbotron && this.props.isAuthenticated ?
@@ -93,6 +115,11 @@ class ProjectList extends React.Component {
           null
         }
         <h3 className="project_list__header"> Recent Projects </h3>
+
+        <div className="project_list__filters">
+          <input type="checkbox" checked={ this.state.filterPinned } onChange={ this.changeFilters } /><span> Hide 42exp related projects </span>
+        </div>
+
       {
         this.state.project_list.length > 0 ?
           this.state.project_list.map((project) => {

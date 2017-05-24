@@ -9,7 +9,7 @@ const md = new Remarkable({})
 class ProjectChip extends React.Component {
 
   render(){
-    const { project_id, project_owner, project_name, project_category, project_description, skills} = this.props.project
+    const { project_id, project_owner, project_pinned, project_name, project_category, project_description, skills} = this.props.project
     return(
       <div className="project_card">
 

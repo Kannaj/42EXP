@@ -45,21 +45,33 @@ export const project_check_name = function(data){
               return false
             })
             .catch(function(){
-              
+
               return true
             })
 }
 
 export const project_list = function(data){
-  return db.any(queries.ProjectList)
-    .then(function(results){
-      let newResults = project_list_cleaner(results)
-      return newResults
-    })
-    .catch(function(err){
-      winston.error('Project_list cant be retrieved : ',err)
-      throw "Couldnt retrieve projects"
-    })
+  if (data.filterPinned) {
+    return db.any(queries.FilterPinnedProjects)
+      .then(function(results){
+        let newResults = project_list_cleaner(results)
+        return newResults
+      })
+      .catch(function(err){
+        winston.error('Project_list cant be retrieved : ',err)
+        throw "Couldnt retrieve projects"
+      })
+  } else {
+    return db.any(queries.ProjectList)
+      .then(function(results){
+        let newResults = project_list_cleaner(results)
+        return newResults
+      })
+      .catch(function(err){
+        winston.error('Project_list cant be retrieved : ',err)
+        throw "Couldnt retrieve projects"
+      })
+  }
 }
 
 export const project_detail = function(data){

@@ -202,7 +202,15 @@ export const run = (worker) => {
 
     //Retrieves a list of projects
     socket.on('project:list',function(data,res){
-      // data is an empty object. Perhaps integrate this with project:list_more.
+
+      const schema = Joi.object().keys({
+        filterPinned: Joi.boolean().required(),
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
 
       projectHandlers.project_list(data)
         .then(function(result){

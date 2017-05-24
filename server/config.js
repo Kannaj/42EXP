@@ -44,4 +44,5 @@ export const queries = {
   NewProjectMessage: sql(path.join(__dirname,'queries/new_project_message.sql')),
   VoteNotification: sql(path.join(__dirname,'queries/vote_notification.sql')),
   SetToReadNotification: sql(path.join(__dirname,'queries/set_to_read_notification.sql')),
+  FilterPinnedProjects: sql(path.join(__dirname,'queries/project_filter_pinned.sql')),
 }

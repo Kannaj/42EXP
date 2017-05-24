@@ -56,7 +56,7 @@ const renderFullPage = (html,initialState) => {
     <!doctype html>
     <html>
       <head>
-        <title>42 Exp</title>
+        <title>42 Exp - Find a team for your project idea</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="/style.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/ionicons.min.css">

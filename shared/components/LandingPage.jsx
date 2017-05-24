@@ -17,7 +17,7 @@ export default class LandingPage extends React.Component{
 
             <a href= "/auth/github" className="action login_github">
               <span className="ion-social-octocat logo"></span>
-                    Register with Github
+                    Login with Github
             </a>
 
 
