@@ -162,6 +162,7 @@ class ProjectForm extends React.Component{
                 multi={ true }
                 autoload={ false }
                 />
+                { this.state.errors.skill ? <div className="error">{this.state.errors.skill} </div> : null }
             </div>
 
             {

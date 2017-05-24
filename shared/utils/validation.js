@@ -16,6 +16,9 @@ const validate = values => {
   if(!values.category){
     errors.category = 'Required'
   }
+  if(values.skill.length == 0){
+    errors.skill = 'At least one 1 skill is required'
+  }
   return errors;
 }
 
