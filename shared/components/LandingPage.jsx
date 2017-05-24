@@ -26,6 +26,11 @@ export default class LandingPage extends React.Component{
                     View Source Code
             </a>
 
+            <Link to="/projects" className="action explore">
+              <span className="ion-search logo"></span>
+                    Explore Projects
+            </Link>
+
           </div>
         </section>
 
