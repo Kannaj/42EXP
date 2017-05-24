@@ -41,10 +41,13 @@
       width: 100%;
       overflow: hidden;
       // padding-left: 20px;
-      &__members{
-        height: 35px;
-        width: 35px;
-        border-radius: 50%;
+      &__images{
+        display: flex;
+        .members{
+          height: 35px;
+          width: 35px;
+          border-radius: 50%;
+        }
       }
     }
     .project_links{

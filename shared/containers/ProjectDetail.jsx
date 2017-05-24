@@ -117,15 +117,17 @@ class ProjectDetail extends React.Component{
 
             <div className="member_list">
               <h4 className="members_header"> Members </h4>
-              {
-                members.map((member,i) => {
-                  return (
-                    <Link to={`/user/${member.name}`} >
-                      <img className="member_list__members" key={i} src={`https://avatars1.githubusercontent.com/${member.name}` } />
-                    </Link>
-                  )
-                })
-              }
+              <div className="member_list__images">
+                {
+                  members.map((member,i) => {
+                    return (
+                      <Link to={`/user/${member.name}`} >
+                        <img className="members" key={i} src={`https://avatars1.githubusercontent.com/${member.name}` } />
+                      </Link>
+                    )
+                  })
+                }
+              </div>
             </div>
             :
             null
