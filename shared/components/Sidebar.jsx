@@ -90,7 +90,11 @@ class Sidebar extends Component {
             <Link to = "/" onClick = {() => this.closeSidebar()}> <img src = "/images/42exp_logo.svg"/></Link>
           </div>
 
-          <h3 className="subscribed_projects__header"> Projects </h3>
+          <Link to="/">
+            <h3 className="subscribed_projects__header">
+              Projects
+            </h3>
+          </Link>
           {
             sidebarContent(projects, this.openModal, this.closeSidebar)
           }
