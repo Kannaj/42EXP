@@ -28,7 +28,11 @@ class ProjectChip extends React.Component {
         <div className="project_card__details">
 
           <div className="name">
-            <h3>{slugify("deslugify", project_name)}</h3>
+            <h2>
+              <Link to={`/projects/${project_id}/${project_name}/`}>
+                {slugify("deslugify", project_name)}
+              </Link>
+            </h2>
           </div>
 
           <div className="category">
@@ -51,9 +55,6 @@ class ProjectChip extends React.Component {
               :
               null
             }
-            <div className="bottom_divider">
-              <div className="divider"></div>
-            </div>
           </div>
 
         </div>

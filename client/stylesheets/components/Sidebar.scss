@@ -33,16 +33,25 @@
   }
 
   &__logo{
-    height: auto;
-    text-align: center;
-    flex: 1;
-    padding: 5px;
+    // padding-left: 25%;
+    width: 100%;
+    margin-bottom: -8px;
+    // height: auto;
+    // text-align: center;
+    // flex-grow: 1;
+    // padding: 5px;
     img{
-      height: 5.5em;
+      // height: 5.5em;
+      // width: 100%;
+      // padding-right: 45px;
+      // box-sizing: border-box;
+      // padding-top: 15px;
+      height: 4.5em;
       width: 100%;
-      padding-right: 45px;
       box-sizing: border-box;
-      padding-top: 15px;
+      margin-top: 5px ;
+      margin-bottom: 11px;
+      padding-right: 65px;
     }
   }
 
@@ -61,9 +70,16 @@
     &__header{
       text-align: left;
       margin-bottom: 0px;
+      margin-top: 0px;
       padding-left: 1em;
       color: $ghost-white;
       background: $blue;
+      a{
+        color: $ghost-white;
+      }
+      a:visited {
+        color: $ghost-white;
+      }
     }
 
     &__item{
@@ -73,7 +89,7 @@
       // color: $blue;
       color: #878684;
       transition: all 0.3s ease-in;
-      margin-bottom: 0.2px;
+      margin-bottom: 0px;
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
@@ -83,16 +99,16 @@
       .project_name{
         transition: border-bottom 0.10s linear;
           &:hover{
-            border-bottom: 1px solid $black;
+            border-bottom: .25px solid #52489c;
           }
       }
 
       .unread_count {
-        color: red;
-        border-radius: 35%;
-        background: #FCF7FF;
-        padding-left: 10px;
-        padding-right: 10px;
+        color: #fcf7ff;
+        border-radius: 4px;
+        background: #52489c;
+        padding-left: 7px;
+        padding-right: 7px;
       }
       &:hover{
         color: #343434;
@@ -102,8 +118,7 @@
         color: $blue;
         // border-bottom: 1px solid $black;
         .project_name {
-
-          border-bottom: 1px solid $black;
+          border-bottom: .25px solid #52489c;
         }
       }
       &:last-child{

@@ -48,9 +48,9 @@
     padding-left: 3.5em;
   }
   &__header{
-    width: 75%;
-    text-align: center;
-    text-decoration: underline;
+    font-size: 2em;
+    color: #909090;
+    -webkit-font-smoothing: auto;
     @media only screen and (max-width: 480px){
       width: 100%;
     }
