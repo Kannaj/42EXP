@@ -33,11 +33,25 @@
   }
 
   &__logo{
-    padding-left: 25%;
+    // padding-left: 25%;
     width: 100%;
     margin-bottom: -8px;
+    // height: auto;
+    // text-align: center;
+    // flex-grow: 1;
+    // padding: 5px;
     img{
-      height: 5.5em;
+      // height: 5.5em;
+      // width: 100%;
+      // padding-right: 45px;
+      // box-sizing: border-box;
+      // padding-top: 15px;
+      height: 4.5em;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 5px ;
+      margin-bottom: 11px;
+      padding-right: 65px;
     }
   }
 
