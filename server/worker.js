@@ -222,11 +222,33 @@ export const run = (worker) => {
         })
     })
 
+    socket.on('project:search_by_skill',function(data,res){
+      const schema = Joi.object().keys({
+        skill: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
+      projectHandlers.search_project_by_skill(data)
+          .then(function(result){
+            res(null,result)
+          })
+          .catch(function(err){
+            winston.error('Problem with project:search_by_skill : ',err)
+            res('Couldnt retrieve project list')
+          })
+
+    })
+
     // project list pagination
     socket.on('project:list_more',function(data,res){
 
       const schema = Joi.object().keys({
         lastId: Joi.number().integer().required(),
+        searchBySkill: Joi.string().allow(null),
       })
 
       const result = Joi.validate(data,schema)

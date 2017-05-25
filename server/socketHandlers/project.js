@@ -25,6 +25,19 @@ export const get_messages = function(data){
             })
 }
 
+
+export const search_project_by_skill =  function(data){
+  return db.any(queries.SearchProjectBySkill, data.skill)
+    .then(function(projects){
+      console.log('found projects: ',projects)
+      return projects
+    })
+    .catch(function(err){
+      winstor.error('Error finding projects : ',err)
+      return "Couldnt find projects"
+    })
+}
+
 export const new_project_message = function(data){
   return db.one(queries.NewProjectMessage, [data.id,data.message,data.username,data.timestamp])
     .then(function(projectMessageDetails){
@@ -126,14 +139,26 @@ export const update_last_activity = function(data,username){
 }
 
 export const project_paginate = function(data){
-  return db.any(queries.ProjectListPaginate,data.lastId)
-    .then(function(result){
-      return result
-    })
-    .catch(function(err){
-      winston.error('Problem with project:list_more : ',err)
-      return 'Couldnt retrieve more projects'
-    })
+
+  if(data.searchBySkill){
+    return db.any(queries.SearchProjectBySkillPaginate,[data.lastId, data.searchBySkill])
+      .then(function(result){
+        return result
+      })
+      .catch(function(err){
+        winston.error('Problem with project:list_more : ',err)
+        return 'Couldnt retrieve more projects'
+      })
+  } else {
+    return db.any(queries.ProjectListPaginate,data.lastId)
+      .then(function(result){
+        return result
+      })
+      .catch(function(err){
+        winston.error('Problem with project:list_more : ',err)
+        return 'Couldnt retrieve more projects'
+      })
+  }
 }
 
 export const project_member_list = function(data){

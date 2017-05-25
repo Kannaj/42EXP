@@ -51,6 +51,11 @@
     font-size: 2em;
     color: #909090;
     -webkit-font-smoothing: auto;
+    .back_button{
+      font-size: 1.5em;
+      color: $blue;
+      cursor: pointer;
+    }
     @media only screen and (max-width: 480px){
       width: 100%;
       text-align: center;
@@ -60,13 +65,25 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    margin-left: 5em;
-    input {
-      width: auto;
+    justify-content: space-between;
+    // margin-left: 5em;
+    margin: 1em 3em;
+    .remove_pinned{
+      display: flex;
+      align-items: center;
+      input {
+        width: auto;
+      }
+    }
+    .skill_filter{
+      width: 40%;
+      @media only screen and (max-width: 480px){
+        width: 60%;
+      }
     }
     @media only screen and (max-width: 480px){
       margin-left: 0;
+      flex-direction: column;
     }
   }
   display: flex;

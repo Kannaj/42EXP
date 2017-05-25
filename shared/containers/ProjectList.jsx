@@ -6,6 +6,9 @@ import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
 import loader from '../components/Loader';
 import Waypoint from 'react-waypoint';
+import Select from 'react-select';
+import { skillOptions } from '../utils/Autocomplete.js';
+import _ from 'lodash';
 
 // TO-DO : move ProjectList to Component Folder as we do not need to use redux
 class ProjectList extends React.Component {
@@ -17,7 +20,9 @@ class ProjectList extends React.Component {
       show_jumbotron: true,
       isFetching: true,
       fetchMore: false,
-      filterPinned: false
+      filterPinned: false,
+      filterSkilled: "",
+      search: false
     }
     this.dismiss_jumbotron = this.dismiss_jumbotron.bind(this);
     this.activateWayPoint = this.activateWayPoint.bind(this);
@@ -36,10 +41,31 @@ class ProjectList extends React.Component {
     }.bind(this))
   }
 
+  handleChange(name,input) {
+    console.log('input : ',input)
+    if(input){
+      this.setState({ [name]: input , search: true, isFetching: true})
+      socket.emit('project:search_by_skill',{ skill: input.value}, function(err,data){
+        if (err) {
+          console.log('err : ',err)
+        } else {
+          let fetchMore = data.length >= 5 ? true : false
+          this.setState({ project_list: data, isFetching: false, fetchMore})
+        }
+      }.bind(this))
+    } else {
+      console.log('fetching data ')
+      this.fetchData({ filterPinned: this.state.filterPinned })
+    }
+  }
+
   activateWayPoint(){
     let project_list = this.state.project_list
     let lastId = project_list[project_list.length - 1].project_id
-    socket.emit('project:list_more',{ lastId },function(err,data){
+
+    let searchBySkill = this.state.search ? this.state.filterSkilled.value : null
+
+    socket.emit('project:list_more',{ lastId, searchBySkill },function(err,data){
       if (err) {
         console.log('there was an error : ',err)
       } else {
@@ -82,11 +108,28 @@ class ProjectList extends React.Component {
 
   }
 
+  handleBackClick(){
+    this.setState({ search: false, filterSkilled: {} })
+    this.fetchData({filterPinned: this.state.filterPinned})
+  }
+
   changeFilters(){
     let filterPinned = !this.state.filterPinned
     this.setState({ filterPinned })
     this.fetchData({ filterPinned })
     localStorage.setItem('filterPinned',filterPinned)
+  }
+
+  getFilterOptions(name,input,callback) {
+    let opt;
+    if(socket) {
+
+      socket.emit(`${name}:suggestions`,{[name]:input},(err,data) => {
+        opt = skillOptions(data)
+        console.log('opt: ',opt)
+        callback(null,{ options: opt, complete: true })
+      })
+    }
   }
 
 
@@ -114,10 +157,34 @@ class ProjectList extends React.Component {
           :
           null
         }
-        <h3 className="project_list__header"> Recent Projects </h3>
+
+        {
+          this.state.search ?
+          <h3 className="project_list__header"> <span onClick={this.handleBackClick.bind(this)} className="ion-arrow-left-b back_button" alt="go back to main list"/> {this.state.filterSkilled.value} Projects </h3>
+          :
+          <h3 className="project_list__header"> Recent Projects </h3>
+        }
 
         <div className="project_list__filters">
-          <input type="checkbox" checked={ this.state.filterPinned } onChange={ this.changeFilters } /><span> Hide 42exp related projects </span>
+
+          <div className="remove_pinned">
+            <input type="checkbox"
+              checked={ this.state.filterPinned }
+              onChange={ this.changeFilters } />
+              <span> Hide 42exp related projects </span>
+          </div>
+
+          <div className="skill_filter">
+            <Select.Async name="skill_filter"
+              placeholder="Filter via skill"
+              loadOptions={ _.debounce(this.getFilterOptions.bind(this,'skill'),1000) }
+              minimumInput={ 1 }
+              onChange={this.handleChange.bind(this,'filterSkilled')}
+              value={this.state.filterSkilled}
+              autoload={ false }
+              multi={ false }
+              />
+          </div>
         </div>
 
       {
@@ -128,7 +195,7 @@ class ProjectList extends React.Component {
             )
           })
           :
-          <h1> No projects yet! Signup to create one! </h1>
+          <h1> No projects Found </h1>
       }
       {
         this.state.fetchMore ?
