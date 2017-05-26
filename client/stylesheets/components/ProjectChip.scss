@@ -63,7 +63,7 @@
       }
     }
     .skill{
-      button{
+      .project_card__skill_chip{
         font-size: 0.8em;
         background: $dark-gray;
         padding: 5px;
@@ -73,6 +73,10 @@
         border-radius: 4px;
         margin-right: 5px;
         margin-bottom: 5px;
+        cursor: pointer;
+        &.tbd{
+          cursor: initial;
+        }
       }
       .bottom_divider{
         width: 100%;

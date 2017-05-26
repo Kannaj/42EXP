@@ -15,7 +15,7 @@ class ProjectChip extends React.Component {
     // if (project_description.length > 80){
     //   project_description = project_description.slice(0,80) + '...'
     // }
-    
+
     return(
       <div className="project_card">
 
@@ -46,14 +46,14 @@ class ProjectChip extends React.Component {
 
           <div className="skill" >
             {
-              skills.length > 0 ?
+              skills && skills.length > 0 ?
               skills.map((skill) => {
                 return (
-                    <button className="project_card__skill_chip" key={skill.skill_id}>#{skill.name}</button>
+                    <button className="project_card__skill_chip" key={skill.skill_id} onClick={() => this.props.handleChange('filterSkilled',{ value: skill.name })}>#{skill.name}</button>
                 )
               })
               :
-              null
+              <button className="project_card__skill_chip tbd" >TBD</button>
             }
           </div>
 

@@ -42,7 +42,7 @@ class ProjectList extends React.Component {
   }
 
   handleChange(name,input) {
-    console.log('input : ',input)
+
     if(input){
       this.setState({ [name]: input , search: true, isFetching: true})
       socket.emit('project:search_by_skill',{ skill: input.value}, function(err,data){
@@ -54,7 +54,6 @@ class ProjectList extends React.Component {
         }
       }.bind(this))
     } else {
-      console.log('fetching data ')
       this.fetchData({ filterPinned: this.state.filterPinned })
     }
   }
@@ -110,7 +109,7 @@ class ProjectList extends React.Component {
 
   handleBackClick(){
     this.setState({ search: false, filterSkilled: {} })
-    this.fetchData({filterPinned: this.state.filterPinned})
+    this.fetchData({ filterPinned: this.state.filterPinned})
   }
 
   changeFilters(){
@@ -160,7 +159,7 @@ class ProjectList extends React.Component {
 
         {
           this.state.search ?
-          <h3 className="project_list__header"> <span onClick={this.handleBackClick.bind(this)} className="ion-arrow-left-b back_button" alt="go back to main list"/> {this.state.filterSkilled.value} Projects </h3>
+          <h3 className="project_list__header"> <span onClick={this.handleBackClick.bind(this)} className="ion-arrow-left-b back_button" alt="go back to main list">Back</span> {this.state.filterSkilled.value} Projects </h3>
           :
           <h3 className="project_list__header"> Recent Projects </h3>
         }
@@ -191,7 +190,7 @@ class ProjectList extends React.Component {
         this.state.project_list.length > 0 ?
           this.state.project_list.map((project) => {
             return (
-                <ProjectChip key={project.project_id} project = {project}/>
+                <ProjectChip key={project.project_id} project={project} handleChange={this.handleChange.bind(this)}/>
             )
           })
           :

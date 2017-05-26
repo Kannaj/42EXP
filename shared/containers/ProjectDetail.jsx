@@ -91,7 +91,7 @@ class ProjectDetail extends React.Component{
 
           <div className="project_skills" >
             {
-              skills.length > 0 ?
+              skills && skills.length > 0 ?
               skills.map((skill) => {
                 return (
                   <button className="project_skills__skill" key={skill.skill_id}>
@@ -100,7 +100,9 @@ class ProjectDetail extends React.Component{
                 )
               })
               :
-              null
+              <button className="project_skills__skill">
+                       TBD
+              </button>
             }
           </div>
 

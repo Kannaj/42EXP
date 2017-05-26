@@ -52,8 +52,11 @@
     color: #909090;
     -webkit-font-smoothing: auto;
     .back_button{
-      font-size: 1.5em;
-      color: $blue;
+      font-size: 0.5em;
+      background: $black;
+      padding: 5px;
+      border-radius: 8px;
+      color: $white;
       cursor: pointer;
     }
     @media only screen and (max-width: 480px){
