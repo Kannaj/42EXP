@@ -1,15 +1,16 @@
 .new_message {
   background: $white;
   box-shadow: $box-shadow;
-  padding: 10px;
+  padding: 5px 10px;
   position: relative;
+  line-height: 18px;
   display: flex;
   flex-direction: row;
   &__avatar{
     .user_avatar{
       img{
-        height: 50px;
-        width: 50px;
+        height: 35px;
+        width: 35px;
         border-radius: 50%;
       }
     }
