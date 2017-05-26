@@ -80,6 +80,17 @@
     }
     .skill_filter{
       width: 40%;
+      .Select{
+        .Select-control{
+          .Select-multi-value-wrapper{
+            .Select-input{
+              input {
+                box-sizing: border-box !important;
+              }
+            }
+          }
+        }
+      }
       @media only screen and (max-width: 480px){
         width: 60%;
       }

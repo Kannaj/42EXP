@@ -89,6 +89,15 @@
       align-items: flex-start;
       .Select{
         flex: 8;
+        .Select-control{
+          .Select-multi-value-wrapper{
+            .Select-input{
+              input {
+                box-sizing: border-box !important;
+              }
+            }
+          }
+        }
       }
       .submit_skill{
         flex: 2;
