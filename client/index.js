@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
@@ -15,6 +15,7 @@ import { set_unread } from '../shared/actions/projects/set_unread';
 import { add_notification } from '../shared/actions/notifications/notifications';
 import { update_user_stats } from '../shared/actions/User/actions';
 import ReactGA from 'react-ga';
+import slugify from '../shared/utils/slugify';
 
 let port;
 
@@ -51,6 +52,31 @@ function logPageView() {
   ReactGA.pageview(window.location.pathname + window.location.search);
 }
 
+// Browser Notifications
+
+document.addEventListener('DOMContentLoaded', function(){
+  if(!Notification){
+    console.log('Browser does not support notifications ')
+    return ''
+  }
+
+  if (Notification.permission !== "granted"){
+    Notification.requestPermission();
+  }
+
+})
+
+const sendNotification = function(data,project){
+  if(Notification.permission == 'granted'){
+    const notification = new Notification('New message recieved',{
+      body: `New message receieved from ${data.username} in ${slugify("deslugify",project.project)}`
+    })
+    notification.onClick = function(){
+      // doesnt work :(
+      browserHistory.push(`${window.location.protocol}//${window.location.host}/projects/${project.id}/${project.project}/messages`)
+    }
+  }
+}
 
 
 //subscribe to projects-channel of the user.
@@ -59,6 +85,10 @@ if(store.getState().Projects.length > 0){
   projects.map((project) => {
     // Watch for new messages on channel id and dispatch action when message recieved.
     socket.subscribe(project.id).watch(function(data){
+      const user = store.getState().User.username;
+      if (user !== data.username){
+        sendNotification(data,project)
+      }
       store.dispatch(new_chat_message(data))
     })
   })
