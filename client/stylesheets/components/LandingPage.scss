@@ -70,6 +70,11 @@
         }
         .explore_button{
           margin-top: 4em;
+          .logo{
+            border-right: 0.5px solid $white;
+            padding-right: 10px;
+            margin-right: 10px;
+          }
         }
         .explore{
           padding: 10px;
