@@ -13,7 +13,7 @@ describe('Form Validation',() => {
 
   it('should return multiple errors if empty form is submitted is submitted',() => {
     errorObject = validate(submittedValues)
-    expect(errorObject.name).to.equal('Please provide a proper name without special characters')
+    expect(errorObject.name).to.equal('Please provide a proper name (max chars at 40) without special characters')
     expect(errorObject.description).to.equal('Required')
     expect(errorObject.category).to.equal('Required')
     expect(errorObject.link).to.be.undefined;
@@ -22,7 +22,7 @@ describe('Form Validation',() => {
   it('should return error if only specfic field is not submitted',() => {
     submittedValues.description = 'Lorem ipsum'
     errorObject = validate(submittedValues)
-    expect(errorObject.name).to.equal('Please provide a proper name without special characters')
+    expect(errorObject.name).to.equal('Please provide a proper name (max chars at 40) without special characters')
     expect(errorObject.category).to.equal('Required')
   })
 
