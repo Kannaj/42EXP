@@ -1,8 +1,8 @@
 const validate = values => {
   const errors = {}
   let github_url = new RegExp("^https?://([a-z0-9-]+\.)*(github)\.com(/.*)?$")
-  if(!values.name || !/^[a-zA-Z0-9-\s]*$/.test(values.name)){
-    errors.name = 'Please provide a proper name without special characters'
+  if(!values.name || !/^[a-zA-Z0-9-\s]*$/.test(values.name) || values.name.length > 40 ){
+    errors.name = 'Please provide a proper name (max chars at 40) without special characters'
   }
   if(values.github_link){
     let provider = values.github_link.match(github_url)

@@ -6,8 +6,8 @@ import { join_project } from '../socketHandlers/project.js';
 
 export const Register = (req,res) => {
   const hash = bcrypt.hashSync(req.body.password.trim(),bcrypt.genSaltSync(10))
-  return db.tx((t) => {
-    t.one('insert into account(username,password,email) values ($1,$2,$3) returning * ', [req.body.username,hash,req.body.email])
+  return db.task((t) => {
+    return t.one('insert into account(username,password,email) values ($1,$2,$3) returning * ', [req.body.username,hash,req.body.email])
       .then((user) => {
         join_project({ id: 1, username: user.username, project: "42exp" })
           .then((projectResults) => {
