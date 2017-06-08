@@ -133,6 +133,28 @@ export const run = (worker) => {
         })
     })
 
+    socket.on('project:add_task', function(data,res){
+
+      const schema = Joi.object().keys({
+        project: Joi.string().required(),
+        name: Joi.string().required(),
+        description: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
+      projectHandlers.project_add_task(data)
+        .then(function(task){
+          res(null,task)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
+
     // saving skills to a user skillset.
     socket.on('skills:user',function(data,res){
       const schema = Joi.object().keys({
@@ -418,6 +440,28 @@ export const run = (worker) => {
         .catch(function(err){
           res(err)
         })
+    })
+
+    socket.on('project:get_tasks',function(data,res){
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+        name: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+
+      if(result.error){
+        return res(result.error)
+      }
+
+      projectHandlers.get_project_tasks(data)
+        .then(function(tasks){
+          res(null,tasks)
+        })
+        .catch(function(err){
+          res(err)
+        })
+
     })
 
     socket.on('new_chat_message',function(data){

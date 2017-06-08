@@ -143,7 +143,7 @@ textarea{
 @import './containers/ProjectList.scss';
 @import './containers/ProjectDetail.scss';
 @import './containers/UserProfile.scss';
-
+@import './containers/Tasklist.scss';
 
 @import './components/Auth.scss';
 @import './components/skill.scss';
@@ -156,6 +156,8 @@ textarea{
 @import './components/loader.scss';
 @import './components/Flash_messages.scss';
 @import './components/About.scss';
+@import './components/Task.scss';
 
 @import './highlight/default.css';
+@import './highlight/styles/dark.css';
 @import './react-select.min.css';

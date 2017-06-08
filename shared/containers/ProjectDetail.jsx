@@ -10,6 +10,7 @@ import Remarkable from 'remarkable';
 import slugify from '../utils/slugify';
 import loader from '../components/Loader';
 import PropTypes from 'prop-types';
+import TaskList from './Tasklist';
 
 const md = new Remarkable({})
 
@@ -19,7 +20,7 @@ class ProjectDetail extends React.Component{
     super(props);
     this.state = {
       project_details:{},
-      modalIsOpen:false,
+      editProjectModalIsOpen:false,
       canJoin: true,
       isFetching: true,
       canEdit: false
@@ -28,12 +29,12 @@ class ProjectDetail extends React.Component{
     this.closeModal = this.closeModal.bind(this);
   }
 
-  openModal(){
-    this.setState({ modalIsOpen: true })
+  openModal(name){
+    this.setState({ [name]: true })
   }
 
-  closeModal(){
-    this.setState({ modalIsOpen: false })
+  closeModal(name){
+    this.setState({ [name]: false })
   }
 
   fetchData(id) {
@@ -163,14 +164,32 @@ class ProjectDetail extends React.Component{
                 :
                 null
               }
-              {this.state.canJoin && <button className="main_content__join_project" onClick={this.handleJoinProject.bind(this)}>Join Project </button>}
-              {this.state.canEdit && <button className="main_content__edit_project" onClick={this.openModal}>Edit Project </button>}
+              <Link to={`/projects/${id}/${name}/tasks`}><button> View Tasks </button></Link>
+              {
+                this.state.canJoin ?
+                <div className="member_buttons">
+                 <button className="action" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
+                </div>
+                :
+                null
+              }
+
+              {
+                this.state.canEdit ?
+                  <div className="admin_buttons">
+                    <button className="action">Add Tasks </button>
+                    <button className="action" onClick={() => this.openModal('editProjectModalIsOpen')}> Edit Project </button>
+                  </div>
+                :
+                null
+              }
+
             </div>
           </div>
         </div>
 
-        <Modal isOpen={this.state.modalIsOpen}
-               onRequestClose={this.closeModal}
+        <Modal isOpen={this.state.editProjectModalIsOpen}
+               onRequestClose={this.closeModal.bind(this,'editProjectModalIsOpen')}
                className="new_project__form"
                overlayClassName="new_project" >
 
@@ -178,7 +197,7 @@ class ProjectDetail extends React.Component{
               {...this.state.project_details}
               id = {this.props.params.projectId}
 
-            edit_project={this.props.edit_project} close={this.closeModal}/>
+            edit_project={this.props.edit_project} close={this.closeModal.bind(this,'editProjectModalIsOpen')}/>
 
         </Modal>
 

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return ''
   }
 
-  if (Notification.permission !== "granted"){
+  if (Notification.permission !== "granted" && store.getState().User.isAuthenticated){
     Notification.requestPermission();
   }
 

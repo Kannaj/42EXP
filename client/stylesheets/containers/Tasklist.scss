@@ -1,0 +1,73 @@
+.tasklist_container{
+  width: 100%;
+  display: flex;
+  height: 100%;
+  .task_names,
+  .task_description{
+    width: 50%
+  }
+  .no_tasks_added{
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .action_buttons{
+      background: $white;
+      height: 50%;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .header{
+        text-align: center;
+      }
+    }
+  }
+}
+
+.new_task{
+  position: fixed;
+  top : 0;
+  left: 0;
+  right : 0;
+  bottom  : 0;
+  z-index: 99;
+  background-color : rgba(0,0,0,0.55);
+  transition: all 0.5s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new_task__form{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: $card-color;
+  border: 2px solid $tertiary;
+  height: auto;
+  width: auto;
+  transition: all 0.5s ease-in;
+  height: 75%;
+  width: 75%;
+  .new_task{
+    display: flex;
+    padding: 25px;
+    flex-direction: column;
+    background: $ghost-white;
+    text-align: left;
+    &__name,
+    &__description{
+      width: 100%;
+    }
+    &__description{
+      flex: 8;
+      textarea {
+        height: 90%;
+      }
+    }
+  }
+}

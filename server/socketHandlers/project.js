@@ -20,9 +20,20 @@ export const get_messages = function(data){
               return messages.reverse()
             })
             .catch(function(err){
-              winstor.error('Error retrieving messages : ',err)
+              winston.error('Error retrieving messages : ',err)
               return "Error retrieving messages"
             })
+}
+
+export const project_add_task = function(data){
+  return db.any(queries.AddProjectTasks,[data.project,data.name,data.description])
+    .then(function(task){
+      return task
+    })
+    .catch(function(err){
+      winston.error('Error adding task : ',data, ' err: ',err)
+      return "Error adding task"
+    })
 }
 
 
@@ -96,6 +107,17 @@ export const project_detail = function(data){
     .catch(function(err){
       winston.error('project detail cant be retrieved : ',err, ' : data  -',data)
       throw "project not found"
+    })
+}
+
+export const get_project_tasks = function(data){
+  return db.many(queries.GetProjectTasks, data.name)
+    .then(function(result){
+      return result
+    })
+    .catch(function(err){
+      winston.error('project tasks couldnt be fetched : ',err)
+      throw 'project tasks couldnt be fetched : ',err
     })
 }
 

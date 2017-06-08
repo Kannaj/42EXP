@@ -1,4 +1,3 @@
-# copwhoami := $(shell whoami)
 whoami := $(shell whoami)
 
 migration-up:

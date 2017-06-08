@@ -8,7 +8,8 @@ import UserProfile from '../containers/UserProfile'
 import { Route, IndexRoute } from 'react-router';
 import About from '../components/About';
 import TOS from '../components/tos';
-import PrivacyPolicy from '../components/privacy'
+import PrivacyPolicy from '../components/privacy';
+import TaskList from '../containers/Tasklist';
 
 export default(
   <Route path="/" component={AppContainer} >
@@ -19,6 +20,7 @@ export default(
     <Route path="projects" component={ProjectListContainer}/>
     <Route path="projects/:projectId/:projectName" component={ProjectDetailContainer}/>
     <Route path="projects/:projectId/:projectName/messages" component={ProjectChatContainer} />
+    <Route path="projects/:projectId/:projectName/tasks" component={TaskList} />
     <Route path ="user/:username" component={UserProfile} />
   </Route>
 )
