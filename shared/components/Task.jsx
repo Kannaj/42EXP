@@ -11,7 +11,8 @@ class Task extends React.Component{
         </div>
 
         <div className="task__actions">
-          
+          <button className="ion-ios-trash"></button>
+          <button className="ion-edit"></button>
         </div>
       </div>
     )
