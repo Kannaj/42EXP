@@ -155,6 +155,49 @@ export const run = (worker) => {
         })
     })
 
+    socket.on('project:edit_task', function(data,res) {
+
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+        name: Joi.string().required(),
+        description: Joi.string().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
+      projectHandlers.project_edit_task(data)
+        .then(function(task){
+          res(null,task)
+        })
+        .catch(function(err){
+          res(err)
+        })
+
+    })
+
+    socket.on('project:delete_task', function(data,res) {
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
+      projectHandlers.project_delete_task(data)
+        .then(function(data){
+          res(null,data)
+        })
+        .catch(function(err){
+          res(err)
+        })
+
+    })
+
     // saving skills to a user skillset.
     socket.on('skills:user',function(data,res){
       const schema = Joi.object().keys({

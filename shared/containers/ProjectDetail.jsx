@@ -177,7 +177,6 @@ class ProjectDetail extends React.Component{
               {
                 this.state.canEdit ?
                   <div className="admin_buttons">
-                    <button className="action">Add Tasks </button>
                     <button className="action" onClick={() => this.openModal('editProjectModalIsOpen')}> Edit Project </button>
                   </div>
                 :

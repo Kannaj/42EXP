@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import NewTask from '../components/NewTask';
 import loader from '../components/Loader';
 import Task from '../components/Task';
+import update from 'react-addons-update';
 
 class TaskList extends React.Component{
 
@@ -13,8 +14,7 @@ class TaskList extends React.Component{
       tasks: [],
       isFetching: true,
       isModalOpen: false,
-      description: "",
-      taskName: ""
+      selectedTask: 0
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -28,15 +28,13 @@ class TaskList extends React.Component{
           console.log('err')
           this.setState({ isFetching: false})
         } else {
-          console.log('data', data)
-          this.setState({ tasks: data, isFetching: false, description: data[0].description, taskName: data[0].name })
+          this.setState({ tasks: data, isFetching: false })
         }
       }.bind(this))
     }
   }
 
   openModal(){
-    console.log('clicked')
     this.setState({ isModalOpen: true })
   }
 
@@ -45,12 +43,25 @@ class TaskList extends React.Component{
   }
 
   addTask(data){
-    this.setState({ tasks: this.state.tasks.concat(data), taskName: data[0].name, description: data[0].description})
+    this.setState({ tasks: this.state.tasks.concat(data)})
   }
 
-  handleFocus(task){
-    console.log('handleFocus')
-    this.setState({ taskName: task.name, description: task.description })
+  handleFocus(task,index){
+    this.setState({ selectedTask: index })
+  }
+
+  handleEdit(index,data){
+    this.setState({ tasks: update(this.state.tasks, {
+      [index]: {
+        $set: data[0]
+      }
+    })})
+  }
+
+  taskDelete(index){
+    this.setState({ tasks: update(this.state.tasks, {
+      $splice: [[index,1]]
+    })})
   }
 
   render(){
@@ -85,23 +96,18 @@ class TaskList extends React.Component{
           {
             this.state.tasks.map((task,i) => {
               return (
-                <Task  handleFocus={this.handleFocus} task={task} key={i} />
+                <Task taskDelete={this.taskDelete.bind(this)} handleEdit={this.handleEdit.bind(this)} handleFocus={this.handleFocus} canEdit={this.props.canEdit} selected={this.state.selectedTask === i} task={task} index={i} key={i} />
               )
             })
           }
-          {this.props.canEdit && <button className="ion-add" onClick={this.openModal}> + Add new task</button> }
-        </div>
-
-        <div className="task_description">
-          <h3> {this.state.taskName}   </h3>
-          <p>  {this.state.description}</p>
+          {this.props.canEdit && <button className="add_task" onClick={this.openModal}> + Add new task</button> }
         </div>
 
         <Modal isOpen={this.state.isModalOpen}
                onRequestClose={this.closeModal}
                className="new_task__form"
                overlayClassName="new_task" >
-              <NewTask id={this.props.params.projectId} name={this.props.params.projectName} addTask={this.addTask.bind(this)} close={this.closeModal}/>
+              <NewTask task={null} edit={false} projectId={this.props.params.projectId} name={this.props.params.projectName} addTask={this.addTask.bind(this)} close={this.closeModal}/>
         </Modal>
 
       </div>

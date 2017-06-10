@@ -49,4 +49,6 @@ export const queries = {
   SearchProjectBySkillPaginate: sql(path.join(__dirname,'queries/project_filter_by_skill_paginate.sql')),
   GetProjectTasks: sql(path.join(__dirname,'queries/get_project_tasks.sql')),
   AddProjectTasks: sql(path.join(__dirname,'queries/project_add_task.sql')),
+  EditProjectTasks: sql(path.join(__dirname,'queries/edit_project_task.sql')),
+  DeleteProjectTasks: sql(path.join(__dirname,'queries/delete_project_task.sql')),
 }

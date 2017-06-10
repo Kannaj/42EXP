@@ -36,6 +36,27 @@ export const project_add_task = function(data){
     })
 }
 
+export const project_delete_task = function(data){
+  return db.none(queries.DeleteProjectTasks,data.id)
+    .then(function(){
+      return 'success'
+    })
+    .catch(function(err){
+      return 'error',err
+    })
+}
+
+export const project_edit_task = function(data){
+  return db.any(queries.EditProjectTasks,[data.name,data.description,data.id])
+    .then(function(task){
+      return task
+    })
+    .catch(function(err){
+      winston.error('Error editing task : ',err)
+      throw 'Error editing task'
+    })
+}
+
 
 export const search_project_by_skill =  function(data){
   return db.any(queries.SearchProjectBySkill, data.skill)

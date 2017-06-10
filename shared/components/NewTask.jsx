@@ -6,7 +6,15 @@ class NewTask extends React.Component{
     super(props);
     this.state = {
       name: "",
-      description: ""
+      description: "",
+      edit: false,
+    }
+  }
+
+  componentDidMount(){
+    const task = this.props.task;
+    if(task){
+      this.setState({ name: task.name , description: task.description, edit: true})
     }
   }
 
@@ -25,10 +33,21 @@ class NewTask extends React.Component{
     }.bind(this))
   }
 
+  handleEdit(){
+    socket.emit('project:edit_task', { id: this.props.task.id, name: this.state.name, description: this.state.description }, function(err,data) {
+      if(err){
+        console.log('err: ',err)
+      } else {
+        this.props.handleEdit(this.props.index, data)
+        this.props.close()
+      }
+    }.bind(this))
+  }
+
   render(){
     return(
       <div className="new_task">
-        <h2> Add A New Task  </h2>
+        <h2> {this.props.edit ? "Edit Task" : "Add a new Task"}  </h2>
         <div className="new_task__name">
           <label htmlFor="task_name">Name <span> (keep it short and precise) </span> </label>
           <input type="text" id="task_name" value={this.state.name} onChange={this.handleChange.bind(this,'name')}/>
@@ -38,7 +57,14 @@ class NewTask extends React.Component{
           <label htmlFor="task_description">Description <span> (Markdown supported) </span></label>
           <textarea id="task_description" value={this.state.description} onChange={this.handleChange.bind(this,'description')}/>
         </div>
-        <button className="submit" onClick={this.handleSubmit.bind(this)}> Submit </button>
+
+        {
+          this.props.edit ?
+          <button className="submit" onClick={this.handleEdit.bind(this)}> Submit </button>
+          :
+          <button className="submit" onClick={this.handleSubmit.bind(this)}> Submit </button>
+        }
+
       </div>
     )
   }

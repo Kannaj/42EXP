@@ -1,0 +1,35 @@
+.task{
+  display: flex;
+  flex-direction: column;
+  .task_details {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 10px;
+    .header{
+      h3{
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+    .actions{
+      button{
+        margin-right: 10px;
+        background: none;
+        color: $black;
+      }
+    }
+  }
+  .task_description{
+    padding: 10px 10px;
+    transition:all 2s ease-in;
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+    &.show{
+      visibility: visible;
+      opacity: 1;
+      display: block;
+    }
+  }
+}
