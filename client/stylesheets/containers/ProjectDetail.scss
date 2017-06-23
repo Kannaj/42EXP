@@ -56,11 +56,13 @@
         margin-bottom: 0;
       }
       &__item{
-        padding-left: 20px;
         button{
           background: none;
-          font-size: 2em;
+          font-size: 3em;
           cursor: pointer;
+          padding-left: 0;
+          padding-top: 0;
+          color: $black;
         }
       }
     }
