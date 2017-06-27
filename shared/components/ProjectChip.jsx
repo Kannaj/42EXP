@@ -11,9 +11,10 @@ class ProjectChip extends React.Component {
   render(){
     const { project_id, project_owner, project_pinned, project_name, project_description, project_category, skills} = this.props.project
     // let { project_description } = this.props.project;
-
-    // if (project_description.length > 80){
-    //   project_description = project_description.slice(0,80) + '...'
+    //
+    // const actual = project_description.split('\n')
+    // if(actual.length >= 2){
+    //   project_description = actual[0] + ' ...'
     // }
 
     return(

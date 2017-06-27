@@ -22,7 +22,7 @@ passport.use(new githubStrategy({
       })
       .catch((err) => {
         //user doesnt exist - create new user
-        winston.error('there was an error: ',err)
+        winston.error('cant find user : ',err)
         // temporary hack - would prefer to insert provider value automatically
         const provider = "Github"
         return db.tx((t) => {

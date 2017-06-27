@@ -33,19 +33,9 @@
   }
 
   &__logo{
-    // padding-left: 25%;
     width: 100%;
     margin-bottom: -8px;
-    // height: auto;
-    // text-align: center;
-    // flex-grow: 1;
-    // padding: 5px;
     img{
-      // height: 5.5em;
-      // width: 100%;
-      // padding-right: 45px;
-      // box-sizing: border-box;
-      // padding-top: 15px;
       height: 4.5em;
       width: 100%;
       box-sizing: border-box;
@@ -86,10 +76,12 @@
       padding: 0.5em 2em;
       text-decoration: none;
       width: 100%;
-      // color: $blue;
+
       color: #878684;
       transition: all 0.3s ease-in;
-      margin-bottom: 0px;
+      // margin-bottom: 0px;
+      margin-bottom: 1em;
+      min-height: 2.5em;
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
@@ -98,6 +90,9 @@
 
       .project_name{
         transition: border-bottom 0.10s linear;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
           &:hover{
             border-bottom: .25px solid #52489c;
           }

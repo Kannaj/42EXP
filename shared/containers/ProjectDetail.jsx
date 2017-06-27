@@ -139,7 +139,7 @@ class ProjectDetail extends React.Component{
             github_link ?
             <div className="project_links">
               <h4> External links </h4>
-              <a href={ github_link } className="project_links__item"><button className="ion-social-github"></button> </a>
+              <a href={ github_link } target="_blank" className="project_links__item"><button className="ion-social-github"></button> </a>
             </div>
             :
             null

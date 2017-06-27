@@ -2,11 +2,11 @@
 // check isomorphic-react/universal react/ react-redux universal
 // this should ideally hit when requesting main page
 import React from 'react';
-import { Route,RouterContext, match} from 'react-router'
+import { Route, RouterContext, match} from 'react-router'
 import routes from '../../shared/routes/routes.jsx';
-import {renderToString} from 'react-dom/server'
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import { renderToString } from 'react-dom/server'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../../shared/reducers/index.js';
 import getInitialState from './getInitialState.js';
 import log_middleware from '../../shared/middleware/log_middleware.js'

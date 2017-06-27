@@ -1,5 +1,5 @@
 .new_message {
-  background: $white;
+  //background: $white;
   box-shadow: $box-shadow;
   padding: 5px 10px;
   position: relative;
@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: row;
   &__avatar{
+    display: flex;
+    align-items: center;
     .user_avatar{
       img{
         height: 35px;
@@ -39,4 +41,12 @@
     background: #F8F3F3;
     text-align: center;
   }
+}
+
+.new_message:nth-of-type(odd) {
+    background: $white;
+}
+
+.new_message:nth-of-type(even) {
+    background: #EFEFEF;
 }
