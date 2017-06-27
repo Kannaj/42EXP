@@ -10,7 +10,7 @@ import Remarkable from 'remarkable';
 import slugify from '../utils/slugify';
 import loader from '../components/Loader';
 import PropTypes from 'prop-types';
-import TaskList from './Tasklist';
+import TaskListContainer from './Tasklist';
 
 const md = new Remarkable({})
 
@@ -23,18 +23,30 @@ class ProjectDetail extends React.Component{
       editProjectModalIsOpen:false,
       canJoin: true,
       isFetching: true,
-      canEdit: false
+      canEdit: false,
+      secondary_content: "description",
+      tasks: null
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.switchSecondaryContent = this.switchSecondaryContent.bind(this);
+    this.setTasks = this.setTasks.bind(this);
   }
 
   openModal(name){
     this.setState({ [name]: true })
   }
 
+  setTasks(taskList){
+    this.setState({ tasks: taskList })
+  }
+
   closeModal(name){
     this.setState({ [name]: false })
+  }
+
+  switchSecondaryContent(name){
+    this.setState({ secondary_content: name})
   }
 
   fetchData(id) {
@@ -148,10 +160,18 @@ class ProjectDetail extends React.Component{
         </div>
 
         <div className="secondary_content">
-          <h4 className="description_header"> Details </h4>
-          <div className="description">
-            <span dangerouslySetInnerHTML={{__html:md.render(description)}}/>
+          <div className="details">
+            <h4 className={`description_header ${this.state.secondary_content === "description" ? "active" : ""}`} onClick={() => this.switchSecondaryContent('description')}> Details </h4>
+            <h4 className={`tasks_header ${this.state.secondary_content === "tasks" ? "active" : ""}`} onClick={() => this.switchSecondaryContent('tasks')}> Tasks </h4>
           </div>
+          {
+            this.state.secondary_content === 'description' ?
+            <div className="description">
+              <span dangerouslySetInnerHTML={{__html:md.render(description)}}/>
+            </div>
+            :
+            <TaskListContainer setTasks={this.setTasks} tasks={this.state.tasks} canEdit={this.state.canEdit} id={this.props.params.projectId} name={this.props.params.projectName}/>
+          }
           <div className="secondary_content__action_buttons">
             <div className="secondary_content__CTA">
               {
@@ -164,7 +184,6 @@ class ProjectDetail extends React.Component{
                 :
                 null
               }
-              <Link to={`/projects/${id}/${name}/tasks`}><button> View Tasks </button></Link>
               {
                 this.state.canJoin ?
                 <div className="member_buttons">

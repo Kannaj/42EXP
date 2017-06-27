@@ -37,7 +37,7 @@ class Task extends React.Component{
         <div className="task_details">
           <div className="header">
             <h3 onClick={() => this.props.handleFocus(this.props.task, this.props.index)} className="header">
-              {this.props.task.name}
+              {this.props.index + 1}. {this.props.task.name}
             </h3>
           </div>
 

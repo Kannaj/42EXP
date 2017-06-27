@@ -6,7 +6,7 @@ import loader from '../components/Loader';
 import Task from '../components/Task';
 import update from 'react-addons-update';
 
-class TaskList extends React.Component{
+class TaskListContainer extends React.Component{
 
   constructor(props){
     super(props)
@@ -19,15 +19,21 @@ class TaskList extends React.Component{
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.fetchData = this.fetchData.bind(this)
   }
 
   componentDidMount(){
+    this.props.tasks ? this.setState({ tasks: this.props.tasks, isFetching: false }) : this.fetchData()
+  }
+
+  fetchData(){
     if(socket){
-      socket.emit('project:get_tasks',{ id: this.props.params.projectId, name: this.props.params.projectName }, function(err,data){
+      socket.emit('project:get_tasks',{ id: this.props.id, name: this.props.name }, function(err,data){
         if(err){
-          console.log('err')
+          this.props.setTasks([])
           this.setState({ isFetching: false})
         } else {
+          this.props.setTasks(data)
           this.setState({ tasks: data, isFetching: false })
         }
       }.bind(this))
@@ -77,14 +83,14 @@ class TaskList extends React.Component{
           <div className="no_tasks_added">
             <div className="action_buttons">
               <h2 className="header">No Tasks added</h2>
-              {this.props.canEdit && <button className="ion-add" onClick={this.openModal}> + Add new task</button> }
+              {this.props.canEdit && <button className="ion-add" onClick={this.openModal}> + Add</button> }
             </div>
           </div>
           <Modal isOpen={this.state.isModalOpen}
                  onRequestClose={this.closeModal}
                  className="new_task__form"
                  overlayClassName="new_task" >
-                <NewTask id={this.props.params.projectId} name={this.props.params.projectName} addTask={this.addTask.bind(this)} close={this.closeModal}/>
+                <NewTask id={this.props.id} name={this.props.name} addTask={this.addTask.bind(this)} close={this.closeModal}/>
           </Modal>
         </div>
       )
@@ -92,7 +98,6 @@ class TaskList extends React.Component{
     return(
       <div className="tasklist_container">
         <div className="task_names">
-          <h1> Tasks </h1>
           {
             this.state.tasks.map((task,i) => {
               return (
@@ -100,36 +105,19 @@ class TaskList extends React.Component{
               )
             })
           }
-          {this.props.canEdit && <button className="add_task" onClick={this.openModal}> + Add new task</button> }
+          {this.props.canEdit && <button className="add_task" onClick={this.openModal}> + Add</button> }
         </div>
 
         <Modal isOpen={this.state.isModalOpen}
                onRequestClose={this.closeModal}
                className="new_task__form"
                overlayClassName="new_task" >
-              <NewTask task={null} edit={false} projectId={this.props.params.projectId} name={this.props.params.projectName} addTask={this.addTask.bind(this)} close={this.closeModal}/>
+              <NewTask task={null} edit={false} projectId={this.props.id} name={this.props.name} addTask={this.addTask.bind(this)} close={this.closeModal}/>
         </Modal>
 
       </div>
     )
   }
 }
-
-const mapStateToProps = (state,ownProps) => {
-  let canEdit = false
-  const project = state.Projects.filter((proj) => {
-    return parseInt(ownProps.params.projectId) === proj.id
-  })
-  if (project.length > 0) {
-    canEdit = project[0].role === 'owner'
-  }
-
-  return {
-    canEdit
-  }
-
-}
-
-const TaskListContainer = connect(mapStateToProps)(TaskList)
 
 export default TaskListContainer;

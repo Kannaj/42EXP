@@ -84,14 +84,40 @@
   .secondary_content{
     display: flex;
     flex-direction: column;
+    padding: 0;
+    .details{
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-around;
+      h4{
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 0;
+        text-align: center;
+        margin-top: 0;
+        background: #dfe0e2;
+        &.active{
+          // text-decoration: underline;
+          // text-decoration-color: $accent;
+          border-top: 0.5px solid $accent;
+          background: #f8f9fc;
+        }
+      }
+    }
     .description{
       background: #f8f9fc;
+      // background: #ffffff;
       flex: 8;
       overflow-y: auto;
       padding: 10px;
       @media only screen and (max-width: 480px){
         overflow-y: auto;
       }
+    }
+    .tasklist_container{
+      position: relative;
+      overflow-y: auto;
+      background: #f8f9fc;
     }
     &__action_buttons{
       text-align: right;
