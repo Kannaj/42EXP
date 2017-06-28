@@ -99,7 +99,26 @@ class ProjectDetail extends React.Component{
       <div className="project_detail">
 
         <div className="main_content">
-          <h2 className="main_content__project_name">{ slugify('deslugify',name) }</h2>
+          <div className="main_content__header">
+            <h2 className="main_content__project_name">{ slugify('deslugify',name) }</h2>
+            {
+              this.state.canJoin ?
+              <div className="member_buttons">
+               <button className="action" onClick={this.handleJoinProject.bind(this)}>Join</button>
+              </div>
+              :
+              null
+            }
+
+            {
+              this.state.canEdit ?
+                <div className="admin_buttons">
+                  <button className="action" onClick={() => this.openModal('editProjectModalIsOpen')}> Edit </button>
+                </div>
+              :
+              null
+            }
+          </div>
           <h3 className="main_content__category">{ category } </h3>
 
           <div className="project_skills" >
@@ -184,24 +203,6 @@ class ProjectDetail extends React.Component{
                 :
                 null
               }
-              {
-                this.state.canJoin ?
-                <div className="member_buttons">
-                 <button className="action" onClick={this.handleJoinProject.bind(this)}>Join Project </button>
-                </div>
-                :
-                null
-              }
-
-              {
-                this.state.canEdit ?
-                  <div className="admin_buttons">
-                    <button className="action" onClick={() => this.openModal('editProjectModalIsOpen')}> Edit Project </button>
-                  </div>
-                :
-                null
-              }
-
             </div>
           </div>
         </div>

@@ -36,6 +36,17 @@ export const project_add_task = function(data){
     })
 }
 
+export const update_task_status = function(data){
+  return db.none(queries.UpdateTaskStatus,[data.completed,data.id])
+    .then(function(){
+      return 'ok'
+    })
+    .catch(function(err){
+      winston.error('Error updating task status : ',err)
+      throw 'Error updating task status'
+    })
+}
+
 export const project_delete_task = function(data){
   return db.none(queries.DeleteProjectTasks,data.id)
     .then(function(){

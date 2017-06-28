@@ -17,6 +17,24 @@
     }
   }
   .main_content{
+    &__header{
+      display: flex;
+      align-items: baseline;
+      .member_buttons,
+      .admin_buttons{
+        display: flex;
+        flex-direction: column;
+        button{
+          font-size: 1em;
+          padding: 5px;
+          background: $blue;
+          color: $white;
+          margin-left: 10px;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+    }
     &__project_name{
       margin-bottom: 0;
     }

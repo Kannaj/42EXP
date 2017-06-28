@@ -5,24 +5,59 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 10px 10px;
+    padding: 0 10px;
+    // background: $blue;
+    // color: $white;
+    color: $blue;
+
     .header{
+      display: flex;
+      align-items: center;
       h3{
         text-align: center;
         cursor: pointer;
+        .task_header{
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+      }
+      button{
+        padding: 2px;
+        margin-left: 10px;
+        background: green;
+        color: $white;
+        font-size: 0.8em;
       }
     }
     .actions{
       button{
-        margin-right: 10px;
+        margin-right: 6px;
         background: none;
-        color: $black;
+        color: $light-blue;
+        cursor: pointer;
+      }
+      .mark_done{
+        &:hover{
+          color: green;
+        }
+      }
+      .edit{
+        &:hover{
+          color: $accent;
+        }
+      }
+      .trash{
+        &:hover{
+          color: red;
+        }
       }
     }
   }
   .task_description{
-    padding: 10px 10px;
-    transition:all 2s ease-in;
+    padding: 10px 25px;
+    // color: $white;
+    // background: $light-blue;
     visibility: hidden;
     opacity: 0;
     display: none;

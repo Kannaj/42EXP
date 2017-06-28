@@ -51,4 +51,5 @@ export const queries = {
   AddProjectTasks: sql(path.join(__dirname,'queries/project_add_task.sql')),
   EditProjectTasks: sql(path.join(__dirname,'queries/edit_project_task.sql')),
   DeleteProjectTasks: sql(path.join(__dirname,'queries/delete_project_task.sql')),
+  UpdateTaskStatus: sql(path.join(__dirname,'queries/update_task_status.sql')),
 }

@@ -70,6 +70,16 @@ class TaskListContainer extends React.Component{
     })})
   }
 
+  updateStatus(index,completed){
+    this.setState({ tasks: update(this.state.tasks, {
+      [index]: {
+        completed: {
+          $set: completed
+        }
+      }
+    })})
+  }
+
   render(){
     if(this.state.isFetching){
       return (
@@ -101,7 +111,7 @@ class TaskListContainer extends React.Component{
           {
             this.state.tasks.map((task,i) => {
               return (
-                <Task taskDelete={this.taskDelete.bind(this)} handleEdit={this.handleEdit.bind(this)} handleFocus={this.handleFocus} canEdit={this.props.canEdit} selected={this.state.selectedTask === i} task={task} index={i} key={i} />
+                <Task taskUpdateStatus={this.updateStatus.bind(this)} taskDelete={this.taskDelete.bind(this)} handleEdit={this.handleEdit.bind(this)} handleFocus={this.handleFocus} canEdit={this.props.canEdit} selected={this.state.selectedTask === i} task={task} index={i} key={i} />
               )
             })
           }

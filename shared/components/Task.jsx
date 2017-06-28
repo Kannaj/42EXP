@@ -31,21 +31,40 @@ class Task extends React.Component{
     }.bind(this))
   }
 
+  handleComplete(){
+    socket.emit('project:update_task_status',{ id: this.props.task.id, completed: !this.props.task.completed}, function(err,data){
+      if(err){
+        console.log('err: ',err)
+      }else{
+        console.log('data : ',data)
+        this.props.taskUpdateStatus(this.props.index, !this.props.task.completed )
+      }
+    }.bind(this))
+  }
+
   render(){
+    console.log('task : ',this.props.task)
     return (
       <div className="task">
         <div className="task_details">
           <div className="header">
             <h3 onClick={() => this.props.handleFocus(this.props.task, this.props.index)} className="header">
-              {this.props.index + 1}. {this.props.task.name}
+              {this.props.index + 1}. <span className="task_header">{this.props.task.name} </span>
             </h3>
+            { this.props.task.completed ? <button className="completed"> Done </button> : null }
           </div>
 
           {
             this.props.canEdit ?
             <div className="actions">
-              <button className="ion-edit" onClick={this.openModal.bind(this)}></button>
-              <button className="ion-ios-trash" onClick={this.handleDelete.bind(this)}></button>
+              {
+                this.props.task.completed ?
+                <button className="ion-reply mark_done" onClick={this.handleComplete.bind(this)}></button>
+                :
+                <button className="ion-checkmark mark_done" onClick={this.handleComplete.bind(this)}></button>
+              }
+              <button className="ion-edit edit" onClick={this.openModal.bind(this)}></button>
+              <button className="ion-ios-trash trash" onClick={this.handleDelete.bind(this)}></button>
             </div>
             :
             null

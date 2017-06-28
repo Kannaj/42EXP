@@ -198,6 +198,26 @@ export const run = (worker) => {
 
     })
 
+    socket.on('project:update_task_status',function(data,res){
+      const schema = Joi.object().keys({
+        id: Joi.number().integer().required(),
+        completed: Joi.boolean().required()
+      })
+
+      const result = Joi.validate(data,schema)
+      if(result.error){
+        return res(result.error)
+      }
+
+      projectHandlers.update_task_status(data)
+        .then(function(data){
+          res(null,data)
+        })
+        .catch(function(err){
+          res(err)
+        })
+    })
+
     // saving skills to a user skillset.
     socket.on('skills:user',function(data,res){
       const schema = Joi.object().keys({
