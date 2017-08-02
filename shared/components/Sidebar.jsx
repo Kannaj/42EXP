@@ -42,7 +42,7 @@ const sidebarContent = (projects,openModal = null, closeSidebar) => {
                 activeClassName="active_link"
                 onClick={() => closeSidebar()}
               >
-                <span className="project_name">{slugify("deslugify",project.project)}</span>
+                <span className="project_name"> # {slugify("deslugify",project.project)}</span>
                 { unread(project.unread_messages) }
               </Link>
             )
@@ -84,15 +84,16 @@ class Sidebar extends Component {
     const projects = this.props.Projects.slice(1);
     return (
       <div>
+        
         <div className = {`sidebar ${this.props.isSidebarOpen ? "sidebar--open" : "sidebar--closed"}`}>
-
+          <div className={`ion-close-circled close-sidebar`} onClick={this.props.toggleSidebar} />
           <div className = "sidebar__logo">
             <Link to = "/" onClick = {() => this.closeSidebar()}> <img src = "/images/42exp_logo.svg"/></Link>
           </div>
 
           <Link to="/">
             <h3 className="subscribed_projects__header">
-              Projects
+              Project Chat Rooms
             </h3>
           </Link>
           {

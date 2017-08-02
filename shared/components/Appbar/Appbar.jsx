@@ -77,7 +77,7 @@ class Appbar extends Component{
     return(
       <div>
         <div className={`appbar ${this.props.isSidebarOpen ? "appbar--sidebarOpen" : "appbar--sidebarClosed"}`}>
-          {this.props.isAuthenticated ? <button className={`appbar__toggle_button ${this.props.isSidebarOpen ? "ion-chevron-left" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button> : null}
+          {this.props.isAuthenticated ? <button className={`appbar__toggle_button ${this.props.isSidebarOpen ? "" : "ion-navicon-round"}`} onClick={this.toggleSidebar}></button> : null}
 
           { this.props.isAuthenticated ?  header(this.props.location, this.openMemberModal) : <a href="/" className="logo"><img src="/images/42exp_logo.svg" /></a> }
 

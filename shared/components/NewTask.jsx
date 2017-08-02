@@ -8,6 +8,7 @@ class NewTask extends React.Component{
       name: "",
       description: "",
       edit: false,
+      disableSubmit: true
     }
   }
 
@@ -20,6 +21,13 @@ class NewTask extends React.Component{
 
   handleChange(name,event){
     this.setState({ [name]: event.target.value})
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (this.state.name && this.state.description && prevState.disableSubmit){
+      // button doesnt go back to disabled state from false to true
+      this.setState({ disableSubmit: false })
+    }
   }
 
   handleSubmit(){
@@ -60,9 +68,9 @@ class NewTask extends React.Component{
 
         {
           this.props.edit ?
-          <button className="submit" onClick={this.handleEdit.bind(this)}> Submit </button>
+          <button className={`submit ${this.state.disableSubmit ? "disable" : ""}`} disabled={this.state.disableSubmit} onClick={this.handleEdit.bind(this)}> Submit </button>
           :
-          <button className="submit" onClick={this.handleSubmit.bind(this)}> Submit </button>
+          <button className={`submit ${this.state.disableSubmit ? "disable" : ""}`} disabled={this.state.disableSubmit} onClick={this.handleSubmit.bind(this)}> Submit </button>
         }
 
       </div>

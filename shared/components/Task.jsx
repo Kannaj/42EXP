@@ -1,6 +1,25 @@
 import React from 'react';
 import Modal from 'react-modal';
 import NewTask from './NewTask';
+import Remarkable from 'remarkable';
+import hljs from 'highlight.js';
+
+const md = new Remarkable({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (err) {}
+    }
+
+    try {
+      return hljs.highlightAuto(str).value;
+    } catch (err) {}
+
+    return ''; // use external default escaping
+  },
+  langPrefix: 'hljs language-'
+});
 
 class Task extends React.Component{
   constructor(props){
@@ -36,14 +55,12 @@ class Task extends React.Component{
       if(err){
         console.log('err: ',err)
       }else{
-        console.log('data : ',data)
         this.props.taskUpdateStatus(this.props.index, !this.props.task.completed )
       }
     }.bind(this))
   }
 
   render(){
-    console.log('task : ',this.props.task)
     return (
       <div className="task">
         <div className="task_details">
@@ -72,7 +89,7 @@ class Task extends React.Component{
         </div>
 
         <div className={`task_description ${this.props.selected ? "show" : "hide"}`}>
-          {this.props.task.description}
+          <span dangerouslySetInnerHTML={{__html: md.render(this.props.task.description)}} />
         </div>
 
         <Modal isOpen={this.state.isModalOpen}

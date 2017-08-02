@@ -93,7 +93,7 @@ class TaskListContainer extends React.Component{
           <div className="no_tasks_added">
             <div className="action_buttons">
               <h2 className="header">No Tasks added</h2>
-              {this.props.canEdit && <button className="ion-add" onClick={this.openModal}> + Add</button> }
+              {this.props.canEdit && <button className="ion-add add-task" onClick={this.openModal}> + Add</button> }
             </div>
           </div>
           <Modal isOpen={this.state.isModalOpen}
